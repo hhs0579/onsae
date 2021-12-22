@@ -45,10 +45,8 @@ class loginpage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-<<<<<<< HEAD
                         TextButton(onPressed: () {}, child: Text('회원가입')),
                         TextButton(onPressed: () {}, child: Text('비밀번호 찾기')),
-=======
                         TextButton(
                             onPressed: () {
                               Visibility(
@@ -69,7 +67,6 @@ class loginpage extends StatelessWidget {
                               Get.to(AccessScreen());
                             },
                             child: Text('비밀번호 찾기')),
->>>>>>> 81fb53cff6bc4da5aa94c5dd46fd51e4b7626b88
                       ],
                     )
                   ],
