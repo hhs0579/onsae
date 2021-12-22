@@ -73,7 +73,7 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                   ),
                 ),
                 SizedBox(height: 250),
-                _connectbutton('동의하고 진행하기', () {
+                _connectbutton('동의하고 계속 진행합니다.', () {
                   Get.to(agreePage());
                 })
               ],
