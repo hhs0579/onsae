@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
         body: Center(
             child: ShowUpAnimation(
           child: SizedBox(
-            width: 100,
+            width: 80,
             child: Image.asset('assets/logo.png'),
           ),
           delayStart: Duration(seconds: 0),

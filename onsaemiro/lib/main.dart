@@ -20,7 +20,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: '온새미로',
-      initialBinding: BindingsBuilder(() {}),
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
       ),
