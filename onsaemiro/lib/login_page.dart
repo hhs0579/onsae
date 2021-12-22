@@ -58,7 +58,11 @@ class loginpage extends StatelessWidget {
                               ));
                             },
                             child: Text('회원가입')),
-                        TextButton(onPressed: () {}, child: Text('비밀번호 찾기')),
+                        TextButton(
+                            onPressed: () {
+                              Get.to(AccessScreen());
+                            },
+                            child: Text('비밀번호 찾기')),
                       ],
                     )
                   ],
