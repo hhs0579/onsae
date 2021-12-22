@@ -123,7 +123,7 @@ class _agreePageState extends State<agreePage> {
               ],
             ),
           ),
-          SizedBox(height: 150),
+          SizedBox(height: 130),
           _connectbutton('동의하고 계속 진행합니다.', () {
             if (agree1 == true && agree2 == true && agree3 == true) {
               Get.to(nickNamePage());
