@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:onsaemiro/screens/starting_pages/access_screen.dart';
+import 'package:get/get.dart';
 
 class loginpage extends StatelessWidget {
   const loginpage({Key? key}) : super(key: key);
@@ -51,7 +53,11 @@ class loginpage extends StatelessWidget {
                           ));
                         },
                         child: Text('회원가입')),
-                    TextButton(onPressed: () {}, child: Text('비밀번호 찾기')),
+                    TextButton(
+                        onPressed: () {
+                          Get.to(AccessScreen());
+                        },
+                        child: Text('비밀번호 찾기')),
                   ],
                 )
               ],
