@@ -57,12 +57,26 @@ class loginpage extends StatelessWidget {
                               ));
                             },
                             child: Text('회원가입')),
-                        TextButton(
-                            onPressed: () {
-                              Get.to(AccessScreen());
-                            },
-                            child: Text('비밀번호 찾기')),
+                        TextButton(onPressed: () {}, child: Text('비밀번호 찾기')),
                       ],
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: 20,
+                      ),
+                      width: 100,
+                      height: 40,
+                      child: TextButton(
+                          onPressed: () {
+                            Get.to(AccessScreen());
+                          },
+                          style: TextButton.styleFrom(
+                              primary: Colors.black,
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: Colors.grey, width: 1.5),
+                                  borderRadius: BorderRadius.circular(20))),
+                          child: Text("로그인")),
                     )
                   ],
                 )),
