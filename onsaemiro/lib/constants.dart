@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:thirty/models/my_info.dart';
 
 final int kStarConsumed = 10;
 final int kMyVersion = 17;

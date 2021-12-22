@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
       title: '온새미로',
       initialBinding: BindingsBuilder(() {}),
       theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
+        primarySwatch: Colors.lightGreen,
       ),
-      home: LoginScreen(),
+      home: LoginPage(),
       routes: routes,
     );
   }
