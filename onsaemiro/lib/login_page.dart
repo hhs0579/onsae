@@ -38,6 +38,26 @@ class _LoginPageState extends State<LoginPage> {
                       hintText: '비밀번호',
                     ),
                   ),
+                ),
+                Row(
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          Visibility(
+                              child: Column(
+                            children: [
+                              TextField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: '비밀번호 확인',
+                                ),
+                              ),
+                            ],
+                          ));
+                        },
+                        child: Text('회원가입')),
+                    TextButton(onPressed: () {}, child: Text('비밀번호 찾기')),
+                  ],
                 )
               ],
             )),
