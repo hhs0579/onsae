@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 import 'package:show_up_animation/show_up_animation.dart';
 
@@ -11,7 +12,10 @@ class SplashScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Center(
             child: ShowUpAnimation(
-          child: SizedBox(width: 80, child: Text('1')),
+          child: SizedBox(
+            width: 80,
+            child: Image.asset('assets/logo.png'),
+          ),
           delayStart: Duration(seconds: 0),
           animationDuration: Duration(milliseconds: 1500),
           direction: Direction.vertical,
