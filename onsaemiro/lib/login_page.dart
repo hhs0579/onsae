@@ -29,6 +29,16 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: '이메일을 적어주세요',
                   ),
                 ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: '비밀번호',
+                    ),
+                  ),
+                )
               ],
             )),
           )
