@@ -35,7 +35,7 @@ class findPassword extends StatelessWidget {
                       child: TextField(
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          hintText: '이메일을 적어주세요',
+                          hintText: '           이메일을 적어주세요',
                         ),
                       ),
                     ),
