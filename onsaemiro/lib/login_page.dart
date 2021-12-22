@@ -16,6 +16,7 @@ class loginpage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 height: 300,
                 width: 300,
                 decoration: BoxDecoration(
@@ -23,9 +24,6 @@ class loginpage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: Column(
                   children: [
-                    Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 16)),
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -33,8 +31,7 @@ class loginpage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 16),
+                      padding: const EdgeInsets.only(top: 16),
                       child: TextField(
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
@@ -45,8 +42,6 @@ class loginpage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        TextButton(onPressed: () {}, child: Text('회원가입')),
-                        TextButton(onPressed: () {}, child: Text('비밀번호 찾기')),
                         TextButton(
                             onPressed: () {
                               Visibility(
