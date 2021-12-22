@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:onsaemiro/screens/starting_pages/access_screen.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/screens/starting_pages/find_password.dart';
+import 'package:onsaemiro/screens/starting_pages/join_page.dart';
 
 class loginpage extends StatelessWidget {
   const loginpage({Key? key}) : super(key: key);
@@ -44,20 +46,14 @@ class loginpage extends StatelessWidget {
                       children: [
                         TextButton(
                             onPressed: () {
-                              Visibility(
-                                  child: Column(
-                                children: [
-                                  TextField(
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: '비밀번호 확인',
-                                    ),
-                                  ),
-                                ],
-                              ));
+                              Get.to(joinPage());
                             },
                             child: Text('회원가입')),
-                        TextButton(onPressed: () {}, child: Text('비밀번호 찾기')),
+                        TextButton(
+                            onPressed: () {
+                              Get.to(findPassword());
+                            },
+                            child: Text('비밀번호 찾기')),
                       ],
                     ),
                     Container(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:onsaemiro/login_page.dart';
+import 'package:onsaemiro/screens/starting_pages/login_page.dart';
 
 import 'screens/starting_pages/splash_screen.dart';
 
