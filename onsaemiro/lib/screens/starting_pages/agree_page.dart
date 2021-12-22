@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 
 class agreePage extends StatelessWidget {
@@ -39,7 +37,25 @@ class agreePage extends StatelessWidget {
               children: [
                 Text('모두 확인,동의합니다.'),
                 Text('''원활한 서비스 이용을 위해
-                필수 항목 동의가 필요합니다''', style: TextStyle(fontSize: 13))
+                필수 항목 동의가 필요합니다''', style: TextStyle(fontSize: 13)),
+                Row(
+                  children: [
+                    Text('서비스 이용약관 동의 (필수)'),
+                    IconButton(onPressed: () {}, icon: Icon(Icons.check)),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('개인정보 수집 동의 (필수)'),
+                    IconButton(onPressed: () {}, icon: Icon(Icons.check)),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('개인정보 제3자 제공 동의 (필수)'),
+                    IconButton(onPressed: () {}, icon: Icon(Icons.check)),
+                  ],
+                )
               ],
             ),
           ),
