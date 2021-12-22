@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:onsaemiro/screens/starting_pages/access_screen.dart';
+import 'package:get/get.dart';
 
 class loginpage extends StatelessWidget {
   const loginpage({Key? key}) : super(key: key);
