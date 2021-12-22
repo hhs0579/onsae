@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/screens/starting_pages/login_page.dart';
@@ -19,27 +17,37 @@ class findPassword extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('비밀번호를 재설정합니다'),
             Container(
-                padding: EdgeInsets.only(top: 40, left: 20, right: 20),
-                height: 400,
+                padding: EdgeInsets.only(top: 30, left: 20, right: 20),
+                height: 340,
                 width: 300,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: Column(
                   children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: '이메일을 적어주세요',
+                    Text(
+                      '비밀번호를 재설정합니다',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20, bottom: 20),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: '이메일을 적어주세요',
+                        ),
                       ),
                     ),
-                    Text('''가입 시 사용했던 이메일 주소를 입력해주시면
-비밀번호 재설정 링크를 보내드립니다.'''),
+                    Text(
+                      '''가입 시 사용했던 이메일 주소를 입력해주시면
+        비밀번호 재설정 링크를 보내드립니다.''',
+                      style: TextStyle(fontSize: 13, color: Colors.grey),
+                    ),
                     Container(
-                      width: 100,
-                      height: 40,
+                      margin: EdgeInsets.only(top: 30),
+                      width: 120,
+                      height: 60,
                       child: TextButton(
                           onPressed: () {
                             Get.to(loginpage());
