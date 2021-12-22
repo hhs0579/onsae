@@ -17,9 +17,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: '온새미로',
-      theme: ThemeData(
-        primarySwatch: Colors.lightGreen,
-      ),
       home: SplashScreen(),
       routes: routes,
     );
