@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/screens/starting_pages/login_page.dart';

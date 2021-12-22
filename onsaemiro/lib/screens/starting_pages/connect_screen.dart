@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'access_screen.dart';
+import 'smsauth_screen.dart';
 
 class ConnectScreen extends StatefulWidget {
   const ConnectScreen({Key? key}) : super(key: key);
@@ -11,13 +12,13 @@ class ConnectScreen extends StatefulWidget {
 }
 
 // icon, onPressed 추가
-_connectbutton(text) {
+_connectbutton(text, onPressed) {
   return Container(
     width: 275,
     height: 60,
     margin: EdgeInsets.only(bottom: 20),
     child: TextButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: TextButton.styleFrom(
             primary: Colors.black,
             shape: RoundedRectangleBorder(
@@ -32,7 +33,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          margin: EdgeInsets.only(top: 30),
+          margin: EdgeInsets.only(top: 40),
           child: Column(
             children: [
               Row(
@@ -56,10 +57,12 @@ class _ConnectScreenState extends State<ConnectScreen> {
               SizedBox(
                 height: 50,
               ),
-              _connectbutton('네이버로 연결하기'),
-              _connectbutton('페이스북 연결하기'),
-              _connectbutton('카카오 연결하기'),
-              _connectbutton('전화번호로 빠른가입'),
+              _connectbutton('네이버로 연결하기', () {}),
+              _connectbutton('페이스북 연결하기', () {}),
+              _connectbutton('카카오 연결하기', () {}),
+              _connectbutton('전화번호로 빠른가입', () {
+                Get.to(SmsAuthScreen());
+              }),
             ],
           )),
     );
