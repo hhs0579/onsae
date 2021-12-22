@@ -14,7 +14,10 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
         child: Container(
           margin: EdgeInsets.only(top: 40),
           child: Column(
@@ -37,6 +40,20 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 18)),
               ),
+              Container(
+                width: 200,
+                child: TextField(
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.zero,
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.black26, width: 1.0)),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.green, width: 1.5)),
+                  ),
+                ),
+              )
             ],
           ),
         ),
