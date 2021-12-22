@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:onsaemiro/screens/starting_pages/access_screen.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/screens/starting_pages/find_password.dart';
+import 'package:onsaemiro/screens/starting_pages/join_page.dart';
 
 class loginpage extends StatelessWidget {
   const loginpage({Key? key}) : super(key: key);
@@ -16,8 +18,8 @@ class loginpage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-                padding: EdgeInsets.only(left: 25, right: 25, top: 50),
-                height: 300,
+                padding: EdgeInsets.only(top: 40, left: 20, right: 20),
+                height: 350,
                 width: 300,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -30,11 +32,13 @@ class loginpage extends StatelessWidget {
                         hintText: '이메일을 적어주세요',
                       ),
                     ),
-                    SizedBox(height: 20),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: '비밀번호',
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: '비밀번호',
+                        ),
                       ),
                     ),
                     Row(
@@ -42,25 +46,30 @@ class loginpage extends StatelessWidget {
                       children: [
                         TextButton(
                             onPressed: () {
-                              Visibility(
-                                  child: Column(
-                                children: [
-                                  TextField(
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: '비밀번호 확인',
-                                    ),
-                                  ),
-                                ],
-                              ));
+                              Get.to(joinPage());
                             },
                             child: Text('회원가입')),
                         TextButton(
                             onPressed: () {
-                              Get.to(AccessScreen());
+                              Get.to(findPassword());
                             },
                             child: Text('비밀번호 찾기')),
                       ],
+                    ),
+                    Container(
+                      width: 100,
+                      height: 40,
+                      child: TextButton(
+                          onPressed: () {
+                            Get.to(AccessScreen());
+                          },
+                          style: TextButton.styleFrom(
+                              primary: Colors.black,
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: Colors.grey, width: 1.5),
+                                  borderRadius: BorderRadius.circular(20))),
+                          child: Text("로그인")),
                     )
                   ],
                 )),
