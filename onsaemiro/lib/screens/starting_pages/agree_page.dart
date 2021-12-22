@@ -123,18 +123,7 @@ class _agreePageState extends State<agreePage> {
               ],
             ),
           ),
-          Container(
-            width: 200,
-            child: TextField(
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.zero,
-                enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black26, width: 1.0)),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.green, width: 1.5)),
-              ),
-            ),
-          ),
+          SizedBox(height: 150),
           _connectbutton('동의하고 계속 진행합니다.', () {
             if (agree1 == true && agree2 == true && agree3 == true) {
               Get.to(nickNamePage());
