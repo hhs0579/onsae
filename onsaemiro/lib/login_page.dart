@@ -16,8 +16,8 @@ class loginpage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                height: 300,
+                padding: EdgeInsets.only(top: 40, left: 20, right: 20),
+                height: 350,
                 width: 300,
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -31,7 +31,7 @@ class loginpage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 16),
+                      padding: const EdgeInsets.only(top: 20),
                       child: TextField(
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
@@ -61,9 +61,6 @@ class loginpage extends StatelessWidget {
                       ],
                     ),
                     Container(
-                      margin: EdgeInsets.only(
-                        top: 20,
-                      ),
                       width: 100,
                       height: 40,
                       child: TextButton(
