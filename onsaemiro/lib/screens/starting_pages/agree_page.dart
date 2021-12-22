@@ -1,7 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:onsaemiro/screens/starting_pages/nick_name-page.dart';
 
-class agreePage extends StatelessWidget {
-  const agreePage({Key? key}) : super(key: key);
+class agreePage extends StatefulWidget {
+  agreePage({Key? key}) : super(key: key);
+
+  @override
+  State<agreePage> createState() => _agreePageState();
+}
+
+class _agreePageState extends State<agreePage> {
+  bool toggle = false;
+  var agree1 = false;
+
+  var agree2 = false;
+
+  var agree3 = false;
+  _connectbutton(text, onPressed) {
+    return Container(
+      width: 275,
+      height: 60,
+      margin: EdgeInsets.only(bottom: 20),
+      child: TextButton(
+          onPressed: onPressed,
+          style: TextButton.styleFrom(
+              primary: Colors.black,
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.green, width: 1.5),
+                  borderRadius: BorderRadius.circular(30))),
+          child: Text(text)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +48,6 @@ class agreePage extends StatelessWidget {
               SizedBox(
                 width: 95,
               ),
-              Text('앱 접근 권한 안내', style: TextStyle(fontSize: 18))
             ],
           ),
           SizedBox(
@@ -35,36 +63,74 @@ class agreePage extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Text('모두 확인,동의합니다.'),
-                Text('''원활한 서비스 이용을 위해
-                필수 항목 동의가 필요합니다''', style: TextStyle(fontSize: 13))
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 20),
+                  child: Text('모두 확인,동의합니다.', style: TextStyle(fontSize: 20)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, bottom: 20),
+                  child: Text('''  원활한 서비스 이용을 위해
+필수 항목 동의가 필요합니다.''', style: TextStyle(fontSize: 13)),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('서비스 이용약관 동의 (필수)'),
+                    IconButton(
+                      icon: agree1
+                          ? Icon(Icons.expand_more, color: Colors.lightGreen)
+                          : Icon(Icons.expand_more, color: Colors.grey),
+                      onPressed: () {
+                        setState(() {
+                          agree1 = !agree1;
+                        });
+                      },
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('개인정보 수집 동의 (필수)'),
+                    IconButton(
+                      icon: agree2
+                          ? Icon(Icons.expand_more, color: Colors.lightGreen)
+                          : Icon(Icons.expand_more, color: Colors.grey),
+                      onPressed: () {
+                        setState(() {
+                          agree2 = !agree2;
+                        });
+                      },
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('개인정보 제3자 제공 동의 (필수)'),
+                    IconButton(
+                      icon: agree3
+                          ? Icon(Icons.expand_more, color: Colors.lightGreen)
+                          : Icon(Icons.expand_more, color: Colors.grey),
+                      onPressed: () {
+                        setState(() {
+                          agree3 = !agree3;
+                        });
+                      },
+                    )
+                  ],
+                )
               ],
             ),
           ),
-          SizedBox(
-            height: 80,
-          ),
-          Container(
-            child: Text("""서비스를 원할하게 이용하기 위해\n위 항목에 대해 권한이 필요합니다""",
-                style: TextStyle(
-                  fontSize: 14,
-                )),
-          ),
-          Container(
-            margin: EdgeInsets.only(
-              top: 20,
-            ),
-            width: 100,
-            height: 40,
-            child: TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                    primary: Colors.black,
-                    shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.green, width: 1.5),
-                        borderRadius: BorderRadius.circular(20))),
-                child: Text("동의하고 계속 진행합니다")),
-          )
+          SizedBox(height: 150),
+          _connectbutton('동의하고 계속 진행합니다.', () {
+            if (agree1 == true && agree2 == true && agree3 == true) {
+              Get.to(nickNamePage());
+            } else {
+              Get.to(agreePage());
+            }
+          })
         ],
       ),
     ));
