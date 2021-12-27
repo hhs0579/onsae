@@ -57,7 +57,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
               SizedBox(
                 height: 50,
               ),
-              _connectbutton('네이버로 연결하기', () {}),
+              _connectbutton('네이버로 연결하dawdaw기', () {}),
               _connectbutton('페이스북 연결하기', () {}),
               _connectbutton('카카오 연결하기', () {}),
               _connectbutton('전화번호로 빠른가입', () {
