@@ -58,7 +58,7 @@ class loginpage extends StatelessWidget {
                                 onPressed: () {
                                   Get.to(findPassword());
                                 },
-                                child: Text('비밀번호 찾기1')),
+                                child: Text('비밀번호 찾기')),
                           ],
                         ),
                         Container(
