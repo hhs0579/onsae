@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/screens/main_pages/my_info.dart';
 
 class nickNamePage extends StatefulWidget {
   nickNamePage({Key? key}) : super(key: key);
@@ -80,7 +81,9 @@ class _nickNamePageState extends State<nickNamePage> {
                                     style: TextStyle(color: Colors.grey))),
                       ),
                       SizedBox(height: 250),
-                      _connectbutton('동의하고 계속 진행합니다.', () {})
+                      _connectbutton('동의하고 계속 진행합니다.', () {
+                        Get.to(MyInfoPage());
+                      })
                     ])))));
   }
 }
