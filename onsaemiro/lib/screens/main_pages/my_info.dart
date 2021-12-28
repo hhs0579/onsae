@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/screens/main_pages/edit_info.dart';
 
 class MyInfoPage extends StatefulWidget {
   const MyInfoPage({Key? key}) : super(key: key);
@@ -105,28 +108,19 @@ class _MyInfoPageState extends State<MyInfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(90.0),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 18.0,
-            ),
-            AppBar(
-              leading: Image.asset('assets/Vector.png'),
-              backgroundColor: Colors.white,
-              title: Text(
-                '마이페이지',
-                style: TextStyle(
-                    fontSize: 34,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xff595959)),
-              ),
-              centerTitle: true,
-              elevation: 0.0,
-            ),
-          ],
+      appBar: AppBar(
+        toolbarHeight: 80,
+        leading: Image.asset('assets/Vector.png'),
+        backgroundColor: Colors.white,
+        title: Text(
+          '마이페이지',
+          style: TextStyle(
+              fontSize: 34,
+              fontWeight: FontWeight.w700,
+              color: Color(0xff595959)),
         ),
+        centerTitle: true,
+        elevation: 0.0,
       ),
       body: Center(
         child: Column(
@@ -172,7 +166,9 @@ class _MyInfoPageState extends State<MyInfoPage> {
             SizedBox(
               height: 5,
             ),
-            _connectbutton('회원정보 수정', () {}),
+            _connectbutton('회원정보 수정', () {
+              Get.to(edit_infoPage());
+            }),
             _connectbutton('상점 후기 작성', () {}),
             _connectbutton('상품 후기 작성', () {}),
             SizedBox(
