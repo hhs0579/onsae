@@ -4,6 +4,8 @@ import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:onsaemiro/screens/main_pages/edit_info.dart';
+import 'package:onsaemiro/screens/main_pages/product_comment.dart';
+import 'package:onsaemiro/screens/main_pages/store_comment.dart';
 
 class MyInfoPage extends StatefulWidget {
   const MyInfoPage({Key? key}) : super(key: key);
@@ -169,8 +171,12 @@ class _MyInfoPageState extends State<MyInfoPage> {
             _connectbutton('회원정보 수정', () {
               Get.to(edit_infoPage());
             }),
-            _connectbutton('상점 후기 작성', () {}),
-            _connectbutton('상품 후기 작성', () {}),
+            _connectbutton('상점 후기 작성', () {
+              Get.to(store_commentPage());
+            }),
+            _connectbutton('상품 후기 작성', () {
+              Get.to(product_CommentPage());
+            }),
             SizedBox(
               height: 5,
             ),
