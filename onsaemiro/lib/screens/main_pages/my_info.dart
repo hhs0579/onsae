@@ -62,112 +62,114 @@ class _MyInfoPageState extends State<MyInfoPage> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          Container(
-            width: 355,
-            height: 170,
-            decoration: BoxDecoration(
+      body: Center(
+        child: Column(
+          children: [
+            Container(
+              width: 355,
+              height: 170,
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 2,
+                    color: Colors.green,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/프로필.png'),
+                  Text(
+                    '온새미로',
+                    style: TextStyle(
+                      fontSize: 24,
+                    ),
+                  ),
+                  Text('data'),
+                  Text('data'),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            _connectbutton('회원정보 수정', () {}),
+            _connectbutton('회원정보 수정', () {}),
+            _connectbutton('회원정보 수정', () {}),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              width: 355,
+              height: 170,
+              decoration: BoxDecoration(
                 border: Border.all(
                   width: 2,
                   color: Colors.green,
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(20.0))),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset('assets/프로필.png'),
-                Text(
-                  '온새미로',
-                  style: TextStyle(
-                    fontSize: 24,
-                  ),
-                ),
-                Text('data'),
-                Text('data'),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          _connectbutton('회원정보 수정', () {}),
-          _connectbutton('회원정보 수정', () {}),
-          _connectbutton('회원정보 수정', () {}),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            width: 355,
-            height: 170,
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 2,
-                color: Colors.green,
+                borderRadius: BorderRadius.circular(19),
               ),
-              borderRadius: BorderRadius.circular(19),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  '최근 지출내역',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 20,
+                  Text(
+                    '최근 지출내역',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
                     ),
-                    Text(
-                      '망넛이네',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 20,
                       ),
-                    ),
-                    SizedBox(
-                      width: 250,
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      '약콩두유 100 (3개)',
-                      style:
-                          TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(
-                      width: 3,
-                    ),
-                    Text(
-                      '2021-11-18(목)',
-                      style:
-                          TextStyle(fontSize: 8, fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(
-                      width: 80,
-                    ),
-                    Text('3,300원')
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
+                      Text(
+                        '망넛이네',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 250,
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        '약콩두유 100 (3개)',
+                        style: TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.w500),
+                      ),
+                      SizedBox(
+                        width: 3,
+                      ),
+                      Text(
+                        '2021-11-18(목)',
+                        style:
+                            TextStyle(fontSize: 8, fontWeight: FontWeight.w500),
+                      ),
+                      SizedBox(
+                        width: 80,
+                      ),
+                      Text('3,300원')
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
