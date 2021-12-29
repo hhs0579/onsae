@@ -15,17 +15,17 @@ class _localSelectPageState extends State<localSelectPage> {
         leadingWidth: 8,
         toolbarHeight: 160,
         backgroundColor: Colors.white,
-        elevation: 0.0,
         actions: [
           IconButton(
+            padding: EdgeInsets.fromLTRB(10, 6, 10, 84),
             icon: Image.asset('assets/장바구니 (누런녹색).png'),
             onPressed: () {},
-          )
+          ),
         ],
+        elevation: 0.5,
         title: Column(
           children: [
             Container(
-              width: double.infinity,
               height: 31,
               child: TextField(
                 style: TextStyle(fontSize: 11),
@@ -56,8 +56,21 @@ class _localSelectPageState extends State<localSelectPage> {
               ),
             ),
             Container(
-              child: Text('access'),
-            )
+                child: Row(
+              children: [
+                IconButton(
+                  padding: EdgeInsets.fromLTRB(20, 33, 90.59, 34),
+                  onPressed: () {},
+                  icon: Image.asset('assets/Vector(누런녹색).png'),
+                  iconSize: 12,
+                ),
+                Text(
+                  'access',
+                  style: TextStyle(
+                      fontSize: 36, color: Color.fromRGBO(162, 191, 98, 1)),
+                )
+              ],
+            ))
           ],
         ),
       ),
