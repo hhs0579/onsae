@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:onsaemiro/screens/access_pages/local_select.dart';
-import 'package:onsaemiro/screens/main_pages/culture_main.dart';
-import 'package:onsaemiro/screens/main_pages/things_main.dart';
+import 'package:onsaemiro/screens/culture_pages/culture_firstmain.dart';
 
-class accessMainPage extends StatefulWidget {
-  const accessMainPage({Key? key}) : super(key: key);
+import 'access_main.dart';
+import 'things_main.dart';
+
+class cultureMainPage extends StatefulWidget {
+  const cultureMainPage({Key? key}) : super(key: key);
 
   @override
-  _accessMainPageState createState() => _accessMainPageState();
+  _cultureMainPageState createState() => _cultureMainPageState();
 }
 
-class _accessMainPageState extends State<accessMainPage> {
+class _cultureMainPageState extends State<cultureMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,19 +61,19 @@ class _accessMainPageState extends State<accessMainPage> {
             Container(
                 padding: EdgeInsets.fromLTRB(115, 0, 115, 20),
                 child: Text(
-                  'access',
+                  'culture',
                   style: TextStyle(fontSize: 36, color: Color(0xff595959)),
                 )),
             Ink(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/디어비건베이커리 1.png'),
+                    image: AssetImage('assets/시장.png'),
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(20))),
               child: InkWell(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 onTap: () {
-                  Get.to(localSelectPage());
+                  Get.to(culture_firstPage());
                 },
                 child: Container(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -90,10 +91,10 @@ class _accessMainPageState extends State<accessMainPage> {
               children: [
                 TextButton(
                   onPressed: () {
-                    Get.to(cultureMainPage());
+                    Get.to(accessMainPage());
                   },
                   child: Text(
-                    'culture',
+                    'access',
                     style: TextStyle(fontSize: 18, color: Colors.grey),
                   ),
                 ),

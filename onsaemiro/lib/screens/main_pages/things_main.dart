@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:onsaemiro/screens/access_pages/local_select.dart';
 import 'package:onsaemiro/screens/main_pages/culture_main.dart';
-import 'package:onsaemiro/screens/main_pages/things_main.dart';
+import 'package:onsaemiro/screens/things_pages/things_shop.dart';
 
-class accessMainPage extends StatefulWidget {
-  const accessMainPage({Key? key}) : super(key: key);
+import 'access_main.dart';
+
+class thingsMainPage extends StatefulWidget {
+  const thingsMainPage({Key? key}) : super(key: key);
 
   @override
-  _accessMainPageState createState() => _accessMainPageState();
+  _thingsMainPageState createState() => _thingsMainPageState();
 }
 
-class _accessMainPageState extends State<accessMainPage> {
+class _thingsMainPageState extends State<thingsMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,19 +61,19 @@ class _accessMainPageState extends State<accessMainPage> {
             Container(
                 padding: EdgeInsets.fromLTRB(115, 0, 115, 20),
                 child: Text(
-                  'access',
+                  'things',
                   style: TextStyle(fontSize: 36, color: Color(0xff595959)),
                 )),
             Ink(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/디어비건베이커리 1.png'),
+                    image: AssetImage('assets/mangnut.png'),
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(20))),
               child: InkWell(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 onTap: () {
-                  Get.to(localSelectPage());
+                  Get.to(thingsShopPage());
                 },
                 child: Container(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -90,19 +91,19 @@ class _accessMainPageState extends State<accessMainPage> {
               children: [
                 TextButton(
                   onPressed: () {
-                    Get.to(cultureMainPage());
+                    Get.to(accessMainPage());
                   },
                   child: Text(
-                    'culture',
+                    'access',
                     style: TextStyle(fontSize: 18, color: Colors.grey),
                   ),
                 ),
                 TextButton(
                   onPressed: () {
-                    Get.to(thingsMainPage());
+                    Get.to(cultureMainPage());
                   },
                   child: Text(
-                    'things',
+                    'culture',
                     style: TextStyle(fontSize: 18, color: Colors.grey),
                   ),
                 )
