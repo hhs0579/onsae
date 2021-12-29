@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/screens/main_pages/access_main.dart';
+import 'package:onsaemiro/screens/main_pages/password_edit.dart';
+import 'package:onsaemiro/screens/main_pages/phone_number.dart';
 
 class edit_infoPage extends StatefulWidget {
   const edit_infoPage({Key? key}) : super(key: key);
@@ -15,7 +20,14 @@ class editInfoState extends State<edit_infoPage> {
         toolbarHeight: 100,
         shape: Border(bottom: BorderSide(color: Colors.green)),
         leading: Image.asset('assets/Vector.png'),
-        actions: [Image.asset('assets/장바구니.png')],
+        actions: [
+          IconButton(
+            icon: Image.asset('assets/장바구니.png'),
+            onPressed: () {
+              Get.to(accessMainPage());
+            },
+          )
+        ],
         backgroundColor: Colors.white,
         title: Text(
           '회원정보 수정',
@@ -90,7 +102,9 @@ class editInfoState extends State<edit_infoPage> {
                     decoration: InputDecoration(
                         suffixIcon: IconButton(
                           icon: Image.asset('assets/바로가기 버튼.png'),
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(passwordEditPage());
+                          },
                         ),
                         enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.green))),
@@ -113,7 +127,9 @@ class editInfoState extends State<edit_infoPage> {
                           hintStyle: TextStyle(fontSize: 15),
                           suffixIcon: IconButton(
                             icon: Image.asset('assets/바로가기 버튼.png'),
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(phoneNumberPage());
+                            },
                           ),
                           enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.green))),

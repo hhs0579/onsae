@@ -30,14 +30,14 @@ class _store_commentPageState extends State<store_commentPage> {
         child: Column(
           children: [
             Container(
-              width: 327,
-              height: 320,
-              padding: EdgeInsets.fromLTRB(24, 51, 24, 40),
+              width: 350,
+              height: 339,
+              padding: EdgeInsets.fromLTRB(24, 31, 24, 20),
               child: TextField(
                 keyboardType: TextInputType.multiline,
                 textInputAction: TextInputAction.newline,
-                minLines: 1,
-                maxLines: 5,
+                maxLines: 30,
+                style: TextStyle(fontSize: 11),
                 decoration: InputDecoration(
                     hintText: '문구 입력...',
                     hintStyle: TextStyle(fontSize: 11),
