@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/screens/access_pages/shop_introduce.dart';
 
-import 'local_Seoul2.dart';
-
-class localSeoulPage extends StatefulWidget {
-  const localSeoulPage({Key? key}) : super(key: key);
+class localSeoul2Page extends StatefulWidget {
+  const localSeoul2Page({Key? key}) : super(key: key);
 
   @override
-  _localSeoulPageState createState() => _localSeoulPageState();
+  _localSeoul2PageState createState() => _localSeoul2PageState();
 }
 
 imagestackWidget(shop, phone, where, insta, image, onTap) {
@@ -69,7 +69,7 @@ imagestackWidget(shop, phone, where, insta, image, onTap) {
   );
 }
 
-class _localSeoulPageState extends State<localSeoulPage> {
+class _localSeoul2PageState extends State<localSeoul2Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -227,7 +227,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            '디어비건베이커리',
+                            '비건 베이커리 보물',
                             style: TextStyle(fontSize: 13),
                           ),
                           Text(
@@ -243,7 +243,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
                                 onPressed: () {},
                               ),
                               Text(
-                                '부천 상동',
+                                '서울 강남구 논현로 67길 11 1층',
                                 style: TextStyle(fontSize: 11),
                               ),
                             ],
@@ -264,12 +264,14 @@ class _localSeoulPageState extends State<localSeoulPage> {
                     width: 234,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/핫케이크.png'),
+                          image: AssetImage('assets/비건 베이커리 보물.png'),
                         ),
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                     child: InkWell(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(shopIntroducePage());
+                      },
                     ),
                   ),
                 ],
@@ -285,14 +287,13 @@ class _localSeoulPageState extends State<localSeoulPage> {
                       '02-558-0301',
                       '서울 강남구 논현로 67길 11 1층',
                       'http://www.instagram.com/bo.mool_vegan',
-                      'assets/비건 베이커리 보물.png', () {
-                    Get.to(localSeoul2Page());
-                  }),
+                      'assets/핫케이크.png',
+                      () {}),
                   SizedBox(width: 26),
                   imagestackWidget(
                       '비건 베이커리보물',
                       '02-558-0301',
-                      '서울 강남구 논현로 67길 11 1층',
+                      '부천 상구',
                       'http://www.instagram.com/bo.mool_vegan',
                       'assets/샌드위치.png',
                       () {}),
