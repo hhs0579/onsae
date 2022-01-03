@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:onsaemiro/screens/access_pages/shop_introduce.dart';
+import 'package:onsaemiro/screens/access_pages/shop_introduceAdmin.dart';
 
 class localSeoul2Page extends StatefulWidget {
   const localSeoul2Page({Key? key}) : super(key: key);
@@ -270,7 +271,7 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                     child: InkWell(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       onTap: () {
-                        Get.to(shopIntroducePage());
+                        Get.to(shopIntroduceAdminPage());
                       },
                     ),
                   ),
@@ -287,8 +288,9 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                       '02-558-0301',
                       '서울 강남구 논현로 67길 11 1층',
                       'http://www.instagram.com/bo.mool_vegan',
-                      'assets/핫케이크.png',
-                      () {}),
+                      'assets/핫케이크.png', () {
+                    Get.to(shopIntroducePage());
+                  }),
                   SizedBox(width: 26),
                   imagestackWidget(
                       '비건 베이커리보물',

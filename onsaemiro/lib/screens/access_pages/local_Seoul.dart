@@ -34,18 +34,48 @@ imagestackWidget(shop, phone, where, insta, image, onTap) {
               borderRadius: BorderRadius.all(Radius.circular(15)),
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  shop,
-                  style: TextStyle(fontSize: 10),
+                SizedBox(
+                  height: 10,
                 ),
-                Text(
-                  phone,
-                  style: TextStyle(fontSize: 8),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(40, 0, 35, 0),
+                  child: Text(
+                    shop,
+                    style: TextStyle(fontSize: 9.5),
+                  ),
                 ),
-                Text(
-                  insta,
-                  style: TextStyle(fontSize: 6),
+                SizedBox(
+                  height: 4,
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(55, 0, 45, 0),
+                  child: Text(
+                    phone,
+                    style: TextStyle(fontSize: 8),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(15, 4, 0, 4.5),
+                  child: Row(
+                    children: [
+                      ImageIcon(
+                        AssetImage('assets/위치.png'),
+                        color: Color.fromRGBO(89, 89, 89, 1),
+                        size: 7,
+                      ),
+                      Text(where,
+                          style: TextStyle(color: Colors.black, fontSize: 7)),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(10, 0, 8, 8),
+                  child: Text(
+                    insta,
+                    style: TextStyle(fontSize: 6),
+                  ),
                 ),
               ],
             ),
@@ -55,9 +85,8 @@ imagestackWidget(shop, phone, where, insta, image, onTap) {
           height: 102,
           width: 156,
           decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(image),
-              ),
+              image:
+                  DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
               borderRadius: BorderRadius.all(Radius.circular(14))),
           child: InkWell(
             borderRadius: BorderRadius.all(Radius.circular(14)),
@@ -224,29 +253,35 @@ class _localSeoulPageState extends State<localSeoulPage> {
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
+                          SizedBox(
+                            height: 16,
+                          ),
                           Text(
                             '디어비건베이커리',
                             style: TextStyle(fontSize: 13),
+                          ),
+                          SizedBox(
+                            height: 6,
                           ),
                           Text(
                             '02-558-0301',
                             style: TextStyle(fontSize: 11),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              IconButton(
-                                icon: Icon(Icons.location_on_outlined),
-                                iconSize: 12,
-                                onPressed: () {},
-                              ),
-                              Text(
-                                '부천 상동',
-                                style: TextStyle(fontSize: 11),
-                              ),
-                            ],
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(33, 6, 0, 7),
+                            child: Row(
+                              children: [
+                                ImageIcon(
+                                  AssetImage('assets/위치.png'),
+                                  color: Color.fromRGBO(89, 89, 89, 1),
+                                  size: 11,
+                                ),
+                                Text('부천 상동',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 11)),
+                              ],
+                            ),
                           ),
                           Padding(
                             padding: EdgeInsets.fromLTRB(0, 0, 0, 13),
@@ -290,19 +325,19 @@ class _localSeoulPageState extends State<localSeoulPage> {
                   }),
                   SizedBox(width: 26),
                   imagestackWidget(
-                      '비건 베이커리보물',
+                      '본비 비건 베이커리',
                       '02-558-0301',
-                      '서울 강남구 논현로 67길 11 1층',
+                      '고양 덕양구 신원동',
                       'http://www.instagram.com/bo.mool_vegan',
                       'assets/샌드위치.png',
                       () {}),
                   SizedBox(width: 26),
                   imagestackWidget(
-                      '비건 베이커리보물',
+                      '아꼬떼 비건 베이커리',
                       '02-558-0301',
-                      '서울 강남구 논현로 67길 11 1층',
+                      '성남 분당구 정자동',
                       'http://www.instagram.com/bo.mool_vegan',
-                      'assets/샌드위치.png',
+                      'assets/아꼬떼 비건.png',
                       () {}),
                   SizedBox(width: 26),
                   imagestackWidget(

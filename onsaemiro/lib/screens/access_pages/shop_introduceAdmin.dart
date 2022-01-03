@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/screens/access_pages/product_registration.dart';
 
-class shopIntroducePage extends StatefulWidget {
-  const shopIntroducePage({Key? key}) : super(key: key);
+class shopIntroduceAdminPage extends StatefulWidget {
+  const shopIntroduceAdminPage({Key? key}) : super(key: key);
 
   @override
-  _shopIntroducePageState createState() => _shopIntroducePageState();
+  _shopIntroduceAdminPageState createState() => _shopIntroduceAdminPageState();
 }
 
 Review_Box(profileName, image1, image2, text) {
@@ -132,7 +135,7 @@ product_Box(image, name, explanation, price) {
   );
 }
 
-class _shopIntroducePageState extends State<shopIntroducePage> {
+class _shopIntroduceAdminPageState extends State<shopIntroduceAdminPage> {
   bool isMenuScreen = true;
   bool isInformationScreen = false;
   @override
@@ -342,6 +345,20 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                         ),
                         onPressed: () {},
                       ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(139, 0, 0, 0),
+                        child: TextButton(
+                          child: Text(
+                            '상품등록',
+                            style: TextStyle(
+                                color: Color.fromRGBO(89, 89, 89, 1),
+                                fontSize: 11),
+                          ),
+                          onPressed: () {
+                            Get.to(productRegistrationPage());
+                          },
+                        ),
+                      )
                     ],
                   ),
                   SizedBox(
