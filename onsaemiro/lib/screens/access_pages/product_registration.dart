@@ -55,25 +55,16 @@ class _productRegistrationPageState extends State<productRegistrationPage> {
                     BoxDecoration(border: Border.all(color: Colors.grey)),
               ),
             ),
+            productBox(),
+            productBox(),
+            productBox(),
             Container(
               width: 44,
               height: 44,
               child: FloatingActionButton(
                 elevation: 0.0,
                 backgroundColor: Color.fromRGBO(196, 196, 196, 0.7),
-                onPressed: () {
-                  builder:
-                  (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('상품 등록'),
-                      content: TextField(
-                        onChanged: (String value) {
-                          input = value;
-                        },
-                      ),
-                    );
-                  };
-                },
+                onPressed: () {},
                 child: Icon(
                   Icons.add,
                   size: 19,
