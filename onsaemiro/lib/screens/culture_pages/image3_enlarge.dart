@@ -3,11 +3,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:onsaemiro/screens/culture_pages/report_page.dart';
 
-class image1EnlargePage extends StatefulWidget {
-  const image1EnlargePage({Key? key}) : super(key: key);
+class image3EnlargePage extends StatefulWidget {
+  const image3EnlargePage({Key? key}) : super(key: key);
 
   @override
-  _image1EnlargePageState createState() => _image1EnlargePageState();
+  _image3EnlargePageState createState() => _image3EnlargePageState();
 }
 
 enlargeImage(image) {
@@ -19,7 +19,7 @@ enlargeImage(image) {
           borderRadius: BorderRadius.circular(20)));
 }
 
-class _image1EnlargePageState extends State<image1EnlargePage> {
+class _image3EnlargePageState extends State<image3EnlargePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +44,7 @@ class _image1EnlargePageState extends State<image1EnlargePage> {
             SizedBox(
               height: 57,
             ),
-            enlargeImage('assets/도서관.png'),
+            enlargeImage('assets/사람.png'),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

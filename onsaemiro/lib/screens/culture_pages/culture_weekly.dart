@@ -2,8 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/screens/culture_pages/image2_enlarge.dart';
 
-import 'image1_Enlarge.dart';
+import 'image1_enlarge.dart';
+import 'image3_enlarge.dart';
 
 class weeklyBestPage extends StatefulWidget {
   const weeklyBestPage({Key? key}) : super(key: key);
@@ -47,9 +49,15 @@ image_widget(image, onPressed) {
 
 class _weeklyBestPageState extends State<weeklyBestPage> {
   List<Widget> imageList = [
-    image_widget('assets/도서관.png', () {}),
-    image_widget('assets/헌혈.png', () {}),
-    image_widget('assets/사람.png', () {})
+    image_widget('assets/도서관.png', () {
+      Get.to(image1EnlargePage());
+    }),
+    image_widget('assets/헌혈.png', () {
+      Get.to(image2EnlargePage());
+    }),
+    image_widget('assets/사람.png', () {
+      Get.to(image3EnlargePage());
+    })
   ];
   @override
   Widget build(BuildContext context) {

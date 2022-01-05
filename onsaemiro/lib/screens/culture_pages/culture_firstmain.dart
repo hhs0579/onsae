@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/screens/culture_pages/act_confirm.dart';
 import 'package:onsaemiro/screens/culture_pages/culture_weekly.dart';
+import 'package:onsaemiro/screens/culture_pages/flea_market.dart';
 
 class culture_firstPage extends StatefulWidget {
   const culture_firstPage({Key? key}) : super(key: key);
@@ -10,19 +12,21 @@ class culture_firstPage extends StatefulWidget {
   _culture_firstPageState createState() => _culture_firstPageState();
 }
 
-culture_Stack(name, whichPicture, onTap) {
+culture_Stack(name, double left, whichPicture, onTap) {
   return Stack(
     children: [
       Positioned(
         top: 100,
-        left: 107,
-        child: Column(
-          children: [
-            Text(
-              name,
-              style: TextStyle(fontSize: 20),
-            ),
-          ],
+        left: left,
+        child: Center(
+          child: Column(
+            children: [
+              Text(
+                name,
+                style: TextStyle(fontSize: 20),
+              ),
+            ],
+          ),
         ),
       ),
       Ink(
@@ -130,17 +134,21 @@ class _culture_firstPageState extends State<culture_firstPage> {
               SizedBox(
                 height: 46,
               ),
-              culture_Stack('주간베스트', 'assets/주간베스트.png', () {
+              culture_Stack('주간베스트', 107, 'assets/주간베스트.png', () {
                 Get.to(weeklyBestPage());
               }),
               SizedBox(
                 height: 20,
               ),
-              culture_Stack('act. 활동인증', 'assets/활동인증.png', () {}),
+              culture_Stack('act. 활동인증', 93, 'assets/활동인증.png', () {
+                Get.to(actConfirmPage());
+              }),
               SizedBox(
                 height: 20,
               ),
-              culture_Stack('온새미로 플리마켓', 'assets/온새미로 플리마켓.png', () {})
+              culture_Stack('온새미로 플리마켓', 75, 'assets/온새미로 플리마켓.png', () {
+                Get.to(fleaMarketPage());
+              })
             ],
           ),
         ),
