@@ -156,8 +156,8 @@ class _fleaMarketPageState extends State<fleaMarketPage> {
                   ),
                   items: [
                     informationList[0],
-                    informationList[0],
-                    informationList[0],
+                    informationList[1],
+                    informationList[2],
                   ],
                 ),
               ),

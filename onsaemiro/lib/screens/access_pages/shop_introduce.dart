@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/screens/access_pages/product_information.dart';
 
 class shopIntroducePage extends StatefulWidget {
   const shopIntroducePage({Key? key}) : super(key: key);
@@ -78,7 +81,7 @@ Review_Box(profileName, image1, image2, text) {
   );
 }
 
-product_Box(image, name, explanation, price) {
+product_Box(image, onTap, name, explanation, price) {
   return Padding(
     padding: EdgeInsets.only(bottom: 10),
     child: Container(
@@ -91,13 +94,27 @@ product_Box(image, name, explanation, price) {
         children: [
           Padding(
             padding: EdgeInsets.fromLTRB(7, 5, 9, 6),
-            child: Container(
-              width: 97,
+            child: Ink(
               height: 73,
+              width: 97,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: Container(
+                height: 73,
+                width: 97,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(image), fit: BoxFit.fill)),
+                    image: AssetImage(image),
+                    fit: BoxFit.fill,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+                child: InkWell(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  onTap: onTap,
+                ),
+              ),
             ),
           ),
           Column(
@@ -350,16 +367,17 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                     child: ListView(
                       scrollDirection: Axis.vertical,
                       children: [
-                        product_Box('assets/둘리우니 1.png', '둘리우니',
+                        product_Box('assets/둘리우니 1.png', () {
+                          Get.to(productInformationPage());
+                        }, '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                        product_Box('assets/둘리우니 1.png', () {}, '둘리우니',
                             '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                        product_Box('assets/둘리우니 1.png', '둘리우니',
+                        product_Box('assets/둘리우니 1.png', () {}, '둘리우니',
                             '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                        product_Box('assets/둘리우니 1.png', '둘리우니',
+                        product_Box('assets/둘리우니 1.png', () {}, '둘리우니',
                             '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                        product_Box('assets/둘리우니 1.png', '둘리우니',
+                        product_Box('assets/둘리우니 1.png', () {}, '둘리우니',
                             '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                        product_Box('assets/둘리우니 1.png', '둘리우니',
-                            '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원')
                       ],
                     ),
                   )
