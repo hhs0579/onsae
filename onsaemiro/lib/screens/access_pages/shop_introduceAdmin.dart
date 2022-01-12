@@ -310,149 +310,151 @@ class _shopIntroduceAdminPageState extends State<shopIntroduceAdminPage> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          if (isMenuScreen & !isInformationScreen)
-            Center(
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      TextButton(
-                        child: Text(
-                          '거리순',
-                          style: TextStyle(
-                              color: Color.fromRGBO(89, 89, 89, 1),
-                              fontSize: 11),
-                        ),
-                        onPressed: () {},
-                      ),
-                      TextButton(
-                        child: Text(
-                          '가격순',
-                          style: TextStyle(
-                              color: Color.fromRGBO(89, 89, 89, 1),
-                              fontSize: 11),
-                        ),
-                        onPressed: () {},
-                      ),
-                      TextButton(
-                        child: Text(
-                          '온새미로 인증',
-                          style: TextStyle(
-                              color: Color.fromRGBO(89, 89, 89, 1),
-                              fontSize: 11),
-                        ),
-                        onPressed: () {},
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(139, 0, 0, 0),
-                        child: TextButton(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            if (isMenuScreen & !isInformationScreen)
+              Center(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        TextButton(
                           child: Text(
-                            '상품등록',
+                            '거리순',
                             style: TextStyle(
                                 color: Color.fromRGBO(89, 89, 89, 1),
                                 fontSize: 11),
                           ),
-                          onPressed: () {
-                            Get.to(productRegistrationPage());
-                          },
+                          onPressed: () {},
                         ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 366,
-                    width: 350,
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        product_Box('assets/둘리우니 1.png', '둘리우니',
-                            '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                        product_Box('assets/둘리우니 1.png', '둘리우니',
-                            '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                        product_Box('assets/둘리우니 1.png', '둘리우니',
-                            '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                        product_Box('assets/둘리우니 1.png', '둘리우니',
-                            '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                        product_Box('assets/둘리우니 1.png', '둘리우니',
-                            '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원')
+                        TextButton(
+                          child: Text(
+                            '가격순',
+                            style: TextStyle(
+                                color: Color.fromRGBO(89, 89, 89, 1),
+                                fontSize: 11),
+                          ),
+                          onPressed: () {},
+                        ),
+                        TextButton(
+                          child: Text(
+                            '온새미로 인증',
+                            style: TextStyle(
+                                color: Color.fromRGBO(89, 89, 89, 1),
+                                fontSize: 11),
+                          ),
+                          onPressed: () {},
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(139, 0, 0, 0),
+                          child: TextButton(
+                            child: Text(
+                              '상품등록',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(89, 89, 89, 1),
+                                  fontSize: 11),
+                            ),
+                            onPressed: () {
+                              Get.to(productRegistrationPage());
+                            },
+                          ),
+                        )
                       ],
                     ),
-                  )
-                ],
-              ),
-            ),
-          if (!isMenuScreen & isInformationScreen)
-            Padding(
-              padding: EdgeInsets.fromLTRB(9, 23, 5, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Text(
-                      '프리미엄 비건 베이커리 Bo.Mool 은\n유기농, 국내산, 최고급 원재료를 사용하여 맛있지만\n속이 편안한 No 버터, 밀가루, 달걀, 우유, 설탕\n디저트 제품을 만듭니다.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 13),
-                    ),
-                  ),
-                  Text(
-                    '영업정보',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  Text(
-                    '목요일 12:00 ~ 20:00\n품절시 인스타그램 공지 후 조기영업종료 (월별일정 변동, 인스타그램에 공지)\n금요일 12:00 ~ 20:00\n품절 시 인스타그램 공지 후 조기영업종료 (월별일정 변동, 인스타그램에 공지)',
-                    style: TextStyle(fontSize: 11),
-                  ),
-                  Row(
-                    children: [
-                      ImageIcon(AssetImage('assets/인스타그램.png')),
-                      Text(
-                        'http://www.instagram.com/bo.mool_vegan',
-                        style: TextStyle(fontSize: 11),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      ImageIcon(AssetImage('assets/폰.png')),
-                      Text(
-                        '02-558-0301',
-                        style: TextStyle(fontSize: 11),
-                      )
-                    ],
-                  ),
-                  Text(
-                    '안내 및 혜택',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  Text(
-                    '11월 이벤트',
-                    style: TextStyle(fontSize: 11),
-                  )
-                ],
-              ),
-            ),
-          if (!isMenuScreen & !isInformationScreen)
-            Center(
-              child: SizedBox(
-                height: 365,
-                width: 350,
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    Review_Box('온새미로', 'assets/둘리우니2.png', 'assets/펜케이크.png',
-                        '종류별로 사먹어보고 있는데 다 맛있어요!!\n비건이라 말 안하면 모를 정도로 웬만한 일반 빵보다 맛있어요!!\n사장님도 항상 넘넘 친절하셔요.'),
-                    Review_Box('온새미로', 'assets/셀러드.png', 'assets/음식.png',
-                        '종류별로 사먹어보고 있는데 다 맛있어요!!\n비건이라 말 안하면 모를 정도로 웬만한 일반 빵보다 맛있어요!!\n사장님도 항상 넘넘 친절하셔요.'),
-                    Review_Box('온새미로', 'assets/둘리우니2.png', 'assets/펜케이크.png',
-                        '종류별로 사먹어보고 있는데 다 맛있어요!!\n비건이라 말 안하면 모를 정도로 웬만한 일반 빵보다 맛있어요!!\n사장님도 항상 넘넘 친절하셔요.'),
+                    SizedBox(
+                      height: 366,
+                      width: 350,
+                      child: ListView(
+                        scrollDirection: Axis.vertical,
+                        children: [
+                          product_Box('assets/둘리우니 1.png', '둘리우니',
+                              '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                          product_Box('assets/둘리우니 1.png', '둘리우니',
+                              '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                          product_Box('assets/둘리우니 1.png', '둘리우니',
+                              '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                          product_Box('assets/둘리우니 1.png', '둘리우니',
+                              '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                          product_Box('assets/둘리우니 1.png', '둘리우니',
+                              '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원')
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),
-            )
-        ],
+            if (!isMenuScreen & isInformationScreen)
+              Padding(
+                padding: EdgeInsets.fromLTRB(9, 23, 5, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text(
+                        '프리미엄 비건 베이커리 Bo.Mool 은\n유기농, 국내산, 최고급 원재료를 사용하여 맛있지만\n속이 편안한 No 버터, 밀가루, 달걀, 우유, 설탕\n디저트 제품을 만듭니다.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 13),
+                      ),
+                    ),
+                    Text(
+                      '영업정보',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    Text(
+                      '목요일 12:00 ~ 20:00\n품절시 인스타그램 공지 후 조기영업종료 (월별일정 변동, 인스타그램에 공지)\n금요일 12:00 ~ 20:00\n품절 시 인스타그램 공지 후 조기영업종료 (월별일정 변동, 인스타그램에 공지)',
+                      style: TextStyle(fontSize: 11),
+                    ),
+                    Row(
+                      children: [
+                        ImageIcon(AssetImage('assets/인스타그램.png')),
+                        Text(
+                          'http://www.instagram.com/bo.mool_vegan',
+                          style: TextStyle(fontSize: 11),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        ImageIcon(AssetImage('assets/폰.png')),
+                        Text(
+                          '02-558-0301',
+                          style: TextStyle(fontSize: 11),
+                        )
+                      ],
+                    ),
+                    Text(
+                      '안내 및 혜택',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    Text(
+                      '11월 이벤트',
+                      style: TextStyle(fontSize: 11),
+                    )
+                  ],
+                ),
+              ),
+            if (!isMenuScreen & !isInformationScreen)
+              Center(
+                child: SizedBox(
+                  height: 365,
+                  width: 350,
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      Review_Box('온새미로', 'assets/둘리우니2.png', 'assets/펜케이크.png',
+                          '종류별로 사먹어보고 있는데 다 맛있어요!!\n비건이라 말 안하면 모를 정도로 웬만한 일반 빵보다 맛있어요!!\n사장님도 항상 넘넘 친절하셔요.'),
+                      Review_Box('온새미로', 'assets/셀러드.png', 'assets/음식.png',
+                          '종류별로 사먹어보고 있는데 다 맛있어요!!\n비건이라 말 안하면 모를 정도로 웬만한 일반 빵보다 맛있어요!!\n사장님도 항상 넘넘 친절하셔요.'),
+                      Review_Box('온새미로', 'assets/둘리우니2.png', 'assets/펜케이크.png',
+                          '종류별로 사먹어보고 있는데 다 맛있어요!!\n비건이라 말 안하면 모를 정도로 웬만한 일반 빵보다 맛있어요!!\n사장님도 항상 넘넘 친절하셔요.'),
+                    ],
+                  ),
+                ),
+              )
+          ],
+        ),
       ),
       floatingActionButton: Container(
         width: 69.5,

@@ -35,18 +35,48 @@ imagestackWidget(shop, phone, where, insta, image, onTap) {
               borderRadius: BorderRadius.all(Radius.circular(15)),
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  shop,
-                  style: TextStyle(fontSize: 10),
+                SizedBox(
+                  height: 10,
                 ),
-                Text(
-                  phone,
-                  style: TextStyle(fontSize: 8),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(40, 0, 0, 0),
+                  child: Text(
+                    shop,
+                    style: TextStyle(fontSize: 9.5),
+                  ),
                 ),
-                Text(
-                  insta,
-                  style: TextStyle(fontSize: 6),
+                SizedBox(
+                  height: 3,
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(55, 0, 45, 0),
+                  child: Text(
+                    phone,
+                    style: TextStyle(fontSize: 8),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(15, 4, 0, 4.5),
+                  child: Row(
+                    children: [
+                      ImageIcon(
+                        AssetImage('assets/위치.png'),
+                        color: Color.fromRGBO(89, 89, 89, 1),
+                        size: 7,
+                      ),
+                      Text(where,
+                          style: TextStyle(color: Colors.black, fontSize: 7)),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(10, 0, 8, 8),
+                  child: Text(
+                    insta,
+                    style: TextStyle(fontSize: 6),
+                  ),
                 ),
               ],
             ),
@@ -56,9 +86,8 @@ imagestackWidget(shop, phone, where, insta, image, onTap) {
           height: 102,
           width: 156,
           decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(image),
-              ),
+              image:
+                  DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
               borderRadius: BorderRadius.all(Radius.circular(14))),
           child: InkWell(
             borderRadius: BorderRadius.all(Radius.circular(14)),
@@ -76,12 +105,15 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 8,
-        toolbarHeight: 190,
+        toolbarHeight: 226,
         backgroundColor: Colors.white,
         elevation: 0.5,
         title: Center(
           child: Column(
             children: [
+              SizedBox(
+                height: 50,
+              ),
               Row(
                 children: [
                   SizedBox(
@@ -125,8 +157,7 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                   ),
                 ],
               ),
-              Container(
-                  child: Row(
+              Row(
                 children: [
                   IconButton(
                     padding: EdgeInsets.fromLTRB(20, 11, 100.59, 0),
@@ -140,9 +171,10 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                         fontSize: 36, color: Color.fromRGBO(162, 191, 98, 1)),
                   )
                 ],
-              )),
+              ),
               Container(
-                  padding: EdgeInsets.fromLTRB(135, 10, 0, 0),
+                  height: 30,
+                  padding: EdgeInsets.fromLTRB(135, 3, 0, 0),
                   child: Row(
                     children: [
                       Text(
@@ -198,129 +230,182 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
           ),
         ),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Container(
-              height: 245.91,
-              width: 234,
-              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 113.09,
-                    child: Container(
-                      height: 110,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Container(
+                height: 245.91,
+                width: 234,
+                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 113.09,
+                      child: Container(
+                        height: 110,
+                        width: 234,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              blurRadius: 20,
+                              spreadRadius: 2,
+                            ),
+                          ],
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              '비건 베이커리 베이커리',
+                              style: TextStyle(fontSize: 13),
+                            ),
+                            SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                              '02-558-0301',
+                              style: TextStyle(fontSize: 11),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(33, 6, 0, 7),
+                              child: Row(
+                                children: [
+                                  ImageIcon(
+                                    AssetImage('assets/위치.png'),
+                                    color: Color.fromRGBO(89, 89, 89, 1),
+                                    size: 11,
+                                  ),
+                                  Text('서울 강남구 논현로 67길 11 1층',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 11)),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 0, 0, 13),
+                              child: Text(
+                                'http://wwww.instagram.com/bo.mool_vegan',
+                                style: TextStyle(fontSize: 8),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Ink(
+                      height: 165,
                       width: 234,
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 20,
-                            spreadRadius: 2,
-                          ),
-                        ],
-                        color: Colors.white,
+                          image: DecorationImage(
+                              image: AssetImage('assets/비건 베이커리 보물.png'),
+                              fit: BoxFit.cover),
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child: InkWell(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            '비건 베이커리 보물',
-                            style: TextStyle(fontSize: 13),
-                          ),
-                          Text(
-                            '02-558-0301',
-                            style: TextStyle(fontSize: 11),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              IconButton(
-                                icon: Icon(Icons.location_on_outlined),
-                                iconSize: 12,
-                                onPressed: () {},
-                              ),
-                              Text(
-                                '서울 강남구 논현로 67길 11 1층',
-                                style: TextStyle(fontSize: 11),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(0, 0, 0, 13),
-                            child: Text(
-                              'http://wwww.instagram.com/bo.mool_vegan',
-                              style: TextStyle(fontSize: 8),
-                            ),
-                          ),
-                        ],
+                        onTap: () {
+                          Get.to(shopIntroduceAdminPage());
+                        },
                       ),
                     ),
-                  ),
-                  Ink(
-                    height: 165,
-                    width: 234,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/비건 베이커리 보물.png'),
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: InkWell(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      onTap: () {
-                        Get.to(shopIntroduceAdminPage());
-                      },
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 170,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  imagestackWidget(
-                      '비건 베이커리보물',
-                      '02-558-0301',
-                      '서울 강남구 논현로 67길 11 1층',
-                      'http://www.instagram.com/bo.mool_vegan',
-                      'assets/핫케이크.png', () {
-                    Get.to(shopIntroducePage());
-                  }),
-                  SizedBox(width: 26),
-                  imagestackWidget(
-                      '비건 베이커리보물',
-                      '02-558-0301',
-                      '부천 상구',
-                      'http://www.instagram.com/bo.mool_vegan',
-                      'assets/샌드위치.png',
-                      () {}),
-                  SizedBox(width: 26),
-                  imagestackWidget(
-                      '비건 베이커리보물',
-                      '02-558-0301',
-                      '서울 강남구 논현로 67길 11 1층',
-                      'http://www.instagram.com/bo.mool_vegan',
-                      'assets/샌드위치.png',
-                      () {}),
-                  SizedBox(width: 26),
-                  imagestackWidget(
-                      '비건 베이커리보물',
-                      '02-558-0301',
-                      '서울 강남구 논현로 67길 11 1층',
-                      'http://www.instagram.com/bo.mool_vegan',
-                      'assets/샌드위치.png',
-                      () {}),
-                  SizedBox(width: 26),
-                ],
+              SizedBox(
+                height: 47,
               ),
-            )
-          ],
+              SizedBox(
+                height: 170,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    imagestackWidget(
+                        '비건 베이커리보물',
+                        '02-558-0301',
+                        '서울 강남구 논현로 67길 11 1층',
+                        'http://www.instagram.com/bo.mool_vegan',
+                        'assets/핫케이크.png', () {
+                      Get.to(shopIntroducePage());
+                    }),
+                    SizedBox(width: 26),
+                    imagestackWidget(
+                        '비건 베이커리보물',
+                        '02-558-0301',
+                        '부천 상구',
+                        'http://www.instagram.com/bo.mool_vegan',
+                        'assets/샌드위치.png',
+                        () {}),
+                    SizedBox(width: 26),
+                    imagestackWidget(
+                        '비건 베이커리보물',
+                        '02-558-0301',
+                        '서울 강남구 논현로 67길 11 1층',
+                        'http://www.instagram.com/bo.mool_vegan',
+                        'assets/샌드위치.png',
+                        () {}),
+                    SizedBox(width: 26),
+                    imagestackWidget(
+                        '비건 베이커리보물',
+                        '02-558-0301',
+                        '서울 강남구 논현로 67길 11 1층',
+                        'http://www.instagram.com/bo.mool_vegan',
+                        'assets/샌드위치.png',
+                        () {}),
+                    SizedBox(width: 26),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        items: [
+          BottomNavigationBarItem(
+            label: "",
+            icon: ImageIcon(
+              AssetImage('assets/페이지.png'),
+              color: Colors.green,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: "",
+            icon: ImageIcon(
+              AssetImage('assets/culture.png'),
+              color: Colors.green,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: "",
+            icon: ImageIcon(
+              AssetImage('assets/home.png'),
+              color: Colors.green,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: "",
+            icon: ImageIcon(
+              AssetImage('assets/things.png'),
+              color: Colors.green,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: "",
+            icon: ImageIcon(
+              AssetImage('assets/마이.png'),
+              color: Colors.green,
+            ),
+          ),
+        ],
       ),
     );
   }

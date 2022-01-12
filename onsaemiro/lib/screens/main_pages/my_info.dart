@@ -17,7 +17,7 @@ class MyInfoPage extends StatefulWidget {
 _connectbutton(text, onPressed) {
   return Container(
     width: 355,
-    height: 40,
+    height: 30,
     margin: EdgeInsets.all(5),
     decoration: BoxDecoration(
         border: Border.all(
@@ -111,7 +111,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 80,
+        toolbarHeight: 70,
         leading: Image.asset('assets/Vector.png'),
         backgroundColor: Colors.white,
         title: Text(
@@ -129,7 +129,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
           children: [
             Container(
               width: 355,
-              height: 170,
+              height: 160,
               decoration: BoxDecoration(
                   border: Border.all(
                     width: 2,
@@ -231,6 +231,48 @@ class _MyInfoPageState extends State<MyInfoPage> {
             )
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        items: [
+          BottomNavigationBarItem(
+            label: "",
+            icon: ImageIcon(
+              AssetImage('assets/페이지.png'),
+              color: Colors.green,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: "",
+            icon: ImageIcon(
+              AssetImage('assets/culture.png'),
+              color: Colors.green,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: "",
+            icon: ImageIcon(
+              AssetImage('assets/home.png'),
+              color: Colors.green,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: "",
+            icon: ImageIcon(
+              AssetImage('assets/things.png'),
+              color: Colors.green,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: "",
+            icon: ImageIcon(
+              AssetImage('assets/마이.png'),
+              color: Colors.green,
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -145,16 +145,13 @@ class _productRegistrationPageState extends State<productRegistrationPage> {
                         scrollDirection: Axis.vertical,
                         itemCount: items.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return Dismissible(
-                            key: Key(items[index]),
-                            child: productBox(input, () {
-                              Get.to(productConfirmPage());
-                            }, () {
-                              setState(() {
-                                items.removeAt(index);
-                              });
-                            }),
-                          );
+                          return productBox(input, () {
+                            Get.to(productConfirmPage());
+                          }, () {
+                            setState(() {
+                              items.removeAt(index);
+                            });
+                          });
                         }),
                   ),
                   SizedBox(
