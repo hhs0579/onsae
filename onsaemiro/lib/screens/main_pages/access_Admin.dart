@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:onsaemiro/screens/culture_pages/culture_firstmain.dart';
+import 'package:onsaemiro/screens/access_pages/local_select.dart';
+import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
+import 'package:onsaemiro/screens/main_pages/culture_main.dart';
+import 'package:onsaemiro/screens/main_pages/things_main.dart';
 
-import 'access_main.dart';
-import 'things_main.dart';
-
-class cultureMainPage extends StatefulWidget {
-  const cultureMainPage({Key? key}) : super(key: key);
+class accessAdminPage extends StatefulWidget {
+  const accessAdminPage({Key? key}) : super(key: key);
 
   @override
-  _cultureMainPageState createState() => _cultureMainPageState();
+  _accessAdminPageState createState() => _accessAdminPageState();
 }
 
-class _cultureMainPageState extends State<cultureMainPage> {
+class _accessAdminPageState extends State<accessAdminPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,7 @@ class _cultureMainPageState extends State<cultureMainPage> {
             onPressed: () {},
           )
         ],
-        title: Container(
+        title: SizedBox(
           width: double.infinity,
           height: 37,
           child: TextField(
@@ -65,22 +65,23 @@ class _cultureMainPageState extends State<cultureMainPage> {
               Container(
                   padding: EdgeInsets.fromLTRB(115, 0, 115, 20),
                   child: Text(
-                    'culture',
+                    'access',
                     style: TextStyle(fontSize: 36, color: Color(0xff595959)),
                   )),
               Ink(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/시장.png'),
+                      image: AssetImage('assets/디어비건베이커리 1.png'),
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: InkWell(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   onTap: () {
+                    //Get.to(localSelectPage());
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => culture_firstPage()));
+                            builder: (context) => localSelectPage()));
                   },
                   child: Container(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -101,10 +102,10 @@ class _cultureMainPageState extends State<cultureMainPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => accessMainPage()));
+                              builder: (context) => cultureMainPage()));
                     },
                     child: Text(
-                      'access',
+                      'culture',
                       style: TextStyle(fontSize: 18, color: Colors.grey),
                     ),
                   ),

@@ -362,48 +362,6 @@ class _localSeoulPageState extends State<localSeoulPage> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        items: [
-          BottomNavigationBarItem(
-            label: "",
-            icon: ImageIcon(
-              AssetImage('assets/페이지.png'),
-              color: Colors.green,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: "",
-            icon: ImageIcon(
-              AssetImage('assets/culture.png'),
-              color: Colors.green,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: "",
-            icon: ImageIcon(
-              AssetImage('assets/home.png'),
-              color: Colors.green,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: "",
-            icon: ImageIcon(
-              AssetImage('assets/things.png'),
-              color: Colors.green,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: "",
-            icon: ImageIcon(
-              AssetImage('assets/마이.png'),
-              color: Colors.green,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

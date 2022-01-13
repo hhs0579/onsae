@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:onsaemiro/screens/access_pages/local_select.dart';
+import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/culture_main.dart';
 import 'package:onsaemiro/screens/main_pages/things_main.dart';
 
@@ -25,7 +25,9 @@ class _accessMainPageState extends State<accessMainPage> {
         actions: [
           IconButton(
             icon: Image.asset('assets/장바구니(검정).png'),
-            onPressed: () {},
+            onPressed: () {
+              Get.to(shoppingBagPage());
+            },
           )
         ],
         title: Container(
@@ -77,7 +79,11 @@ class _accessMainPageState extends State<accessMainPage> {
                 child: InkWell(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   onTap: () {
-                    Get.to(localSelectPage());
+                    //Get.to(localSelectPage());
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => localSelectPage()));
                   },
                   child: Container(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -95,7 +101,10 @@ class _accessMainPageState extends State<accessMainPage> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      Get.to(cultureMainPage());
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => cultureMainPage()));
                     },
                     child: Text(
                       'culture',
@@ -104,7 +113,10 @@ class _accessMainPageState extends State<accessMainPage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Get.to(thingsMainPage());
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => thingsMainPage()));
                     },
                     child: Text(
                       'things',
@@ -116,48 +128,6 @@ class _accessMainPageState extends State<accessMainPage> {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        items: [
-          BottomNavigationBarItem(
-            label: "",
-            icon: ImageIcon(
-              AssetImage('assets/페이지.png'),
-              color: Colors.green,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: "",
-            icon: ImageIcon(
-              AssetImage('assets/culture.png'),
-              color: Colors.green,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: "",
-            icon: ImageIcon(
-              AssetImage('assets/home.png'),
-              color: Colors.green,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: "",
-            icon: ImageIcon(
-              AssetImage('assets/things.png'),
-              color: Colors.green,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: "",
-            icon: ImageIcon(
-              AssetImage('assets/마이.png'),
-              color: Colors.green,
-            ),
-          ),
-        ],
       ),
     );
   }

@@ -77,7 +77,11 @@ class _thingsMainPageState extends State<thingsMainPage> {
                 child: InkWell(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   onTap: () {
-                    Get.to(thingsShopPage());
+                    //Get.to(localSelectPage());
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => thingsShopPage()));
                   },
                   child: Container(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -95,7 +99,10 @@ class _thingsMainPageState extends State<thingsMainPage> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      Get.to(accessMainPage());
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => accessMainPage()));
                     },
                     child: Text(
                       'access',
@@ -104,7 +111,10 @@ class _thingsMainPageState extends State<thingsMainPage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Get.to(cultureMainPage());
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => cultureMainPage()));
                     },
                     child: Text(
                       'culture',
@@ -116,48 +126,6 @@ class _thingsMainPageState extends State<thingsMainPage> {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        items: [
-          BottomNavigationBarItem(
-            label: "",
-            icon: ImageIcon(
-              AssetImage('assets/페이지.png'),
-              color: Colors.green,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: "",
-            icon: ImageIcon(
-              AssetImage('assets/culture.png'),
-              color: Colors.green,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: "",
-            icon: ImageIcon(
-              AssetImage('assets/home.png'),
-              color: Colors.green,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: "",
-            icon: ImageIcon(
-              AssetImage('assets/things.png'),
-              color: Colors.green,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: "",
-            icon: ImageIcon(
-              AssetImage('assets/마이.png'),
-              color: Colors.green,
-            ),
-          ),
-        ],
       ),
     );
   }
