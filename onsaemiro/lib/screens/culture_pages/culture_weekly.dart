@@ -77,42 +77,44 @@ class _weeklyBestPageState extends State<weeklyBestPage> {
         centerTitle: true,
         elevation: 0.5,
       ),
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 70,
-            ),
-            SizedBox(
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  height: 484,
-                  enlargeCenterPage: true,
-                  enableInfiniteScroll: false,
-                ),
-                items: [imageList[0], imageList[1], imageList[2]],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 70,
               ),
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            Container(
-              width: 110,
-              height: 41,
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(26.5)),
-                  side: BorderSide(width: 2.0, color: Colors.green),
+              SizedBox(
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    height: 484,
+                    enlargeCenterPage: true,
+                    enableInfiniteScroll: false,
+                  ),
+                  items: [imageList[0], imageList[1], imageList[2]],
                 ),
-                child: Text(
-                  '인증하러 가기',
-                  style: TextStyle(color: Color(0xff595959), fontSize: 13),
-                ),
-                onPressed: () {},
               ),
-            )
-          ],
+              SizedBox(
+                height: 24,
+              ),
+              Container(
+                width: 110,
+                height: 41,
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(26.5)),
+                    side: BorderSide(width: 2.0, color: Colors.green),
+                  ),
+                  child: Text(
+                    '인증하러 가기',
+                    style: TextStyle(color: Color(0xff595959), fontSize: 13),
+                  ),
+                  onPressed: () {},
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

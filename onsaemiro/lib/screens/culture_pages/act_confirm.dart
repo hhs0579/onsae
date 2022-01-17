@@ -191,61 +191,65 @@ class _actConfirmPageState extends State<actConfirmPage> {
           centerTitle: true,
           elevation: 0.5,
         ),
-        body: Column(
-          children: [
-            Row(
-              children: [
-                TextButton(
-                  child: Text(
-                    '최신순',
-                    style: TextStyle(
-                        color: (isRecently) ? Colors.black : Colors.grey[500]),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  TextButton(
+                    child: Text(
+                      '최신순',
+                      style: TextStyle(
+                          color:
+                              (isRecently) ? Colors.black : Colors.grey[500]),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isRecently = true;
+                      });
+                    },
                   ),
-                  onPressed: () {
-                    setState(() {
-                      isRecently = true;
-                    });
-                  },
-                ),
-                TextButton(
-                  child: Text(
-                    '좋아요순',
-                    style: TextStyle(
-                        color: (!isRecently) ? Colors.black : Colors.grey[500]),
+                  TextButton(
+                    child: Text(
+                      '좋아요순',
+                      style: TextStyle(
+                          color:
+                              (!isRecently) ? Colors.black : Colors.grey[500]),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isRecently = false;
+                      });
+                    },
                   ),
-                  onPressed: () {
-                    setState(() {
-                      isRecently = false;
-                    });
-                  },
-                ),
-              ],
-            ),
-            if (isRecently)
-              SizedBox(
-                height: 550,
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    actBox('온새미로', images1[0], images1[1], images1[2]),
-                    actBox('온새미로', images2[0], images2[1], images2[2]),
-                    actBox('온새미로', images1[0], images1[1], images1[2])
-                  ],
-                ),
-              )
-            else
-              SizedBox(
-                height: 550,
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    actBox('온새미로', images1[0], images1[1], images1[2]),
-                    actBox('온새미로', images2[0], images2[1], images2[2]),
-                    actBox('온새미로', images1[0], images1[1], images1[2])
-                  ],
-                ),
-              )
-          ],
+                ],
+              ),
+              if (isRecently)
+                SizedBox(
+                  height: 550,
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      actBox('온새미로', images1[0], images1[1], images1[2]),
+                      actBox('온새미로', images2[0], images2[1], images2[2]),
+                      actBox('온새미로', images1[0], images1[1], images1[2])
+                    ],
+                  ),
+                )
+              else
+                SizedBox(
+                  height: 550,
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      actBox('온새미로', images1[0], images1[1], images1[2]),
+                      actBox('온새미로', images2[0], images2[1], images2[2]),
+                      actBox('온새미로', images1[0], images1[1], images1[2])
+                    ],
+                  ),
+                )
+            ],
+          ),
         ));
   }
 }
