@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 
 import 'local_Seoul2.dart';
 
@@ -60,8 +61,8 @@ imagestackWidget(shop, phone, where, insta, image, onTap) {
                   padding: EdgeInsets.fromLTRB(15, 4, 0, 4.5),
                   child: Row(
                     children: [
-                      ImageIcon(
-                        AssetImage('assets/위치.png'),
+                      Icon(
+                        Icons.place,
                         color: Color.fromRGBO(89, 89, 89, 1),
                         size: 7,
                       ),
@@ -116,7 +117,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
               Row(
                 children: [
                   SizedBox(
-                    width: 321,
+                    width: 300,
                     height: 31,
                     child: TextField(
                       style: TextStyle(fontSize: 11),
@@ -151,18 +152,23 @@ class _localSeoulPageState extends State<localSeoulPage> {
                     ),
                   ),
                   IconButton(
-                    icon: Image.asset('assets/장바구니 (누런녹색).png'),
-                    onPressed: () {},
+                    icon: Icon(Icons.shopping_cart),
+                    color: Colors.lightGreen,
+                    onPressed: () {
+                      Get.to(shoppingBagPage());
+                    },
                   ),
                 ],
               ),
               Row(
                 children: [
                   IconButton(
-                    padding: EdgeInsets.fromLTRB(20, 11, 100.59, 0),
-                    onPressed: () {},
-                    icon: Image.asset('assets/Vector(누런녹색).png'),
-                    iconSize: 12,
+                    padding: EdgeInsets.fromLTRB(5, 11, 100.59, 0),
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Icon(Icons.navigate_before, color: Colors.green),
+                    iconSize: 22,
                   ),
                   Text(
                     'access',
@@ -172,8 +178,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
                 ],
               ),
               Container(
-                  height: 30,
-                  padding: EdgeInsets.fromLTRB(135, 3, 0, 0),
+                  padding: EdgeInsets.fromLTRB(130, 10, 0, 0),
                   child: Row(
                     children: [
                       Text(
@@ -182,10 +187,9 @@ class _localSeoulPageState extends State<localSeoulPage> {
                             TextStyle(fontSize: 15, color: Color(0xff595959)),
                       ),
                       IconButton(
-                        onPressed: () {},
-                        icon: Image.asset('assets/화살표.png'),
-                        iconSize: 12,
-                      ),
+                          onPressed: () {},
+                          icon: Icon(Icons.expand_more,
+                              size: 22, color: Colors.lightGreen)),
                     ],
                   )),
               Row(
@@ -276,12 +280,8 @@ class _localSeoulPageState extends State<localSeoulPage> {
                               padding: EdgeInsets.fromLTRB(33, 6, 0, 7),
                               child: Row(
                                 children: [
-                                  ImageIcon(
-                                    AssetImage('assets/위치.png'),
-                                    color: Color.fromRGBO(89, 89, 89, 1),
-                                    size: 11,
-                                  ),
-                                  Text('부천 상동',
+                                  Icon(Icons.place, size: 11),
+                                  Text('서울 서초구 강남대로 465',
                                       style: TextStyle(
                                           color: Colors.black, fontSize: 11)),
                                 ],
@@ -334,7 +334,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
                     imagestackWidget(
                         '본비 비건 베이커리',
                         '02-558-0301',
-                        '고양 덕양구 신원동',
+                        '서울 강남구 테헤란로34길 21-10',
                         'http://www.instagram.com/bo.mool_vegan',
                         'assets/샌드위치.png',
                         () {}),
@@ -342,7 +342,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
                     imagestackWidget(
                         '아꼬떼 비건 베이커리',
                         '02-558-0301',
-                        '성남 분당구 정자동',
+                        '서울 강남구 논현로86길 26',
                         'http://www.instagram.com/bo.mool_vegan',
                         'assets/아꼬떼 비건.png',
                         () {}),

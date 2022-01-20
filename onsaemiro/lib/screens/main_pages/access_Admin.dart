@@ -23,10 +23,15 @@ class _accessAdminPageState extends State<accessAdminPage> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         actions: [
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            color: Colors.grey,
-            onPressed: () {},
+          Container(
+            margin: EdgeInsets.only(right: 12),
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart),
+              color: Colors.grey,
+              onPressed: () {
+                Get.to(shoppingBagPage());
+              },
+            ),
           )
         ],
         title: SizedBox(
@@ -42,10 +47,10 @@ class _accessAdminPageState extends State<accessAdminPage> {
                     icon: Icon(
                       Icons.search,
                       color: Colors.black,
-                      size: 15,
+                      size: 20,
                     )),
                 hintText: '상품검색',
-                hintStyle: TextStyle(fontSize: 11),
+                hintStyle: TextStyle(fontSize: 14),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(27.0)),
                   borderSide: BorderSide(color: Colors.grey),

@@ -38,7 +38,7 @@ class _accessMainPageState extends State<accessMainPage> {
           width: double.infinity,
           height: 44,
           child: TextField(
-            style: TextStyle(fontSize: 11),
+            style: TextStyle(fontSize: 14),
             decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(vertical: 8),
                 prefixIcon: IconButton(

@@ -62,39 +62,27 @@ class Root extends GetView<RootContorller> {
             items: [
               BottomNavigationBarItem(
                 label: "",
-                icon: ImageIcon(
-                  AssetImage('assets/페이지.png'),
-                  color: Colors.green,
-                ),
+                icon: Icon(Icons.feed_outlined, color: Colors.green, size: 30),
               ),
               BottomNavigationBarItem(
                 label: "",
-                icon: ImageIcon(
-                  AssetImage('assets/culture.png'),
-                  color: Colors.green,
-                ),
+                icon: Icon(Icons.people_outline, color: Colors.green, size: 30),
+                activeIcon: Icon(Icons.people, color: Colors.green),
               ),
               BottomNavigationBarItem(
                 label: "",
-                icon: ImageIcon(
-                  AssetImage('assets/home.png'),
-                  color: Colors.green,
-                ),
+                icon: Icon(Icons.home_outlined, color: Colors.green, size: 30),
               ),
               BottomNavigationBarItem(
                 label: "",
-                icon: ImageIcon(
-                  AssetImage('assets/things.png'),
-                  color: Colors.green,
-                ),
+                icon: Icon(Icons.shopping_bag_outlined,
+                    color: Colors.green, size: 30),
               ),
               BottomNavigationBarItem(
-                label: "",
-                icon: ImageIcon(
-                  AssetImage('assets/마이.png'),
-                  color: Colors.green,
-                ),
-              ),
+                  label: "",
+                  icon:
+                      Icon(Icons.person_outline, color: Colors.green, size: 30),
+                  activeIcon: Icon(Icons.person, color: Colors.green)),
             ],
           ),
         ),
