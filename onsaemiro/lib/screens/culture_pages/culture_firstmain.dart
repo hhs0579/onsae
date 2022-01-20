@@ -23,7 +23,7 @@ culture_Stack(name, double left, whichPicture, onTap) {
             children: [
               Text(
                 name,
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 22, color: Colors.white),
               ),
             ],
           ),
@@ -32,8 +32,7 @@ culture_Stack(name, double left, whichPicture, onTap) {
       Ink(
         decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(whichPicture),
-            ),
+                image: AssetImage(whichPicture), fit: BoxFit.fill),
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: InkWell(
           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -67,10 +66,10 @@ class _culture_firstPageState extends State<culture_firstPage> {
             Row(
               children: [
                 SizedBox(
-                  width: 321,
-                  height: 31,
+                  width: 300,
+                  height: 44,
                   child: TextField(
-                    style: TextStyle(fontSize: 11),
+                    style: TextStyle(fontSize: 14),
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         filled: true,
@@ -83,11 +82,11 @@ class _culture_firstPageState extends State<culture_firstPage> {
                             icon: Icon(
                               Icons.search,
                               color: Color.fromRGBO(67, 123, 86, 1),
-                              size: 15,
+                              size: 20,
                             )),
                         hintText: '상품검색',
                         hintStyle: TextStyle(
-                          fontSize: 11,
+                          fontSize: 14,
                           color: Color.fromRGBO(67, 123, 86, 0.5),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -101,7 +100,7 @@ class _culture_firstPageState extends State<culture_firstPage> {
                   ),
                 ),
                 IconButton(
-                  icon: Image.asset('assets/장바구니 (누런녹색).png'),
+                  icon: Icon(Icons.shopping_cart, color: Colors.lightGreen),
                   onPressed: () {},
                 ),
               ],
@@ -110,10 +109,11 @@ class _culture_firstPageState extends State<culture_firstPage> {
                 child: Row(
               children: [
                 IconButton(
-                  padding: EdgeInsets.fromLTRB(20, 33, 90.59, 34),
-                  onPressed: () {},
-                  icon: Image.asset('assets/Vector(진한녹색).png'),
-                  iconSize: 12,
+                  padding: EdgeInsets.fromLTRB(10, 33, 90.59, 34),
+                  icon: Icon(Icons.chevron_left, color: Colors.green, size: 30),
+                  onPressed: () {
+                    Get.back();
+                  },
                 ),
                 Text(
                   'culture',
@@ -134,19 +134,19 @@ class _culture_firstPageState extends State<culture_firstPage> {
               SizedBox(
                 height: 46,
               ),
-              culture_Stack('주간베스트', 107, 'assets/주간베스트.png', () {
+              culture_Stack('주간베스트', 107, 'assets/bb.jpeg', () {
                 Get.to(weeklyBestPage());
               }),
               SizedBox(
                 height: 20,
               ),
-              culture_Stack('act. 활동인증', 93, 'assets/활동인증.png', () {
+              culture_Stack('act. 활동인증', 93, 'assets/cc.jpg', () {
                 Get.to(actConfirmPage());
               }),
               SizedBox(
                 height: 20,
               ),
-              culture_Stack('온새미로 플리마켓', 75, 'assets/온새미로 플리마켓.png', () {
+              culture_Stack('온새미로 플리마켓', 75, 'assets/dd.jpg', () {
                 Get.to(fleaMarketPage());
               })
             ],

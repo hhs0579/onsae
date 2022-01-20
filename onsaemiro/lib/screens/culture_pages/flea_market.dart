@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 // import 'package:flutter_swiper/flutter_swiper.dart';
 
 class fleaMarketPage extends StatefulWidget {
@@ -22,7 +23,7 @@ Widget informationBox() {
           padding: EdgeInsets.fromLTRB(40, 30, 39, 20),
           child: Container(
             width: 185,
-            height: 262,
+            height: 272,
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/플리마켓 안내.png'), fit: BoxFit.fill)),
@@ -32,17 +33,17 @@ Widget informationBox() {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('일시 : 2021.11.13(토) 10:00~16:00\n장소 : 풍납백제문화공원',
-                style: TextStyle(fontSize: 11)),
+                style: TextStyle(fontSize: 14)),
             SizedBox(
               height: 20,
             ),
-            Text('행사내용', style: TextStyle(fontSize: 11)),
+            Text('행사내용', style: TextStyle(fontSize: 14)),
             SizedBox(
               height: 11,
             ),
             Text(
                 '도시재생사업 홍보 및 주민협의제 회원 모집 부스\n의류,신발,장남감,유아용품 등 중고물품 판매 셀러 (10팀)\n 로컬푸드, 커피, 디저트 등 풍납 시장 상인회 (5팀)\n핸드메이드 쥬얼리, 페브릭 가방, 마들렌, 목공예품 등 전문셀러 (15팀)\n청소년을 위한 딱지치기, 페이스페인팅 이벤트 등',
-                style: TextStyle(fontSize: 8)),
+                style: TextStyle(fontSize: 10)),
           ],
         ),
       ],
@@ -70,10 +71,10 @@ class _fleaMarketPageState extends State<fleaMarketPage> {
             Row(
               children: [
                 SizedBox(
-                  width: 321,
-                  height: 31,
+                  width: 300,
+                  height: 44,
                   child: TextField(
-                    style: TextStyle(fontSize: 11),
+                    style: TextStyle(fontSize: 14),
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         filled: true,
@@ -86,11 +87,11 @@ class _fleaMarketPageState extends State<fleaMarketPage> {
                             icon: Icon(
                               Icons.search,
                               color: Color.fromRGBO(67, 123, 86, 1),
-                              size: 15,
+                              size: 20,
                             )),
                         hintText: '상품검색',
                         hintStyle: TextStyle(
-                          fontSize: 11,
+                          fontSize: 14,
                           color: Color.fromRGBO(67, 123, 86, 0.5),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -104,7 +105,10 @@ class _fleaMarketPageState extends State<fleaMarketPage> {
                   ),
                 ),
                 IconButton(
-                  icon: Image.asset('assets/장바구니(진한녹색).png'),
+                  icon: Icon(
+                    Icons.shopping_cart,
+                    color: Colors.green,
+                  ),
                   onPressed: () {},
                 ),
               ],
@@ -113,17 +117,18 @@ class _fleaMarketPageState extends State<fleaMarketPage> {
                 child: Row(
               children: [
                 IconButton(
-                  padding: EdgeInsets.fromLTRB(20, 33, 30.59, 34),
-                  onPressed: () {},
-                  icon: Image.asset('assets/Vector(진한녹색).png'),
-                  iconSize: 12,
+                  padding: EdgeInsets.fromLTRB(10, 33, 30.59, 34),
+                  icon: Icon(Icons.chevron_left, color: Colors.green, size: 30),
+                  onPressed: () {
+                    Get.back();
+                  },
                 ),
                 Column(
                   children: [
                     Text(
                       '온새미로 플리마켓',
                       style: TextStyle(
-                          fontSize: 36,
+                          fontSize: 30,
                           color: Color.fromRGBO(67, 123, 86, 1),
                           fontWeight: FontWeight.w700),
                     ),

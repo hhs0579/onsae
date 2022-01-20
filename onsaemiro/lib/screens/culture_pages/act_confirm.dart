@@ -18,7 +18,7 @@ List<String> images1 = [
 ];
 List<String> images2 = [
   'assets/게시물2 이미지1.png',
-  'assets/게시물2 이미지2.png',
+  'assets/jj.jpg',
   'assets/게시물2 이미지3.png'
 ];
 actImage(image) {
@@ -32,7 +32,7 @@ actImage(image) {
 
 actBox(profileName, images_1, images_2, images_3) {
   return Padding(
-      padding: EdgeInsets.fromLTRB(10, 9, 10, 2),
+      padding: EdgeInsets.fromLTRB(4, 9, 10, 2),
       child: Container(
           height: 239,
           decoration: BoxDecoration(
@@ -75,12 +75,12 @@ actBox(profileName, images_1, images_2, images_3) {
                             ],
                           ),
                           SizedBox(
-                            width: 250,
+                            width: 230,
                           ),
                           Column(
                             children: [
-                              ImageIcon(
-                                AssetImage('assets/좋아요.png'),
+                              Icon(
+                                Icons.thumb_up,
                                 size: 20,
                               ),
                               SizedBox(
@@ -149,12 +149,15 @@ class _actConfirmPageState extends State<actConfirmPage> {
           title: Column(
             children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(30, 56, 0, 0),
+                padding: EdgeInsets.fromLTRB(5, 56, 0, 0),
                 child: Row(
                   children: [
-                    ImageIcon(
-                      AssetImage('assets/Vector(진한녹색).png'),
-                      color: Color.fromRGBO(67, 123, 86, 1),
+                    IconButton(
+                      icon: Icon(Icons.chevron_left,
+                          color: Colors.green, size: 30),
+                      onPressed: () {
+                        Get.back();
+                      },
                     ),
                     SizedBox(
                       width: 55,

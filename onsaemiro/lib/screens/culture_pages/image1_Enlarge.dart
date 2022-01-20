@@ -25,7 +25,12 @@ class _image1EnlargePageState extends State<image1EnlargePage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 138,
-        leading: Image.asset('assets/Vector(진한녹색).png'),
+        leading: IconButton(
+          icon: Icon(Icons.chevron_left, color: Colors.green, size: 30),
+          onPressed: () {
+            Get.back();
+          },
+        ),
         backgroundColor: Colors.white,
         title: Text(
           '주간 베스트',

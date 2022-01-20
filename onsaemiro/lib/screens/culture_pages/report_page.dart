@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class reportPage extends StatefulWidget {
   const reportPage({Key? key}) : super(key: key);
@@ -19,15 +20,18 @@ class _reportPageState extends State<reportPage> {
         title: Column(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(30, 56, 0, 0),
+              padding: EdgeInsets.fromLTRB(0, 56, 0, 0),
               child: Row(
                 children: [
-                  ImageIcon(
-                    AssetImage('assets/Vector(진한녹색).png'),
-                    color: Color.fromRGBO(67, 123, 86, 1),
+                  IconButton(
+                    icon:
+                        Icon(Icons.chevron_left, color: Colors.green, size: 30),
+                    onPressed: () {
+                      Get.back();
+                    },
                   ),
                   SizedBox(
-                    width: 85,
+                    width: 75,
                   ),
                   Text(
                     '신고하기',
@@ -47,7 +51,10 @@ class _reportPageState extends State<reportPage> {
                     onPressed: () {},
                     child: Text(
                       '등록하기',
-                      style: TextStyle(color: Colors.black, fontSize: 15),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                      ),
                     )),
                 SizedBox(
                   width: 10,
