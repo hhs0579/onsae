@@ -52,10 +52,10 @@ class _weeklyBestPageState extends State<weeklyBestPage> {
     image_widget('assets/son.jfif', () {
       Get.to(image1EnlargePage());
     }),
-    image_widget('assets/헌혈.png', () {
+    image_widget('assets/nn.jpg', () {
       Get.to(image2EnlargePage());
     }),
-    image_widget('assets/사람.png', () {
+    image_widget('assets/ll.jpg', () {
       Get.to(image3EnlargePage());
     })
   ];

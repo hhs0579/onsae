@@ -19,10 +19,15 @@ class editInfoState extends State<edit_infoPage> {
       appBar: AppBar(
         toolbarHeight: 100,
         shape: Border(bottom: BorderSide(color: Colors.green)),
-        leading: Image.asset('assets/Vector.png'),
+        leading: IconButton(
+          icon: Icon(Icons.chevron_left, color: Colors.green, size: 30),
+          onPressed: () {
+            Get.back();
+          },
+        ),
         actions: [
           IconButton(
-            icon: Image.asset('assets/장바구니.png'),
+            icon: Icon(Icons.shopping_cart, color: Colors.green, size: 30),
             onPressed: () {
               Get.to(accessMainPage());
             },

@@ -25,7 +25,7 @@ class _shoppingBagPageState extends State<shoppingBagPage> {
               Row(
                 children: [
                   SizedBox(
-                    width: 27,
+                    width: 18,
                   ),
                   Container(
                     decoration: BoxDecoration(boxShadow: [
@@ -34,10 +34,10 @@ class _shoppingBagPageState extends State<shoppingBagPage> {
                           blurRadius: 4.0,
                           offset: Offset(0.0, 0.0))
                     ], borderRadius: BorderRadius.circular(20)),
-                    width: 321,
-                    height: 31,
+                    width: 300,
+                    height: 44,
                     child: TextField(
-                      style: TextStyle(fontSize: 11),
+                      style: TextStyle(fontSize: 14),
                       decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -50,11 +50,11 @@ class _shoppingBagPageState extends State<shoppingBagPage> {
                               icon: Icon(
                                 Icons.search,
                                 color: Color.fromRGBO(89, 89, 89, 1),
-                                size: 15,
+                                size: 20,
                               )),
                           hintText: '상품검색',
                           hintStyle: TextStyle(
-                              fontSize: 11,
+                              fontSize: 14,
                               color: Color.fromRGBO(89, 89, 89, 0.5)),
                           enabledBorder: OutlineInputBorder(
                             borderRadius:
@@ -75,10 +75,10 @@ class _shoppingBagPageState extends State<shoppingBagPage> {
               Row(
                 children: [
                   IconButton(
-                    padding: EdgeInsets.fromLTRB(30, 33, 79, 34),
+                    padding: EdgeInsets.fromLTRB(5, 33, 79, 34),
                     onPressed: () {},
-                    icon: Image.asset('assets/Vector.png'),
-                    iconSize: 12,
+                    icon: Icon(Icons.chevron_left, color: Colors.green),
+                    iconSize: 30,
                   ),
                   Text(
                     '장바구니',

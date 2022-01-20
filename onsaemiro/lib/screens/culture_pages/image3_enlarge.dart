@@ -44,7 +44,7 @@ class _image3EnlargePageState extends State<image3EnlargePage> {
             SizedBox(
               height: 57,
             ),
-            enlargeImage('assets/사람.png'),
+            enlargeImage('ll.jpg'),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

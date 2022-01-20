@@ -45,7 +45,7 @@ class _image2EnlargePageState extends State<image2EnlargePage> {
             SizedBox(
               height: 57,
             ),
-            enlargeImage('assets/헌혈.png'),
+            enlargeImage('assets/nn.jpg'),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
