@@ -44,7 +44,7 @@ class _image1EnlargePageState extends State<image1EnlargePage> {
             SizedBox(
               height: 57,
             ),
-            enlargeImage('assets/도서관.png'),
+            enlargeImage('assets/son.jfif'),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

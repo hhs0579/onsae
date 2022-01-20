@@ -49,7 +49,7 @@ image_widget(image, onPressed) {
 
 class _weeklyBestPageState extends State<weeklyBestPage> {
   List<Widget> imageList = [
-    image_widget('assets/도서관.png', () {
+    image_widget('assets/son.jfif', () {
       Get.to(image1EnlargePage());
     }),
     image_widget('assets/헌혈.png', () {

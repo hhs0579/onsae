@@ -118,9 +118,9 @@ class _localSeoulPageState extends State<localSeoulPage> {
                 children: [
                   SizedBox(
                     width: 300,
-                    height: 31,
+                    height: 44,
                     child: TextField(
-                      style: TextStyle(fontSize: 11),
+                      style: TextStyle(fontSize: 14),
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           filled: true,
@@ -133,11 +133,11 @@ class _localSeoulPageState extends State<localSeoulPage> {
                               icon: Icon(
                                 Icons.search,
                                 color: Color.fromRGBO(162, 191, 98, 1),
-                                size: 15,
+                                size: 20,
                               )),
                           hintText: '상품검색',
                           hintStyle: TextStyle(
-                              fontSize: 11,
+                              fontSize: 14,
                               color: Color.fromRGBO(162, 191, 98, 0.5)),
                           enabledBorder: OutlineInputBorder(
                             borderRadius:
