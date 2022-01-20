@@ -24,15 +24,16 @@ class _accessAdminPageState extends State<accessAdminPage> {
         elevation: 0.0,
         actions: [
           IconButton(
-            icon: Image.asset('assets/장바구니(검정).png'),
+            icon: Icon(Icons.shopping_cart),
+            color: Colors.grey,
             onPressed: () {},
           )
         ],
         title: SizedBox(
           width: double.infinity,
-          height: 37,
+          height: 44,
           child: TextField(
-            style: TextStyle(fontSize: 11),
+            style: TextStyle(fontSize: 14),
             decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(vertical: 8),
                 prefixIcon: IconButton(
@@ -71,8 +72,7 @@ class _accessAdminPageState extends State<accessAdminPage> {
               Ink(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/디어비건베이커리 1.png'),
-                    ),
+                        image: AssetImage('assets/빵.jpeg'), fit: BoxFit.fill),
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: InkWell(
                   borderRadius: BorderRadius.all(Radius.circular(20)),

@@ -16,22 +16,27 @@ local_Stack(where, whereInEnglish, whichPicture, onTap) {
   return Stack(
     children: [
       Positioned(
-        top: 58.5,
+        top: 50,
         left: 130,
         child: Column(
           children: [
-            Text(where),
-            Text(whereInEnglish),
+            Text(
+              where,
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            Text(whereInEnglish,
+                style: TextStyle(color: Colors.white, fontSize: 20)),
           ],
         ),
       ),
       Ink(
-        padding: EdgeInsets.fromLTRB(0, 19, 0, 19),
+        padding: EdgeInsets.fromLTRB(19, 19, 19, 19),
         decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(whichPicture),
+              fit: BoxFit.cover,
             ),
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+            borderRadius: BorderRadius.all(Radius.circular(40))),
         child: InkWell(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           onTap: onTap,
@@ -40,7 +45,6 @@ local_Stack(where, whereInEnglish, whichPicture, onTap) {
             width: 291,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
           ),
@@ -64,8 +68,8 @@ class _localSelectPageState extends State<localSelectPage> {
             Row(
               children: [
                 SizedBox(
-                  width: 321,
-                  height: 31,
+                  width: 300,
+                  height: 44,
                   child: TextField(
                     style: TextStyle(fontSize: 11),
                     decoration: InputDecoration(
@@ -84,7 +88,7 @@ class _localSelectPageState extends State<localSelectPage> {
                             )),
                         hintText: '상품검색',
                         hintStyle: TextStyle(
-                            fontSize: 11,
+                            fontSize: 14,
                             color: Color.fromRGBO(162, 191, 98, 0.5)),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(27.0)),
@@ -97,7 +101,7 @@ class _localSelectPageState extends State<localSelectPage> {
                   ),
                 ),
                 IconButton(
-                  icon: Image.asset('assets/장바구니 (누런녹색).png'),
+                  icon: Icon(Icons.shopping_cart, color: Color(0xffA2BF62)),
                   onPressed: () {},
                 ),
               ],
@@ -106,9 +110,12 @@ class _localSelectPageState extends State<localSelectPage> {
                 child: Row(
               children: [
                 IconButton(
-                  padding: EdgeInsets.fromLTRB(20, 33, 90.59, 34),
-                  onPressed: () {},
-                  icon: Image.asset('assets/Vector(누런녹색).png'),
+                  padding: EdgeInsets.fromLTRB(20, 22, 90.59, 34),
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: Icon(Icons.navigate_before,
+                      color: Color(0xffA2BF62), size: 30),
                   iconSize: 12,
                 ),
                 Text(
@@ -123,19 +130,34 @@ class _localSelectPageState extends State<localSelectPage> {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Column(
-            children: [
-              local_Stack('서울', 'Seoul', 'assets/서울.png', () {
-                Get.to(localSeoulPage());
-              }),
-              local_Stack('서울', 'Seoul', 'assets/서울.png', () {}),
-              local_Stack('대구', 'Deagu', 'assets/대구.png', () {}),
-              SizedBox(
-                height: 14,
-              ),
-              local_Stack('부산', 'Busan', 'assets/부산.png', () {}),
-              local_Stack('부산', 'Busan', 'assets/부산.png', () {}),
-            ],
+          child: Container(
+            margin: EdgeInsets.only(top: 40),
+            child: Column(
+              children: [
+                local_Stack('\t\t서울', '\t\tSeoul\t', 'assets/seoul.jpg', () {
+                  Get.to(localSeoulPage());
+                }),
+                SizedBox(
+                  height: 14,
+                ),
+                local_Stack('인천', 'Incheon', 'assets/incheon.jpg', () {}),
+                SizedBox(
+                  height: 14,
+                ),
+                local_Stack('\t\t부산', '\t\tBusan', 'assets/busan.jpg', () {}),
+                SizedBox(
+                  height: 14,
+                ),
+                local_Stack('\t\t대구', '\t\tDaegu', 'assets/daegu.jpg', () {}),
+                SizedBox(
+                  height: 14,
+                ),
+                local_Stack('강원', 'Gangwon', 'assets/gangwon.jpg', () {}),
+                SizedBox(
+                  height: 14,
+                ),
+              ],
+            ),
           ),
         ),
       ),

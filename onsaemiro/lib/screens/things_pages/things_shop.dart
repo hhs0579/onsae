@@ -17,8 +17,9 @@ class _thingsShopPageState extends State<thingsShopPage> {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-            padding: EdgeInsets.fromLTRB(10, 55, 10, 84),
-            icon: Image.asset('assets/장바구니 (누런녹색).png'),
+            padding: EdgeInsets.fromLTRB(10, 10, 30, 84),
+            icon: Icon(Icons.shopping_cart),
+            color: Color.fromRGBO(162, 191, 98, 1),
             onPressed: () {},
           ),
         ],
@@ -26,7 +27,7 @@ class _thingsShopPageState extends State<thingsShopPage> {
         title: Column(
           children: [
             Container(
-              height: 31,
+              height: 44,
               child: TextField(
                 style: TextStyle(fontSize: 11),
                 decoration: InputDecoration(
@@ -41,11 +42,11 @@ class _thingsShopPageState extends State<thingsShopPage> {
                         icon: Icon(
                           Icons.search,
                           color: Color.fromRGBO(162, 191, 98, 1),
-                          size: 15,
+                          size: 20,
                         )),
                     hintText: '상품검색',
                     hintStyle: TextStyle(
-                        fontSize: 11, color: Color.fromRGBO(162, 191, 98, 0.5)),
+                        fontSize: 14, color: Color.fromRGBO(162, 191, 98, 0.5)),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(27.0)),
                       borderSide: BorderSide(color: Color(0xffffffff)),
@@ -59,10 +60,11 @@ class _thingsShopPageState extends State<thingsShopPage> {
                 child: Row(
               children: [
                 IconButton(
-                  padding: EdgeInsets.fromLTRB(20, 33, 90.59, 34),
+                  padding: EdgeInsets.fromLTRB(20, 20, 80, 34),
                   onPressed: () {},
-                  icon: Image.asset('assets/Vector(누런녹색).png'),
-                  iconSize: 12,
+                  icon: Icon(Icons.navigate_before),
+                  color: Color.fromRGBO(162, 191, 98, 1),
+                  iconSize: 25,
                 ),
                 Text(
                   'things',

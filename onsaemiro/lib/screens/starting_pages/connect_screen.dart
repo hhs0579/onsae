@@ -52,7 +52,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
               SizedBox(
                 width: 220,
                 height: 160,
-                child: Image.asset('assets/logo.png'),
+                child: Image.asset('assets/on.png'),
               ),
               SizedBox(
                 height: 50,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/culture_main.dart';
 import 'package:onsaemiro/screens/things_pages/things_shop.dart';
 
@@ -23,9 +24,15 @@ class _thingsMainPageState extends State<thingsMainPage> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         actions: [
-          IconButton(
-            icon: Image.asset('assets/장바구니(검정).png'),
-            onPressed: () {},
+          Container(
+            margin: EdgeInsets.only(right: 12),
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart),
+              color: Colors.grey,
+              onPressed: () {
+                Get.to(shoppingBagPage());
+              },
+            ),
           )
         ],
         title: Container(
@@ -41,10 +48,10 @@ class _thingsMainPageState extends State<thingsMainPage> {
                     icon: Icon(
                       Icons.search,
                       color: Colors.black,
-                      size: 15,
+                      size: 20,
                     )),
                 hintText: '상품검색',
-                hintStyle: TextStyle(fontSize: 11),
+                hintStyle: TextStyle(fontSize: 14),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(27.0)),
                   borderSide: BorderSide(color: Colors.grey),
@@ -71,8 +78,7 @@ class _thingsMainPageState extends State<thingsMainPage> {
               Ink(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/mangnut.png'),
-                    ),
+                        image: AssetImage('assets/shop.png'), fit: BoxFit.fill),
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: InkWell(
                   borderRadius: BorderRadius.all(Radius.circular(20)),

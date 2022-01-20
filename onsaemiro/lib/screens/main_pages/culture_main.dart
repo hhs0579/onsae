@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/culture_pages/culture_firstmain.dart';
 
 import 'access_main.dart';
@@ -23,14 +24,20 @@ class _cultureMainPageState extends State<cultureMainPage> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         actions: [
-          IconButton(
-            icon: Image.asset('assets/장바구니(검정).png'),
-            onPressed: () {},
+          Container(
+            margin: EdgeInsets.only(right: 12),
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart),
+              color: Colors.grey,
+              onPressed: () {
+                Get.to(shoppingBagPage());
+              },
+            ),
           )
         ],
         title: Container(
           width: double.infinity,
-          height: 37,
+          height: 44,
           child: TextField(
             style: TextStyle(fontSize: 11),
             decoration: InputDecoration(
@@ -41,10 +48,10 @@ class _cultureMainPageState extends State<cultureMainPage> {
                     icon: Icon(
                       Icons.search,
                       color: Colors.black,
-                      size: 15,
+                      size: 20,
                     )),
                 hintText: '상품검색',
-                hintStyle: TextStyle(fontSize: 11),
+                hintStyle: TextStyle(fontSize: 14),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(27.0)),
                   borderSide: BorderSide(color: Colors.grey),
@@ -71,8 +78,7 @@ class _cultureMainPageState extends State<cultureMainPage> {
               Ink(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/시장.png'),
-                    ),
+                        image: AssetImage('assets/aa.jpg'), fit: BoxFit.fill),
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: InkWell(
                   borderRadius: BorderRadius.all(Radius.circular(20)),

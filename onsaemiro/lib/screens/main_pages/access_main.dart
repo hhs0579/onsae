@@ -23,16 +23,20 @@ class _accessMainPageState extends State<accessMainPage> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         actions: [
-          IconButton(
-            icon: Image.asset('assets/장바구니(검정).png'),
-            onPressed: () {
-              Get.to(shoppingBagPage());
-            },
+          Container(
+            margin: EdgeInsets.only(right: 12),
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart),
+              color: Colors.grey,
+              onPressed: () {
+                Get.to(shoppingBagPage());
+              },
+            ),
           )
         ],
         title: Container(
           width: double.infinity,
-          height: 37,
+          height: 44,
           child: TextField(
             style: TextStyle(fontSize: 11),
             decoration: InputDecoration(
@@ -43,10 +47,10 @@ class _accessMainPageState extends State<accessMainPage> {
                     icon: Icon(
                       Icons.search,
                       color: Colors.black,
-                      size: 15,
+                      size: 20,
                     )),
                 hintText: '상품검색',
-                hintStyle: TextStyle(fontSize: 11),
+                hintStyle: TextStyle(fontSize: 14),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(27.0)),
                   borderSide: BorderSide(color: Colors.grey),
@@ -68,13 +72,12 @@ class _accessMainPageState extends State<accessMainPage> {
                   padding: EdgeInsets.fromLTRB(115, 0, 115, 20),
                   child: Text(
                     'access',
-                    style: TextStyle(fontSize: 36, color: Color(0xff595959)),
+                    style: TextStyle(fontSize: 46, color: Color(0xff595959)),
                   )),
               Ink(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/디어비건베이커리 1.png'),
-                    ),
+                        image: AssetImage('assets/빵.jpeg'), fit: BoxFit.fill),
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: InkWell(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
