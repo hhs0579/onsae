@@ -22,7 +22,7 @@ Widget informationBox() {
         Padding(
           padding: EdgeInsets.fromLTRB(40, 30, 39, 20),
           child: Container(
-            width: 185,
+            width: 190,
             height: 272,
             decoration: BoxDecoration(
                 image: DecorationImage(
@@ -156,7 +156,7 @@ class _fleaMarketPageState extends State<fleaMarketPage> {
               SizedBox(
                 child: CarouselSlider(
                   options: CarouselOptions(
-                    height: 484,
+                    height: 550,
                     enableInfiniteScroll: false,
                   ),
                   items: [
