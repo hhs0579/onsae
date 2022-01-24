@@ -356,7 +356,11 @@ class _shopIntroduceAdminPageState extends State<shopIntroduceAdminPage> {
                                   fontSize: 11),
                             ),
                             onPressed: () {
-                              Get.to(productRegistrationPage());
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          productRegistrationPage()));
                             },
                           ),
                         )

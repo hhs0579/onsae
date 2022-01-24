@@ -48,19 +48,22 @@ image_widget(image, onPressed) {
 }
 
 class _weeklyBestPageState extends State<weeklyBestPage> {
-  List<Widget> imageList = [
-    image_widget('assets/son.jfif', () {
-      Get.to(image1EnlargePage());
-    }),
-    image_widget('assets/nn.jpg', () {
-      Get.to(image2EnlargePage());
-    }),
-    image_widget('assets/ll.jpg', () {
-      Get.to(image3EnlargePage());
-    })
-  ];
   @override
   Widget build(BuildContext context) {
+    List<Widget> imageList = [
+      image_widget('assets/son.jfif', () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => image1EnlargePage()));
+      }),
+      image_widget('assets/nn.jpg', () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => image2EnlargePage()));
+      }),
+      image_widget('assets/ll.jpg', () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => image3EnlargePage()));
+      })
+    ];
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 138,

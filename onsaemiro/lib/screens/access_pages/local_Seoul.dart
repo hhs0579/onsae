@@ -155,7 +155,10 @@ class _localSeoulPageState extends State<localSeoulPage> {
                     icon: Icon(Icons.shopping_cart),
                     color: Colors.lightGreen,
                     onPressed: () {
-                      Get.to(shoppingBagPage());
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => shoppingBagPage()));
                     },
                   ),
                 ],
@@ -328,7 +331,10 @@ class _localSeoulPageState extends State<localSeoulPage> {
                         '서울 강남구 논현로 67길 11 1층',
                         'http://www.instagram.com/bo.mool_vegan',
                         'assets/비건 베이커리 보물.png', () {
-                      Get.to(localSeoul2Page());
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => localSeoul2Page()));
                     }),
                     SizedBox(width: 26),
                     imagestackWidget(

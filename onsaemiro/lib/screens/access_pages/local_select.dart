@@ -135,7 +135,10 @@ class _localSelectPageState extends State<localSelectPage> {
             child: Column(
               children: [
                 local_Stack('\t\t서울', '\t\tSeoul\t', 'assets/seoul.jpg', () {
-                  Get.to(localSeoulPage());
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => localSeoulPage()));
                 }),
                 SizedBox(
                   height: 14,

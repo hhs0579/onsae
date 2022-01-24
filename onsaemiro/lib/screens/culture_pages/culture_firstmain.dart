@@ -135,19 +135,22 @@ class _culture_firstPageState extends State<culture_firstPage> {
                 height: 46,
               ),
               culture_Stack('주간베스트', 107, 'assets/bb.jpeg', () {
-                Get.to(weeklyBestPage());
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => weeklyBestPage()));
               }),
               SizedBox(
                 height: 20,
               ),
               culture_Stack('act. 활동인증', 93, 'assets/cc.jpg', () {
-                Get.to(actConfirmPage());
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => actConfirmPage()));
               }),
               SizedBox(
                 height: 20,
               ),
               culture_Stack('온새미로 플리마켓', 75, 'assets/dd.jpg', () {
-                Get.to(fleaMarketPage());
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => fleaMarketPage()));
               })
             ],
           ),

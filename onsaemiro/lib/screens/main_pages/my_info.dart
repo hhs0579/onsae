@@ -169,13 +169,18 @@ class _MyInfoPageState extends State<MyInfoPage> {
               height: 5,
             ),
             _connectbutton('회원정보 수정', () {
-              Get.to(edit_infoPage());
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => edit_infoPage()));
             }),
             _connectbutton('상점 후기 작성', () {
-              Get.to(store_commentPage());
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => store_commentPage()));
             }),
             _connectbutton('상품 후기 작성', () {
-              Get.to(product_CommentPage());
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => product_CommentPage()));
             }),
             SizedBox(
               height: 5,

@@ -4,20 +4,20 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 
 import 'package:onsaemiro/screens/access_pages/product_review.dart';
 
-class productInformationPage extends StatefulWidget {
-  const productInformationPage({Key? key}) : super(key: key);
+class thingsInformationPage extends StatefulWidget {
+  const thingsInformationPage({Key? key}) : super(key: key);
 
   @override
-  _productInformationPageState createState() => _productInformationPageState();
+  _thingsInformationPageState createState() => _thingsInformationPageState();
 }
 
 total(num, price) {
   return num * price;
 }
 
-class _productInformationPageState extends State<productInformationPage> {
+class _thingsInformationPageState extends State<thingsInformationPage> {
   var num = 0;
-  var price = 2800;
+  var price = 1100;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,10 @@ class _productInformationPageState extends State<productInformationPage> {
                   height: 275,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/둘리우니 1.png'),
+                          image: AssetImage('assets/약콩두유.png'),
+                          colorFilter: ColorFilter.mode(
+                              Color.fromRGBO(89, 89, 89, 1).withOpacity(0.5),
+                              BlendMode.dstATop),
                           fit: BoxFit.fill)),
                 ),
                 Positioned(
@@ -62,7 +65,7 @@ class _productInformationPageState extends State<productInformationPage> {
                     padding: EdgeInsets.fromLTRB(0, 190, 0, 0),
                     child: Container(
                       width: 311,
-                      height: 384,
+                      height: 329,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(
@@ -74,19 +77,11 @@ class _productInformationPageState extends State<productInformationPage> {
                             height: 20,
                           ),
                           Text(
-                            '둘리우니',
+                            '약콩두유 100',
                             style: TextStyle(fontSize: 24),
                           ),
                           SizedBox(
-                            height: 54,
-                          ),
-                          Text(
-                            '보리와 귀리가 만난 비건 브라우니!\n쫀득하고 진한 다크 오리지널은 속세의 맛',
-                            style: TextStyle(fontSize: 15),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(
-                            height: 133,
+                            height: 167,
                           ),
                           Row(
                             children: [
@@ -95,14 +90,14 @@ class _productInformationPageState extends State<productInformationPage> {
                               ),
                               Text(
                                 '가격',
-                                style: TextStyle(fontSize: 15),
+                                style: TextStyle(fontSize: 18),
                               ),
                               SizedBox(
-                                width: 132,
+                                width: 180,
                               ),
                               Text(
-                                '2,800 ~ 3,200원',
-                                style: TextStyle(fontSize: 15),
+                                '1,100원',
+                                style: TextStyle(fontSize: 18),
                               )
                             ],
                           ),
@@ -123,7 +118,7 @@ class _productInformationPageState extends State<productInformationPage> {
                               ),
                               Text(
                                 '수량',
-                                style: TextStyle(fontSize: 15),
+                                style: TextStyle(fontSize: 18),
                               ),
                               SizedBox(
                                 width: 180,
@@ -159,7 +154,7 @@ class _productInformationPageState extends State<productInformationPage> {
                                         )),
                                     Text(
                                       '$num',
-                                      style: TextStyle(fontSize: 9),
+                                      style: TextStyle(fontSize: 13),
                                     ),
                                     IconButton(
                                         padding: EdgeInsets.zero,
@@ -251,31 +246,6 @@ class _productInformationPageState extends State<productInformationPage> {
                 ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  child: Text(
-                    '후기 보러가기',
-                    style: TextStyle(
-                        fontSize: 13, color: Color.fromRGBO(89, 89, 89, 1)),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => productReviewPage()));
-                  },
-                ),
-                ImageIcon(
-                  AssetImage('assets/바로가기 버튼.png'),
-                  size: 6,
-                ),
-                SizedBox(
-                  width: 70,
-                )
-              ],
-            )
           ],
         ),
       ),

@@ -146,7 +146,11 @@ class _productRegistrationPageState extends State<productRegistrationPage> {
                         itemCount: items.length,
                         itemBuilder: (BuildContext context, int index) {
                           return productBox(input, () {
-                            Get.to(productConfirmPage());
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        productConfirmPage()));
                           }, () {
                             setState(() {
                               items.removeAt(index);

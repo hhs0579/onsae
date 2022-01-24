@@ -371,7 +371,11 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                         scrollDirection: Axis.vertical,
                         children: [
                           product_Box('assets/둘리우니 1.png', () {
-                            Get.to(productInformationPage());
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        productInformationPage()));
                           }, '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
                           product_Box('assets/둘리우니 1.png', () {}, '둘리우니',
                               '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),

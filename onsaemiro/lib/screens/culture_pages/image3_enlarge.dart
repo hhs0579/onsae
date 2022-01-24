@@ -38,36 +38,41 @@ class _image3EnlargePageState extends State<image3EnlargePage> {
         centerTitle: true,
         elevation: 0.5,
       ),
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 57,
-            ),
-            enlargeImage('ll.jpg'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ImageIcon(
-                  AssetImage('assets/신고.png'),
-                  color: Colors.red,
-                  size: 14,
-                ),
-                TextButton(
-                  onPressed: () {
-                    Get.to(reportPage());
-                  },
-                  child: Text(
-                    '신고하기',
-                    style: TextStyle(color: Colors.red, fontSize: 11),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 57,
+              ),
+              enlargeImage('assets/ll.jpg'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ImageIcon(
+                    AssetImage('assets/신고.png'),
+                    color: Colors.red,
+                    size: 14,
                   ),
-                ),
-                SizedBox(
-                  width: 50,
-                )
-              ],
-            )
-          ],
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => reportPage()));
+                    },
+                    child: Text(
+                      '신고하기',
+                      style: TextStyle(color: Colors.red, fontSize: 11),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 50,
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

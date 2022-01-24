@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
+import 'package:onsaemiro/screens/things_pages/things_information.dart';
 
 class thingsShopPage extends StatefulWidget {
   const thingsShopPage({Key? key}) : super(key: key);
@@ -9,9 +10,20 @@ class thingsShopPage extends StatefulWidget {
   _thingsShopPageState createState() => _thingsShopPageState();
 }
 
-final List<String> items = List.generate(20, (i) {
-  return '가게이름';
+List<String> items = List.generate(20, (i) {
+  return '망';
 });
+
+foodBox() {
+  return Container(
+      height: 90,
+      width: 105,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        image: DecorationImage(image: AssetImage('assets/mangnut.png')),
+        border: Border.all(color: Colors.lightGreen),
+      ));
+}
 
 class _thingsShopPageState extends State<thingsShopPage> {
   @override
@@ -89,21 +101,40 @@ class _thingsShopPageState extends State<thingsShopPage> {
         body: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
+            mainAxisSpacing: 0,
+            crossAxisSpacing: 0,
           ),
           itemCount: items.length,
           itemBuilder: (context, i) {
-            return Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                border: Border.all(color: Colors.lightGreen),
-              ),
-              child: GridTile(
-                child: Center(
-                  child: Text(items[i]),
+            return Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => thingsInformationPage()));
+                    },
+                    child: Container(
+                      height: 90,
+                      width: 105,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        image: DecorationImage(
+                            image: AssetImage('assets/mangnut.png')),
+                        border: Border.all(color: Colors.lightGreen),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                GridTile(
+                  child: Center(
+                    child: Text(items[i]),
+                  ),
+                ),
+              ],
             );
           },
         ));

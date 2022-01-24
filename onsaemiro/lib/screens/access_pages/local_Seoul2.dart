@@ -310,7 +310,11 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                       child: InkWell(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                         onTap: () {
-                          Get.to(shopIntroduceAdminPage());
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      shopIntroduceAdminPage()));
                         },
                       ),
                     ),
@@ -331,7 +335,10 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                         '서울 강남구 논현로 67길 11 1층',
                         'http://www.instagram.com/bo.mool_vegan',
                         'assets/핫케이크.png', () {
-                      Get.to(shopIntroducePage());
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => shopIntroducePage()));
                     }),
                     SizedBox(width: 26),
                     imagestackWidget(
