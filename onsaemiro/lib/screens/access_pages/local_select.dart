@@ -112,7 +112,9 @@ class _localSelectPageState extends State<localSelectPage> {
                 IconButton(
                   padding: EdgeInsets.fromLTRB(20, 22, 90.59, 34),
                   onPressed: () {
-                    Get.back();
+                    setState(() {
+                      Navigator.of(context).pop();
+                    });
                   },
                   icon: Icon(Icons.navigate_before,
                       color: Color(0xffA2BF62), size: 30),

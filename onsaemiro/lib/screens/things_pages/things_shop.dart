@@ -11,7 +11,7 @@ class thingsShopPage extends StatefulWidget {
 }
 
 List<String> items = List.generate(20, (i) {
-  return '망';
+  return '망넛이네';
 });
 
 foodBox() {

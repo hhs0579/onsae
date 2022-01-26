@@ -112,7 +112,9 @@ class _culture_firstPageState extends State<culture_firstPage> {
                   padding: EdgeInsets.fromLTRB(10, 33, 90.59, 34),
                   icon: Icon(Icons.chevron_left, color: Colors.green, size: 30),
                   onPressed: () {
-                    Get.back();
+                    setState(() {
+                      Navigator.of(context).pop();
+                    });
                   },
                 ),
                 Text(

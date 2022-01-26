@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
 
+shopping_item() {
+  return Padding(
+    padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+    child: Container(
+        height: 121,
+        decoration: BoxDecoration(
+            border: Border(
+                bottom: BorderSide(color: Colors.lightGreen),
+                top: BorderSide(color: Colors.lightGreen)))),
+  );
+}
+
 class shoppingBagPage extends StatefulWidget {
   const shoppingBagPage({Key? key}) : super(key: key);
 
@@ -8,6 +20,7 @@ class shoppingBagPage extends StatefulWidget {
 }
 
 class _shoppingBagPageState extends State<shoppingBagPage> {
+  bool total_check = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +33,7 @@ class _shoppingBagPageState extends State<shoppingBagPage> {
           child: Column(
             children: [
               SizedBox(
-                height: 50,
+                height: 25,
               ),
               Row(
                 children: [
@@ -34,8 +47,8 @@ class _shoppingBagPageState extends State<shoppingBagPage> {
                           blurRadius: 4.0,
                           offset: Offset(0.0, 0.0))
                     ], borderRadius: BorderRadius.circular(20)),
-                    width: 300,
-                    height: 44,
+                    width: 321,
+                    height: 31,
                     child: TextField(
                       style: TextStyle(fontSize: 14),
                       decoration: InputDecoration(
@@ -50,11 +63,11 @@ class _shoppingBagPageState extends State<shoppingBagPage> {
                               icon: Icon(
                                 Icons.search,
                                 color: Color.fromRGBO(89, 89, 89, 1),
-                                size: 20,
+                                size: 15,
                               )),
                           hintText: '상품검색',
                           hintStyle: TextStyle(
-                              fontSize: 14,
+                              fontSize: 11,
                               color: Color.fromRGBO(89, 89, 89, 0.5)),
                           enabledBorder: OutlineInputBorder(
                             borderRadius:
@@ -75,7 +88,7 @@ class _shoppingBagPageState extends State<shoppingBagPage> {
               Row(
                 children: [
                   IconButton(
-                    padding: EdgeInsets.fromLTRB(5, 33, 79, 34),
+                    padding: EdgeInsets.fromLTRB(5, 33, 85, 34),
                     onPressed: () {},
                     icon: Icon(Icons.chevron_left, color: Colors.green),
                     iconSize: 30,
@@ -91,6 +104,48 @@ class _shoppingBagPageState extends State<shoppingBagPage> {
               )
             ],
           ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(color: Colors.lightGreen, width: 2),
+                        top: BorderSide(color: Colors.lightGreen, width: 2))),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      //fillColor: ,
+                      value: total_check,
+                      onChanged: (value) {
+                        setState(() {
+                          total_check = value!;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: Container(
+                  height: 121,
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(color: Colors.lightGreen),
+                          top: BorderSide(color: Colors.lightGreen)))),
+            ),
+            shopping_item(),
+            shopping_item(),
+            shopping_item(),
+            shopping_item(),
+          ],
         ),
       ),
     );

@@ -6,6 +6,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:onsaemiro/screens/main_pages/edit_info.dart';
 import 'package:onsaemiro/screens/main_pages/product_comment.dart';
 import 'package:onsaemiro/screens/main_pages/store_comment.dart';
+import 'package:onsaemiro/screens/things_pages/things_shopAdmin.dart';
 
 class MyInfoPage extends StatefulWidget {
   const MyInfoPage({Key? key}) : super(key: key);
@@ -231,7 +232,12 @@ class _MyInfoPageState extends State<MyInfoPage> {
               children: [
                 info_button('고객센터', () {}),
                 info_button('로그아웃', () {}),
-                info_button('사업자 사용자 전환', () {}),
+                info_button('사업자 사용자 전환', () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => thingsShopAdminPage()));
+                }),
               ],
             )
           ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/screens/access_pages/product_registration.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/things_pages/things_information.dart';
 
@@ -11,7 +12,7 @@ class thingsShopAdminPage extends StatefulWidget {
 }
 
 List<String> items = List.generate(20, (i) {
-  return '망';
+  return '망넛이네';
 });
 
 foodBox() {
@@ -137,8 +138,29 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+      floatingActionButton: Container(
+        width: 58,
+        height: 58,
+        child: FloatingActionButton(
+          elevation: 0.0,
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => productRegistrationPage()));
+          },
+          child: Text(
+            '상품등록',
+            style: TextStyle(
+                color: Colors.black, fontSize: 11, fontWeight: FontWeight.w700),
+          ),
+          backgroundColor: Colors.white,
+          shape: StadiumBorder(
+              side: BorderSide(
+            width: 3,
+            color: Color.fromRGBO(108, 205, 108, 1),
+          )),
+        ),
       ),
     );
   }
