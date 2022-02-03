@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/screens/access_pages/product_registration.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/things_pages/things_information.dart';
@@ -41,7 +42,7 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
             icon: Icon(Icons.shopping_cart),
             color: Color.fromRGBO(162, 191, 98, 1),
             onPressed: () {
-              Get.to(shoppingBagPage());
+              Get.to(shoppingBagPage(all_Product().allList));
             },
           ),
         ],

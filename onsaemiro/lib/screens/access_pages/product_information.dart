@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:intl/intl.dart';
+import 'package:onsaemiro/product/product_list.dart';
 
 import 'package:onsaemiro/screens/access_pages/product_review.dart';
+import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 
 class productInformationPage extends StatefulWidget {
   const productInformationPage({Key? key}) : super(key: key);
@@ -11,12 +14,15 @@ class productInformationPage extends StatefulWidget {
   _productInformationPageState createState() => _productInformationPageState();
 }
 
-total(num, price) {
-  return num * price;
+total(product_num, price) {
+  int total_price = product_num * price;
+  return NumberFormat('###,###,###,###')
+      .format(total_price)
+      .replaceAll(' ', '');
 }
 
 class _productInformationPageState extends State<productInformationPage> {
-  var num = 0;
+  var product_num = 0;
   var price = 2800;
 
   @override
@@ -150,7 +156,7 @@ class _productInformationPageState extends State<productInformationPage> {
                                         constraints: BoxConstraints(),
                                         onPressed: () {
                                           setState(() {
-                                            num--;
+                                            product_num--;
                                           });
                                         },
                                         icon: Icon(
@@ -158,7 +164,7 @@ class _productInformationPageState extends State<productInformationPage> {
                                           size: 7,
                                         )),
                                     Text(
-                                      '$num',
+                                      '$product_num',
                                       style: TextStyle(fontSize: 9),
                                     ),
                                     IconButton(
@@ -166,7 +172,7 @@ class _productInformationPageState extends State<productInformationPage> {
                                         constraints: BoxConstraints(),
                                         onPressed: () {
                                           setState(() {
-                                            num++;
+                                            product_num++;
                                           });
                                         },
                                         icon: Icon(
@@ -204,50 +210,54 @@ class _productInformationPageState extends State<productInformationPage> {
                   TextButton(
                       onPressed: () {
                         setState(() {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text(
-                                    "장바구니에 $num개의 상품이\n담겼습니다.",
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                  content: Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 65,
-                                      ),
-                                      TextButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              Navigator.of(context).pop();
-                                            });
-                                          },
-                                          child: Text('쇼핑 계속하기',
-                                              style: TextStyle(
-                                                  fontSize: 13,
-                                                  color: Color.fromRGBO(
-                                                      89, 89, 89, 1)))),
-                                      TextButton(
-                                          onPressed: () {},
-                                          child: Text('장바구니로 이동',
-                                              style: TextStyle(
-                                                  fontSize: 13,
-                                                  color: Color.fromRGBO(
-                                                      89, 89, 89, 1))))
-                                    ],
-                                  ),
-                                );
-                              });
+                          if (product_num > 0) {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      "장바구니에 $product_num개의 상품이\n담겼습니다.",
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                    content: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 65,
+                                        ),
+                                        TextButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                Navigator.of(context).pop();
+                                              });
+                                            },
+                                            child: Text('쇼핑 계속하기',
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    color: Color.fromRGBO(
+                                                        89, 89, 89, 1)))),
+                                        TextButton(
+                                            onPressed: () {
+                                              Get.to(shoppingBagPage(all_Product().allList));
+                                            },
+                                            child: Text('장바구니로 이동',
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    color: Color.fromRGBO(
+                                                        89, 89, 89, 1))))
+                                      ],
+                                    ),
+                                  );
+                                });
+                          }
                         });
                       },
-                      child: Text('$num개 담기',
+                      child: Text('$product_num개 담기',
                           style:
                               TextStyle(color: Color.fromRGBO(89, 89, 89, 1)))),
                   SizedBox(
                     width: 58,
                   ),
-                  Text('${total(num, price)}원')
+                  Text('${total(product_num, price)}원')
                 ],
               ),
             ),

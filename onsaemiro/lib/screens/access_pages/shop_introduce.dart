@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/screens/access_pages/product_information.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 
@@ -473,7 +474,7 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
         child: FloatingActionButton(
           elevation: 0.0,
           onPressed: () {
-            Get.to(shoppingBagPage());
+            Get.to(shoppingBagPage(all_Product().allList));
           },
           child: ImageIcon(
             AssetImage('assets/장바구니(filled).png'),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 
 import 'local_Seoul2.dart';
@@ -158,7 +159,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => shoppingBagPage()));
+                              builder: (context) => shoppingBagPage(all_Product().allList)));
                     },
                   ),
                 ],

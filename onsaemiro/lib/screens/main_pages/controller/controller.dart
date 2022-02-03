@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/product/product_list.dart';
 
 class RootContorller extends GetxController {
   RxInt rootPageIndex = 0.obs;

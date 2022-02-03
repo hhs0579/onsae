@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/culture_pages/culture_firstmain.dart';
 
@@ -30,7 +31,7 @@ class _cultureMainPageState extends State<cultureMainPage> {
               icon: Icon(Icons.shopping_cart),
               color: Colors.grey,
               onPressed: () {
-                Get.to(shoppingBagPage());
+                Get.to(shoppingBagPage(all_Product().allList));
               },
             ),
           )

@@ -1,23 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:intl/intl.dart';
+import 'package:onsaemiro/product/product_list.dart';
 
 import 'package:onsaemiro/screens/access_pages/product_review.dart';
+import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
+import 'package:onsaemiro/screens/main_pages/controller/controller.dart';
+import 'package:onsaemiro/screens/things_pages/things_shop.dart';
+import 'package:onsaemiro/screens/things_pages/things_shop.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+total(product_num, price) {
+  int total_price = product_num * price;
+  return NumberFormat('###,###,###,###')
+      .format(total_price)
+      .replaceAll(' ', '');
+}
 
 class thingsInformationPage extends StatefulWidget {
-  const thingsInformationPage({Key? key}) : super(key: key);
-
+  List<Product> cartList = [];
   @override
   _thingsInformationPageState createState() => _thingsInformationPageState();
 }
 
-total(num, price) {
-  return num * price;
-}
-
 class _thingsInformationPageState extends State<thingsInformationPage> {
-  var num = 0;
+  late int product_num = 0;
   var price = 1100;
+  int Totalprice() {
+    return product_num * price;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  List<Product> _products = [];
+  List<Product> _cartList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +68,11 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                           AssetImage('assets/Vector(흰색).png'),
                           color: Colors.white,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            Navigator.pop(context);
+                          });
+                        },
                       ),
                       SizedBox(
                         width: 77.59,
@@ -76,9 +100,13 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                           SizedBox(
                             height: 20,
                           ),
-                          Text(
-                            '약콩두유 100',
-                            style: TextStyle(fontSize: 24),
+                          Column(
+                            children: [
+                              Text(
+                                '약콩두유 100',
+                                style: TextStyle(fontSize: 24),
+                              ),
+                            ],
                           ),
                           SizedBox(
                             height: 167,
@@ -145,7 +173,7 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                                         constraints: BoxConstraints(),
                                         onPressed: () {
                                           setState(() {
-                                            num--;
+                                            product_num = product_num - 1;
                                           });
                                         },
                                         icon: Icon(
@@ -153,7 +181,7 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                                           size: 7,
                                         )),
                                     Text(
-                                      '$num',
+                                      '$product_num',
                                       style: TextStyle(fontSize: 13),
                                     ),
                                     IconButton(
@@ -161,7 +189,7 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                                         constraints: BoxConstraints(),
                                         onPressed: () {
                                           setState(() {
-                                            num++;
+                                            product_num = product_num + 1;
                                           });
                                         },
                                         icon: Icon(
@@ -198,51 +226,71 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                   ),
                   TextButton(
                       onPressed: () {
-                        setState(() {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text(
-                                    "장바구니에 $num개의 상품이\n담겼습니다.",
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                  content: Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 65,
+                        if (product_num > 0) {
+                          var item = Product(
+                            name: '약콩 두유 100',
+                            image_url: 'assets/망넛이네 약콩두유.png',
+                            price: price,
+                            num: product_num,
+                          );
+                          _cartList.add(item);
+
+                          setState(() {
+                            {
+                              thingsInformationPage().cartList.add(item);
+                              all_Product().allList.add(item);
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text(
+                                        "장바구니에 $product_num개의 상품이\n담겼습니다.",
+                                        style: TextStyle(fontSize: 18),
                                       ),
-                                      TextButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              Navigator.of(context).pop();
-                                            });
-                                          },
-                                          child: Text('쇼핑 계속하기',
-                                              style: TextStyle(
-                                                  fontSize: 13,
-                                                  color: Color.fromRGBO(
-                                                      89, 89, 89, 1)))),
-                                      TextButton(
-                                          onPressed: () {},
-                                          child: Text('장바구니로 이동',
-                                              style: TextStyle(
-                                                  fontSize: 13,
-                                                  color: Color.fromRGBO(
-                                                      89, 89, 89, 1))))
-                                    ],
-                                  ),
-                                );
-                              });
-                        });
+                                      content: Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 65,
+                                          ),
+                                          TextButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  Navigator.of(context).pop();
+                                                });
+                                              },
+                                              child: Text('쇼핑 계속하기',
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      color: Color.fromRGBO(
+                                                          89, 89, 89, 1)))),
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            shoppingBagPage(
+                                                                _cartList)));
+                                              },
+                                              child: Text('장바구니로 이동',
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      color: Color.fromRGBO(
+                                                          89, 89, 89, 1))))
+                                        ],
+                                      ),
+                                    );
+                                  });
+                            }
+                          });
+                        }
                       },
-                      child: Text('$num개 담기',
+                      child: Text('$product_num개 담기',
                           style:
                               TextStyle(color: Color.fromRGBO(89, 89, 89, 1)))),
                   SizedBox(
                     width: 58,
                   ),
-                  Text('${total(num, price)}원')
+                  Text('${total(product_num, price)}원')
                 ],
               ),
             ),

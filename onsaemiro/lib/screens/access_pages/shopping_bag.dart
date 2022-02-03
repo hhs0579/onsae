@@ -1,28 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:onsaemiro/product/product_list.dart';
+import 'package:onsaemiro/screens/things_pages/things_information.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-shopping_item() {
-  return Padding(
-    padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-    child: Container(
-        height: 121,
-        decoration: BoxDecoration(
-            border: Border(
-                bottom: BorderSide(color: Colors.lightGreen),
-                top: BorderSide(color: Colors.lightGreen)))),
-  );
+total(product_num, price) {
+  int total_price = product_num * price;
+  return NumberFormat('###,###,###,###')
+      .format(total_price)
+      .replaceAll(' ', '');
 }
 
 class shoppingBagPage extends StatefulWidget {
-  const shoppingBagPage({Key? key}) : super(key: key);
-
+  List<Product> cartlist = [];
+  shoppingBagPage(this.cartlist);
   @override
-  _shoppingBagPageState createState() => _shoppingBagPageState();
+  _shoppingBagPageState createState() => _shoppingBagPageState(cartlist);
 }
 
 class _shoppingBagPageState extends State<shoppingBagPage> {
+  _shoppingBagPageState(this._cartlist);
+  List<Product> _cartlist;
   bool total_check = false;
+  List<bool> _isChecked = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _isChecked = List<bool>.filled(_cartlist.length, false);
+  }
+
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 8,
@@ -89,7 +99,12 @@ class _shoppingBagPageState extends State<shoppingBagPage> {
                 children: [
                   IconButton(
                     padding: EdgeInsets.fromLTRB(5, 33, 85, 34),
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        (context) => shoppingBagPage(_cartlist);
+                        Navigator.of(context).pop();
+                      });
+                    },
                     icon: Icon(Icons.chevron_left, color: Colors.green),
                     iconSize: 30,
                   ),
@@ -132,19 +147,140 @@ class _shoppingBagPageState extends State<shoppingBagPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: Container(
-                  height: 121,
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(color: Colors.lightGreen),
-                          top: BorderSide(color: Colors.lightGreen)))),
+            SizedBox(
+              height: 470,
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: _cartlist.length,
+                  itemBuilder: (context, index) {
+                    var item = _cartlist[index];
+                    return Padding(
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      child: Container(
+                        height: 144,
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(color: Colors.lightGreen),
+                                top: BorderSide(color: Colors.lightGreen))),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: _isChecked[index],
+                                  onChanged: (val) {
+                                    setState(
+                                      () {
+                                        _isChecked[index] = val!;
+                                      },
+                                    );
+                                  },
+                                ),
+                                Text(
+                                  item.name,
+                                  style: TextStyle(fontSize: 11),
+                                ),
+                                SizedBox(
+                                  width: 235,
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _cartlist.remove(item);
+                                      });
+                                    },
+                                    icon: ImageIcon(
+                                      AssetImage('assets/X.png'),
+                                      color: Colors.lightGreen,
+                                    ))
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  width: 78,
+                                  height: 94,
+                                  child:
+                                      Image(image: AssetImage(item.image_url)),
+                                ),
+                                Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 57,
+                                    ),
+                                    Container(
+                                        width: 69,
+                                        height: 25,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Color.fromRGBO(
+                                                    0, 0, 0, 0.7),
+                                                blurRadius: 1,
+                                                offset: Offset(0, 0),
+                                              )
+                                            ],
+                                            border:
+                                                Border.all(color: Colors.white),
+                                            borderRadius:
+                                                BorderRadius.circular(18.5)),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            IconButton(
+                                                padding: EdgeInsets.zero,
+                                                constraints: BoxConstraints(),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    item.num = item.num - 1;
+                                                  });
+                                                },
+                                                icon: Icon(
+                                                  Icons.remove,
+                                                  size: 7,
+                                                )),
+                                            Text(
+                                              '${item.num}',
+                                              style: TextStyle(fontSize: 13),
+                                            ),
+                                            IconButton(
+                                                padding: EdgeInsets.zero,
+                                                constraints: BoxConstraints(),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    item.num = item.num + 1;
+                                                  });
+                                                },
+                                                icon: Icon(
+                                                  Icons.add,
+                                                  size: 7,
+                                                )),
+                                          ],
+                                        )),
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: 157,
+                                ),
+                                Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 68,
+                                    ),
+                                    Text('${total(item.num, item.price)}원'),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
             ),
-            shopping_item(),
-            shopping_item(),
-            shopping_item(),
-            shopping_item(),
+            Container()
           ],
         ),
       ),
