@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:intl/intl.dart';
 import 'package:onsaemiro/product/product_list.dart';
 
 import 'package:onsaemiro/screens/access_pages/product_review.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
+import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 
 class productInformationPage extends StatefulWidget {
   const productInformationPage({Key? key}) : super(key: key);
@@ -22,6 +24,7 @@ total(product_num, price) {
 }
 
 class _productInformationPageState extends State<productInformationPage> {
+  final CartController c = Get.put(CartController());
   var product_num = 0;
   var price = 2800;
 
@@ -51,7 +54,9 @@ class _productInformationPageState extends State<productInformationPage> {
                           AssetImage('assets/Vector(흰색).png'),
                           color: Colors.white,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                       SizedBox(
                         width: 77.59,
@@ -209,47 +214,57 @@ class _productInformationPageState extends State<productInformationPage> {
                   ),
                   TextButton(
                       onPressed: () {
-                        setState(() {
-                          if (product_num > 0) {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text(
-                                      "장바구니에 $product_num개의 상품이\n담겼습니다.",
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                    content: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 65,
-                                        ),
-                                        TextButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                Navigator.of(context).pop();
-                                              });
-                                            },
-                                            child: Text('쇼핑 계속하기',
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Color.fromRGBO(
-                                                        89, 89, 89, 1)))),
-                                        TextButton(
-                                            onPressed: () {
-                                              Get.to(shoppingBagPage(all_Product().allList));
-                                            },
-                                            child: Text('장바구니로 이동',
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Color.fromRGBO(
-                                                        89, 89, 89, 1))))
-                                      ],
-                                    ),
-                                  );
-                                });
-                          }
-                        });
+                        if (product_num > 0) {
+                          var item = Product(
+                            name: '둘리우니',
+                            image_url: 'assets/둘리우니2.png',
+                            price: price,
+                            num: product_num,
+                          );
+                          c.allList.add(item);
+                          setState(() {
+                            {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text(
+                                        "장바구니에 $product_num개의 상품이\n담겼습니다.",
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      content: Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 65,
+                                          ),
+                                          TextButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  Navigator.of(context).pop();
+                                                });
+                                              },
+                                              child: Text('쇼핑 계속하기',
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      color: Color.fromRGBO(
+                                                          89, 89, 89, 1)))),
+                                          TextButton(
+                                              onPressed: () {
+                                                Get.to(
+                                                    shoppingBagPage(c.allList));
+                                              },
+                                              child: Text('장바구니로 이동',
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      color: Color.fromRGBO(
+                                                          89, 89, 89, 1))))
+                                        ],
+                                      ),
+                                    );
+                                  });
+                            }
+                          });
+                        }
                       },
                       child: Text('$product_num개 담기',
                           style:

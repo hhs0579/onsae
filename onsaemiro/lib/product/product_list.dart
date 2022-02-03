@@ -23,7 +23,3 @@ class Product {
     );
   }
 }
-
-class all_Product {
-  late List<Product> allList = [];
-}

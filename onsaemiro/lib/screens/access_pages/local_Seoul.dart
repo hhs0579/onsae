@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
+import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 
 import 'local_Seoul2.dart';
 
@@ -101,6 +102,7 @@ imagestackWidget(shop, phone, where, insta, image, onTap) {
 }
 
 class _localSeoulPageState extends State<localSeoulPage> {
+  final CartController c = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -159,7 +161,8 @@ class _localSeoulPageState extends State<localSeoulPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => shoppingBagPage(all_Product().allList)));
+                              builder: (context) =>
+                                  shoppingBagPage(c.allList)));
                     },
                   ),
                 ],
@@ -332,7 +335,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
                         '서울 강남구 논현로 67길 11 1층',
                         'http://www.instagram.com/bo.mool_vegan',
                         'assets/비건 베이커리 보물.png', () {
-                          Navigator.push(
+                      Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => localSeoul2Page()));

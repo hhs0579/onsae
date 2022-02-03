@@ -28,7 +28,7 @@ class _image1EnlargePageState extends State<image1EnlargePage> {
         leading: IconButton(
           icon: Icon(Icons.chevron_left, color: Colors.green, size: 30),
           onPressed: () {
-            Get.back();
+            Navigator.pop(context);
           },
         ),
         backgroundColor: Colors.white,

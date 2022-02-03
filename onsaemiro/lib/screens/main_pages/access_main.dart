@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/screens/access_pages/local_select.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
+import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 import 'package:onsaemiro/screens/main_pages/culture_main.dart';
 import 'package:onsaemiro/screens/main_pages/things_main.dart';
 
@@ -15,6 +17,7 @@ class accessMainPage extends StatefulWidget {
 }
 
 class _accessMainPageState extends State<accessMainPage> {
+  final CartController c = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +33,7 @@ class _accessMainPageState extends State<accessMainPage> {
               icon: Icon(Icons.shopping_cart),
               color: Colors.grey,
               onPressed: () {
-                Get.to(shoppingBagPage(all_Product().allList));
+                Get.to(shoppingBagPage(c.allList));
               },
             ),
           )

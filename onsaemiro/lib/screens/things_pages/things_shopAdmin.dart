@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/screens/access_pages/product_registration.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
+import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 import 'package:onsaemiro/screens/things_pages/things_information.dart';
 
 class thingsShopAdminPage extends StatefulWidget {
@@ -28,6 +29,7 @@ foodBox() {
 }
 
 class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
+  final CartController c = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -42,7 +44,7 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
             icon: Icon(Icons.shopping_cart),
             color: Color.fromRGBO(162, 191, 98, 1),
             onPressed: () {
-              Get.to(shoppingBagPage(all_Product().allList));
+              Get.to(shoppingBagPage(c.allList));
             },
           ),
         ],

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:intl/intl.dart';
 import 'package:onsaemiro/product/product_list.dart';
 
 import 'package:onsaemiro/screens/access_pages/product_review.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
+import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller.dart';
 import 'package:onsaemiro/screens/things_pages/things_shop.dart';
 import 'package:onsaemiro/screens/things_pages/things_shop.dart';
@@ -19,12 +21,13 @@ total(product_num, price) {
 }
 
 class thingsInformationPage extends StatefulWidget {
-  List<Product> cartList = [];
+  const thingsInformationPage({Key? key}) : super(key: key);
   @override
   _thingsInformationPageState createState() => _thingsInformationPageState();
 }
 
 class _thingsInformationPageState extends State<thingsInformationPage> {
+  final CartController c = Get.put(CartController());
   late int product_num = 0;
   var price = 1100;
   int Totalprice() {
@@ -234,11 +237,10 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                             num: product_num,
                           );
                           _cartList.add(item);
+                          c.allList.add(item);
 
                           setState(() {
                             {
-                              thingsInformationPage().cartList.add(item);
-                              all_Product().allList.add(item);
                               showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -269,7 +271,7 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             shoppingBagPage(
-                                                                _cartList)));
+                                                                c.allList)));
                                               },
                                               child: Text('장바구니로 이동',
                                                   style: TextStyle(
