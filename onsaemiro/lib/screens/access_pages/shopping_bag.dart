@@ -108,7 +108,6 @@ class _shoppingBagPageState extends State<shoppingBagPage> {
                     padding: EdgeInsets.fromLTRB(5, 33, 85, 34),
                     onPressed: () {
                       setState(() {
-                        (context) => shoppingBagPage(_cartlist);
                         Navigator.of(context).pop();
                       });
                     },

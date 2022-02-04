@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:onsaemiro/screens/access_pages/shop_introduce.dart';
 import 'package:onsaemiro/screens/access_pages/shop_introduceAdmin.dart';
+import 'package:onsaemiro/screens/main_pages/Root2.dart';
+import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
 
 class localSeoul2Page extends StatefulWidget {
   const localSeoul2Page({Key? key}) : super(key: key);
@@ -100,6 +103,7 @@ imagestackWidget(shop, phone, where, insta, image, onTap) {
 }
 
 class _localSeoul2PageState extends State<localSeoul2Page> {
+  final Root2Contorller c = Get.put(Root2Contorller());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,7 +165,9 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                 children: [
                   IconButton(
                     padding: EdgeInsets.fromLTRB(20, 11, 100.59, 0),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     icon: Image.asset('assets/Vector(누런녹색).png'),
                     iconSize: 12,
                   ),
@@ -310,11 +316,18 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                       child: InkWell(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      shopIntroduceAdminPage()));
+                          if (c.Pressed.value == 1) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        shopIntroduceAdminPage()));
+                          } else if (c.Pressed.value == 0) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => shopIntroducePage()));
+                          }
                         },
                       ),
                     ),

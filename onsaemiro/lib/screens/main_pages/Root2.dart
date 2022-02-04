@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/screens/main_pages/access_Admin.dart';
 import 'package:onsaemiro/screens/main_pages/access_main.dart';
-import 'package:onsaemiro/screens/main_pages/controller/controller.dart';
+import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
 import 'package:onsaemiro/screens/main_pages/culture_main.dart';
 import 'package:onsaemiro/screens/main_pages/my_info.dart';
 import 'package:onsaemiro/screens/main_pages/things_main.dart';
+import 'package:onsaemiro/screens/things_pages/things_mainAdmin.dart';
 
-class Root extends GetView<RootContorller> {
-  Root({Key? key}) : super(key: key);
+class Root2 extends GetView<Root2Contorller> {
+  Root2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class Root extends GetView<RootContorller> {
                   key: controller.navigatorKeys[0],
                   onGenerateRoute: (routeSettings) {
                     return MaterialPageRoute(
-                        builder: (context) => accessMainPage());
+                        builder: (context) => accessAdminPage());
                   }),
               Navigator(
                   key: controller.navigatorKeys[1],
@@ -35,14 +36,14 @@ class Root extends GetView<RootContorller> {
                   key: controller.navigatorKeys[2],
                   onGenerateRoute: (routeSettings) {
                     return MaterialPageRoute(
-                      builder: (context) => accessMainPage(),
+                      builder: (context) => accessAdminPage(),
                     );
                   }),
               Navigator(
                   key: controller.navigatorKeys[3],
                   onGenerateRoute: (routeSettings) {
                     return MaterialPageRoute(
-                      builder: (context) => thingsMainPage(),
+                      builder: (context) => thingsMainAdminPage(),
                     );
                   }),
               Navigator(

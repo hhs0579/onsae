@@ -172,7 +172,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
                   IconButton(
                     padding: EdgeInsets.fromLTRB(5, 11, 100.59, 0),
                     onPressed: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                     icon: Icon(Icons.navigate_before, color: Colors.green),
                     iconSize: 22,

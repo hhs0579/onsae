@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/access_main.dart';
+import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 import 'package:onsaemiro/screens/main_pages/password_edit.dart';
 import 'package:onsaemiro/screens/main_pages/phone_number.dart';
 
@@ -13,6 +16,7 @@ class edit_infoPage extends StatefulWidget {
 }
 
 class editInfoState extends State<edit_infoPage> {
+  final CartController c = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,14 +26,14 @@ class editInfoState extends State<edit_infoPage> {
         leading: IconButton(
           icon: Icon(Icons.chevron_left, color: Colors.green, size: 30),
           onPressed: () {
-            Get.back();
+            Navigator.of(context).pop();
           },
         ),
         actions: [
           IconButton(
             icon: Icon(Icons.shopping_cart, color: Colors.green, size: 30),
             onPressed: () {
-              Get.to(accessMainPage());
+              Get.to(shoppingBagPage(c.allList));
             },
           )
         ],

@@ -2,18 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/screens/main_pages/Root.dart';
+import 'package:onsaemiro/screens/main_pages/Root2.dart';
+import 'package:onsaemiro/screens/main_pages/controller/controller.dart';
+import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
 import 'package:onsaemiro/screens/main_pages/edit_info.dart';
 import 'package:onsaemiro/screens/main_pages/product_comment.dart';
 import 'package:onsaemiro/screens/main_pages/store_comment.dart';
 import 'package:onsaemiro/screens/things_pages/things_shopAdmin.dart';
-
-class MyInfoPage extends StatefulWidget {
-  const MyInfoPage({Key? key}) : super(key: key);
-
-  @override
-  _MyInfoPageState createState() => _MyInfoPageState();
-}
 
 _connectbutton(text, onPressed) {
   return Container(
@@ -107,7 +105,15 @@ info_button(text, onPressed) {
   );
 }
 
+class MyInfoPage extends StatefulWidget {
+  const MyInfoPage({Key? key}) : super(key: key);
+
+  @override
+  _MyInfoPageState createState() => _MyInfoPageState();
+}
+
 class _MyInfoPageState extends State<MyInfoPage> {
+  final Root2Contorller c = Get.put(Root2Contorller());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -233,10 +239,15 @@ class _MyInfoPageState extends State<MyInfoPage> {
                 info_button('고객센터', () {}),
                 info_button('로그아웃', () {}),
                 info_button('사업자 사용자 전환', () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => thingsShopAdminPage()));
+                  if (c.Pressed.value == 0) {
+                    Get.to(Root2());
+                    c.Pressed++;
+                    print(c.Pressed.value);
+                  } else if (c.Pressed.value == 1) {
+                    Get.back();
+                    c.Pressed--;
+                    print(c.Pressed.value);
+                  }
                 }),
               ],
             )

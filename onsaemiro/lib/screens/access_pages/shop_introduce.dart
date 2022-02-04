@@ -239,7 +239,9 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                       children: [
                         IconButton(
                           padding: EdgeInsets.fromLTRB(31, 0, 102.59, 0),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                           icon: Image.asset('assets/Vector(흰색).png'),
                           iconSize: 12,
                         ),

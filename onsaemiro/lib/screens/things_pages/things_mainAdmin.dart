@@ -3,21 +3,21 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:onsaemiro/product/product_list.dart';
-import 'package:onsaemiro/screens/access_pages/local_select.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
+import 'package:onsaemiro/screens/main_pages/access_main.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 import 'package:onsaemiro/screens/main_pages/culture_main.dart';
-import 'package:onsaemiro/screens/main_pages/things_main.dart';
-import 'package:onsaemiro/screens/things_pages/things_mainAdmin.dart';
+import 'package:onsaemiro/screens/things_pages/things_shop.dart';
+import 'package:onsaemiro/screens/things_pages/things_shopAdmin.dart';
 
-class accessAdminPage extends StatefulWidget {
-  const accessAdminPage({Key? key}) : super(key: key);
+class thingsMainAdminPage extends StatefulWidget {
+  const thingsMainAdminPage({Key? key}) : super(key: key);
 
   @override
-  _accessAdminPageState createState() => _accessAdminPageState();
+  _thingsMainAdminPageState createState() => _thingsMainAdminPageState();
 }
 
-class _accessAdminPageState extends State<accessAdminPage> {
+class _thingsMainAdminPageState extends State<thingsMainAdminPage> {
   final CartController c = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class _accessAdminPageState extends State<accessAdminPage> {
             ),
           )
         ],
-        title: SizedBox(
+        title: Container(
           width: double.infinity,
           height: 44,
           child: TextField(
@@ -76,13 +76,13 @@ class _accessAdminPageState extends State<accessAdminPage> {
               Container(
                   padding: EdgeInsets.fromLTRB(115, 0, 115, 20),
                   child: Text(
-                    'access',
+                    'things',
                     style: TextStyle(fontSize: 36, color: Color(0xff595959)),
                   )),
               Ink(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('assets/빵.jpeg'), fit: BoxFit.fill),
+                        image: AssetImage('assets/shop.png'), fit: BoxFit.fill),
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: InkWell(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -91,7 +91,7 @@ class _accessAdminPageState extends State<accessAdminPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => localSelectPage()));
+                            builder: (context) => thingsShopAdminPage()));
                   },
                   child: Container(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -112,10 +112,10 @@ class _accessAdminPageState extends State<accessAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => cultureMainPage()));
+                              builder: (context) => accessMainPage()));
                     },
                     child: Text(
-                      'culture',
+                      'access',
                       style: TextStyle(fontSize: 18, color: Colors.grey),
                     ),
                   ),
@@ -124,10 +124,10 @@ class _accessAdminPageState extends State<accessAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => thingsMainAdminPage()));
+                              builder: (context) => cultureMainPage()));
                     },
                     child: Text(
-                      'things',
+                      'culture',
                       style: TextStyle(fontSize: 18, color: Colors.grey),
                     ),
                   )
