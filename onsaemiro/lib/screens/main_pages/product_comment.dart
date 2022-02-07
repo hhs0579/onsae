@@ -10,11 +10,18 @@ class product_CommentPage extends StatefulWidget {
 class _product_CommentPageState extends State<product_CommentPage> {
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 100,
+        toolbarHeight: height * 0.123,
         shape: Border(bottom: BorderSide(color: Colors.green)),
-        leading: Image.asset('assets/Vector.png'),
+        leading: IconButton(
+          icon: Icon(Icons.chevron_left, color: Colors.green, size: 30),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         backgroundColor: Colors.white,
         title: Text(
           '상품 후기 작성',
@@ -30,10 +37,12 @@ class _product_CommentPageState extends State<product_CommentPage> {
         child: Center(
           child: Column(
             children: [
+              SizedBox(
+                height: height * 0.0628,
+              ),
               Container(
-                height: 439,
-                width: 410,
-                padding: EdgeInsets.fromLTRB(22, 51, 21, 30),
+                height: height * 0.54,
+                width: width * 0.885,
                 child: TextField(
                   keyboardType: TextInputType.multiline,
                   textInputAction: TextInputAction.newline,
@@ -43,17 +52,20 @@ class _product_CommentPageState extends State<product_CommentPage> {
                       hintText: '문구 입력...',
                       hintStyle: TextStyle(fontSize: 11),
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
                         borderSide: BorderSide(color: Colors.green),
                       ),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
                           borderSide: BorderSide(color: Colors.green))),
                 ),
               ),
+              SizedBox(
+                height: height * 0.0418,
+              ),
               Container(
-                width: 110,
-                height: 41,
+                width: width * 0.293,
+                height: height * 0.06,
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     shape: RoundedRectangleBorder(

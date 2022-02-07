@@ -19,9 +19,11 @@ class editInfoState extends State<edit_infoPage> {
   final CartController c = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 100,
+        toolbarHeight: height * 0.123,
         shape: Border(bottom: BorderSide(color: Colors.green)),
         leading: IconButton(
           icon: Icon(Icons.chevron_left, color: Colors.green, size: 30),
@@ -61,8 +63,9 @@ class editInfoState extends State<edit_infoPage> {
                   Text(
                     '이메일',
                     style: TextStyle(
-                      fontSize: 15,
-                    ),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: Color.fromRGBO(89, 89, 89, 0.5)),
                   ),
                   TextField(
                     decoration: InputDecoration(
@@ -74,9 +77,10 @@ class editInfoState extends State<edit_infoPage> {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 53, 0, 34),
+                padding:
+                    EdgeInsets.fromLTRB(0, height * 0.065, 0, height * 0.0418),
                 child: Container(
-                  width: 93,
+                  width: width * 0.248,
                   decoration: BoxDecoration(
                       border: Border(bottom: BorderSide(color: Colors.green))),
                   child: Column(
@@ -85,8 +89,7 @@ class editInfoState extends State<edit_infoPage> {
                       Text(
                         ' 이름',
                         style: TextStyle(
-                          fontSize: 15,
-                        ),
+                            fontSize: 15, fontWeight: FontWeight.w700),
                       ),
                       TextField(
                         decoration: InputDecoration(
@@ -121,7 +124,8 @@ class editInfoState extends State<edit_infoPage> {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 30, 0, 20),
+                padding:
+                    EdgeInsets.fromLTRB(0, height * 0.0369, 0, height * 0.0246),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -147,7 +151,7 @@ class editInfoState extends State<edit_infoPage> {
                 ),
               ),
               Container(
-                width: 93,
+                width: width * 0.248,
                 decoration: BoxDecoration(
                     border: Border(bottom: BorderSide(color: Colors.green))),
                 child: Column(
@@ -155,9 +159,8 @@ class editInfoState extends State<edit_infoPage> {
                   children: [
                     Text(
                       ' 생년월일',
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
                     ),
                     TextField(
                       decoration: InputDecoration(
