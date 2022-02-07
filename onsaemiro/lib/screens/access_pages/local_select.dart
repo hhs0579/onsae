@@ -12,12 +12,12 @@ class localSelectPage extends StatefulWidget {
   _localSelectPageState createState() => _localSelectPageState();
 }
 
-local_Stack(where, whereInEnglish, whichPicture, onTap) {
+local_Stack(where, whereInEnglish, whichPicture, onTap, height, width) {
   return Stack(
     children: [
       Positioned(
-        top: 50,
-        left: 130,
+        top: height * 0.0467,
+        left: width * 0.3,
         child: Column(
           children: [
             Text(
@@ -30,22 +30,22 @@ local_Stack(where, whereInEnglish, whichPicture, onTap) {
         ),
       ),
       Ink(
-        padding: EdgeInsets.fromLTRB(19, 19, 19, 19),
+        padding: EdgeInsets.fromLTRB(0, 19, 0, 19),
         decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(whichPicture),
               fit: BoxFit.cover,
             ),
-            borderRadius: BorderRadius.all(Radius.circular(40))),
+            borderRadius: BorderRadius.all(Radius.circular(14))),
         child: InkWell(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderRadius: BorderRadius.all(Radius.circular(14)),
           onTap: onTap,
           child: Container(
-            height: 117,
-            width: 291,
+            height: height * 0.144,
+            width: width * 0.776,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderRadius: BorderRadius.all(Radius.circular(14)),
             ),
           ),
         ),
@@ -57,10 +57,12 @@ local_Stack(where, whereInEnglish, whichPicture, onTap) {
 class _localSelectPageState extends State<localSelectPage> {
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 8,
-        toolbarHeight: 160,
+        leadingWidth: 1,
+        toolbarHeight: height * 0.197,
         backgroundColor: Colors.white,
         elevation: 0.5,
         title: Column(
@@ -68,8 +70,8 @@ class _localSelectPageState extends State<localSelectPage> {
             Row(
               children: [
                 SizedBox(
-                  width: 300,
-                  height: 44,
+                  width: width * 0.8,
+                  height: height * 0.0541,
                   child: TextField(
                     style: TextStyle(fontSize: 11),
                     decoration: InputDecoration(
@@ -101,16 +103,18 @@ class _localSelectPageState extends State<localSelectPage> {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.shopping_cart, color: Color(0xffA2BF62)),
+                  icon: Icon(
+                    Icons.shopping_cart,
+                    color: Color(0xffA2BF62),
+                    size: 23,
+                  ),
                   onPressed: () {},
                 ),
               ],
             ),
-            Container(
-                child: Row(
+            Row(
               children: [
                 IconButton(
-                  padding: EdgeInsets.fromLTRB(20, 22, 90.59, 34),
                   onPressed: () {
                     setState(() {
                       Navigator.of(context).pop();
@@ -120,13 +124,18 @@ class _localSelectPageState extends State<localSelectPage> {
                       color: Color(0xffA2BF62), size: 30),
                   iconSize: 12,
                 ),
+                SizedBox(
+                  width: width * 0.2069,
+                ),
                 Text(
                   'access',
                   style: TextStyle(
-                      fontSize: 36, color: Color.fromRGBO(162, 191, 98, 1)),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 36,
+                      color: Color.fromRGBO(162, 191, 98, 1)),
                 )
               ],
-            ))
+            )
           ],
         ),
       ),
@@ -141,23 +150,27 @@ class _localSelectPageState extends State<localSelectPage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => localSeoulPage()));
-                }),
+                }, height, width),
                 SizedBox(
                   height: 14,
                 ),
-                local_Stack('인천', 'Incheon', 'assets/incheon.jpg', () {}),
+                local_Stack('인천', 'Incheon', 'assets/incheon.jpg', () {},
+                    height, width),
                 SizedBox(
                   height: 14,
                 ),
-                local_Stack('\t\t부산', '\t\tBusan', 'assets/busan.jpg', () {}),
+                local_Stack('\t\t부산', '\t\tBusan', 'assets/busan.jpg', () {},
+                    height, width),
                 SizedBox(
                   height: 14,
                 ),
-                local_Stack('\t\t대구', '\t\tDaegu', 'assets/daegu.jpg', () {}),
+                local_Stack('\t\t대구', '\t\tDaegu', 'assets/daegu.jpg', () {},
+                    height, width),
                 SizedBox(
                   height: 14,
                 ),
-                local_Stack('강원', 'Gangwon', 'assets/gangwon.jpg', () {}),
+                local_Stack('강원', 'Gangwon', 'assets/gangwon.jpg', () {},
+                    height, width),
                 SizedBox(
                   height: 14,
                 ),

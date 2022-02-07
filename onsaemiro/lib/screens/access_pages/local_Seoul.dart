@@ -105,23 +105,23 @@ class _localSeoulPageState extends State<localSeoulPage> {
   final CartController c = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 8,
-        toolbarHeight: 226,
+        leadingWidth: 0,
+        toolbarHeight: height * 0.3,
         backgroundColor: Colors.white,
         elevation: 0.5,
         title: Center(
           child: Column(
             children: [
-              SizedBox(
-                height: 50,
-              ),
+              SizedBox(height: height * 0.03),
               Row(
                 children: [
                   SizedBox(
-                    width: 300,
-                    height: 44,
+                    width: width * 0.8,
+                    height: height * 0.054,
                     child: TextField(
                       style: TextStyle(fontSize: 14),
                       decoration: InputDecoration(
@@ -170,12 +170,14 @@ class _localSeoulPageState extends State<localSeoulPage> {
               Row(
                 children: [
                   IconButton(
-                    padding: EdgeInsets.fromLTRB(5, 11, 100.59, 0),
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     icon: Icon(Icons.navigate_before, color: Colors.green),
                     iconSize: 22,
+                  ),
+                  SizedBox(
+                    width: width * 0.2069,
                   ),
                   Text(
                     'access',
@@ -184,21 +186,21 @@ class _localSeoulPageState extends State<localSeoulPage> {
                   )
                 ],
               ),
-              Container(
-                  padding: EdgeInsets.fromLTRB(130, 10, 0, 0),
-                  child: Row(
-                    children: [
-                      Text(
-                        '강남구 역삼동',
-                        style:
-                            TextStyle(fontSize: 15, color: Color(0xff595959)),
-                      ),
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.expand_more,
-                              size: 22, color: Colors.lightGreen)),
-                    ],
-                  )),
+              Row(
+                children: [
+                  SizedBox(
+                    width: width * 0.36,
+                  ),
+                  Text(
+                    '강남구 역삼동',
+                    style: TextStyle(fontSize: 15, color: Color(0xff595959)),
+                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.expand_more,
+                          size: 22, color: Colors.lightGreen)),
+                ],
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
