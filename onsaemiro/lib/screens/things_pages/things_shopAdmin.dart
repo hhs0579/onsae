@@ -86,7 +86,9 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
               children: [
                 IconButton(
                   padding: EdgeInsets.fromLTRB(20, 20, 80, 34),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   icon: Icon(Icons.navigate_before),
                   color: Color.fromRGBO(162, 191, 98, 1),
                   iconSize: 25,

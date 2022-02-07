@@ -21,10 +21,12 @@ class _cultureMainPageState extends State<cultureMainPage> {
   final CartController c = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 8,
-        toolbarHeight: 100,
+        toolbarHeight: height * 0.176,
         backgroundColor: Colors.white,
         elevation: 0.0,
         actions: [
@@ -41,21 +43,22 @@ class _cultureMainPageState extends State<cultureMainPage> {
         ],
         title: Container(
           width: double.infinity,
-          height: 44,
+          height: height * 0.038,
           child: TextField(
-            style: TextStyle(fontSize: 11),
+            style: TextStyle(fontSize: width * 0.029),
             decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 8),
+                contentPadding: EdgeInsets.symmetric(vertical: height * 0.008),
                 prefixIcon: IconButton(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 11),
+                    padding: EdgeInsets.symmetric(
+                        vertical: height * 0.008, horizontal: 11),
                     onPressed: () {},
                     icon: Icon(
                       Icons.search,
                       color: Colors.black,
-                      size: 20,
+                      size: width * 0.036,
                     )),
                 hintText: '상품검색',
-                hintStyle: TextStyle(fontSize: 14),
+                hintStyle: TextStyle(fontSize: width * 0.029),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(27.0)),
                   borderSide: BorderSide(color: Colors.grey),
@@ -70,14 +73,17 @@ class _cultureMainPageState extends State<cultureMainPage> {
         child: Center(
           child: Column(
             children: [
-              SizedBox(
-                height: 62,
-              ),
+              // SizedBox(
+              //   height: 62,
+              // ),
               Container(
                   padding: EdgeInsets.fromLTRB(115, 0, 115, 20),
                   child: Text(
                     'culture',
-                    style: TextStyle(fontSize: 36, color: Color(0xff595959)),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 36,
+                        color: Color(0xff595959)),
                   )),
               Ink(
                 decoration: BoxDecoration(
@@ -94,8 +100,8 @@ class _cultureMainPageState extends State<cultureMainPage> {
                   },
                   child: Container(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
-                    height: 364,
-                    width: 267,
+                    height: height * 0.45,
+                    width: width * 0.7,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.all(Radius.circular(20)),

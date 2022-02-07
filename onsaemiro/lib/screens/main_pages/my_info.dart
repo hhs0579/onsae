@@ -13,10 +13,10 @@ import 'package:onsaemiro/screens/main_pages/product_comment.dart';
 import 'package:onsaemiro/screens/main_pages/store_comment.dart';
 import 'package:onsaemiro/screens/things_pages/things_shopAdmin.dart';
 
-_connectbutton(text, onPressed) {
+_connectbutton(text, width, height, onPressed) {
   return Container(
-    width: 355,
-    height: 30,
+    width: width * 0.95,
+    height: height * 0.04926,
     margin: EdgeInsets.all(5),
     decoration: BoxDecoration(
         border: Border.all(
@@ -40,7 +40,7 @@ _connectbutton(text, onPressed) {
   );
 }
 
-spending_info(where, which, when, price) {
+spending_info(where, which, when, price, width, height) {
   return Column(
     children: [
       Row(
@@ -56,7 +56,7 @@ spending_info(where, which, when, price) {
             ),
           ),
           SizedBox(
-            width: 250,
+            width: width * 0.6666,
           )
         ],
       ),
@@ -74,7 +74,7 @@ spending_info(where, which, when, price) {
           ),
           Column(
             children: [
-              SizedBox(height: 5),
+              SizedBox(height: height * 0.006),
               Text(
                 when,
                 style: TextStyle(fontSize: 8, fontWeight: FontWeight.w500),
@@ -116,10 +116,11 @@ class _MyInfoPageState extends State<MyInfoPage> {
   final Root2Contorller c = Get.put(Root2Contorller());
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 70,
-        leading: Image.asset('assets/Vector.png'),
+        toolbarHeight: height * 0.1,
         backgroundColor: Colors.white,
         title: Text(
           '마이페이지',
@@ -129,14 +130,17 @@ class _MyInfoPageState extends State<MyInfoPage> {
               color: Color(0xff595959)),
         ),
         centerTitle: true,
-        elevation: 0.0,
+        elevation: 1,
       ),
       body: Center(
         child: Column(
           children: [
+            // SizedBox(
+            //   height: height * 0.044,
+            // ),
             Container(
-              width: 355,
-              height: 160,
+              width: width * 0.95,
+              height: height * 0.21,
               decoration: BoxDecoration(
                   border: Border.all(
                     width: 2,
@@ -146,10 +150,14 @@ class _MyInfoPageState extends State<MyInfoPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/프로필.png'),
+                  Image(
+                      width: width * 0.146,
+                      height: height * 0.0677,
+                      image: AssetImage('assets/프로필.png')),
                   Text(
                     '온새미로',
                     style: TextStyle(
+                      fontWeight: FontWeight.w700,
                       fontSize: 24,
                     ),
                   ),
@@ -175,15 +183,15 @@ class _MyInfoPageState extends State<MyInfoPage> {
             SizedBox(
               height: 5,
             ),
-            _connectbutton('회원정보 수정', () {
+            _connectbutton('회원정보 수정', width, height, () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => edit_infoPage()));
             }),
-            _connectbutton('상점 후기 작성', () {
+            _connectbutton('상점 후기 작성', width, height, () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => store_commentPage()));
             }),
-            _connectbutton('상품 후기 작성', () {
+            _connectbutton('상품 후기 작성', width, height, () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -193,8 +201,8 @@ class _MyInfoPageState extends State<MyInfoPage> {
               height: 5,
             ),
             Container(
-              width: 355,
-              height: 190,
+              width: width * 0.95,
+              height: height * 0.278,
               decoration: BoxDecoration(
                 border: Border.all(
                   width: 2,
@@ -206,7 +214,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 5,
+                    height: height * 0.012,
                   ),
                   Text(
                     '최근 지출내역',
@@ -216,20 +224,20 @@ class _MyInfoPageState extends State<MyInfoPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: height * 0.0123,
                   ),
-                  spending_info(
-                      '망넛이네', '약콩두유 100 (3개)', '2021-11-18(목)', '3,300원'),
+                  spending_info('망넛이네', '약콩두유 100 (3개)', '2021-11-18(목)',
+                      '3,300원', width, height),
                   SizedBox(
-                    height: 5,
+                    height: height * 0.012,
                   ),
-                  spending_info(
-                      '망넛이네', '약콩두유 100 (3개)', '2021-11-18(목)', '3,300원'),
+                  spending_info('망넛이네', '약콩두유 100 (3개)', '2021-11-18(목)',
+                      '3,300원', width, height),
                   SizedBox(
-                    height: 5,
+                    height: height * 0.012,
                   ),
-                  spending_info(
-                      '망넛이네', '약콩두유 100 (3개)', '2021-11-18(목)', '3,300원')
+                  spending_info('망넛이네', '약콩두유 100 (3개)', '2021-11-18(목)',
+                      '3,300원', width, height)
                 ],
               ),
             ),
