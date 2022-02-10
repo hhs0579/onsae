@@ -13,7 +13,14 @@ class _productConfirmPageState extends State<productConfirmPage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 138,
-        leading: Image.asset('assets/Vector(진한녹색).png'),
+        leading: IconButton(
+          padding: EdgeInsets.fromLTRB(31, 0, 102.59, 0),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Image.asset('assets/Vector(진한녹색).png'),
+          iconSize: 12,
+        ),
         backgroundColor: Colors.white,
         title: Text(
           '상품 수정하기',

@@ -14,12 +14,12 @@ class shopIntroducePage extends StatefulWidget {
   _shopIntroducePageState createState() => _shopIntroducePageState();
 }
 
-Review_Box(profileName, image1, image2, text) {
+Review_Box(height, width, profileName, image1, image2, text) {
   return Padding(
     padding: EdgeInsets.only(bottom: 10),
     child: Container(
-        width: 326,
-        height: 153,
+        width: width * 0.8693,
+        height: height * 0.1884,
         decoration: BoxDecoration(
             border: Border.all(color: Color.fromRGBO(108, 205, 108, 0.7)),
             borderRadius: BorderRadius.circular(20)),
@@ -31,7 +31,7 @@ Review_Box(profileName, image1, image2, text) {
                 children: [
                   ImageIcon(
                     AssetImage('assets/프로필.png'),
-                    size: 20,
+                    size: width * 0.0533,
                     color: Color.fromRGBO(108, 205, 108, 0.7),
                   ),
                   SizedBox(
@@ -45,31 +45,33 @@ Review_Box(profileName, image1, image2, text) {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 8, 0, 0),
+              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
               child: Row(
                 children: [
                   Container(
-                    height: 62,
+                    height: height * 0.0763,
                     width: 92,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(image: AssetImage(image1))),
+                        image: DecorationImage(
+                            image: AssetImage(image1), fit: BoxFit.cover)),
                   ),
                   SizedBox(
                     width: 7.89,
                   ),
                   Container(
-                    height: 62,
+                    height: height * 0.0763,
                     width: 92,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(image: AssetImage(image2))),
+                        image: DecorationImage(
+                            image: AssetImage(image2), fit: BoxFit.cover)),
                   )
                 ],
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 4.35, 0, 0),
+              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
               child: Row(
                 children: [
                   Text(
@@ -85,12 +87,12 @@ Review_Box(profileName, image1, image2, text) {
   );
 }
 
-product_Box(image, onTap, name, explanation, price) {
+product_Box(height, width, image, onTap, name, explanation, price) {
   return Padding(
     padding: EdgeInsets.only(bottom: 10),
     child: Container(
       width: 350,
-      height: 84,
+      height: height * 0.1034,
       decoration: BoxDecoration(
           border: Border.all(color: Color.fromRGBO(108, 205, 108, 0.7)),
           borderRadius: BorderRadius.circular(20)),
@@ -99,12 +101,12 @@ product_Box(image, onTap, name, explanation, price) {
           Padding(
             padding: EdgeInsets.fromLTRB(7, 5, 9, 6),
             child: Ink(
-              height: 73,
+              height: height * 0.0899,
               width: 97,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20))),
               child: Container(
-                height: 73,
+                height: height * 0.0899,
                 width: 97,
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 decoration: BoxDecoration(
@@ -128,18 +130,18 @@ product_Box(image, onTap, name, explanation, price) {
                 name,
                 style: TextStyle(color: Colors.grey, fontSize: 14),
               ),
-              SizedBox(
-                height: 7,
-              ),
+              // SizedBox(
+              //   height: 7,
+              // ),
               Text(
                 explanation,
                 style: TextStyle(color: Colors.grey, fontSize: 10),
               ),
               SizedBox(
-                height: 21,
+                height: height * 0.0246,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 155),
+                padding: EdgeInsets.only(left: width * 0.37),
                 child: Text(
                   price,
                   style: TextStyle(color: Colors.grey, fontSize: 10),
@@ -159,11 +161,13 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
   bool isInformationScreen = false;
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0.0,
         leadingWidth: 0.0,
-        toolbarHeight: 347,
+        toolbarHeight: height * 0.4273,
         backgroundColor: Colors.white,
         elevation: 0.8,
         title: Column(
@@ -173,7 +177,7 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                 Positioned(
                   child: Container(
                     width: double.infinity,
-                    height: 250,
+                    height: height * 0.3078,
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage('assets/비건 베이커리 보물 (2).png'),
@@ -184,13 +188,13 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                   bottom: 50,
                   left: 12,
                   child: SizedBox(
-                    height: 250,
+                    height: height * 0.3078,
                     width: 375,
                     child: Row(
                       children: [
                         SizedBox(
                           width: 321,
-                          height: 31,
+                          height: height * 0.0381,
                           child: TextField(
                             style: TextStyle(fontSize: 11),
                             decoration: InputDecoration(
@@ -227,7 +231,9 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                         ),
                         IconButton(
                           icon: Image.asset('assets/장바구니 (흰색).png'),
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(shoppingBagPage(c.allList));
+                          },
                         ),
                       ],
                     ),
@@ -256,7 +262,7 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
               ],
             ),
             Container(
-              height: 117,
+              height: height * 0.1441,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -370,27 +376,27 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                       ],
                     ),
                     SizedBox(
-                      height: 366,
+                      height: height * 0.4507,
                       width: 350,
                       child: ListView(
                         physics: BouncingScrollPhysics(),
                         scrollDirection: Axis.vertical,
                         children: [
-                          product_Box('assets/둘리우니 1.png', () {
+                          product_Box(height, width, 'assets/둘리우니 1.png', () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         productInformationPage()));
                           }, '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                          product_Box('assets/둘리우니 1.png', () {}, '둘리우니',
-                              '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                          product_Box('assets/둘리우니 1.png', () {}, '둘리우니',
-                              '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                          product_Box('assets/둘리우니 1.png', () {}, '둘리우니',
-                              '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                          product_Box('assets/둘리우니 1.png', () {}, '둘리우니',
-                              '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                          product_Box(height, width, 'assets/둘리우니 1.png', () {},
+                              '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                          product_Box(height, width, 'assets/둘리우니 1.png', () {},
+                              '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                          product_Box(height, width, 'assets/둘리우니 1.png', () {},
+                              '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                          product_Box(height, width, 'assets/둘리우니 1.png', () {},
+                              '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
                         ],
                       ),
                     )
@@ -451,20 +457,35 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
             if (!isMenuScreen & !isInformationScreen)
               Center(
                 child: SizedBox(
-                  height: 365,
+                  height: height * 0.4495,
                   width: 350,
                   child: ListView(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     children: [
                       SizedBox(
-                        height: 19,
+                        height: height * 0.0234,
                       ),
-                      Review_Box('온새미로', 'assets/둘리우니2.png', 'assets/펜케이크.png',
+                      Review_Box(
+                          height,
+                          width,
+                          '온새미로',
+                          'assets/둘리우니2.png',
+                          'assets/펜케이크.png',
                           '종류별로 사먹어보고 있는데 다 맛있어요!!\n비건이라 말 안하면 모를 정도로 웬만한 일반 빵보다 맛있어요!!\n사장님도 항상 넘넘 친절하셔요.'),
-                      Review_Box('온새미로', 'assets/셀러드.png', 'assets/음식.png',
+                      Review_Box(
+                          height,
+                          width,
+                          '온새미로',
+                          'assets/셀러드.png',
+                          'assets/음식.png',
                           '종류별로 사먹어보고 있는데 다 맛있어요!!\n비건이라 말 안하면 모를 정도로 웬만한 일반 빵보다 맛있어요!!\n사장님도 항상 넘넘 친절하셔요.'),
-                      Review_Box('온새미로', 'assets/둘리우니2.png', 'assets/펜케이크.png',
+                      Review_Box(
+                          height,
+                          width,
+                          '온새미로',
+                          'assets/둘리우니2.png',
+                          'assets/펜케이크.png',
                           '종류별로 사먹어보고 있는데 다 맛있어요!!\n비건이라 말 안하면 모를 정도로 웬만한 일반 빵보다 맛있어요!!\n사장님도 항상 넘넘 친절하셔요.'),
                     ],
                   ),

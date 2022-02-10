@@ -30,6 +30,9 @@ class _productInformationPageState extends State<productInformationPage> {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    var textScale = MediaQuery.of(context).textScaleFactor;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -38,7 +41,7 @@ class _productInformationPageState extends State<productInformationPage> {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 275,
+                  height: 0.3386 * height,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage('assets/둘리우니 1.png'),
@@ -73,7 +76,7 @@ class _productInformationPageState extends State<productInformationPage> {
                     padding: EdgeInsets.fromLTRB(0, 190, 0, 0),
                     child: Container(
                       width: 311,
-                      height: 384,
+                      height: height * 0.4729,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(
@@ -82,22 +85,22 @@ class _productInformationPageState extends State<productInformationPage> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 20,
+                            height: height * 0.02463,
                           ),
                           Text(
                             '둘리우니',
-                            style: TextStyle(fontSize: 24),
+                            style: TextStyle(fontSize: 24 * textScale),
                           ),
                           SizedBox(
-                            height: 54,
+                            height: height * 0.0665,
                           ),
                           Text(
                             '보리와 귀리가 만난 비건 브라우니!\n쫀득하고 진한 다크 오리지널은 속세의 맛',
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 15 * textScale),
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(
-                            height: 133,
+                            height: height * 0.15,
                           ),
                           Row(
                             children: [
@@ -118,14 +121,14 @@ class _productInformationPageState extends State<productInformationPage> {
                             ],
                           ),
                           SizedBox(
-                            height: 16,
+                            height: height * 0.0197,
                           ),
                           Container(
                               height: 1.0,
                               width: 311,
                               color: Color.fromRGBO(108, 205, 108, 1)),
                           SizedBox(
-                            height: 20,
+                            height: height * 0.01,
                           ),
                           Row(
                             children: [
@@ -141,7 +144,7 @@ class _productInformationPageState extends State<productInformationPage> {
                               ),
                               Container(
                                 width: 69,
-                                height: 25,
+                                height: height * 0.03078,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     boxShadow: [

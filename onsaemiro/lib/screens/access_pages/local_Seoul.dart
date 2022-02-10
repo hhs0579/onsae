@@ -13,16 +13,16 @@ class localSeoulPage extends StatefulWidget {
   _localSeoulPageState createState() => _localSeoulPageState();
 }
 
-imagestackWidget(shop, phone, where, insta, image, onTap) {
+imagestackWidget(height, width, shop, phone, where, insta, image, onTap) {
   return Container(
-    height: 153,
+    height: height * 0.189,
     width: 153,
     child: Stack(
       children: [
         Positioned(
           top: 70,
           child: Container(
-            height: 72,
+            height: height * 0.09,
             width: 153,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
@@ -39,9 +39,9 @@ imagestackWidget(shop, phone, where, insta, image, onTap) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 10,
-                ),
+                // SizedBox(
+                //   height: 10,
+                // ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(40, 0, 0, 0),
                   child: Text(
@@ -49,9 +49,9 @@ imagestackWidget(shop, phone, where, insta, image, onTap) {
                     style: TextStyle(fontSize: 9.5),
                   ),
                 ),
-                SizedBox(
-                  height: 3,
-                ),
+                // SizedBox(
+                //   height: 3,
+                // ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(55, 0, 45, 0),
                   child: Text(
@@ -85,7 +85,7 @@ imagestackWidget(shop, phone, where, insta, image, onTap) {
           ),
         ),
         Ink(
-          height: 102,
+          height: height * 0.1256,
           width: 156,
           decoration: BoxDecoration(
               image:
@@ -247,15 +247,15 @@ class _localSeoulPageState extends State<localSeoulPage> {
           child: Column(
             children: [
               Container(
-                height: 245.91,
+                height: height * 0.32,
                 width: 234,
                 padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
                 child: Stack(
                   children: [
                     Positioned(
-                      top: 113.09,
+                      top: height * 0.1392,
                       child: Container(
-                        height: 110,
+                        height: height * 0.14,
                         width: 234,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey),
@@ -272,21 +272,21 @@ class _localSeoulPageState extends State<localSeoulPage> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 16,
+                              height: height * 0.01970,
                             ),
                             Text(
                               '디어비건베이커리',
                               style: TextStyle(fontSize: 13),
                             ),
-                            SizedBox(
-                              height: 6,
-                            ),
+                            // SizedBox(
+                            //   height: 6,
+                            // ),
                             Text(
                               '02-558-0301',
                               style: TextStyle(fontSize: 11),
                             ),
                             Padding(
-                              padding: EdgeInsets.fromLTRB(33, 6, 0, 7),
+                              padding: EdgeInsets.fromLTRB(33, 6, 0, 0),
                               child: Row(
                                 children: [
                                   Icon(Icons.place, size: 11),
@@ -308,11 +308,12 @@ class _localSeoulPageState extends State<localSeoulPage> {
                       ),
                     ),
                     Ink(
-                      height: 165,
+                      height: height * 0.2032,
                       width: 234,
                       decoration: BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage('assets/핫케이크.png'),
+                            fit: BoxFit.cover,
                           ),
                           borderRadius: BorderRadius.all(Radius.circular(20))),
                       child: InkWell(
@@ -324,14 +325,16 @@ class _localSeoulPageState extends State<localSeoulPage> {
                 ),
               ),
               SizedBox(
-                height: 47,
+                height: height * 0.05,
               ),
               SizedBox(
-                height: 170.5,
+                height: height * 0.21,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
                     imagestackWidget(
+                        height,
+                        width,
                         '비건 베이커리보물',
                         '02-558-0301',
                         '서울 강남구 논현로 67길 11 1층',
@@ -344,6 +347,8 @@ class _localSeoulPageState extends State<localSeoulPage> {
                     }),
                     SizedBox(width: 26),
                     imagestackWidget(
+                        height,
+                        width,
                         '본비 비건 베이커리',
                         '02-558-0301',
                         '서울 강남구 테헤란로34길 21-10',
@@ -352,6 +357,8 @@ class _localSeoulPageState extends State<localSeoulPage> {
                         () {}),
                     SizedBox(width: 26),
                     imagestackWidget(
+                        height,
+                        width,
                         '아꼬떼 비건 베이커리',
                         '02-558-0301',
                         '서울 강남구 논현로86길 26',
@@ -360,6 +367,8 @@ class _localSeoulPageState extends State<localSeoulPage> {
                         () {}),
                     SizedBox(width: 26),
                     imagestackWidget(
+                        height,
+                        width,
                         '비건 베이커리보물',
                         '02-558-0301',
                         '서울 강남구 논현로 67길 11 1층',

@@ -117,7 +117,13 @@ class _productRegistrationPageState extends State<productRegistrationPage> {
       appBar: AppBar(
         toolbarHeight: 130,
         shape: Border(bottom: BorderSide(color: Colors.green)),
-        leading: Image.asset('assets/Vector.png'),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Image.asset('assets/Vector(진한녹색).png'),
+          iconSize: 12,
+        ),
         backgroundColor: Colors.white,
         title: Text(
           '상품 등록목록',

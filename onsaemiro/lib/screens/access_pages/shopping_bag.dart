@@ -268,9 +268,12 @@ class _shoppingBagPageState extends State<shoppingBagPage> {
                                               constraints: BoxConstraints(),
                                               onPressed: () {
                                                 setState(() {
-                                                  item.num = item.num - 1;
-                                                  counter -= 1;
-                                                  Pricetotal -= item.price;
+                                                  if (_isChecked[index] =
+                                                      true) {
+                                                    item.num = item.num - 1;
+                                                    counter -= 1;
+                                                    Pricetotal -= item.price;
+                                                  }
                                                 });
                                               },
                                               icon: Icon(
@@ -286,9 +289,12 @@ class _shoppingBagPageState extends State<shoppingBagPage> {
                                               constraints: BoxConstraints(),
                                               onPressed: () {
                                                 setState(() {
-                                                  item.num = item.num + 1;
-                                                  counter += 1;
-                                                  Pricetotal += item.price;
+                                                  if (_isChecked[index] =
+                                                      true) {
+                                                    item.num = item.num + 1;
+                                                    counter += 1;
+                                                    Pricetotal += item.price;
+                                                  }
                                                 });
                                               },
                                               icon: Icon(
