@@ -130,8 +130,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
                           fillColor: Color.fromRGBO(162, 191, 98, 0.2),
                           contentPadding: EdgeInsets.symmetric(vertical: 8),
                           prefixIcon: IconButton(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 11),
+                              padding: EdgeInsets.symmetric(vertical: 8),
                               onPressed: () {},
                               icon: Icon(
                                 Icons.search,
@@ -286,7 +285,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
                               style: TextStyle(fontSize: 11),
                             ),
                             Padding(
-                              padding: EdgeInsets.fromLTRB(33, 6, 0, 0),
+                              padding: EdgeInsets.fromLTRB(33, 6, 0, 3),
                               child: Row(
                                 children: [
                                   Icon(Icons.place, size: 11),

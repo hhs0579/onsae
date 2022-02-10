@@ -74,7 +74,9 @@ class _productReviewPageState extends State<productReviewPage> {
                         AssetImage('assets/Vector(흰색).png'),
                         color: Colors.white,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
                     SizedBox(
                       width: 77.59,

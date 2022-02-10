@@ -67,7 +67,15 @@ class _weeklyBestPageState extends State<weeklyBestPage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 138,
-        leading: Image.asset('assets/Vector(진한녹색).png'),
+        leading: IconButton(
+          icon: ImageIcon(
+            AssetImage('assets/Vector(진한녹색).png'),
+            color: Colors.green,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         backgroundColor: Colors.white,
         title: Text(
           '주간 베스트',

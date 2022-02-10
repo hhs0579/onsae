@@ -86,7 +86,7 @@ class _localSelectPageState extends State<localSelectPage> {
                             icon: Icon(
                               Icons.search,
                               color: Color.fromRGBO(162, 191, 98, 1),
-                              size: 15,
+                              size: width * 0.04,
                             )),
                         hintText: '상품검색',
                         hintStyle: TextStyle(
@@ -106,7 +106,7 @@ class _localSelectPageState extends State<localSelectPage> {
                   icon: Icon(
                     Icons.shopping_cart,
                     color: Color(0xffA2BF62),
-                    size: 23,
+                    size: width * 0.056,
                   ),
                   onPressed: () {},
                 ),

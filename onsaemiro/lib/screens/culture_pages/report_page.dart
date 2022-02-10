@@ -27,7 +27,7 @@ class _reportPageState extends State<reportPage> {
                     icon:
                         Icon(Icons.chevron_left, color: Colors.green, size: 30),
                     onPressed: () {
-                      Get.back();
+                      Navigator.pop(context);
                     },
                   ),
                   SizedBox(

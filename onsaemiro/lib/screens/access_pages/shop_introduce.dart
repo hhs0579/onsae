@@ -189,7 +189,7 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                   left: 12,
                   child: SizedBox(
                     height: height * 0.3078,
-                    width: 375,
+                    width: width,
                     child: Row(
                       children: [
                         SizedBox(
@@ -228,6 +228,9 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                                     borderSide:
                                         BorderSide(color: Color(0xffA2BF62)))),
                           ),
+                        ),
+                        SizedBox(
+                          width: 10,
                         ),
                         IconButton(
                           icon: Image.asset('assets/장바구니 (흰색).png'),

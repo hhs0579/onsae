@@ -4,7 +4,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:onsaemiro/screens/access_pages/shop_introduce.dart';
 import 'package:onsaemiro/screens/access_pages/shop_introduceAdmin.dart';
+import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/Root2.dart';
+import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
 
 class localSeoul2Page extends StatefulWidget {
@@ -14,17 +16,17 @@ class localSeoul2Page extends StatefulWidget {
   _localSeoul2PageState createState() => _localSeoul2PageState();
 }
 
-imagestackWidget(shop, phone, where, insta, image, onTap) {
+imagestackWidget(height, width, shop, phone, where, insta, image, onTap) {
   return Container(
-    height: 153,
-    width: 153,
+    height: height * 0.189,
+    width: width * 0.408,
     child: Stack(
       children: [
         Positioned(
           top: 70,
           child: Container(
-            height: 72,
-            width: 153,
+            height: height * 0.09,
+            width: width * 0.408,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
               boxShadow: [
@@ -40,9 +42,9 @@ imagestackWidget(shop, phone, where, insta, image, onTap) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 10,
-                ),
+                // SizedBox(
+                //   height: 10,
+                // ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(40, 0, 0, 0),
                   child: Text(
@@ -86,8 +88,8 @@ imagestackWidget(shop, phone, where, insta, image, onTap) {
           ),
         ),
         Ink(
-          height: 102,
-          width: 156,
+          height: height * 0.1256,
+          width: width * 0.408,
           decoration: BoxDecoration(
               image:
                   DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
@@ -103,28 +105,29 @@ imagestackWidget(shop, phone, where, insta, image, onTap) {
 }
 
 class _localSeoul2PageState extends State<localSeoul2Page> {
-  final Root2Contorller c = Get.put(Root2Contorller());
+  final CartController c = Get.put(CartController());
+  final Root2Contorller r2 = Get.put(Root2Contorller());
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 8,
-        toolbarHeight: 226,
+        leadingWidth: 0,
+        toolbarHeight: height * 0.3,
         backgroundColor: Colors.white,
         elevation: 0.5,
         title: Center(
           child: Column(
             children: [
-              SizedBox(
-                height: 50,
-              ),
+              SizedBox(height: height * 0.03),
               Row(
                 children: [
                   SizedBox(
-                    width: 321,
-                    height: 31,
+                    width: width * 0.8,
+                    height: height * 0.054,
                     child: TextField(
-                      style: TextStyle(fontSize: 11),
+                      style: TextStyle(fontSize: 14),
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           filled: true,
@@ -137,11 +140,11 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                               icon: Icon(
                                 Icons.search,
                                 color: Color.fromRGBO(162, 191, 98, 1),
-                                size: 15,
+                                size: 20,
                               )),
                           hintText: '상품검색',
                           hintStyle: TextStyle(
-                              fontSize: 11,
+                              fontSize: 14,
                               color: Color.fromRGBO(162, 191, 98, 0.5)),
                           enabledBorder: OutlineInputBorder(
                             borderRadius:
@@ -156,20 +159,29 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                     ),
                   ),
                   IconButton(
-                    icon: Image.asset('assets/장바구니 (누런녹색).png'),
-                    onPressed: () {},
+                    icon: Icon(Icons.shopping_cart),
+                    color: Colors.lightGreen,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  shoppingBagPage(c.allList)));
+                    },
                   ),
                 ],
               ),
               Row(
                 children: [
                   IconButton(
-                    padding: EdgeInsets.fromLTRB(20, 11, 100.59, 0),
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Image.asset('assets/Vector(누런녹색).png'),
-                    iconSize: 12,
+                    icon: Icon(Icons.navigate_before, color: Colors.green),
+                    iconSize: 22,
+                  ),
+                  SizedBox(
+                    width: width * 0.2069,
                   ),
                   Text(
                     'access',
@@ -178,23 +190,21 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                   )
                 ],
               ),
-              Container(
-                  height: 30,
-                  padding: EdgeInsets.fromLTRB(135, 3, 0, 0),
-                  child: Row(
-                    children: [
-                      Text(
-                        '강남구 역삼동',
-                        style:
-                            TextStyle(fontSize: 15, color: Color(0xff595959)),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Image.asset('assets/화살표.png'),
-                        iconSize: 12,
-                      ),
-                    ],
-                  )),
+              Row(
+                children: [
+                  SizedBox(
+                    width: width * 0.36,
+                  ),
+                  Text(
+                    '강남구 역삼동',
+                    style: TextStyle(fontSize: 15, color: Color(0xff595959)),
+                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.expand_more,
+                          size: 22, color: Colors.lightGreen)),
+                ],
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -241,16 +251,16 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
           child: Column(
             children: [
               Container(
-                height: 245.91,
-                width: 234,
+                height: height * 0.32,
+                width: width * 0.624,
                 padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
                 child: Stack(
                   children: [
                     Positioned(
-                      top: 113.09,
+                      top: height * 0.1392,
                       child: Container(
-                        height: 110,
-                        width: 234,
+                        height: height * 0.14,
+                        width: width * 0.624,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey),
                           boxShadow: [
@@ -266,21 +276,21 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 16,
+                              height: height * 0.01970,
                             ),
                             Text(
                               '비건 베이커리 베이커리',
                               style: TextStyle(fontSize: 13),
                             ),
                             SizedBox(
-                              height: 6,
+                              height: 1,
                             ),
                             Text(
                               '02-558-0301',
                               style: TextStyle(fontSize: 11),
                             ),
                             Padding(
-                              padding: EdgeInsets.fromLTRB(33, 6, 0, 7),
+                              padding: EdgeInsets.fromLTRB(33, 6, 0, 3),
                               child: Row(
                                 children: [
                                   ImageIcon(
@@ -306,8 +316,8 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                       ),
                     ),
                     Ink(
-                      height: 165,
-                      width: 234,
+                      height: height * 0.2032,
+                      width: width * 0.624,
                       decoration: BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage('assets/비건 베이커리 보물.png'),
@@ -316,13 +326,13 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                       child: InkWell(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                         onTap: () {
-                          if (c.Pressed.value == 1) {
+                          if (r2.Pressed.value == 1) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         shopIntroduceAdminPage()));
-                          } else if (c.Pressed.value == 0) {
+                          } else if (r2.Pressed.value == 0) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -335,14 +345,16 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                 ),
               ),
               SizedBox(
-                height: 47,
+                height: height * 0.05,
               ),
               SizedBox(
-                height: 170,
+                height: height * 0.21,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
                     imagestackWidget(
+                        height,
+                        width,
                         '비건 베이커리보물',
                         '02-558-0301',
                         '서울 강남구 논현로 67길 11 1층',
@@ -355,6 +367,8 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                     }),
                     SizedBox(width: 26),
                     imagestackWidget(
+                        height,
+                        width,
                         '비건 베이커리보물',
                         '02-558-0301',
                         '부천 상구',
@@ -363,6 +377,8 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                         () {}),
                     SizedBox(width: 26),
                     imagestackWidget(
+                        height,
+                        width,
                         '비건 베이커리보물',
                         '02-558-0301',
                         '서울 강남구 논현로 67길 11 1층',
@@ -371,6 +387,8 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                         () {}),
                     SizedBox(width: 26),
                     imagestackWidget(
+                        height,
+                        width,
                         '비건 베이커리보물',
                         '02-558-0301',
                         '서울 강남구 논현로 67길 11 1층',

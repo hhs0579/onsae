@@ -120,7 +120,7 @@ class _fleaMarketPageState extends State<fleaMarketPage> {
                   padding: EdgeInsets.fromLTRB(10, 33, 30.59, 34),
                   icon: Icon(Icons.chevron_left, color: Colors.green, size: 30),
                   onPressed: () {
-                    Get.back();
+                    Navigator.pop(context);
                   },
                 ),
                 Column(
