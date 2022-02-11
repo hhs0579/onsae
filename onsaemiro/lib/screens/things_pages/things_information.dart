@@ -54,10 +54,11 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                   width: double.infinity,
                   height: 275,
                   decoration: BoxDecoration(
+                      color: Color.fromRGBO(89, 89, 89, 0.5),
                       image: DecorationImage(
                           image: AssetImage('assets/약콩두유.png'),
                           colorFilter: ColorFilter.mode(
-                              Color.fromRGBO(89, 89, 89, 1).withOpacity(0.5),
+                              Color.fromRGBO(89, 89, 89, 0.5).withOpacity(0.5),
                               BlendMode.dstATop),
                           fit: BoxFit.fill)),
                 ),

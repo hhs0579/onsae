@@ -4,6 +4,7 @@ import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/screens/access_pages/product_registration.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
+import 'package:onsaemiro/screens/things_pages/thingsShopProduct.dart';
 import 'package:onsaemiro/screens/things_pages/things_information.dart';
 
 class thingsShopAdminPage extends StatefulWidget {
@@ -149,10 +150,8 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
         child: FloatingActionButton(
           elevation: 0.0,
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => productRegistrationPage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => thingsShopRegiPage()));
           },
           child: Text(
             '상품등록',
