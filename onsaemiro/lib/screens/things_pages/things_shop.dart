@@ -5,6 +5,7 @@ import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/Root.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller.dart';
+import 'package:onsaemiro/screens/things_pages/thingsShop_introduce.dart';
 import 'package:onsaemiro/screens/things_pages/things_information.dart';
 
 class thingsShopPage extends StatefulWidget {
@@ -48,7 +49,7 @@ class _thingsShopPageState extends State<thingsShopPage> {
           title: Column(
             children: [
               SizedBox(
-                height: height * 0.0615,
+                height: height * 0.06,
               ),
               Row(
                 children: [
@@ -211,7 +212,7 @@ class _thingsShopPageState extends State<thingsShopPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              thingsInformationPage()));
+                                              thingsShopIntroducePage()));
                                 },
                                 child: Container(
                                   height: height * 0.12,
