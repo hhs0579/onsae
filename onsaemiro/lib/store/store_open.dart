@@ -26,6 +26,11 @@ final benefitinfo = TextEditingController();
 String address = '';
 String postcode = '';
 final deaddressFocusNode = FocusNode();
+var clothing = false;
+var life = false;
+var food = false;
+var vegan = false;
+List<dynamic> select = [];
 
 class _StoreOpenState extends State<StoreOpen> {
   @override
@@ -84,6 +89,85 @@ class _StoreOpenState extends State<StoreOpen> {
                       ),
                     ),
                   )
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 40, left: 10),
+              width: width * 0.9,
+              height: height * 0.09,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(width: 1.0, color: Colors.black12),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    child: Text("상점 종류",
+                        style: TextStyle(
+                          color: Color(0xff6CCD6C),
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ),
+                  Container(
+                    child: Checkbox(
+                      activeColor: Colors.lightGreen,
+                      checkColor: Colors.white,
+                      value: vegan,
+                      onChanged: (value) {
+                        setState(() {
+                          vegan = value!;
+                          return select.add('비건');
+                        });
+                      },
+                    ),
+                  ),
+                  Container(child: Text('비건')),
+                  Container(
+                    child: Checkbox(
+                      activeColor: Colors.lightGreen,
+                      checkColor: Colors.white,
+                      value: food,
+                      onChanged: (value) {
+                        setState(() {
+                          food = value!;
+                          return select.add('음식');
+                        });
+                      },
+                    ),
+                  ),
+                  Container(child: Text('음식')),
+                  Container(
+                    child: Checkbox(
+                      activeColor: Colors.lightGreen,
+                      checkColor: Colors.white,
+                      value: clothing,
+                      onChanged: (value) {
+                        setState(() {
+                          clothing = value!;
+                          return select.add('의류');
+                        });
+                      },
+                    ),
+                  ),
+                  Container(child: Text('의류')),
+                  Container(
+                    child: Checkbox(
+                      activeColor: Colors.lightGreen,
+                      checkColor: Colors.white,
+                      value: life,
+                      onChanged: (value) {
+                        setState(() {
+                          life = value!;
+                          return select.add('건강');
+                        });
+                      },
+                    ),
+                  ),
+                  Container(child: Text('건강'))
                 ],
               ),
             ),
@@ -317,20 +401,20 @@ class _StoreOpenState extends State<StoreOpen> {
                             timeInSecForIosWeb: 1,
                             backgroundColor: Colors.lightGreen,
                             fontSize: 12.0);
-                      } else if (_addressTextEditor.text == "") {
-                        Fluttertoast.showToast(
-                            msg: "주소를 입력해주세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.lightGreen,
-                            fontSize: 12.0);
-                      } else if (_deaddressTextEditor.text == "") {
-                        Fluttertoast.showToast(
-                            msg: "상세주소를 입력해주세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.lightGreen,
-                            fontSize: 12.0);
+                        // } else if (_addressTextEditor.text == "") {
+                        //   Fluttertoast.showToast(
+                        //       msg: "주소를 입력해주세요.",
+                        //       toastLength: Toast.LENGTH_SHORT,
+                        //       timeInSecForIosWeb: 1,
+                        //       backgroundColor: Colors.lightGreen,
+                        //       fontSize: 12.0);
+                        // } else if (_deaddressTextEditor.text == "") {
+                        //   Fluttertoast.showToast(
+                        //       msg: "상세주소를 입력해주세요.",
+                        //       toastLength: Toast.LENGTH_SHORT,
+                        //       timeInSecForIosWeb: 1,
+                        //       backgroundColor: Colors.lightGreen,
+                        //       fontSize: 12.0);
                       } else if (storeinfo.text == "") {
                         Fluttertoast.showToast(
                             msg: "상점정보를 입력해주세요.",
