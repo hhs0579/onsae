@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/screens/main_pages/Root.dart';
-import 'package:onsaemiro/screens/main_pages/my_info.dart';
 
 class nickNamePage extends StatefulWidget {
   nickNamePage({Key? key}) : super(key: key);

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/screens/starting_pages/phone_join_pages/smsjoin_screen.dart';
 import '../agree_page.dart';
-import '../connect_screen.dart';
 
 class SmsAuthScreen extends StatefulWidget {
   const SmsAuthScreen({Key? key}) : super(key: key);
