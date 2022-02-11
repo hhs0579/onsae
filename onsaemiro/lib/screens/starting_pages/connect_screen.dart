@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'access_screen.dart';
-import 'smsauth_screen.dart';
+import 'phone_join_pages/smsauth_screen.dart';
 
 class ConnectScreen extends StatefulWidget {
   const ConnectScreen({Key? key}) : super(key: key);
@@ -12,9 +10,9 @@ class ConnectScreen extends StatefulWidget {
 }
 
 // icon, onPressed 추가
-_connectbutton(text, onPressed) {
+_connectbutton(String text, String image, onPressed, context) {
   return Container(
-    width: 275,
+    width: MediaQuery.of(context).size.width,
     height: 60,
     margin: EdgeInsets.only(bottom: 20),
     child: TextButton(
@@ -22,9 +20,19 @@ _connectbutton(text, onPressed) {
         style: TextButton.styleFrom(
             primary: Colors.black,
             shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.green, width: 1.5),
+                side: BorderSide(color: Color(0xff6CCD6C), width: 1.5),
                 borderRadius: BorderRadius.circular(30))),
-        child: Text(text)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+                radius: 17,
+                backgroundColor: Colors.white,
+                backgroundImage: AssetImage(image)),
+            SizedBox(width: 10),
+            Text(text),
+          ],
+        )),
   );
 }
 
@@ -33,36 +41,49 @@ class _ConnectScreenState extends State<ConnectScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+          color: Colors.white,
+          padding: EdgeInsets.symmetric(horizontal: 40),
           margin: EdgeInsets.only(top: 40),
           child: Column(
             children: [
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Get.to(AccessScreen());
-                    },
-                    icon: Image.asset('assets/Vector.png'),
-                  ),
-                ],
+              SizedBox(
+                height: 50,
               ),
               SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                width: 220,
-                height: 160,
-                child: Image.asset('assets/on.png'),
+                width: MediaQuery.of(context).size.width,
+                height: 250,
+                child: Image.asset('assets/logo.png'),
               ),
               SizedBox(
                 height: 50,
               ),
-              _connectbutton('네이버로 연결하기', () {}),
-              _connectbutton('페이스북 연결하기', () {}),
-              _connectbutton('카카오 연결하기', () {}),
-              _connectbutton('전화번호로 빠른가입', () {
-                Get.to(SmsAuthScreen());
-              }),
+              _connectbutton('네이버로 연결하기', 'assets/naver.png', () {}, context),
+              _connectbutton(
+                  '페이스북 연결하기', 'assets/facebook.png', () {}, context),
+              _connectbutton('카카오톡 연결하기', 'assets/kakao.png', () {}, context),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 60,
+                margin: EdgeInsets.only(bottom: 20),
+                child: TextButton(
+                    onPressed: () {
+                      Get.to(() => SmsAuthScreen());
+                    },
+                    style: TextButton.styleFrom(
+                        primary: Colors.black,
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: Color(0xff6CCD6C), width: 1.5),
+                            borderRadius: BorderRadius.circular(30))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Image(image: AssetImage('assets/phone.png')),
+                        SizedBox(width: 10),
+                        Text('전화번호로 로그인하기'),
+                      ],
+                    )),
+              )
             ],
           )),
     );
