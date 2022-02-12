@@ -2,19 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:intl/intl.dart';
 import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/screens/access_pages/product_information.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 import 'package:onsaemiro/screens/things_pages/things_information.dart';
-
-class thingsShopIntroducePage extends StatefulWidget {
-  const thingsShopIntroducePage({Key? key}) : super(key: key);
-
-  @override
-  _thingsShopIntroducePageState createState() =>
-      _thingsShopIntroducePageState();
-}
 
 Review_Box(height, width, profileName, image1, image2, text) {
   return Padding(
@@ -89,7 +82,7 @@ Review_Box(height, width, profileName, image1, image2, text) {
   );
 }
 
-product_Box(height, width, image, onTap, name, explanation, price) {
+product_Box(height, width, image, onTap, name, explanation, int price) {
   return Padding(
     padding: EdgeInsets.only(bottom: 10),
     child: Container(
@@ -113,7 +106,7 @@ product_Box(height, width, image, onTap, name, explanation, price) {
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(image),
+                    image: NetworkImage(image),
                     fit: BoxFit.fill,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -145,7 +138,7 @@ product_Box(height, width, image, onTap, name, explanation, price) {
               Padding(
                 padding: EdgeInsets.only(left: width * 0.37),
                 child: Text(
-                  price,
+                  '${NumberFormat('###,###,###,###').format(price).replaceAll(' ', '')}원',
                   style: TextStyle(color: Colors.grey, fontSize: 10),
                 ),
               ),
@@ -157,7 +150,21 @@ product_Box(height, width, image, onTap, name, explanation, price) {
   );
 }
 
+class thingsShopIntroducePage extends StatefulWidget {
+  late String name;
+  late String image;
+  List<Product> products = [];
+  thingsShopIntroducePage(this.name, this.image, this.products);
+  @override
+  _thingsShopIntroducePageState createState() =>
+      _thingsShopIntroducePageState(this.name, this.image, this.products);
+}
+
 class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
+  _thingsShopIntroducePageState(this._name, this._image, this._products);
+  late String _name;
+  late String _image;
+  List<Product> _products = [];
   final CartController c = Get.put(CartController());
   bool isMenuScreen = true;
   bool isInformationScreen = false;
@@ -183,7 +190,7 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(89, 89, 89, 0.5),
                         image: DecorationImage(
-                            image: AssetImage('assets/mangnut.png'),
+                            image: NetworkImage(_image),
                             colorFilter: ColorFilter.mode(
                                 Colors.white.withOpacity(0.5),
                                 BlendMode.dstATop),
@@ -285,7 +292,7 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    '망넛이네',
+                    '$_name',
                     style: TextStyle(color: Colors.black, fontSize: 18),
                   ),
                   Row(
@@ -396,28 +403,44 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                     SizedBox(
                       height: height * 0.4507,
                       width: 350,
-                      child: ListView(
+                      child: ListView.builder(
                         physics: BouncingScrollPhysics(),
                         scrollDirection: Axis.vertical,
-                        children: [
-                          product_Box(height, width, 'assets/망넛이네 약콩두유.png',
-                              () {
+                        itemCount: _products.length,
+                        itemBuilder: (context, index) {
+                          return product_Box(
+                              height, width, _products[index].image, () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        thingsInformationPage()));
-                          }, '약콩두유 100', '약콩 두유 100, ', '1100원'),
-                          product_Box(height, width, 'assets/둘리우니 1.png', () {},
-                              '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                          product_Box(height, width, 'assets/둘리우니 1.png', () {},
-                              '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                          product_Box(height, width, 'assets/둘리우니 1.png', () {},
-                              '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                          product_Box(height, width, 'assets/둘리우니 1.png', () {},
-                              '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                        ],
+                                    builder: (context) => thingsInformationPage(
+                                        _products[index])));
+                          }, _products[index].name, 'explanation',
+                              _products[index].price);
+                        },
                       ),
+                      // child: ListView(
+                      //   physics: BouncingScrollPhysics(),
+                      //   scrollDirection: Axis.vertical,
+                      //   children: [
+                      //     product_Box(height, width, 'assets/망넛이네 약콩두유.png',
+                      //         () {
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) =>
+                      //             thingsInformationPage()));
+                      //     }, '약콩두유 100', '약콩 두유 100, ', '1100원'),
+                      //     product_Box(height, width, 'assets/둘리우니 1.png', () {},
+                      //         '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                      //     product_Box(height, width, 'assets/둘리우니 1.png', () {},
+                      //         '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                      //     product_Box(height, width, 'assets/둘리우니 1.png', () {},
+                      //         '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                      //     product_Box(height, width, 'assets/둘리우니 1.png', () {},
+                      //         '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                      //   ],
+                      // ),
                     )
                   ],
                 ),

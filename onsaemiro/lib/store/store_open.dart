@@ -94,7 +94,7 @@ class _StoreOpenState extends State<StoreOpen> {
             ),
             Container(
               margin: EdgeInsets.only(top: 40, left: 10),
-              width: width * 0.9,
+              width: width * 0.95,
               height: height * 0.09,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -102,16 +102,14 @@ class _StoreOpenState extends State<StoreOpen> {
                 border: Border.all(width: 1.0, color: Colors.black12),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    child: Text("상점 종류",
-                        style: TextStyle(
-                          color: Color(0xff6CCD6C),
-                          fontWeight: FontWeight.bold,
-                        )),
-                  ),
+                  Text("상점 종류",
+                      style: TextStyle(
+                        color: Color(0xff6CCD6C),
+                        fontWeight: FontWeight.bold,
+                      )),
                   Container(
                     child: Checkbox(
                       activeColor: Colors.lightGreen,
@@ -167,7 +165,7 @@ class _StoreOpenState extends State<StoreOpen> {
                       },
                     ),
                   ),
-                  Container(child: Text('건강'))
+                  Text('건강')
                 ],
               ),
             ),
@@ -228,7 +226,7 @@ class _StoreOpenState extends State<StoreOpen> {
                               MaterialPageRoute(
                                 builder: (_) => KpostalView(
                                   useLocalServer: true,
-                                  kakaoKey: 'd06eb717fecc37bcfce1d08a4395e59e',
+                                  kakaoKey: 'b7e55e7c67bfe3e039d72828eba39c44',
                                   callback: (Kpostal result) {
                                     deaddressFocusNode.requestFocus();
                                     setState(() {
@@ -391,7 +389,8 @@ class _StoreOpenState extends State<StoreOpen> {
               ),
             ),
             Container(
-                margin: EdgeInsets.only(right: 20),
+                margin: EdgeInsets.only(top: 20, left: 20),
+                width: width * 0.9,
                 child: TextButton(
                     onPressed: () async {
                       if (storename.text == "") {
@@ -401,20 +400,20 @@ class _StoreOpenState extends State<StoreOpen> {
                             timeInSecForIosWeb: 1,
                             backgroundColor: Colors.lightGreen,
                             fontSize: 12.0);
-                        // } else if (_addressTextEditor.text == "") {
-                        //   Fluttertoast.showToast(
-                        //       msg: "주소를 입력해주세요.",
-                        //       toastLength: Toast.LENGTH_SHORT,
-                        //       timeInSecForIosWeb: 1,
-                        //       backgroundColor: Colors.lightGreen,
-                        //       fontSize: 12.0);
-                        // } else if (_deaddressTextEditor.text == "") {
-                        //   Fluttertoast.showToast(
-                        //       msg: "상세주소를 입력해주세요.",
-                        //       toastLength: Toast.LENGTH_SHORT,
-                        //       timeInSecForIosWeb: 1,
-                        //       backgroundColor: Colors.lightGreen,
-                        //       fontSize: 12.0);
+                      } else if (_addressTextEditor.text == "") {
+                        Fluttertoast.showToast(
+                            msg: "주소를 입력해주세요.",
+                            toastLength: Toast.LENGTH_SHORT,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.lightGreen,
+                            fontSize: 12.0);
+                      } else if (_deaddressTextEditor.text == "") {
+                        Fluttertoast.showToast(
+                            msg: "상세주소를 입력해주세요.",
+                            toastLength: Toast.LENGTH_SHORT,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.lightGreen,
+                            fontSize: 12.0);
                       } else if (storeinfo.text == "") {
                         Fluttertoast.showToast(
                             msg: "상점정보를 입력해주세요.",
@@ -436,6 +435,13 @@ class _StoreOpenState extends State<StoreOpen> {
                             timeInSecForIosWeb: 1,
                             backgroundColor: Colors.lightGreen,
                             fontSize: 12.0);
+                      } else if (select.isEmpty) {
+                        Fluttertoast.showToast(
+                            msg: "상점 종류를 고르세요.",
+                            toastLength: Toast.LENGTH_SHORT,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.lightGreen,
+                            fontSize: 12.0);
                       } else {
                         fireStore.collection('StoreRegister').doc(key).set({
                           'StoreName': storename.text,
@@ -452,7 +458,12 @@ class _StoreOpenState extends State<StoreOpen> {
                                 builder: (context) => cultureMainPage()));
                       }
                     },
-                    child: Text('게시'))),
+                    child: Text('상점 등록', style: TextStyle(color: Colors.white)),
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xffA2BF62),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25)),
+                    ))),
           ]),
         ));
   }

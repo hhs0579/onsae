@@ -4,22 +4,22 @@ import 'package:onsaemiro/screens/things_pages/things_information.dart';
 
 class Product {
   late String name;
-  late String image_url;
+  late String image;
   late int price;
   late int num;
 
   Product({
     required this.name,
-    required this.image_url,
+    required this.image,
     required this.price,
     required this.num,
   });
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
-      name: json['name'],
-      image_url: json['image_url'],
-      price: json['price'],
-      num: json['num'],
-    );
-  }
+  Product.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
+        image = json['image'],
+        price = json['price'],
+        num = json['num'];
+
+  Map<String, dynamic> toJson() =>
+      {'name': name, 'image': image, 'price': price, 'num': num};
 }
