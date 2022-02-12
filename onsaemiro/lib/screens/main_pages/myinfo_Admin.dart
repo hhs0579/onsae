@@ -13,6 +13,7 @@ import 'package:onsaemiro/screens/main_pages/product_comment.dart';
 import 'package:onsaemiro/screens/main_pages/store_comment.dart';
 import 'package:onsaemiro/screens/things_pages/things_shopAdmin.dart';
 import 'package:onsaemiro/store/store_open.dart';
+import 'package:onsaemiro/store/store_regist.dart';
 
 _connectbutton(text, width, height, onPressed) {
   return Container(
@@ -193,10 +194,8 @@ class _MyInfoAdminState extends State<MyInfoAdmin> {
                   MaterialPageRoute(builder: (context) => StoreOpen()));
             }),
             _connectbutton('상품 등록', width, height, () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => product_CommentPage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => StoreRegist()));
             }),
             SizedBox(
               height: 5,
