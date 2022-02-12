@@ -11,7 +11,7 @@ class agreePage extends StatefulWidget {
 }
 
 class _agreePageState extends State<agreePage> {
-  String phoneNumber = Get.arguments;
+  List argument = Get.arguments;
 
   bool toggle = false;
   var agree1 = false;
@@ -143,7 +143,7 @@ class _agreePageState extends State<agreePage> {
           SizedBox(height: 130),
           _connectbutton('동의하고 계속 진행합니다.', () {
             if (agree1 == true && agree2 == true && agree3 == true) {
-              Get.to(JoinPage(), arguments: phoneNumber);
+              Get.to(JoinPage(), arguments: argument);
             } else {
               Get.to(agreePage());
             }

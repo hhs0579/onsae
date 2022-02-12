@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/screens/starting_pages/email_login_page.dart';
 import 'phone_join_pages/smsauth_screen.dart';
 
 class ConnectScreen extends StatefulWidget {
@@ -37,6 +38,8 @@ _connectbutton(String text, String image, onPressed, context) {
 }
 
 class _ConnectScreenState extends State<ConnectScreen> {
+  String userType = Get.arguments;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,11 +58,8 @@ class _ConnectScreenState extends State<ConnectScreen> {
                 child: Image.asset('assets/logo.png'),
               ),
               SizedBox(
-                height: 50,
+                height: 80,
               ),
-              _connectbutton('네이버로 연결하기', 'assets/naver.png', () {}, context),
-              _connectbutton(
-                  '페이스북 연결하기', 'assets/facebook.png', () {}, context),
               _connectbutton('카카오톡 연결하기', 'assets/kakao.png', () {}, context),
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -67,7 +67,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
                 margin: EdgeInsets.only(bottom: 20),
                 child: TextButton(
                     onPressed: () {
-                      Get.to(() => SmsAuthScreen());
+                      Get.to(() => SmsAuthScreen(), arguments: userType);
                     },
                     style: TextButton.styleFrom(
                         primary: Colors.black,
@@ -83,6 +83,22 @@ class _ConnectScreenState extends State<ConnectScreen> {
                         Text('전화번호로 로그인하기'),
                       ],
                     )),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 60,
+                margin: EdgeInsets.only(bottom: 20),
+                child: TextButton(
+                    onPressed: () {
+                      Get.to(() => Emailloginpage(), arguments: userType);
+                    },
+                    style: TextButton.styleFrom(
+                        primary: Colors.black,
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: Color(0xff6CCD6C), width: 1.5),
+                            borderRadius: BorderRadius.circular(30))),
+                    child: Text('이메일로 로그인하기')),
               )
             ],
           )),

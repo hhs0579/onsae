@@ -6,11 +6,14 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:onsaemiro/screens/main_pages/Root.dart';
 import 'package:onsaemiro/screens/main_pages/Root2.dart';
+import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
 import 'package:onsaemiro/screens/main_pages/edit_info.dart';
 import 'package:onsaemiro/screens/main_pages/product_comment.dart';
 import 'package:onsaemiro/screens/main_pages/store_comment.dart';
+import 'package:onsaemiro/screens/starting_pages/connect_screen.dart';
+import 'package:onsaemiro/screens/starting_pages/type_screen.dart';
 import 'package:onsaemiro/screens/things_pages/things_shopAdmin.dart';
 
 _connectbutton(text, width, height, onPressed) {
@@ -245,7 +248,10 @@ class _MyInfoPageState extends State<MyInfoPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 info_button('고객센터', () {}),
-                info_button('로그아웃', () {}),
+                info_button('로그아웃', () {
+                  authController.handleSignOut();
+                  Get.offAll(() => TypeScreen());
+                }),
                 info_button('사업자 사용자 전환', () {
                   if (c.Pressed.value == 0) {
                     Get.to(Root2());
