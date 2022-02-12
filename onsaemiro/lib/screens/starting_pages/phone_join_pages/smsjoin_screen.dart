@@ -15,9 +15,11 @@ class SmsJoinScreen extends StatefulWidget {
 
 class _SmsJoinScreenState extends State<SmsJoinScreen> {
   Timer? _timer;
+  String phoneNumber = '';
   var _time = 0;
   bool isSmsAuth = false;
-  late String verificationId;
+  bool isotpconfirm = false;
+  String? verificationId;
 
   final phoneNumberController = TextEditingController();
   final otpNumberController = TextEditingController();
@@ -40,6 +42,27 @@ class _SmsJoinScreenState extends State<SmsJoinScreen> {
                   borderRadius: BorderRadius.circular(30))),
           child: Text(text)),
     );
+  }
+
+  signInWithPhoneAuthCredential(PhoneAuthCredential phoneAuthCredential) async {
+    try {
+      final authCredential =
+          await _auth.signInWithCredential(phoneAuthCredential);
+      if (authCredential.user != null) {
+        setState(() {
+          isSmsAuth = true;
+          isotpconfirm = false;
+        });
+        toastMessage('인증이 완료되었습니다');
+      }
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        print("인증실패");
+        print(e.message);
+      });
+
+      toastMessage('오류가 발생했습니다. 인증번호를 확인해주세요.');
+    }
   }
 
   @override
@@ -107,7 +130,7 @@ class _SmsJoinScreenState extends State<SmsJoinScreen> {
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding:
-                            EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                            EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                         border: InputBorder.none,
                       ),
                       keyboardType: TextInputType.phone,
@@ -132,7 +155,7 @@ class _SmsJoinScreenState extends State<SmsJoinScreen> {
                                           (String verificationId) {
                                         setState(() {
                                           isSmsAuth = false;
-
+                                          otpNumberController.text = '';
                                           _timer?.cancel();
                                         });
                                         toastMessage(
@@ -157,6 +180,7 @@ class _SmsJoinScreenState extends State<SmsJoinScreen> {
 
                                         setState(() {
                                           isSmsAuth = true;
+                                          isotpconfirm = true;
                                           _timeStart();
 
                                           this.verificationId = verificationId;
@@ -184,7 +208,7 @@ class _SmsJoinScreenState extends State<SmsJoinScreen> {
                 ),
                 SizedBox(height: 10),
                 Visibility(
-                  visible: isSmsAuth == true,
+                  visible: isotpconfirm,
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -192,9 +216,10 @@ class _SmsJoinScreenState extends State<SmsJoinScreen> {
                           width: 125,
                           height: 30,
                           child: TextField(
+                            textAlign: TextAlign.center,
                             controller: otpNumberController,
                             focusNode: otpFocusNode,
-                            style: TextStyle(fontSize: 20, height: 1.5),
+                            style: TextStyle(fontSize: 15, height: 1.5),
                             decoration: InputDecoration(
                               isDense: true,
                               contentPadding: EdgeInsets.symmetric(
@@ -205,7 +230,7 @@ class _SmsJoinScreenState extends State<SmsJoinScreen> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(right: 5),
+                          margin: EdgeInsets.only(right: 8),
                           child: Text(_viewTime(_time),
                               style: TextStyle(
                                 color: Colors.grey,
@@ -215,7 +240,15 @@ class _SmsJoinScreenState extends State<SmsJoinScreen> {
                           width: 45,
                           height: 25,
                           child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                FocusScope.of(context).unfocus();
+                                PhoneAuthCredential phoneAuthCredential =
+                                    PhoneAuthProvider.credential(
+                                        verificationId: verificationId!,
+                                        smsCode: otpNumberController.text);
+                                signInWithPhoneAuthCredential(
+                                    phoneAuthCredential);
+                              },
                               style: TextButton.styleFrom(
                                   padding: EdgeInsets.zero,
                                   primary: Colors.white,
@@ -230,7 +263,7 @@ class _SmsJoinScreenState extends State<SmsJoinScreen> {
                       ]),
                 ),
                 Visibility(
-                  visible: isSmsAuth == true,
+                  visible: isotpconfirm,
                   child: Container(
                     color: Color(0xff6CCD6C),
                     width: 200,
@@ -238,18 +271,22 @@ class _SmsJoinScreenState extends State<SmsJoinScreen> {
                   ),
                 ),
                 Visibility(
-                  visible: isSmsAuth == true,
+                  visible: isotpconfirm,
                   child: Container(
                     width: 220,
                     margin: EdgeInsets.only(top: 10),
-                    child: Text('전송된 4자리 코드 입력해주세요.',
-                        style: TextStyle(fontSize: 14),
+                    child: Text('전송된 6자리 코드를 입력해주세요.',
+                        style: TextStyle(fontSize: 13),
                         textAlign: TextAlign.center),
                   ),
                 ),
-                SizedBox(height: 300),
-                _connectbutton('전화번호로 회원가입', () {
-                  Get.to(agreePage());
+                SizedBox(height: 350),
+                _connectbutton('다음 단계로 넘어가기', () {
+                  if (isSmsAuth == false) {
+                    toastMessage('휴대폰 인증을 완료해주세요.');
+                  } else {
+                    Get.to(agreePage(), arguments: phoneNumber);
+                  }
                 })
               ],
             ),

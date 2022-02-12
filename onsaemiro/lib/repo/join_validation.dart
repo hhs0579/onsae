@@ -37,22 +37,19 @@ vaildationemail(String value) {
 class PossibleNameText {
   bool isCharacters;
   bool is1Symbol;
-  bool is1Letter;
   bool is1Number;
   PossibleNameText(
       {this.isCharacters = false,
       this.is1Symbol = false,
-      this.is1Letter = false,
       this.is1Number = false});
 }
 
 PossibleNameText checkNameText(String value) {
   var possibleNameText = PossibleNameText();
   final validNumbers = RegExp(r'(\d+)');
-  final validAlphabet = RegExp(r'[a-zA-Z]');
   final validSpecial = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
 
-  if (value.length >= 2 && value.length <= 5) {
+  if (value.length >= 2 && value.length <= 8) {
     possibleNameText.isCharacters = true;
   } else {
     possibleNameText.isCharacters = false;
@@ -62,12 +59,6 @@ PossibleNameText checkNameText(String value) {
     possibleNameText.is1Symbol = true;
   } else {
     possibleNameText.is1Symbol = false;
-  }
-
-  if (!validAlphabet.hasMatch(value)) {
-    possibleNameText.is1Letter = true;
-  } else {
-    possibleNameText.is1Letter = false;
   }
 
   if (!validNumbers.hasMatch(value)) {
@@ -82,14 +73,13 @@ vaildationname(String value) {
   var vaildationname = checkNameText(value);
 
   if (value.isEmpty) {
-    return toastMessage("이름을 작성해주세요");
+    return toastMessage("닉네임을 작성해주세요");
   } else {
     if (vaildationname.isCharacters == false) {
-      return toastMessage("이름은 2~5자 사이로 입력해주세요.");
+      return toastMessage("닉네임은 2~8자 사이로 입력해주세요.");
     } else if (vaildationname.is1Number == false ||
-        vaildationname.is1Letter == false ||
         vaildationname.is1Symbol == false) {
-      return toastMessage("실명을 입력해주세요.");
+      return toastMessage("숫자, 특수문자를 포함할 수 없습니다.");
     } else {
       return null;
     }

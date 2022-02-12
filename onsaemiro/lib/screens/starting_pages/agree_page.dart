@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/screens/starting_pages/join_page.dart';
 import 'package:onsaemiro/screens/starting_pages/nick_name-page.dart';
 
 class agreePage extends StatefulWidget {
@@ -10,6 +11,8 @@ class agreePage extends StatefulWidget {
 }
 
 class _agreePageState extends State<agreePage> {
+  String phoneNumber = Get.arguments;
+
   bool toggle = false;
   var agree1 = false;
 
@@ -30,6 +33,18 @@ class _agreePageState extends State<agreePage> {
                   borderRadius: BorderRadius.circular(30))),
           child: Text(text)),
     );
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      var agree1 = false;
+
+      var agree2 = false;
+
+      var agree3 = false;
+    });
+    super.initState();
   }
 
   @override
@@ -128,7 +143,7 @@ class _agreePageState extends State<agreePage> {
           SizedBox(height: 130),
           _connectbutton('동의하고 계속 진행합니다.', () {
             if (agree1 == true && agree2 == true && agree3 == true) {
-              Get.to(nickNamePage());
+              Get.to(JoinPage(), arguments: phoneNumber);
             } else {
               Get.to(agreePage());
             }
