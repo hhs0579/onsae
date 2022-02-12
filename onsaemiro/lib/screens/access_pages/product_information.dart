@@ -220,7 +220,7 @@ class _productInformationPageState extends State<productInformationPage> {
                         if (product_num > 0) {
                           var item = Product(
                             name: '둘리우니',
-                            image_url: 'assets/둘리우니2.png',
+                            image: 'assets/둘리우니2.png',
                             price: price,
                             num: product_num,
                           );

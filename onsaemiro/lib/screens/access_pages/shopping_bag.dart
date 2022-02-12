@@ -233,10 +233,11 @@ class _shoppingBagPageState extends State<shoppingBagPage> {
                           Row(
                             children: [
                               Container(
-                                width: 78,
-                                height: 94,
-                                child: Image(image: AssetImage(item.image_url)),
-                              ),
+                                  width: 78,
+                                  height: 94,
+                                  child: Image.network(
+                                    item.image,
+                                  )),
                               Column(
                                 children: [
                                   SizedBox(
