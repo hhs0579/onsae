@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:onsaemiro/screens/starting_pages/login_page.dart';
-
-import 'join_page.dart';
 
 class findPassword extends StatelessWidget {
   const findPassword({Key? key}) : super(key: key);
@@ -49,9 +46,7 @@ class findPassword extends StatelessWidget {
                       width: 120,
                       height: 60,
                       child: TextButton(
-                          onPressed: () {
-                            Get.to(loginpage());
-                          },
+                          onPressed: () {},
                           style: TextButton.styleFrom(
                               primary: Colors.black,
                               shape: RoundedRectangleBorder(

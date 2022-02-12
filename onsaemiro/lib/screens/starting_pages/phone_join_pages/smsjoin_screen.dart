@@ -1,20 +1,30 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'agree_page.dart';
-import 'connect_screen.dart';
+import 'package:onsaemiro/classes/toast_message.dart';
+import 'package:onsaemiro/repo/join_validation.dart';
+import '../agree_page.dart';
 
-class SmsAuthScreen extends StatefulWidget {
-  const SmsAuthScreen({Key? key}) : super(key: key);
+class SmsJoinScreen extends StatefulWidget {
+  const SmsJoinScreen({Key? key}) : super(key: key);
 
   @override
-  _SmsAuthScreenState createState() => _SmsAuthScreenState();
+  _SmsJoinScreenState createState() => _SmsJoinScreenState();
 }
 
-class _SmsAuthScreenState extends State<SmsAuthScreen> {
+class _SmsJoinScreenState extends State<SmsJoinScreen> {
   Timer? _timer;
   var _time = 0;
   bool isSmsAuth = false;
+  late String verificationId;
+
+  final phoneNumberController = TextEditingController();
+  final otpNumberController = TextEditingController();
+
+  final otpFocusNode = FocusNode();
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
   _connectbutton(text, onPressed) {
     return Container(
@@ -72,7 +82,7 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Get.to(ConnectScreen());
+                        Get.back();
                       },
                       icon: Image.asset('assets/Vector.png'),
                     ),
@@ -91,28 +101,74 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                     width: 160,
                     height: 30,
                     child: TextField(
-                      style: TextStyle(fontSize: 20, height: 1.5),
+                      controller: phoneNumberController,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 15, height: 1.5),
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding:
-                            EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                            EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                         border: InputBorder.none,
                       ),
                       keyboardType: TextInputType.phone,
                     ),
                   ),
                   Container(
-                    width: 40,
-                    height: 20,
+                    width: 45,
+                    height: 25,
                     child: TextButton(
-                        onPressed: () {
-                          _timeStart();
-                          isSmsAuth = true;
-                        },
+                        onPressed: isSmsAuth
+                            ? null
+                            : () async {
+                                if (vaildationPhoneNumber(
+                                        phoneNumberController.text) ==
+                                    null) {
+                                  FocusScope.of(context).unfocus();
+                                  toastMessage(
+                                      "${phoneNumberController.text}로 인증코드를 발송하였습니다 잠시만 기다려주세요");
+                                  await _auth.verifyPhoneNumber(
+                                      timeout: const Duration(seconds: 120),
+                                      codeAutoRetrievalTimeout:
+                                          (String verificationId) {
+                                        setState(() {
+                                          isSmsAuth = false;
+
+                                          _timer?.cancel();
+                                        });
+                                        toastMessage(
+                                            "인증번호가 만료되었습니다. 다시 시도해 주세요.");
+                                      },
+                                      phoneNumber: "+8210" +
+                                          phoneNumberController.text
+                                              .substring(3)
+                                              .trim(),
+                                      verificationCompleted:
+                                          (phoneAuthCredential) async {},
+                                      verificationFailed:
+                                          (verificationFailed) async {
+                                        print(verificationFailed.code);
+                                        toastMessage(
+                                            "코드 발송 실패했습니다. 전화번호를 확인해주세요");
+                                        print("코드 발송 실패");
+                                      },
+                                      codeSent: (verificationId,
+                                          forceResendingToken) async {
+                                        print('코드 보냄');
+
+                                        setState(() {
+                                          isSmsAuth = true;
+                                          _timeStart();
+
+                                          this.verificationId = verificationId;
+                                        });
+                                      });
+                                  otpFocusNode.requestFocus();
+                                }
+                              },
                         style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
                             primary: Colors.white,
-                            backgroundColor: Colors.green,
+                            backgroundColor: Color(0xff6CCD6C),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8))),
                         child: Text(
@@ -136,6 +192,8 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                           width: 125,
                           height: 30,
                           child: TextField(
+                            controller: otpNumberController,
+                            focusNode: otpFocusNode,
                             style: TextStyle(fontSize: 20, height: 1.5),
                             decoration: InputDecoration(
                               isDense: true,
@@ -154,14 +212,14 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                               )),
                         ),
                         Container(
-                          width: 40,
-                          height: 20,
+                          width: 45,
+                          height: 25,
                           child: TextButton(
                               onPressed: () {},
                               style: TextButton.styleFrom(
                                   padding: EdgeInsets.zero,
                                   primary: Colors.white,
-                                  backgroundColor: Colors.green,
+                                  backgroundColor: Color(0xff6CCD6C),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8))),
                               child: Text(
@@ -174,7 +232,7 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                 Visibility(
                   visible: isSmsAuth == true,
                   child: Container(
-                    color: Colors.green,
+                    color: Color(0xff6CCD6C),
                     width: 200,
                     height: 2,
                   ),
@@ -183,14 +241,14 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                   visible: isSmsAuth == true,
                   child: Container(
                     width: 220,
-                    margin: EdgeInsets.only(top: 5),
+                    margin: EdgeInsets.only(top: 10),
                     child: Text('전송된 4자리 코드 입력해주세요.',
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 14),
                         textAlign: TextAlign.center),
                   ),
                 ),
-                SizedBox(height: 250),
-                _connectbutton('동의하고 계속 진행합니다', () {
+                SizedBox(height: 300),
+                _connectbutton('전화번호로 회원가입', () {
                   Get.to(agreePage());
                 })
               ],

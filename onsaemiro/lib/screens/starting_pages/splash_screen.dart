@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:onsaemiro/screens/starting_pages/login_page.dart';
-import 'dart:io';
+
+import 'package:onsaemiro/screens/starting_pages/type_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Timer(Duration(seconds: 2), () {
-      Get.offAll(loginpage());
+      Get.offAll(TypeScreen());
     });
   }
 

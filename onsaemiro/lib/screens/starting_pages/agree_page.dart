@@ -42,7 +42,9 @@ class _agreePageState extends State<agreePage> {
           Row(
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.back();
+                },
                 icon: Image.asset('assets/Vector.png'),
               ),
               SizedBox(
