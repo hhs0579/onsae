@@ -34,62 +34,52 @@ vaildationemail(String value) {
   }
 }
 
-class PossibleNameText {
+class PossibleNickNameText {
   bool isCharacters;
   bool is1Symbol;
-  bool is1Letter;
   bool is1Number;
-  PossibleNameText(
+  PossibleNickNameText(
       {this.isCharacters = false,
       this.is1Symbol = false,
-      this.is1Letter = false,
       this.is1Number = false});
 }
 
-PossibleNameText checkNameText(String value) {
-  var possibleNameText = PossibleNameText();
+PossibleNickNameText checkNickNameText(String value) {
+  var possibleNickNameText = PossibleNickNameText();
   final validNumbers = RegExp(r'(\d+)');
-  final validAlphabet = RegExp(r'[a-zA-Z]');
   final validSpecial = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
 
-  if (value.length >= 2 && value.length <= 5) {
-    possibleNameText.isCharacters = true;
+  if (value.length >= 2 && value.length <= 8) {
+    possibleNickNameText.isCharacters = true;
   } else {
-    possibleNameText.isCharacters = false;
+    possibleNickNameText.isCharacters = false;
   }
 
   if (!validSpecial.hasMatch(value)) {
-    possibleNameText.is1Symbol = true;
+    possibleNickNameText.is1Symbol = true;
   } else {
-    possibleNameText.is1Symbol = false;
-  }
-
-  if (!validAlphabet.hasMatch(value)) {
-    possibleNameText.is1Letter = true;
-  } else {
-    possibleNameText.is1Letter = false;
+    possibleNickNameText.is1Symbol = false;
   }
 
   if (!validNumbers.hasMatch(value)) {
-    possibleNameText.is1Number = true;
+    possibleNickNameText.is1Number = true;
   } else {
-    possibleNameText.is1Number = false;
+    possibleNickNameText.is1Number = false;
   }
-  return possibleNameText;
+  return possibleNickNameText;
 }
 
-vaildationname(String value) {
-  var vaildationname = checkNameText(value);
+vaildationnickname(String value) {
+  var vaildationnickname = checkNickNameText(value);
 
   if (value.isEmpty) {
-    return toastMessage("이름을 작성해주세요");
+    return toastMessage("닉네임을 작성해주세요");
   } else {
-    if (vaildationname.isCharacters == false) {
-      return toastMessage("이름은 2~5자 사이로 입력해주세요.");
-    } else if (vaildationname.is1Number == false ||
-        vaildationname.is1Letter == false ||
-        vaildationname.is1Symbol == false) {
-      return toastMessage("실명을 입력해주세요.");
+    if (vaildationnickname.isCharacters == false) {
+      return toastMessage("닉네임은 2~8자 사이로 입력해주세요.");
+    } else if (vaildationnickname.is1Number == false ||
+        vaildationnickname.is1Symbol == false) {
+      return toastMessage("숫자, 특수문자를 포함할 수 없습니다.");
     } else {
       return null;
     }
@@ -193,6 +183,111 @@ vaildationPhoneNumber(String value) {
       return toastMessage("전화번호를 11자리를 입력해주세요.");
     } else {
       if (vaildationPhoneNumber.is1Symbol == false) {
+        return toastMessage("특수문자없이 숫자만 입력해주세요.");
+      } else {
+        return null;
+      }
+    }
+  }
+}
+
+class PossibleNameText {
+  bool isCharacters;
+  bool is1Symbol;
+  bool is1Letter;
+  bool is1Number;
+  PossibleNameText(
+      {this.isCharacters = false,
+      this.is1Symbol = false,
+      this.is1Letter = false,
+      this.is1Number = false});
+}
+
+PossibleNameText checkNameText(String value) {
+  var possibleNameText = PossibleNameText();
+  final validNumbers = RegExp(r'(\d+)');
+  final validAlphabet = RegExp(r'[a-zA-Z]');
+  final validSpecial = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
+
+  if (value.length >= 2 && value.length <= 5) {
+    possibleNameText.isCharacters = true;
+  } else {
+    possibleNameText.isCharacters = false;
+  }
+
+  if (!validSpecial.hasMatch(value)) {
+    possibleNameText.is1Symbol = true;
+  } else {
+    possibleNameText.is1Symbol = false;
+  }
+
+  if (!validAlphabet.hasMatch(value)) {
+    possibleNameText.is1Letter = true;
+  } else {
+    possibleNameText.is1Letter = false;
+  }
+
+  if (!validNumbers.hasMatch(value)) {
+    possibleNameText.is1Number = true;
+  } else {
+    possibleNameText.is1Number = false;
+  }
+  return possibleNameText;
+}
+
+vaildationname(String value) {
+  var vaildationname = checkNameText(value);
+
+  if (value.isEmpty) {
+    return toastMessage("이름을 작성해주세요");
+  } else {
+    if (vaildationname.isCharacters == false) {
+      return toastMessage("이름은 2~5자 사이로 입력해주세요.");
+    } else if (vaildationname.is1Number == false ||
+        vaildationname.is1Letter == false ||
+        vaildationname.is1Symbol == false) {
+      return toastMessage("실명을 입력해주세요.");
+    } else {
+      return null;
+    }
+  }
+}
+
+class Possibledob {
+  bool is8Characters;
+  bool is1Symbol;
+  Possibledob({this.is8Characters = false, this.is1Symbol = false});
+}
+
+Possibledob checkdob(String value) {
+  var possibledob = Possibledob();
+  final validSpecial = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
+
+  if (value.length == 8) {
+    possibledob.is8Characters = true;
+  } else {
+    possibledob.is8Characters = false;
+  }
+
+  if (!validSpecial.hasMatch(value)) {
+    possibledob.is1Symbol = true;
+  } else {
+    possibledob.is1Symbol = false;
+  }
+
+  return possibledob;
+}
+
+vaildationdob(String value) {
+  var vaildationdob = checkdob(value);
+
+  if (value.isEmpty) {
+    return toastMessage("생년월일을 입력해주세요.");
+  } else {
+    if (vaildationdob.is8Characters == false) {
+      return toastMessage("생년월일은 8자리를 입력해주세요.");
+    } else {
+      if (vaildationdob.is1Symbol == false) {
         return toastMessage("특수문자없이 숫자만 입력해주세요.");
       } else {
         return null;

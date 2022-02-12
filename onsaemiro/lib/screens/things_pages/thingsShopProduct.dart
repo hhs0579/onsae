@@ -1,7 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:onsaemiro/product/shop.dart';
-
-import 'package:onsaemiro/screens/access_pages/product_confirm.dart';
 import 'package:onsaemiro/screens/access_pages/product_registration.dart';
 
 class thingsShopRegiPage extends StatefulWidget {
@@ -12,12 +11,14 @@ class thingsShopRegiPage extends StatefulWidget {
 }
 
 class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
-  List<shop> Shops = [shop(name: '망넛이네', image_url: 'assets/mangnut.png')];
-
+  // List<Shop> Shops = [Shop(name: '망넛이네', image_url: 'assets/mangnut.png')];
+  final Stream<QuerySnapshot> _shopStream =
+      FirebaseFirestore.instance.collection('shops').snapshots();
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 130,
@@ -47,23 +48,59 @@ class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
               height: 550,
               child: Column(
                 children: [
-                  SizedBox(
-                    height: Shops.length * 105,
-                    child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: Shops.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return StoreBox(
-                              width, Shops[index].name, Shops[index].image_url,
-                              () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        productRegistrationPage()));
-                          });
-                        }),
-                  ),
+                  StreamBuilder<QuerySnapshot>(
+                      stream: _shopStream,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          print(snapshot.error);
+                          return Center(
+                            child: Text('오류가 발생했습니다.'),
+                          );
+                        }
+                        if (snapshot.data == null) {
+                          return Container();
+                        }
+                        List<Shop> Shops = [];
+                        for (var element in snapshot.data!.docs) {
+                          Shop shopModel = Shop.fromJson(
+                              element.data() as Map<String, dynamic>);
+                          Shops.add(shopModel);
+                          print(Shops[0].name);
+                        }
+
+                        return SizedBox(
+                            height: height * 0.4,
+                            child: ListView.builder(
+                                itemCount: Shops.length,
+                                itemBuilder: (context, index) {
+                                  Shop shop = Shops.elementAt(index);
+                                  return StoreBox(width, shop.name, shop.image,
+                                      () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                productRegistrationPage()));
+                                  });
+                                }));
+                      }),
+                  // SizedBox(
+                  //   height: Shops.length * 105,
+                  //   child: ListView.builder(
+                  //       scrollDirection: Axis.vertical,
+                  //       itemCount: Shops.length,
+                  //       itemBuilder: (BuildContext context, int index) {
+                  //         return StoreBox(
+                  //             width, Shops[index].name, Shops[index].image_url,
+                  //             () {
+                  //           Navigator.push(
+                  //               context,
+                  //               MaterialPageRoute(
+                  //                   builder: (context) =>
+                  //                       productRegistrationPage()));
+                  //         });
+                  //       }),
+                  // ),
                 ],
               ),
             ),
@@ -73,54 +110,62 @@ class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
 }
 
 Widget StoreBox(width, name, image, func1) {
-  return Container(
-    height: 100,
-    width: width,
-    decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          width: 10,
-        ),
-        Container(
-          height: 33,
-          width: 97,
-          decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage(image), fit: BoxFit.fill),
+  return Padding(
+    padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+    child: Container(
+      height: 100,
+      width: width,
+      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // SizedBox(
+          //   width: 10,
+          // ),
+          Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              border: Border.all(color: Color.fromRGBO(108, 205, 108, 1)),
+              borderRadius: BorderRadius.circular(20),
+              image: DecorationImage(
+                  image: NetworkImage(image), fit: BoxFit.scaleDown),
+            ),
           ),
-        ),
-        SizedBox(
-          width: width * 0.3,
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              name,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            TextButton(
-              onPressed: func1,
-              child: Container(
-                width: width * 0.18,
-                height: 33,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20)),
-                child: Text(
-                  '수정하기',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.black),
-                ),
+          SizedBox(
+            width: width * 0.3,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                name,
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
               ),
-            )
-          ],
-        ),
-      ],
+              SizedBox(
+                height: 10,
+              ),
+              TextButton(
+                onPressed: func1,
+                child: Container(
+                  width: width * 0.20,
+                  height: 25,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(108, 205, 108, 0.5),
+                      border:
+                          Border.all(color: Color.fromRGBO(108, 205, 108, 1)),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Text(
+                    '상품 등록하기',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
     ),
   );
 }

@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/classes/toast_message.dart';
+import 'package:onsaemiro/repo/join_validation.dart';
+import 'package:onsaemiro/screens/main_pages/Root.dart';
+import 'package:onsaemiro/screens/main_pages/controller/database_controller.dart';
 import 'package:onsaemiro/screens/starting_pages/phone_join_pages/smsjoin_screen.dart';
 import '../agree_page.dart';
-import '../connect_screen.dart';
 
 class SmsAuthScreen extends StatefulWidget {
   const SmsAuthScreen({Key? key}) : super(key: key);
@@ -15,12 +19,28 @@ class SmsAuthScreen extends StatefulWidget {
 class _SmsAuthScreenState extends State<SmsAuthScreen> {
   Timer? _timer;
   var _time = 0;
+
+  String userType = Get.arguments;
+
   bool isSmsAuth = false;
+  bool isotpconfirm = false;
+  String? verificationId;
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
   final phoneNumberController = TextEditingController();
   final otpNumberController = TextEditingController();
 
   final otpFocusNode = FocusNode();
+
+  void signInWithPhoneNumber(PhoneAuthCredential phoneAuthCredential) async {
+    try {
+      final User? user =
+          (await _auth.signInWithCredential(phoneAuthCredential)).user;
+    } catch (e) {
+      toastMessage('로그인에 실패했습니다.');
+    }
+  }
 
   _connectbutton(text, onPressed) {
     return Container(
@@ -45,7 +65,7 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
   }
 
   void _timeStart() {
-    _time = 180;
+    _time = 120;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         _time--;
@@ -97,6 +117,7 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                     width: 160,
                     height: 30,
                     child: TextField(
+                      controller: phoneNumberController,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 15, height: 1.5),
                       decoration: InputDecoration(
@@ -112,10 +133,58 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                     width: 45,
                     height: 25,
                     child: TextButton(
-                        onPressed: () {
-                          _timeStart();
-                          isSmsAuth = true;
-                        },
+                        onPressed: isSmsAuth
+                            ? null
+                            : () async {
+                                if (vaildationPhoneNumber(
+                                        phoneNumberController.text) ==
+                                    null) {
+                                  FocusScope.of(context).unfocus();
+                                  toastMessage(
+                                      "${phoneNumberController.text}로 인증코드를 발송하였습니다 잠시만 기다려주세요");
+                                  await _auth.verifyPhoneNumber(
+                                      timeout: const Duration(seconds: 120),
+                                      codeAutoRetrievalTimeout:
+                                          (String verificationId) {
+                                        setState(() {
+                                          isSmsAuth = false;
+                                          otpNumberController.text = '';
+                                          _timer?.cancel();
+                                        });
+                                        toastMessage(
+                                            "인증번호가 만료되었습니다. 다시 시도해 주세요.");
+                                      },
+                                      phoneNumber: "+8210" +
+                                          phoneNumberController.text
+                                              .substring(3)
+                                              .trim(),
+                                      verificationCompleted:
+                                          (phoneAuthCredential) async {
+                                        await _auth.signInWithCredential(
+                                            phoneAuthCredential);
+                                        toastMessage('이미 로그인한 상태입니다.');
+                                      },
+                                      verificationFailed:
+                                          (verificationFailed) async {
+                                        print(verificationFailed.code);
+                                        toastMessage(
+                                            "코드 발송 실패했습니다. 전화번호를 확인해주세요");
+                                      },
+                                      codeSent: (verificationId,
+                                          forceResendingToken) async {
+                                        print('코드 보냄');
+
+                                        setState(() {
+                                          isSmsAuth = true;
+                                          isotpconfirm = true;
+                                          _timeStart();
+
+                                          this.verificationId = verificationId;
+                                        });
+                                      });
+                                  otpFocusNode.requestFocus();
+                                }
+                              },
                         style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
                             primary: Colors.white,
@@ -135,15 +204,18 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                 ),
                 SizedBox(height: 10),
                 Visibility(
-                  visible: isSmsAuth == true,
+                  visible: isotpconfirm,
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: 125,
+                          width: 150,
                           height: 30,
                           child: TextField(
-                            style: TextStyle(fontSize: 20, height: 1.5),
+                            controller: otpNumberController,
+                            focusNode: otpFocusNode,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 15, height: 1.5),
                             decoration: InputDecoration(
                               isDense: true,
                               contentPadding: EdgeInsets.symmetric(
@@ -153,33 +225,17 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                             keyboardType: TextInputType.phone,
                           ),
                         ),
+                        SizedBox(width: 15),
                         Container(
-                          margin: EdgeInsets.only(right: 5),
                           child: Text(_viewTime(_time),
                               style: TextStyle(
                                 color: Colors.grey,
                               )),
                         ),
-                        Container(
-                          width: 40,
-                          height: 20,
-                          child: TextButton(
-                              onPressed: () {},
-                              style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  primary: Colors.white,
-                                  backgroundColor: Color(0xff6CCD6C),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8))),
-                              child: Text(
-                                '확인',
-                                style: TextStyle(fontSize: 11),
-                              )),
-                        )
                       ]),
                 ),
                 Visibility(
-                  visible: isSmsAuth == true,
+                  visible: isotpconfirm,
                   child: Container(
                     color: Color(0xff6CCD6C),
                     width: 200,
@@ -187,21 +243,27 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                   ),
                 ),
                 Visibility(
-                  visible: isSmsAuth == true,
+                  visible: isotpconfirm,
                   child: Container(
                     width: 220,
                     margin: EdgeInsets.only(top: 10),
-                    child: Text('전송된 4자리 코드 입력해주세요.',
+                    child: Text('전송된 6자리 코드 입력해주세요.',
                         style: TextStyle(fontSize: 13),
                         textAlign: TextAlign.center),
                   ),
                 ),
                 SizedBox(height: 300),
                 _connectbutton('전화번호로 로그인', () {
-                  Get.to(agreePage());
+                  PhoneAuthCredential phoneAuthCredential =
+                      PhoneAuthProvider.credential(
+                          verificationId: verificationId!,
+                          smsCode: otpNumberController.text);
+
+                  signInWithPhoneNumber(phoneAuthCredential);
+                  Get.to(() => Root());
                 }),
                 _connectbutton('전화번호로 회원가입', () {
-                  Get.to(SmsJoinScreen());
+                  Get.to(SmsJoinScreen(), arguments: userType);
                 })
               ],
             ),

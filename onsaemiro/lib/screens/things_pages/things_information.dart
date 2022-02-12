@@ -21,12 +21,16 @@ total(product_num, price) {
 }
 
 class thingsInformationPage extends StatefulWidget {
-  const thingsInformationPage({Key? key}) : super(key: key);
+  Product product;
+  thingsInformationPage(this.product);
   @override
-  _thingsInformationPageState createState() => _thingsInformationPageState();
+  _thingsInformationPageState createState() =>
+      _thingsInformationPageState(this.product);
 }
 
 class _thingsInformationPageState extends State<thingsInformationPage> {
+  Product _product;
+  _thingsInformationPageState(this._product);
   final CartController c = Get.put(CartController());
   late int product_num = 0;
   var price = 1100;
@@ -56,7 +60,7 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                   decoration: BoxDecoration(
                       color: Color.fromRGBO(89, 89, 89, 0.5),
                       image: DecorationImage(
-                          image: AssetImage('assets/약콩두유.png'),
+                          image: NetworkImage(_product.image),
                           colorFilter: ColorFilter.mode(
                               Color.fromRGBO(89, 89, 89, 0.5).withOpacity(0.5),
                               BlendMode.dstATop),
@@ -82,7 +86,7 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                         width: 77.59,
                       ),
                       Text(
-                        'access',
+                        'things',
                         style: TextStyle(fontSize: 36, color: Colors.white),
                       ),
                     ],
@@ -107,7 +111,7 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                           Column(
                             children: [
                               Text(
-                                '약콩두유 100',
+                                '${_product.name}',
                                 style: TextStyle(fontSize: 24),
                               ),
                             ],
@@ -128,7 +132,7 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                                 width: 180,
                               ),
                               Text(
-                                '1,100원',
+                                '${NumberFormat('###,###,###,###').format(_product.price).replaceAll(' ', '')}원',
                                 style: TextStyle(fontSize: 18),
                               )
                             ],
@@ -177,7 +181,9 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                                         constraints: BoxConstraints(),
                                         onPressed: () {
                                           setState(() {
-                                            product_num = product_num - 1;
+                                            if (_product.num > 0) {
+                                              _product.num = _product.num - 1;
+                                            }
                                           });
                                         },
                                         icon: Icon(
@@ -185,7 +191,7 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                                           size: 7,
                                         )),
                                     Text(
-                                      '$product_num',
+                                      '${_product.num}',
                                       style: TextStyle(fontSize: 13),
                                     ),
                                     IconButton(
@@ -193,7 +199,7 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                                         constraints: BoxConstraints(),
                                         onPressed: () {
                                           setState(() {
-                                            product_num = product_num + 1;
+                                            _product.num = _product.num + 1;
                                           });
                                         },
                                         icon: Icon(
@@ -230,13 +236,14 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                   ),
                   TextButton(
                       onPressed: () {
-                        if (product_num > 0) {
-                          var item = Product(
-                            name: '약콩 두유 100',
-                            image_url: 'assets/망넛이네 약콩두유.png',
-                            price: price,
-                            num: product_num,
-                          );
+                        if (_product.num > 0) {
+                          var item = _product;
+                          // var item = Product(
+                          //   name: '약콩 두유 100',
+                          //   image: 'assets/망넛이네 약콩두유.png',
+                          //   price: price,
+                          //   num: product_num,
+                          // );
                           _cartList.add(item);
                           c.allList.add(item);
 
@@ -247,7 +254,7 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       title: Text(
-                                        "장바구니에 $product_num개의 상품이\n담겼습니다.",
+                                        "장바구니에 ${_product.num}개의 상품이\n담겼습니다.",
                                         style: TextStyle(fontSize: 18),
                                       ),
                                       content: Row(
@@ -287,13 +294,13 @@ class _thingsInformationPageState extends State<thingsInformationPage> {
                           });
                         }
                       },
-                      child: Text('$product_num개 담기',
+                      child: Text('${_product.num}개 담기',
                           style:
                               TextStyle(color: Color.fromRGBO(89, 89, 89, 1)))),
                   SizedBox(
                     width: 58,
                   ),
-                  Text('${total(product_num, price)}원')
+                  Text('${total(_product.num, price)}원')
                 ],
               ),
             ),

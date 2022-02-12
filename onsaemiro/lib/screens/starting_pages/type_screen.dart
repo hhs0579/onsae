@@ -10,6 +10,8 @@ class TypeScreen extends StatefulWidget {
 }
 
 class _TypeScreenState extends State<TypeScreen> {
+  String usertype = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,8 @@ class _TypeScreenState extends State<TypeScreen> {
               margin: EdgeInsets.symmetric(horizontal: 40),
               child: TextButton(
                 onPressed: () {
-                  Get.to(() => ConnectScreen());
+                  usertype = 'business';
+                  Get.to(() => ConnectScreen(), arguments: usertype);
                 },
                 child: Text("사업자 로그인",
                     style: TextStyle(
@@ -50,7 +53,8 @@ class _TypeScreenState extends State<TypeScreen> {
               margin: EdgeInsets.symmetric(horizontal: 40),
               child: TextButton(
                   onPressed: () {
-                    Get.to(() => ConnectScreen());
+                    usertype = 'user';
+                    Get.to(() => ConnectScreen(), arguments: usertype);
                   },
                   child: Text("사용자 로그인",
                       style: TextStyle(
