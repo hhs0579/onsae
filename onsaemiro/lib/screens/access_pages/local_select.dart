@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
+import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 
 import 'local_Seoul.dart';
 
@@ -55,6 +58,7 @@ local_Stack(where, whereInEnglish, whichPicture, onTap, height, width) {
 }
 
 class _localSelectPageState extends State<localSelectPage> {
+  final CartController c = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -108,7 +112,9 @@ class _localSelectPageState extends State<localSelectPage> {
                     color: Color(0xffA2BF62),
                     size: width * 0.056,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(shoppingBagPage(c.allList));
+                  },
                 ),
               ],
             ),

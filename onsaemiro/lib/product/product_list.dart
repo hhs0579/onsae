@@ -8,12 +8,11 @@ class Product {
   late int price;
   late int num;
 
-  Product({
-    required this.name,
-    required this.image,
-    required this.price,
-    required this.num,
-  });
+  Product(
+      {required this.name,
+      required this.image,
+      required this.price,
+      required this.num});
   Product.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         image = json['image'],

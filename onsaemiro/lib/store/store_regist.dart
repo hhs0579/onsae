@@ -12,10 +12,11 @@ import 'package:onsaemiro/screens/main_pages/culture_main.dart';
 import 'package:random_string/random_string.dart';
 
 class StoreRegist extends StatefulWidget {
-  const StoreRegist({Key? key}) : super(key: key);
+  String shopName;
+  StoreRegist(this.shopName);
 
   @override
-  _StoreRegistState createState() => _StoreRegistState();
+  _StoreRegistState createState() => _StoreRegistState(this.shopName);
 }
 
 Imageservice imageservice = Imageservice();
@@ -27,11 +28,14 @@ List<XFile>? imageFileList = [];
 XFile? _image;
 final productname = TextEditingController();
 final productprice = TextEditingController();
+int price = int.parse(productprice.text);
 final productinfo = TextEditingController();
 FirebaseFirestore fireStore = FirebaseFirestore.instance;
 String urls = '';
 
 class _StoreRegistState extends State<StoreRegist> {
+  String _shopName;
+  _StoreRegistState(this._shopName);
   Future _getImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -304,11 +308,17 @@ class _StoreRegistState extends State<StoreRegist> {
                                 backgroundColor: Colors.lightGreen,
                                 fontSize: 12.0);
                           } else {
-                            fireStore.collection('product').doc(key).set({
-                              'productName': productname.text,
-                              'productPrice': productprice.text,
-                              'productInfo': productinfo.text,
-                              'productImage': urls
+                            FirebaseFirestore.instance
+                                .collection('shops')
+                                .doc('$_shopName')
+                                .collection('products')
+                                .doc(key)
+                                .set({
+                              'name': productname.text,
+                              'price': price,
+                              'Info': productinfo.text,
+                              'num': 0,
+                              'image': urls
                             });
 
                             final result = await Navigator.push(
