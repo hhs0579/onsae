@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -91,88 +92,93 @@ class _actParticipationPageState extends State<actParticipationPage> {
                   ))),
     ];
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 138,
-        leading: Image.asset('assets/Vector(진한녹색).png'),
-        backgroundColor: Colors.white,
-        title: Text(
-          '게시물 작성',
-          style: TextStyle(
-            fontSize: 34,
-            fontWeight: FontWeight.w700,
-            color: Color.fromRGBO(67, 123, 86, 1),
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0.5,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 400,
-              padding: EdgeInsets.fromLTRB(24, 31, 24, 20),
-              child: TextField(
-                keyboardType: TextInputType.multiline,
-                textInputAction: TextInputAction.newline,
-                maxLines: 36,
-                style: TextStyle(fontSize: 11),
-                decoration: InputDecoration(
-                    hintText: '문구 입력...',
-                    hintStyle: TextStyle(fontSize: 11),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide(color: Colors.green))),
-              ),
+        appBar: AppBar(
+          toolbarHeight: 138,
+          leading: Image.asset('assets/Vector(진한녹색).png'),
+          backgroundColor: Colors.white,
+          title: Text(
+            '게시물 작성',
+            style: TextStyle(
+              fontSize: 34,
+              fontWeight: FontWeight.w700,
+              color: Color.fromRGBO(67, 123, 86, 1),
             ),
-            // GridView.count(
-            //   shrinkWrap: true,
-            //   padding: EdgeInsets.all(2),
-            //   crossAxisCount: isPadMode ? 4 : 2,
-            //   mainAxisSpacing: 5,
-            //   crossAxisSpacing: 5,
-            //   children: List.generate(
-            //       4,
-            //       (index) => DottedBorder(
-            //           child: Container(
-            //             child: Center(child: _boxContents[index]),
-            //             decoration: index <= imageFileList!.length - 1
-            //                 ? BoxDecoration(
-            //                     borderRadius: BorderRadius.circular(8),
-            //                     image: DecorationImage(
-            //                         fit: BoxFit.cover,
-            //                         image: FileImage(
-            //                             File(imageFileList![index].path))))
-            //                 : null,
-            //           ),
-            //           color: Colors.grey,
-            //           dashPattern: [5, 3],
-            //           borderType: BorderType.RRect,
-            //           radius: Radius.circular(10))).toList(),
-            // ),
-            Container(
-              width: 110,
-              height: 41,
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(26.5)),
-                  side: BorderSide(width: 2.0, color: Colors.green),
-                ),
-                child: Text(
-                  '게시하기',
-                  style: TextStyle(color: Color(0xff595959), fontSize: 13),
-                ),
-                onPressed: () {},
-              ),
-            )
-          ],
+          ),
+          centerTitle: true,
+          elevation: 0.5,
         ),
-      ),
-    );
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  height: 400,
+                  padding: EdgeInsets.fromLTRB(24, 31, 24, 20),
+                  child: TextField(
+                    keyboardType: TextInputType.multiline,
+                    textInputAction: TextInputAction.newline,
+                    maxLines: 36,
+                    style: TextStyle(fontSize: 11),
+                    decoration: InputDecoration(
+                        hintText: '문구 입력...',
+                        hintStyle: TextStyle(fontSize: 11),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderSide: BorderSide(color: Colors.green),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide: BorderSide(color: Colors.green))),
+                  ),
+                ),
+                GridView.count(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.all(2),
+                  crossAxisCount: isPadMode ? 4 : 2,
+                  mainAxisSpacing: 5,
+                  crossAxisSpacing: 5,
+                  children: List.generate(
+                      4,
+                      (index) => DottedBorder(
+                          child: Container(
+                            child: Center(child: _boxContents[index]),
+                            decoration: index <= imageFileList!.length - 1
+                                ? BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: FileImage(
+                                            File(imageFileList![index].path))))
+                                : null,
+                          ),
+                          color: Colors.grey,
+                          dashPattern: [5, 3],
+                          borderType: BorderType.RRect,
+                          radius: Radius.circular(10))).toList(),
+                ),
+                Container(
+                  width: 110,
+                  height: 41,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(26.5)),
+                      side: BorderSide(width: 2.0, color: Colors.green),
+                    ),
+                    child: Text(
+                      '게시하기',
+                      style: TextStyle(color: Color(0xff595959), fontSize: 13),
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 }
