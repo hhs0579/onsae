@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:onsaemiro/screens/starting_pages/email_join_page.dart';
+import 'package:onsaemiro/classes/toast_message.dart';
+import 'package:onsaemiro/screens/main_pages/Root.dart';
+import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
+import 'package:onsaemiro/screens/starting_pages/email_join_pages/email_join_page.dart';
 import 'package:onsaemiro/screens/starting_pages/find_password.dart';
 
 class Emailloginpage extends StatefulWidget {
@@ -41,6 +44,7 @@ class _EmailloginpageState extends State<Emailloginpage> {
                     child: Column(
                       children: [
                         TextField(
+                          controller: emailController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius:
@@ -51,6 +55,8 @@ class _EmailloginpageState extends State<Emailloginpage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
                           child: TextField(
+                            controller: passwordController,
+                            obscureText: true,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius:
@@ -82,7 +88,23 @@ class _EmailloginpageState extends State<Emailloginpage> {
                           width: 100,
                           height: 40,
                           child: TextButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                if (emailController.text == '') {
+                                  return toastMessage("이메일을 입력해주세요.");
+                                } else {
+                                  if (passwordController.text == '') {
+                                    return toastMessage("비밀번호를 입력해주세요.");
+                                  } else {
+                                    if (await authController.authUser(
+                                          emailController.text.trim(),
+                                          passwordController.text.trim(),
+                                        ) ==
+                                        null) {
+                                      Get.offAll(() => Root());
+                                    }
+                                  }
+                                }
+                              },
                               style: TextButton.styleFrom(
                                   primary: Colors.black,
                                   shape: RoundedRectangleBorder(

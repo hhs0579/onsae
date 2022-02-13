@@ -10,14 +10,14 @@ import 'package:onsaemiro/screens/main_pages/controller/database_controller.dart
 import 'package:onsaemiro/screens/starting_pages/connect_screen.dart';
 import 'package:onsaemiro/screens/starting_pages/type_screen.dart';
 
-class JoinPage extends StatefulWidget {
-  const JoinPage({Key? key}) : super(key: key);
+class PhoneJoinPage extends StatefulWidget {
+  const PhoneJoinPage({Key? key}) : super(key: key);
 
   @override
-  _JoinPageState createState() => _JoinPageState();
+  _PhoneJoinPageState createState() => _PhoneJoinPageState();
 }
 
-class _JoinPageState extends State<JoinPage> {
+class _PhoneJoinPageState extends State<PhoneJoinPage> {
   final nameController = TextEditingController();
   final nicknameController = TextEditingController();
   final dobController = TextEditingController();
@@ -42,8 +42,10 @@ class _JoinPageState extends State<JoinPage> {
       final authCredential =
           await _auth.signInWithCredential(phoneAuthCredential);
 
-      await DatabaseService(uid: authCredential.user!.uid).setPhoneUserData(
+      await DatabaseService(uid: authCredential.user!.uid).setUserData(
         DateTime.now(),
+        '',
+        '',
         nameController.text,
         nicknameController.text,
         phonenumber,
