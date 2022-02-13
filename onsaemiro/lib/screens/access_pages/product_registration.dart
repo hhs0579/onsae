@@ -156,7 +156,7 @@ class _productRegistrationPageState extends State<productRegistrationPage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        productConfirmPage()));
+                                        productConfirmPage(items[index],'망넛이네')));
                           }, () {
                             setState(() {
                               items.removeAt(index);
@@ -181,8 +181,8 @@ class _productRegistrationPageState extends State<productRegistrationPage> {
                                 return AlertDialog(
                                     title: Text("상품 등록"),
                                     content: TextField(
-                                      decoration: InputDecoration(
-                                          hintText: '상품 이름'),
+                                      decoration:
+                                          InputDecoration(hintText: '상품 이름'),
                                       onChanged: (String value) {
                                         input = value;
                                       },

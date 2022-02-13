@@ -20,7 +20,6 @@ class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 130,

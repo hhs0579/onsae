@@ -134,8 +134,14 @@ class _thingsRegiPageState extends State<thingsRegiPage> {
                                   width,
                                   height,
                                   _products[index].name,
-                                  _products[index].image,
-                                  () {});
+                                  _products[index].image, () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            productConfirmPage(
+                                                _products[index].name, _name)));
+                              });
                             }),
                       ),
                       Container(

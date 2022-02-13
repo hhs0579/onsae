@@ -320,7 +320,8 @@ class _StoreRegistState extends State<StoreRegist> {
                               'price': price,
                               'Info': productinfo.text,
                               'num': 0,
-                              'image': urls
+                              'image': urls,
+                              'docId': key
                             });
 
                             // final result = await Navigator.push(
