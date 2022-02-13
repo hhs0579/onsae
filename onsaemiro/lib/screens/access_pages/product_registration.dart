@@ -182,7 +182,7 @@ class _productRegistrationPageState extends State<productRegistrationPage> {
                                     title: Text("상품 등록"),
                                     content: TextField(
                                       decoration: InputDecoration(
-                                          hintText: '약콩 두유 100'),
+                                          hintText: '상품 이름'),
                                       onChanged: (String value) {
                                         input = value;
                                       },

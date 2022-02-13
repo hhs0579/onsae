@@ -6,16 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
+import 'package:onsaemiro/repo/image_service.dart';
+import 'package:onsaemiro/screens/main_pages/Root.dart';
 import 'package:onsaemiro/screens/main_pages/culture_main.dart';
 import 'package:random_string/random_string.dart';
 
 class StoreRegist extends StatefulWidget {
-  const StoreRegist({Key? key}) : super(key: key);
+  String shopName;
+  StoreRegist(this.shopName);
 
   @override
-  _StoreRegistState createState() => _StoreRegistState();
+  _StoreRegistState createState() => _StoreRegistState(this.shopName);
 }
 
+Imageservice imageservice = Imageservice();
+var visibley = false;
 var key = randomString(16);
 List<String> _arrImageUrls = [];
 final _picker = ImagePicker();
@@ -23,10 +28,14 @@ List<XFile>? imageFileList = [];
 XFile? _image;
 final productname = TextEditingController();
 final productprice = TextEditingController();
+int price = int.parse(productprice.text);
 final productinfo = TextEditingController();
 FirebaseFirestore fireStore = FirebaseFirestore.instance;
+String urls = '';
 
 class _StoreRegistState extends State<StoreRegist> {
+  String _shopName;
+  _StoreRegistState(this._shopName);
   Future _getImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -35,23 +44,6 @@ class _StoreRegistState extends State<StoreRegist> {
         _image = image;
       }
     });
-  }
-
-  Future<String> uploadFile(XFile _image) async {
-    String imageurls = _image.name;
-    Reference reference =
-        FirebaseStorage.instance.ref().child('post').child(imageurls);
-
-    UploadTask uploadTask = reference.putFile(File(_image.path));
-    await uploadTask.whenComplete(() {});
-    return await reference.getDownloadURL();
-  }
-
-  Future uploadFunction(List<XFile> _images) async {
-    for (int i = 0; i < _images.length; i++) {
-      var imageUrl = await uploadFile(_images[i]);
-      _arrImageUrls.add(imageUrl.toString());
-    }
   }
 
   productimage() {
@@ -107,200 +99,244 @@ class _StoreRegistState extends State<StoreRegist> {
           centerTitle: true,
           elevation: 1,
         ),
-        body: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 30),
-              child: Row(children: [
-                Container(
-                  margin: EdgeInsets.only(left: 20),
-                  child: Text('사진등록',
-                      style: TextStyle(fontSize: 21, color: Color(0xff6CCD6C))),
-                ),
-                productimage()
-              ]),
-            ),
-            Container(
-              alignment: Alignment(0, 0),
-              height: height * 0.09,
-              width: width * 0.9,
-              margin: EdgeInsets.only(top: 30, left: 10),
-              padding: EdgeInsets.only(left: 20, right: 20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(width: 1.0, color: Colors.black12),
-              ),
-              child: Row(
-                children: [
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 30),
+                child: Row(children: [
                   Container(
-                    margin: EdgeInsets.only(right: 20),
-                    child: Icon(Icons.create_rounded, color: Color(0xff6CCD6C)),
-                  ),
-                  Container(
-                    width: 60,
-                    child: Text("상품 이름",
+                    margin: EdgeInsets.only(left: 20),
+                    child: Text('사진 선택',
                         style: TextStyle(
-                          color: Color(0xff6CCD6C),
-                          fontWeight: FontWeight.bold,
-                        )),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 21,
+                            color: Color(0xff6CCD6C))),
                   ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(right: 10),
-                      child: TextField(
-                        controller: productname,
-                        textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 12),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
+                  productimage()
+                ]),
               ),
-            ),
-            Container(
-              alignment: Alignment(0, 0),
-              height: height * 0.09,
-              width: width * 0.9,
-              margin: EdgeInsets.only(top: 30, left: 10),
-              padding: EdgeInsets.only(left: 20, right: 20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(width: 1.0, color: Colors.black12),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(right: 20),
-                    child: Icon(Icons.create_rounded, color: Color(0xff6CCD6C)),
-                  ),
-                  Container(
-                    width: 60,
-                    child: Text("상품 가격",
-                        style: TextStyle(
-                          color: Color(0xff6CCD6C),
-                          fontWeight: FontWeight.bold,
-                        )),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(right: 10),
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        controller: productprice,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 12),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              alignment: Alignment(0, 0),
-              height: height * 0.09,
-              width: width * 0.9,
-              margin: EdgeInsets.only(top: 30, left: 10),
-              padding: EdgeInsets.only(left: 20, right: 20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(width: 1.0, color: Colors.black12),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(right: 20),
-                    child: Icon(Icons.create_rounded, color: Color(0xff6CCD6C)),
-                  ),
-                  Container(
-                    width: 60,
-                    child: Text("상품 설명",
-                        style: TextStyle(
-                          color: Color(0xff6CCD6C),
-                          fontWeight: FontWeight.bold,
-                        )),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(right: 10),
-                      child: TextField(
-                        controller: productinfo,
-                        textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 12),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-                margin: EdgeInsets.only(top: 20, left: 20),
+              Container(
+                alignment: Alignment(0, 0),
+                height: height * 0.09,
                 width: width * 0.9,
-                child: TextButton(
-                    onPressed: () async {
-                      if (productname.text == "") {
-                        Fluttertoast.showToast(
-                            msg: "상품 이름을 입력해주세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.lightGreen,
-                            fontSize: 12.0);
-                      } else if (productprice.text == "") {
-                        Fluttertoast.showToast(
-                            msg: "가격을 입력해주세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.lightGreen,
-                            fontSize: 12.0);
-                      } else if (productinfo.text == "") {
-                        Fluttertoast.showToast(
-                            msg: "상품정보를 입력해주세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.lightGreen,
-                            fontSize: 12.0);
-                      } else if (_image == null) {
-                        Fluttertoast.showToast(
-                            msg: "상품 이미지를 등록해주세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.lightGreen,
-                            fontSize: 12.0);
-                      } else {
-                        fireStore.collection('product').doc(key).set({
-                          'productName': productname.text,
-                          'productPrice': productprice.text,
-                          'productInfo': productinfo.text,
-                          'productImage': _image
-                        });
+                margin: EdgeInsets.only(top: 30, left: 10),
+                padding: EdgeInsets.only(left: 20, right: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(width: 1.0, color: Colors.black12),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(right: 20),
+                      child:
+                          Icon(Icons.create_rounded, color: Color(0xff6CCD6C)),
+                    ),
+                    Container(
+                      width: 60,
+                      child: Text("상품 이름",
+                          style: TextStyle(
+                            color: Color(0xff6CCD6C),
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: TextField(
+                          controller: productname,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(fontSize: 12),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                alignment: Alignment(0, 0),
+                height: height * 0.09,
+                width: width * 0.9,
+                margin: EdgeInsets.only(top: 30, left: 10),
+                padding: EdgeInsets.only(left: 20, right: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(width: 1.0, color: Colors.black12),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(right: 20),
+                      child:
+                          Icon(Icons.create_rounded, color: Color(0xff6CCD6C)),
+                    ),
+                    Container(
+                      width: 60,
+                      child: Text("상품 가격",
+                          style: TextStyle(
+                            color: Color(0xff6CCD6C),
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          controller: productprice,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          textAlign: TextAlign.right,
+                          style: TextStyle(fontSize: 12),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                alignment: Alignment(0, 0),
+                height: height * 0.09,
+                width: width * 0.9,
+                margin: EdgeInsets.only(top: 30, left: 10),
+                padding: EdgeInsets.only(left: 20, right: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(width: 1.0, color: Colors.black12),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(right: 20),
+                      child:
+                          Icon(Icons.create_rounded, color: Color(0xff6CCD6C)),
+                    ),
+                    Container(
+                      width: 60,
+                      child: Text("상품 설명",
+                          style: TextStyle(
+                            color: Color(0xff6CCD6C),
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: TextField(
+                          controller: productinfo,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(fontSize: 12),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: 20, left: 20),
+                  width: width * 0.9,
+                  child: TextButton(
+                      onPressed: () async {
+                        if (_image == null) {
+                          Fluttertoast.showToast(
+                              msg: "사진을 선택해주세요.",
+                              toastLength: Toast.LENGTH_SHORT,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.lightGreen,
+                              fontSize: 12.0);
+                        } else {
+                          urls = await imageservice.uploadProductImageToStorage(
+                              productname.text, _image!);
+                          setState(() {
+                            visibley = true;
+                          });
+                        }
+                      },
+                      child:
+                          Text('사진 등록', style: TextStyle(color: Colors.white)),
+                      style: ElevatedButton.styleFrom(
+                          primary: Color(0xffA2BF62),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25))))),
+              Visibility(
+                visible: visibley,
+                child: Container(
+                    margin: EdgeInsets.only(top: 20, left: 20),
+                    width: width * 0.9,
+                    child: TextButton(
+                        onPressed: () async {
+                          if (productname.text == "") {
+                            Fluttertoast.showToast(
+                                msg: "상품 이름을 입력해주세요.",
+                                toastLength: Toast.LENGTH_SHORT,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.lightGreen,
+                                fontSize: 12.0);
+                          } else if (productprice.text == "") {
+                            Fluttertoast.showToast(
+                                msg: "가격을 입력해주세요.",
+                                toastLength: Toast.LENGTH_SHORT,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.lightGreen,
+                                fontSize: 12.0);
+                          } else if (productinfo.text == "") {
+                            Fluttertoast.showToast(
+                                msg: "상품정보를 입력해주세요.",
+                                toastLength: Toast.LENGTH_SHORT,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.lightGreen,
+                                fontSize: 12.0);
+                          } else if (_image == null) {
+                            Fluttertoast.showToast(
+                                msg: "상품 이미지를 등록해주세요.",
+                                toastLength: Toast.LENGTH_SHORT,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.lightGreen,
+                                fontSize: 12.0);
+                          } else {
+                            FirebaseFirestore.instance
+                                .collection('shops')
+                                .doc('$_shopName')
+                                .collection('products')
+                                .doc(key)
+                                .set({
+                              'name': productname.text,
+                              'price': price,
+                              'Info': productinfo.text,
+                              'num': 0,
+                              'image': urls
+                            });
 
-                        final result = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => cultureMainPage()));
-                      }
-                    },
-                    child: Text('상품 등록', style: TextStyle(color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xffA2BF62),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25)),
-                    ))),
-          ],
+                            final result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Root()));
+                          }
+                        },
+                        child: Text('상품 등록',
+                            style: TextStyle(color: Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0xffA2BF62),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)),
+                        ))),
+              )
+            ],
+          ),
         ));
   }
 }
