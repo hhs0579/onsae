@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/screens/starting_pages/email_join_pages/email_join_page2.dart';
 import 'package:onsaemiro/screens/starting_pages/phone_join_page.dart';
 import 'package:onsaemiro/screens/starting_pages/nick_name-page.dart';
 
-class agreePage extends StatefulWidget {
-  agreePage({Key? key}) : super(key: key);
+class agreePage2 extends StatefulWidget {
+  agreePage2({Key? key}) : super(key: key);
 
   @override
-  State<agreePage> createState() => _agreePageState();
+  State<agreePage2> createState() => _agreePage2State();
 }
 
-class _agreePageState extends State<agreePage> {
-  List argument = Get.arguments;
+class _agreePage2State extends State<agreePage2> {
+  List arguments = Get.arguments;
 
   bool toggle = false;
   var agree1 = false;
@@ -143,9 +144,9 @@ class _agreePageState extends State<agreePage> {
           SizedBox(height: 130),
           _connectbutton('동의하고 계속 진행합니다.', () {
             if (agree1 == true && agree2 == true && agree3 == true) {
-              Get.to(PhoneJoinPage(), arguments: argument);
+              Get.to(EmailJoinPage2(), arguments: arguments);
             } else {
-              Get.to(agreePage());
+              Get.to(agreePage2());
             }
           })
         ],

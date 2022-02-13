@@ -7,8 +7,10 @@ class DatabaseService {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
 
-  Future setPhoneUserData(
+  Future setUserData(
       DateTime date,
+      String email,
+      String password,
       String _name,
       String _nickname,
       String _phone,
@@ -16,6 +18,7 @@ class DatabaseService {
       String _addressdetail,
       String _usertype) async {
     await userCollection.doc(uid).set({
+      'email': email,
       'data': date,
       'image': '',
       'name': _name,
