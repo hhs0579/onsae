@@ -171,24 +171,7 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                             style: TextStyle(
                                               fontSize: 12,
                                             )),
-                                        Container(
-                                            height: 100,
-                                            width: 100,
-                                            color: Colors.white,
-                                            child: ListView.builder(
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                shrinkWrap: true,
-                                                itemCount:
-                                                    actPost.imgList.length,
-                                                itemBuilder:
-                                                    (BuildContext context,
-                                                        int index) {
-                                                  return Image.network(
-                                                      actPost.imgList
-                                                          .elementAt(index),
-                                                      fit: BoxFit.cover);
-                                                })),
+
                                         //플렉시블
                                       ],
                                     ),
@@ -210,6 +193,23 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                   ],
                                 ),
                               )),
+                          Flexible(
+                            fit: FlexFit.tight,
+                            child: Container(
+                                height: height * 0.17,
+                                width: width * 0.7,
+                                color: Colors.white,
+                                child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    itemCount: actPost.imgList.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Image.network(
+                                          actPost.imgList.elementAt(index),
+                                          fit: BoxFit.cover);
+                                    })),
+                          ),
                         ],
                       );
                     },
