@@ -24,6 +24,7 @@ List<XFile>? imageFileList = [];
 final _picker = ImagePicker();
 FirebaseStorage firebaseStorage = FirebaseStorage.instance;
 TextEditingController postTextEditController = TextEditingController();
+String profile = '';
 
 class _actParticipationPageState extends State<actParticipationPage> {
   Future<void> _pickedImgs() async {
@@ -222,13 +223,15 @@ class _actParticipationPageState extends State<actParticipationPage> {
                               backgroundColor: Colors.lightBlue,
                               fontSize: 12.0);
                         } else {
-                          await DatabaseService(uid: appData.myInfo.uid)
+                          await DatabaseService(uid: appData.usermodel.uid)
                               .setPostData(
                                   DateTime.now(),
-                                  appData.myInfo.nickname,
+                                  appData.usermodel.nickname,
                                   '',
                                   postTextEditController.text,
-                                  _arrImageUrls, []);
+                                  _arrImageUrls,
+                                  [],
+                                  appData.usermodel.image);
                         }
                       },
                     ),

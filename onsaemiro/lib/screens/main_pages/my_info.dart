@@ -126,7 +126,7 @@ class MyInfoPage extends StatefulWidget {
 class _MyInfoPageState extends State<MyInfoPage> {
   @override
   void initState() {
-    resultURL = appdata.myInfo.image;
+    resultURL = appdata.usermodel.image;
 
     super.initState();
   }

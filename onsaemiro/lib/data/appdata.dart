@@ -35,13 +35,13 @@ class AppData extends GetxController {
   }
 
   ActPost _actPost = ActPost(
-    date: DateTime.now(),
-    nickname: '',
-    imgList: [],
-    postKey: '',
-    post: '',
-    like: [],
-  );
+      date: DateTime.now(),
+      nickname: '',
+      imgList: [],
+      postKey: '',
+      post: '',
+      like: [],
+      profile: '');
 
   ActPost get actPost => _actPost;
 
