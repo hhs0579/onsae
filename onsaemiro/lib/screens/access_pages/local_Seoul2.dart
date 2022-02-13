@@ -7,6 +7,7 @@ import 'package:onsaemiro/screens/access_pages/shop_introduceAdmin.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/Root2.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
+import 'package:onsaemiro/screens/main_pages/controller/controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
 
 class localSeoul2Page extends StatefulWidget {
