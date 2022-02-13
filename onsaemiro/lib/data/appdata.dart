@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:onsaemiro/models/actpost_model.dart';
 import 'package:onsaemiro/models/myinfo_model.dart';
 
 class AppData extends GetxController {
@@ -27,6 +28,21 @@ class AppData extends GetxController {
 
   set myInfo(MyInfo myInfo) {
     _myInfo = myInfo;
+    update();
+  }
+
+  ActPost _actPost = ActPost(
+    date: DateTime.now(),
+    nickname: '',
+    imgList: [],
+    postKey: '',
+    post: '',
+  );
+
+  ActPost get actPost => _actPost;
+
+  set actPost(ActPost myInfo) {
+    _actPost = myInfo;
     update();
   }
 

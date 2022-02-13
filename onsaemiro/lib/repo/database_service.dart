@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:random_string/random_string.dart';
 
 class DatabaseService {
   final String uid;
   DatabaseService({required this.uid});
-
+  var key = randomString(16);
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
-
+  final CollectionReference postCollection =
+      FirebaseFirestore.instance.collection('actPost');
   Future setUserData(
       DateTime date,
       String email,
@@ -34,6 +36,22 @@ class DatabaseService {
       'usertype': _usertype,
       'pushToken': '',
       'uid': uid,
+    });
+  }
+
+  Future setPostData(
+    DateTime date,
+    String post,
+    String postkey,
+    String _nickname,
+    List<dynamic> imgList,
+  ) async {
+    await postCollection.doc(key).set({
+      'date': date,
+      'post': post,
+      'nickname': _nickname,
+      'postKey': key,
+      'imgList': imgList,
     });
   }
 }
