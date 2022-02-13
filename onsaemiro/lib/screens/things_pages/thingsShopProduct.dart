@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/product/shop.dart';
-import 'package:onsaemiro/screens/access_pages/product_registration.dart';
+import 'package:onsaemiro/screens/things_pages/things_regi.dart';
 
 class thingsShopRegiPage extends StatefulWidget {
   const thingsShopRegiPage({Key? key}) : super(key: key);
@@ -67,21 +69,48 @@ class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
                           Shops.add(shopModel);
                           print(Shops[0].name);
                         }
-
                         return SizedBox(
                             height: height * 0.4,
                             child: ListView.builder(
                                 itemCount: Shops.length,
                                 itemBuilder: (context, index) {
                                   Shop shop = Shops.elementAt(index);
-                                  return StoreBox(width, shop.name, shop.image,
-                                      () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                productRegistrationPage()));
-                                  });
+                                  return StreamBuilder<QuerySnapshot>(
+                                      stream: FirebaseFirestore.instance
+                                          .collection('shops')
+                                          .doc(Shops[index].name)
+                                          .collection('products')
+                                          .snapshots(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasError) {
+                                          print(snapshot.error);
+                                          return Center(
+                                            child: Text('오류가 발생했습니다.'),
+                                          );
+                                        }
+                                        if (snapshot.data == null) {
+                                          return Container();
+                                        }
+                                        List<Product> products = [];
+                                        for (var element
+                                            in snapshot.data!.docs) {
+                                          Product productModel =
+                                              Product.fromJson(element.data()
+                                                  as Map<String, dynamic>);
+                                          products.add(productModel);
+                                          print(products[0].name);
+                                        }
+                                        return StoreBox(
+                                            width, shop.name, shop.image, () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      thingsRegiPage(
+                                                          Shops[index].name,
+                                                          products)));
+                                        });
+                                      });
                                 }));
                       }),
                   // SizedBox(

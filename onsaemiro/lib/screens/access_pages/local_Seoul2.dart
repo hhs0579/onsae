@@ -162,11 +162,7 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                     icon: Icon(Icons.shopping_cart),
                     color: Colors.lightGreen,
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  shoppingBagPage(c.allList)));
+                      Get.to(shoppingBagPage(c.allList));
                     },
                   ),
                 ],

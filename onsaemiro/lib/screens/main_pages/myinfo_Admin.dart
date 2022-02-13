@@ -195,7 +195,7 @@ class _MyInfoAdminState extends State<MyInfoAdmin> {
             }),
             _connectbutton('상품 등록', width, height, () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => StoreRegist()));
+                  MaterialPageRoute(builder: (context) => StoreRegist('망넛이네')));
             }),
             SizedBox(
               height: 5,
