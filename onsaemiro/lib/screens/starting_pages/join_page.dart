@@ -8,6 +8,7 @@ import 'package:onsaemiro/repo/join_validation.dart';
 import 'package:onsaemiro/screens/main_pages/Root.dart';
 import 'package:onsaemiro/screens/main_pages/controller/database_controller.dart';
 import 'package:onsaemiro/screens/starting_pages/connect_screen.dart';
+import 'package:onsaemiro/screens/starting_pages/type_screen.dart';
 
 class JoinPage extends StatefulWidget {
   const JoinPage({Key? key}) : super(key: key);
@@ -179,7 +180,7 @@ class _JoinPageState extends State<JoinPage> {
                             width: 150,
                             height: 30,
                             child: TextField(
-                                controller: dobController,
+                                controller: nicknameController,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(fontSize: 15, height: 1.5),
                                 cursorColor: Color(0xff6CCD6C),
@@ -345,7 +346,7 @@ class _JoinPageState extends State<JoinPage> {
                                     signUpUserCredential();
                                     toastMessage("가입이 완료되었습니다.");
 
-                                    Get.to(() => ConnectScreen());
+                                    Get.to(() => TypeScreen());
                                   }
                                 }
                               }
