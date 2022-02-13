@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:onsaemiro/models/actpost_model.dart';
 import 'package:onsaemiro/models/business_model.dart';
 import 'package:onsaemiro/models/user_model.dart';
 
@@ -30,6 +31,22 @@ class AppData extends GetxController {
 
   set usermodel(Usermodel usermodel) {
     _usermodel = usermodel;
+    update();
+  }
+
+  ActPost _actPost = ActPost(
+    date: DateTime.now(),
+    nickname: '',
+    imgList: [],
+    postKey: '',
+    post: '',
+    like: [],
+  );
+
+  ActPost get actPost => _actPost;
+
+  set actPost(ActPost _actPost) {
+    _actPost = actPost;
     update();
   }
 

@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:random_string/random_string.dart';
 
 class DatabaseService {
   final String uid;
   DatabaseService({required this.uid});
-
+  var key = randomString(16);
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
-
+  final CollectionReference postCollection =
+      FirebaseFirestore.instance.collection('actPost');
   Future setUserData(
       DateTime date,
       String email,

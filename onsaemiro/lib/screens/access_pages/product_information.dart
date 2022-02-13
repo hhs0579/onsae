@@ -10,10 +10,11 @@ import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 
 class productInformationPage extends StatefulWidget {
-  const productInformationPage({Key? key}) : super(key: key);
-
+  Product product;
+  productInformationPage(this.product);
   @override
-  _productInformationPageState createState() => _productInformationPageState();
+  _productInformationPageState createState() =>
+      _productInformationPageState(this.product);
 }
 
 total(product_num, price) {
@@ -25,6 +26,8 @@ total(product_num, price) {
 
 class _productInformationPageState extends State<productInformationPage> {
   final CartController c = Get.put(CartController());
+  Product _product;
+  _productInformationPageState(this._product);
   var product_num = 0;
   var price = 2800;
 
@@ -218,12 +221,8 @@ class _productInformationPageState extends State<productInformationPage> {
                   TextButton(
                       onPressed: () {
                         if (product_num > 0) {
-                          var item = Product(
-                            name: '둘리우니',
-                            image: 'assets/둘리우니2.png',
-                            price: price,
-                            num: product_num,
-                          );
+                          var item = _product;
+
                           c.allList.add(item);
                           setState(() {
                             {

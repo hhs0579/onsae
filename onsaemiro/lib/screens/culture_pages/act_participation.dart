@@ -4,7 +4,11 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:onsaemiro/data/appdata.dart';
+import 'package:onsaemiro/repo/database_service.dart';
 
 class actParticipationPage extends StatefulWidget {
   const actParticipationPage({Key? key}) : super(key: key);
@@ -13,11 +17,13 @@ class actParticipationPage extends StatefulWidget {
   _actParticipationPageState createState() => _actParticipationPageState();
 }
 
+AppData appData = Get.find();
 List<String> _arrImageUrls = [];
-
+var visibley = false;
 List<XFile>? imageFileList = [];
 final _picker = ImagePicker();
 FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+TextEditingController postTextEditController = TextEditingController();
 
 class _actParticipationPageState extends State<actParticipationPage> {
   Future<void> _pickedImgs() async {
@@ -70,7 +76,7 @@ class _actParticipationPageState extends State<actParticipationPage> {
               decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.6), shape: BoxShape.circle),
               child: Icon(
-                CupertinoIcons.camera,
+                Icons.photo_camera,
                 color: Theme.of(context).colorScheme.primary,
               ))),
       Container(),
@@ -118,6 +124,7 @@ class _actParticipationPageState extends State<actParticipationPage> {
                   height: 400,
                   padding: EdgeInsets.fromLTRB(24, 31, 24, 20),
                   child: TextField(
+                    controller: postTextEditController,
                     keyboardType: TextInputType.multiline,
                     textInputAction: TextInputAction.newline,
                     maxLines: 36,
@@ -137,7 +144,7 @@ class _actParticipationPageState extends State<actParticipationPage> {
                 ),
                 GridView.count(
                   shrinkWrap: true,
-                  padding: EdgeInsets.all(2),
+                  padding: EdgeInsets.all(10),
                   crossAxisCount: isPadMode ? 4 : 2,
                   mainAxisSpacing: 5,
                   crossAxisSpacing: 5,
@@ -155,27 +162,78 @@ class _actParticipationPageState extends State<actParticipationPage> {
                                             File(imageFileList![index].path))))
                                 : null,
                           ),
-                          color: Colors.grey,
-                          dashPattern: [5, 3],
+                          color: Colors.lightGreen,
+                          dashPattern: [1000, 1],
                           borderType: BorderType.RRect,
                           radius: Radius.circular(10))).toList(),
                 ),
                 Container(
-                  width: 110,
-                  height: 41,
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(26.5)),
-                      side: BorderSide(width: 2.0, color: Colors.green),
+                    margin: EdgeInsets.only(top: 10),
+                    width: 110,
+                    height: 41,
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(26.5)),
+                        side: BorderSide(width: 2.0, color: Colors.green),
+                      ),
+                      onPressed: () async {
+                        await uploadFunction(imageFileList!);
+                        setState(() {
+                          visibley = true;
+                        });
+                      },
+                      child: Text(
+                        '사진등록',
+                        style:
+                            TextStyle(color: Color(0xff595959), fontSize: 13),
+                      ),
+                    )),
+                Visibility(
+                  visible: visibley,
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    width: 110,
+                    height: 41,
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(26.5)),
+                        side: BorderSide(width: 2.0, color: Colors.green),
+                      ),
+                      child: Text(
+                        '게시하기',
+                        style:
+                            TextStyle(color: Color(0xff595959), fontSize: 13),
+                      ),
+                      onPressed: () async {
+                        if (postTextEditController.text == '') {
+                          Fluttertoast.showToast(
+                              msg: "게시글을 입력해주세요.",
+                              toastLength: Toast.LENGTH_SHORT,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.lightBlue,
+                              fontSize: 12.0);
+                        } else if (_arrImageUrls == []) {
+                          Fluttertoast.showToast(
+                              msg: "사진을 하나이상 선택해주세요.",
+                              toastLength: Toast.LENGTH_SHORT,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.lightBlue,
+                              fontSize: 12.0);
+                        } else {
+                          await DatabaseService(uid: appData.myInfo.uid)
+                              .setPostData(
+                                  DateTime.now(),
+                                  appData.myInfo.nickname,
+                                  '',
+                                  postTextEditController.text,
+                                  _arrImageUrls, []);
+                        }
+                      },
                     ),
-                    child: Text(
-                      '게시하기',
-                      style: TextStyle(color: Color(0xff595959), fontSize: 13),
-                    ),
-                    onPressed: () {},
                   ),
-                ),
+                )
               ],
             ),
           ),
