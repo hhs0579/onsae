@@ -37,12 +37,13 @@ class AppData extends GetxController {
     imgList: [],
     postKey: '',
     post: '',
+    like: [],
   );
 
   ActPost get actPost => _actPost;
 
-  set actPost(ActPost myInfo) {
-    _actPost = myInfo;
+  set actPost(ActPost _actPost) {
+    _actPost = actPost;
     update();
   }
 

@@ -228,7 +228,7 @@ class _actParticipationPageState extends State<actParticipationPage> {
                                   appData.myInfo.nickname,
                                   '',
                                   postTextEditController.text,
-                                  _arrImageUrls);
+                                  _arrImageUrls, []);
                         }
                       },
                     ),

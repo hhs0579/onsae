@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/models/actpost_model.dart';
 import 'package:onsaemiro/screens/culture_pages/act_participation.dart';
 
 class actConfirmPage extends StatefulWidget {
@@ -11,133 +13,54 @@ class actConfirmPage extends StatefulWidget {
   _actConfirmPageState createState() => _actConfirmPageState();
 }
 
-List<String> images1 = [
-  'assets/게시물1 이미지1.png',
-  'assets/게시물1 이미지2.png',
-  'assets/게시물1 이미지3.png'
-];
-List<String> images2 = [
-  'assets/게시물2 이미지1.png',
-  'assets/jj.jpg',
-  'assets/게시물2 이미지3.png'
-];
-actImage(image) {
-  return Container(
-    width: 120,
-    height: 123,
-    decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover)),
-  );
-}
+extension StringExtension on String {
+  static String displayTimeAgoFromTimestamp(String timestamp) {
+    final year = int.parse(timestamp.substring(0, 4));
+    final month = int.parse(timestamp.substring(5, 7));
+    final day = int.parse(timestamp.substring(8, 10));
+    final hour = int.parse(timestamp.substring(11, 13));
+    final minute = int.parse(timestamp.substring(14, 16));
 
-actBox(profileName, images_1, images_2, images_3) {
-  return Padding(
-      padding: EdgeInsets.fromLTRB(4, 9, 10, 2),
-      child: Container(
-          height: 239,
-          decoration: BoxDecoration(
-              border: Border.all(color: Color.fromRGBO(108, 205, 108, 0.7)),
-              borderRadius: BorderRadius.circular(20)),
-          child: Column(children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(10, 8, 0, 0),
-              child: Row(
-                children: [
-                  ImageIcon(
-                    AssetImage('assets/프로필.png'),
-                    size: 30,
-                    color: Color.fromRGBO(108, 205, 108, 0.7),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                profileName,
-                                style: TextStyle(fontSize: 15),
-                              ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 34,
-                                  ),
-                                  Text(
-                                    '3분전',
-                                    style: TextStyle(fontSize: 8),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 230,
-                          ),
-                          Column(
-                            children: [
-                              Icon(
-                                Icons.thumb_up,
-                                size: 20,
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                '55',
-                                style: TextStyle(fontSize: 8),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(12, 0, 0, 50),
-                  child: Text(
-                    'act.활동인증',
-                    style: TextStyle(fontSize: 8),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 125,
-              width: 369,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  actImage(images_1),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  actImage(images_2),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  actImage(images_3),
-                  SizedBox(
-                    width: 10,
-                  ),
-                ],
-              ),
-            ),
-          ])));
+    final DateTime videoDate = DateTime(year, month, day, hour, minute);
+    final int diffInHours = DateTime.now().difference(videoDate).inHours;
+
+    String timeAgo = '';
+    String timeUnit = '';
+    int timeValue = 0;
+
+    if (diffInHours < 1) {
+      final diffInMinutes = DateTime.now().difference(videoDate).inMinutes;
+      timeValue = diffInMinutes;
+      timeUnit = '분';
+    } else if (diffInHours < 24) {
+      timeValue = diffInHours;
+      timeUnit = '시간';
+    } else if (diffInHours >= 24 && diffInHours < 24 * 7) {
+      timeValue = (diffInHours / 24).floor();
+      timeUnit = '일';
+    } else if (diffInHours >= 24 * 7 && diffInHours < 24 * 30) {
+      timeValue = (diffInHours / (24 * 7)).floor();
+      timeUnit = '주';
+    } else if (diffInHours >= 24 * 30 && diffInHours < 24 * 12 * 30) {
+      timeValue = (diffInHours / (24 * 30)).floor();
+      timeUnit = '달';
+    } else {
+      timeValue = (diffInHours / (24 * 365)).floor();
+      timeUnit = '년';
+    }
+
+    timeAgo = timeValue.toString() + ' ' + timeUnit;
+    timeAgo += timeValue > 1 ? '' : '';
+
+    return timeAgo + '전';
+  }
 }
 
 class _actConfirmPageState extends State<actConfirmPage> {
+  final Stream<QuerySnapshot> post = FirebaseFirestore.instance
+      .collection('actPost')
+      .orderBy('date', descending: true)
+      .snapshots();
   bool isRecently = true;
   @override
   Widget build(BuildContext context) {
@@ -182,7 +105,8 @@ class _actConfirmPageState extends State<actConfirmPage> {
                       },
                       child: Text(
                         '참여하기',
-                        style: TextStyle(color: Colors.black, fontSize: 15),
+                        style:
+                            TextStyle(color: Color(0xff437B56), fontSize: 15),
                       )),
                   SizedBox(
                     width: 10,
@@ -195,67 +119,33 @@ class _actConfirmPageState extends State<actConfirmPage> {
           elevation: 0.5,
         ),
         body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    TextButton(
-                      child: Text(
-                        '최신순',
-                        style: TextStyle(
-                            color:
-                                (isRecently) ? Colors.black : Colors.grey[500]),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          isRecently = true;
-                        });
-                      },
-                    ),
-                    TextButton(
-                      child: Text(
-                        '좋아요순',
-                        style: TextStyle(
-                            color: (!isRecently)
-                                ? Colors.black
-                                : Colors.grey[500]),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          isRecently = false;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                if (isRecently)
-                  SizedBox(
-                    height: 550,
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        actBox('온새미로', images1[0], images1[1], images1[2]),
-                        actBox('온새미로', images2[0], images2[1], images2[2]),
-                        actBox('온새미로', images1[0], images1[1], images1[2])
-                      ],
-                    ),
-                  )
-                else
-                  SizedBox(
-                    height: 550,
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        actBox('온새로미', images1[0], images1[1], images1[2]),
-                        actBox('온새로', images2[0], images2[1], images2[2]),
-                        actBox('온새미로', images1[1], images1[2], images1[0])
-                      ],
-                    ),
-                  )
-              ],
-            ),
-          ),
-        ));
+            child: StreamBuilder<QuerySnapshot>(
+                stream: post,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('오류 발생');
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text('로딩중');
+                  }
+                  List<ActPost> actPosts = [];
+                  for (var value in snapshot.data!.docs) {
+                    ActPost actPost =
+                        ActPost.fromJson(value.data() as Map<String, dynamic>);
+                    actPosts.add(actPost);
+                  }
+                  return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: actPosts.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      ActPost actPost = actPosts.elementAt(index);
+                      var video = actPost.date;
+                      return Column(
+                        children: [],
+                      );
+                    },
+                  );
+                })));
   }
 }
