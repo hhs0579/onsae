@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/screens/starting_pages/email_join_pages/email_join_page2.dart';
 
-class agreePage2 extends StatefulWidget {
-  agreePage2({Key? key}) : super(key: key);
+class AgreePage2 extends StatefulWidget {
+  const AgreePage2({Key? key}) : super(key: key);
 
   @override
-  State<agreePage2> createState() => _agreePage2State();
+  State<AgreePage2> createState() => _AgreePage2State();
 }
 
-class _agreePage2State extends State<agreePage2> {
+class _AgreePage2State extends State<AgreePage2> {
   List arguments = Get.arguments;
 
   bool toggle = false;
@@ -144,7 +144,7 @@ class _agreePage2State extends State<agreePage2> {
             if (agree1 == true && agree2 == true && agree3 == true) {
               Get.to(EmailJoinPage2(), arguments: arguments);
             } else {
-              Get.to(agreePage2());
+              Get.to(AgreePage2());
             }
           })
         ],

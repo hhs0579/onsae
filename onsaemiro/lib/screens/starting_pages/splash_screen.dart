@@ -17,6 +17,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  AppData appData = Get.find();
   @override
   void initState() {
     Timer(Duration(seconds: 2), () {
@@ -30,23 +31,34 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _checkLocalInfo() async {
     String? userEmail = await localStorageController.getUserEmail();
-    if (userEmail == null) {
+    String? userPhone = await localStorageController.getUserPhone();
+    if (userEmail == null || userPhone == null) {
       Get.off(() => TypeScreen());
     } else {
-      if (userEmail == '') {
+      if (userEmail == '' || userPhone == '') {
         Get.off(() => TypeScreen());
       } else {
-        AppData appData = Get.find();
-        appData.userEmail = userEmail;
-        await databaseController.fetchMyInfo(userEmail);
-        String? pushToken = await authController.getToken();
-        if (pushToken != null) {
-          databaseController.updatePushToken(
-            email: userEmail,
-            pushToken: pushToken,
-          );
+        if (userEmail != '') {
+          appData.userEmail = userEmail;
+          await databaseController.fetchMyInfoToEmail(userEmail);
+          String? pushToken = await authController.getToken();
+          if (pushToken != null) {
+            databaseController.updatePushTokenToEmail(
+              email: userEmail,
+              pushToken: pushToken,
+            );
+          }
+          Get.off(() => Root());
+        } else if (userPhone != '') {
+          appData.userPhone = userPhone;
+          await databaseController.fetchMyInfoToPhone(userPhone);
+          String? pushToken = await authController.getToken();
+          if (pushToken != null) {
+            databaseController.updatePushTokenToPhone(
+                phone: userPhone, pushToken: pushToken);
+          }
+          Get.off(() => Root());
         }
-        Get.off(() => Root());
       }
     }
   }

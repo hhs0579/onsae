@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:onsaemiro/classes/toast_message.dart';
 import 'package:onsaemiro/repo/join_validation.dart';
 import 'package:onsaemiro/screens/main_pages/Root.dart';
+import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/database_controller.dart';
 import 'package:onsaemiro/screens/starting_pages/phone_join_pages/smsjoin_screen.dart';
-import '../agree_page.dart';
 
 class SmsAuthScreen extends StatefulWidget {
   const SmsAuthScreen({Key? key}) : super(key: key);
@@ -33,6 +33,21 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
 
   final otpFocusNode = FocusNode();
 
+  authUserToPhone(
+      PhoneAuthCredential phoneAuthCredential, String phoneNumber) async {
+    signInWithPhoneNumber(phoneAuthCredential);
+
+    await authController.saveLocalStorageToPhone(phoneNumber);
+    String? pushToken = await authController.getToken();
+    if (pushToken != null) {
+      databaseController.updatePushTokenToPhone(
+        phone: phoneNumber,
+        pushToken: pushToken,
+      );
+    }
+    await databaseController.fetchMyInfoToPhone(phoneNumber);
+  }
+
   void signInWithPhoneNumber(PhoneAuthCredential phoneAuthCredential) async {
     try {
       final User? user =
@@ -56,12 +71,6 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                   borderRadius: BorderRadius.circular(30))),
           child: Text(text)),
     );
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    dispose();
   }
 
   void _timeStart() {
@@ -139,50 +148,58 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                                 if (vaildationPhoneNumber(
                                         phoneNumberController.text) ==
                                     null) {
-                                  FocusScope.of(context).unfocus();
-                                  toastMessage(
-                                      "${phoneNumberController.text}로 인증코드를 발송하였습니다 잠시만 기다려주세요");
-                                  await _auth.verifyPhoneNumber(
-                                      timeout: const Duration(seconds: 120),
-                                      codeAutoRetrievalTimeout:
-                                          (String verificationId) {
-                                        setState(() {
-                                          isSmsAuth = false;
-                                          otpNumberController.text = '';
-                                          _timer?.cancel();
-                                        });
-                                        toastMessage(
-                                            "인증번호가 만료되었습니다. 다시 시도해 주세요.");
-                                      },
-                                      phoneNumber: "+8210" +
-                                          phoneNumberController.text
-                                              .substring(3)
-                                              .trim(),
-                                      verificationCompleted:
-                                          (phoneAuthCredential) async {
-                                        await _auth.signInWithCredential(
-                                            phoneAuthCredential);
-                                        toastMessage('이미 로그인한 상태입니다.');
-                                      },
-                                      verificationFailed:
-                                          (verificationFailed) async {
-                                        print(verificationFailed.code);
-                                        toastMessage(
-                                            "코드 발송 실패했습니다. 전화번호를 확인해주세요");
-                                      },
-                                      codeSent: (verificationId,
-                                          forceResendingToken) async {
-                                        print('코드 보냄');
+                                  if (await databaseController
+                                          .isDuplicatedPhone(
+                                              phoneNumberController.text) ==
+                                      false) {
+                                    toastMessage('가입되지 않은 전화번호 입니다.');
+                                  } else {
+                                    FocusScope.of(context).unfocus();
+                                    toastMessage(
+                                        "${phoneNumberController.text}로 인증코드를 발송하였습니다 잠시만 기다려주세요");
+                                    await _auth.verifyPhoneNumber(
+                                        timeout: const Duration(seconds: 120),
+                                        codeAutoRetrievalTimeout:
+                                            (String verificationId) {
+                                          setState(() {
+                                            isSmsAuth = false;
+                                            otpNumberController.text = '';
+                                            _timer?.cancel();
+                                          });
+                                          toastMessage(
+                                              "인증번호가 만료되었습니다. 다시 시도해 주세요.");
+                                        },
+                                        phoneNumber: "+8210" +
+                                            phoneNumberController.text
+                                                .substring(3)
+                                                .trim(),
+                                        verificationCompleted:
+                                            (phoneAuthCredential) async {
+                                          await _auth.signInWithCredential(
+                                              phoneAuthCredential);
+                                          toastMessage('이미 로그인한 상태입니다.');
+                                        },
+                                        verificationFailed:
+                                            (verificationFailed) async {
+                                          print(verificationFailed.code);
+                                          toastMessage(
+                                              "코드 발송 실패했습니다. 전화번호를 확인해주세요");
+                                        },
+                                        codeSent: (verificationId,
+                                            forceResendingToken) async {
+                                          print('코드 보냄');
 
-                                        setState(() {
-                                          isSmsAuth = true;
-                                          isotpconfirm = true;
-                                          _timeStart();
+                                          setState(() {
+                                            isSmsAuth = true;
+                                            isotpconfirm = true;
+                                            _timeStart();
 
-                                          this.verificationId = verificationId;
+                                            this.verificationId =
+                                                verificationId;
+                                          });
                                         });
-                                      });
-                                  otpFocusNode.requestFocus();
+                                    otpFocusNode.requestFocus();
+                                  }
                                 }
                               },
                         style: TextButton.styleFrom(
@@ -258,8 +275,8 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                       PhoneAuthProvider.credential(
                           verificationId: verificationId!,
                           smsCode: otpNumberController.text);
-
-                  signInWithPhoneNumber(phoneAuthCredential);
+                  authUserToPhone(
+                      phoneAuthCredential, phoneNumberController.text);
                   Get.to(() => Root());
                 }),
                 _connectbutton('전화번호로 회원가입', () {
@@ -271,5 +288,11 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 }

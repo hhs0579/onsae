@@ -109,7 +109,7 @@ class _EmailjoinPageState extends State<EmailjoinPage> {
                                             arguments
                                                 .add(passwordController.text);
                                             arguments.add(userType);
-                                            Get.to(() => agreePage2(),
+                                            Get.to(() => AgreePage2(),
                                                 arguments: arguments);
                                           }
                                         }

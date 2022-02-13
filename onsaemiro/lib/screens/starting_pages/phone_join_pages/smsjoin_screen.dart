@@ -72,12 +72,6 @@ class _SmsJoinScreenState extends State<SmsJoinScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    _timer?.cancel();
-    dispose();
-  }
-
   void _timeStart() {
     _time = 120;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -309,5 +303,11 @@ class _SmsJoinScreenState extends State<SmsJoinScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 }

@@ -36,4 +36,31 @@ class DatabaseService {
       'uid': uid,
     });
   }
+
+  Future setBusinessData(
+      DateTime date,
+      String email,
+      String password,
+      String _name,
+      String _nickname,
+      String _phone,
+      String _address,
+      String _addressdetail,
+      String _usertype) async {
+    await userCollection.doc(uid).set({
+      'email': email,
+      'date': date,
+      'image': '',
+      'name': _name,
+      'nickname': _nickname,
+      'password': password,
+      'phone': _phone,
+      'address': _address,
+      'addressdetail': _addressdetail,
+      'mystore': [],
+      'usertype': _usertype,
+      'pushToken': '',
+      'uid': uid,
+    });
+  }
 }

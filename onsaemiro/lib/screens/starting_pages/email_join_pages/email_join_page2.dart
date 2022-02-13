@@ -5,9 +5,7 @@ import 'package:kpostal/kpostal.dart';
 import 'package:onsaemiro/classes/toast_message.dart';
 import 'package:onsaemiro/repo/database_service.dart';
 import 'package:onsaemiro/repo/join_validation.dart';
-import 'package:onsaemiro/screens/main_pages/Root.dart';
 import 'package:onsaemiro/screens/main_pages/controller/database_controller.dart';
-import 'package:onsaemiro/screens/starting_pages/connect_screen.dart';
 import 'package:onsaemiro/screens/starting_pages/type_screen.dart';
 
 class EmailJoinPage2 extends StatefulWidget {
@@ -43,17 +41,31 @@ class _EmailJoinPage2State extends State<EmailJoinPage2> {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User? user = result.user;
-      await DatabaseService(uid: user!.uid).setUserData(
-        DateTime.now(),
-        email,
-        password,
-        nameController.text,
-        nicknameController.text,
-        phoneNumberController.text,
-        address,
-        deaddressController.text,
-        userType,
-      );
+      if (userType == 'user') {
+        await DatabaseService(uid: user!.uid).setUserData(
+          DateTime.now(),
+          email,
+          password,
+          nameController.text,
+          nicknameController.text,
+          phoneNumberController.text,
+          address,
+          deaddressController.text,
+          userType,
+        );
+      } else if (userType == 'business') {
+        await DatabaseService(uid: user!.uid).setBusinessData(
+          DateTime.now(),
+          email,
+          password,
+          nameController.text,
+          nicknameController.text,
+          phoneNumberController.text,
+          address,
+          deaddressController.text,
+          userType,
+        );
+      } else {}
     } catch (e) {
       errorToast(e);
 

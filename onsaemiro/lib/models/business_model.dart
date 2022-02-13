@@ -1,6 +1,6 @@
-MyInfo? myInfo;
+BusinessModel? businessmodel;
 
-class MyInfo {
+class BusinessModel {
   DateTime date;
   String email;
   String image;
@@ -10,14 +10,11 @@ class MyInfo {
   String phone;
   String address;
   String addressdetail;
-  List<dynamic> myposts;
-  List<dynamic> mypayment;
-  List<dynamic> mybasket;
-  int like;
+  List<dynamic> mystore;
   String pushToken;
   String uid;
 
-  MyInfo(
+  BusinessModel(
       {required this.date,
       required this.email,
       required this.image,
@@ -27,14 +24,11 @@ class MyInfo {
       required this.phone,
       required this.address,
       required this.addressdetail,
-      required this.myposts,
-      required this.mypayment,
-      required this.mybasket,
-      required this.like,
+      required this.mystore,
       required this.pushToken,
       required this.uid});
 
-  MyInfo.fromJson(Map<String, dynamic> json)
+  BusinessModel.fromJson(Map<String, dynamic> json)
       : date = json['date'].toDate(),
         email = json['email'],
         image = json['image'],
@@ -44,10 +38,7 @@ class MyInfo {
         phone = json['phone'],
         address = json['address'],
         addressdetail = json['addressdetail'],
-        myposts = json['myposts'],
-        mybasket = json['mybasket'],
-        mypayment = json['mypayment'],
-        like = json['like'],
+        mystore = json['mystore'],
         pushToken = json['pushToken'] ?? '',
         uid = json['uid'];
 
@@ -61,10 +52,7 @@ class MyInfo {
         'phone': phone,
         'adrress': address,
         'addressdetail': addressdetail,
-        'myposts': myposts,
-        'mypayment': mypayment,
-        'mybasket': mybasket,
-        'like': like,
+        'mystore': mystore,
         'pushToken': pushToken,
         'uid': uid
       };

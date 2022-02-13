@@ -16,16 +16,16 @@ class AuthController {
         email: email,
         password: password,
       );
-      await _saveLocalStorage(userCredential);
+      await saveLocalStorageToEmail(userCredential);
       String? pushToken = await getToken();
       if (pushToken != null) {
-        databaseController.updatePushToken(
+        databaseController.updatePushTokenToEmail(
           email: email,
           pushToken: pushToken,
         );
       }
       AppData appData = Get.find();
-      await databaseController.fetchMyInfo(appData.myInfo.email);
+      await databaseController.fetchMyInfoToEmail(appData.usermodel.email);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -41,13 +41,20 @@ class AuthController {
     return null;
   }
 
-  Future<void> _saveLocalStorage(UserCredential userCredential) async {
+  Future<void> saveLocalStorageToEmail(UserCredential userCredential) async {
     AppData appData = Get.find();
     appData.userEmail = userCredential.user?.email ?? 'null';
-    appData.myInfo.email = appData.userEmail;
-    // appData.isExpertMode =
-    //     await databaseController.isExpertMode(appData.userEmail);
+    appData.usermodel.email = appData.userEmail;
+
     localStorageController.setUserEmail(appData.userEmail);
+  }
+
+  Future<void> saveLocalStorageToPhone(String phone) async {
+    AppData appData = Get.find();
+    appData.userPhone = phone;
+    appData.usermodel.phone = appData.userPhone;
+
+    localStorageController.setUserPhone(appData.userPhone);
   }
 
   Future<void> handleSignOut() async {

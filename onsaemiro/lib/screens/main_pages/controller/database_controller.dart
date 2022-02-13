@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/data/appdata.dart';
-import 'package:onsaemiro/models/myinfo_model.dart';
+import 'package:onsaemiro/models/user_model.dart';
 
 DatabaseController databaseController = DatabaseController();
 
@@ -42,7 +42,7 @@ class DatabaseController {
     }
   }
 
-  Future<void> fetchMyInfo(String email) async {
+  Future<void> fetchMyInfoToEmail(String email) async {
     AppData appData = Get.find();
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -51,21 +51,53 @@ class DatabaseController {
 
     if (querySnapshot.docs.isEmpty) {
     } else {
-      appData.myInfo = MyInfo.fromJson(
+      appData.usermodel = Usermodel.fromJson(
           querySnapshot.docs.first.data() as Map<String, dynamic>);
     }
   }
 
-  Future<void> updatePushToken(
+  Future<void> fetchMyInfoToPhone(String phone) async {
+    AppData appData = Get.find();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('phone', isEqualTo: phone)
+        .get();
+
+    if (querySnapshot.docs.isEmpty) {
+    } else {
+      appData.usermodel = Usermodel.fromJson(
+          querySnapshot.docs.first.data() as Map<String, dynamic>);
+    }
+  }
+
+  Future<void> updatePushTokenToEmail(
       {required String email, required String pushToken}) async {
     AppData appData = Get.find();
-    MyInfo newMyInfo = appData.myInfo;
+    Usermodel newMyInfo = appData.usermodel;
     newMyInfo.pushToken = pushToken;
-    appData.myInfo = newMyInfo;
+    appData.usermodel = newMyInfo;
 
     final querySnapshot = await FirebaseFirestore.instance
         .collection('users')
         .where('email', isEqualTo: email)
+        .get();
+    String id = querySnapshot.docs.first.id;
+
+    await FirebaseFirestore.instance.collection('users').doc(id).update({
+      'pushToken': pushToken,
+    });
+  }
+
+  Future<void> updatePushTokenToPhone(
+      {required String phone, required String pushToken}) async {
+    AppData appData = Get.find();
+    Usermodel newMyInfo = appData.usermodel;
+    newMyInfo.pushToken = pushToken;
+    appData.usermodel = newMyInfo;
+
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('phone', isEqualTo: phone)
         .get();
     String id = querySnapshot.docs.first.id;
 
