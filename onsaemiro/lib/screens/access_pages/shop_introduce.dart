@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:intl/intl.dart';
 import 'package:onsaemiro/product/product_list.dart';
+import 'package:onsaemiro/product/shop.dart';
 import 'package:onsaemiro/screens/access_pages/product_information.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
@@ -87,7 +90,7 @@ Review_Box(height, width, profileName, image1, image2, text) {
   );
 }
 
-product_Box(height, width, image, onTap, name, explanation, price) {
+product_Box(height, width, image, onTap, name, explanation, int price) {
   return Padding(
     padding: EdgeInsets.only(bottom: 10),
     child: Container(
@@ -111,7 +114,7 @@ product_Box(height, width, image, onTap, name, explanation, price) {
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(image),
+                    image: NetworkImage(image),
                     fit: BoxFit.fill,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -143,7 +146,7 @@ product_Box(height, width, image, onTap, name, explanation, price) {
               Padding(
                 padding: EdgeInsets.only(left: width * 0.37),
                 child: Text(
-                  price,
+                  '${NumberFormat('###,###,###,###').format(price).replaceAll(' ', '')}원',
                   style: TextStyle(color: Colors.grey, fontSize: 10),
                 ),
               ),
@@ -157,6 +160,11 @@ product_Box(height, width, image, onTap, name, explanation, price) {
 
 class _shopIntroducePageState extends State<shopIntroducePage> {
   final CartController c = Get.put(CartController());
+  final Stream<QuerySnapshot> _shopStream = FirebaseFirestore.instance
+      .collection('shops')
+      .doc('비건 베이커리 보물')
+      .collection('products')
+      .snapshots();
   bool isMenuScreen = true;
   bool isInformationScreen = false;
   @override
@@ -378,31 +386,71 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: height * 0.4507,
-                      width: 350,
-                      child: ListView(
-                        physics: BouncingScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          product_Box(height, width, 'assets/둘리우니 1.png', () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        productInformationPage()));
-                          }, '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                          product_Box(height, width, 'assets/둘리우니 1.png', () {},
-                              '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                          product_Box(height, width, 'assets/둘리우니 1.png', () {},
-                              '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                          product_Box(height, width, 'assets/둘리우니 1.png', () {},
-                              '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                          product_Box(height, width, 'assets/둘리우니 1.png', () {},
-                              '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                        ],
-                      ),
-                    )
+                    StreamBuilder<QuerySnapshot>(
+                        stream: _shopStream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            print(snapshot.error);
+                            return Center(
+                              child: Text('오류가 발생했습니다.'),
+                            );
+                          }
+                          if (snapshot.data == null) {
+                            return Container();
+                          }
+                          List<Product> products = [];
+                          for (var element in snapshot.data!.docs) {
+                            Product productModel = Product.fromJson(
+                                element.data() as Map<String, dynamic>);
+                            products.add(productModel);
+                            print(products[0].name);
+                          }
+                          return SizedBox(
+                              height: height * 0.4507,
+                              width: 350,
+                              child: ListView.builder(
+                                physics: BouncingScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                itemCount: products.length,
+                                itemBuilder: (context, index) {
+                                  return product_Box(
+                                      height, width, products[index].image, () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                productInformationPage(
+                                                    products[index])));
+                                  }, products[index].name, products[index].Info,
+                                      products[index].price);
+                                },
+                              ));
+                          // SizedBox(
+                          //   height: height * 0.4507,
+                          //   width: 350,
+                          //   child: ListView(
+                          //     physics: BouncingScrollPhysics(),
+                          //     scrollDirection: Axis.vertical,
+                          //     children: [
+                          //       product_Box(height, width, 'assets/둘리우니 1.png', () {
+                          //         Navigator.push(
+                          //             context,
+                          //             MaterialPageRoute(
+                          //                 builder: (context) =>
+                          //                     productInformationPage()));
+                          //       }, '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                          //       product_Box(height, width, 'assets/둘리우니 1.png', () {},
+                          //           '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                          //       product_Box(height, width, 'assets/둘리우니 1.png', () {},
+                          //           '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                          //       product_Box(height, width, 'assets/둘리우니 1.png', () {},
+                          //           '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                          //       product_Box(height, width, 'assets/둘리우니 1.png', () {},
+                          //           '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
+                          //     ],
+                          //   ),
+                          // )
+                        })
                   ],
                 ),
               ),

@@ -4,10 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:onsaemiro/repo/image_service.dart';
 import 'package:onsaemiro/screens/main_pages/Root.dart';
+import 'package:onsaemiro/screens/main_pages/Root2.dart';
 import 'package:onsaemiro/screens/main_pages/culture_main.dart';
 import 'package:random_string/random_string.dart';
 
@@ -310,7 +312,7 @@ class _StoreRegistState extends State<StoreRegist> {
                           } else {
                             FirebaseFirestore.instance
                                 .collection('shops')
-                                .doc('$_shopName')
+                                .doc(_shopName)
                                 .collection('products')
                                 .doc(key)
                                 .set({
@@ -321,10 +323,12 @@ class _StoreRegistState extends State<StoreRegist> {
                               'image': urls
                             });
 
-                            final result = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Root()));
+                            // final result = await Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => Root()));
+                            // final result = await Get.to(Root2());
+                            Navigator.pop(context);
                           }
                         },
                         child: Text('상품 등록',

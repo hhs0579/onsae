@@ -415,7 +415,7 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                                 MaterialPageRoute(
                                     builder: (context) => thingsInformationPage(
                                         _products[index])));
-                          }, _products[index].name, 'explanation',
+                          }, _products[index].name, _products[index].Info,
                               _products[index].price);
                         },
                       ),

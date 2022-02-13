@@ -6,11 +6,11 @@ import 'package:onsaemiro/screens/access_pages/product_confirm.dart';
 import 'package:onsaemiro/screens/main_pages/edit_info.dart';
 import 'package:onsaemiro/store/store_regist.dart';
 
-Widget StoreBox(width, name, image, func1) {
+Widget StoreBox(width, height, name, image, func1) {
   return Padding(
     padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
     child: Container(
-      height: 100,
+      height: height * 0.15,
       width: width,
       decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
       child: Row(
@@ -114,95 +114,100 @@ class _thingsRegiPageState extends State<thingsRegiPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // SizedBox(
+            //   height: 21,
+            // ),
             SizedBox(
-              height: 21,
-            ),
-            SizedBox(
-              height: 550,
-              child: Column(
+              height: _products.length * height * 0.2 + 50,
+              child: ListView(
                 children: [
-                  SizedBox(
-                    height: _products.length * 105,
-                    child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: _products.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          print(_products[index].name);
-                          return StoreBox(width, _products[index].name,
-                              _products[index].image, () {});
-                        }),
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  Container(
-                    width: 44,
-                    height: 44,
-                    child: FloatingActionButton(
-                      elevation: 0.0,
-                      backgroundColor: Color.fromRGBO(196, 196, 196, 0.7),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => StoreRegist(_name)));
-                        // showDialog(
-                        //     context: context,
-                        //     builder: (BuildContext context) {
-                        //       return AlertDialog(
-                        //           title: Text("상품 등록"),
-                        //           content: TextField(
-                        //             decoration:
-                        //                 InputDecoration(hintText: '상품 이름'),
-                        //             onChanged: (String value) {
-                        //               input = value;
-                        //             },
-                        //           ),
-                        //           actions: <Widget>[
-                        //             TextButton(
-                        //                 onPressed: () {
-                        //                   setState(() {
-                        //                     _products.add(Product(
-                        //                         name: input,
-                        //                         image: 'assets/약콩두유.png',
-                        //                         price: 0,
-                        //                         num: 0));
-                        //                   });
-                        //                   Navigator.of(context).pop();
-                        //                 },
-                        //                 child: Text("추가"))
-                        //           ]);
-                        //     });
-                      },
-                      child: Icon(
-                        Icons.add,
-                        size: 19,
-                        color: Color.fromRGBO(89, 89, 89, 0.6),
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: _products.length * height * 0.18,
+                        child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: _products.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              print(_products[index].name);
+                              return StoreBox(
+                                  width,
+                                  height,
+                                  _products[index].name,
+                                  _products[index].image,
+                                  () {});
+                            }),
                       ),
-                    ),
+                      Container(
+                        width: 44,
+                        height: 44,
+                        child: FloatingActionButton(
+                          elevation: 0.0,
+                          backgroundColor: Color.fromRGBO(196, 196, 196, 0.7),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => StoreRegist(_name)));
+                            // showDialog(
+                            //     context: context,
+                            //     builder: (BuildContext context) {
+                            //       return AlertDialog(
+                            //           title: Text("상품 등록"),
+                            //           content: TextField(
+                            //             decoration:
+                            //                 InputDecoration(hintText: '상품 이름'),
+                            //             onChanged: (String value) {
+                            //               input = value;
+                            //             },
+                            //           ),
+                            //           actions: <Widget>[
+                            //             TextButton(
+                            //                 onPressed: () {
+                            //                   setState(() {
+                            //                     _products.add(Product(
+                            //                         name: input,
+                            //                         image: 'assets/약콩두유.png',
+                            //                         price: 0,
+                            //                         num: 0));
+                            //                   });
+                            //                   Navigator.of(context).pop();
+                            //                 },
+                            //                 child: Text("추가"))
+                            //           ]);
+                            //     });
+                          },
+                          child: Icon(
+                            Icons.add,
+                            size: 19,
+                            color: Color.fromRGBO(89, 89, 89, 0.6),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              height: 9,
-            ),
-            Container(
-              width: 110,
-              height: 41,
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(26.5)),
-                  side: BorderSide(width: 2.0, color: Colors.green),
-                ),
-                child: Text(
-                  '등록하기',
-                  style: TextStyle(color: Color(0xff595959), fontSize: 13),
-                ),
-                onPressed: () {},
-              ),
-            )
+            // SizedBox(
+            //   height: 9,
+            // ),
+            // Container(
+            //   width: 110,
+            //   height: 41,
+            //   child: OutlinedButton(
+            //     style: OutlinedButton.styleFrom(
+            //       shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(26.5)),
+            //       side: BorderSide(width: 2.0, color: Colors.green),
+            //     ),
+            //     child: Text(
+            //       '등록하기',
+            //       style: TextStyle(color: Color(0xff595959), fontSize: 13),
+            //     ),
+            //     onPressed: () {},
+            //   ),
+            // )
           ],
         ),
       ),
