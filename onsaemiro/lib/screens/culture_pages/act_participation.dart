@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -142,31 +141,31 @@ class _actParticipationPageState extends State<actParticipationPage> {
                             borderSide: BorderSide(color: Colors.green))),
                   ),
                 ),
-                GridView.count(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.all(10),
-                  crossAxisCount: isPadMode ? 4 : 2,
-                  mainAxisSpacing: 5,
-                  crossAxisSpacing: 5,
-                  children: List.generate(
-                      4,
-                      (index) => DottedBorder(
-                          child: Container(
-                            child: Center(child: _boxContents[index]),
-                            decoration: index <= imageFileList!.length - 1
-                                ? BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: FileImage(
-                                            File(imageFileList![index].path))))
-                                : null,
-                          ),
-                          color: Colors.lightGreen,
-                          dashPattern: [1000, 1],
-                          borderType: BorderType.RRect,
-                          radius: Radius.circular(10))).toList(),
-                ),
+                // GridView.count(
+                //   shrinkWrap: true,
+                //   padding: EdgeInsets.all(10),
+                //   crossAxisCount: isPadMode ? 4 : 2,
+                //   mainAxisSpacing: 5,
+                //   crossAxisSpacing: 5,
+                //   children: List.generate(
+                //       4,
+                //       (index) => DottedBorder(
+                //           child: Container(
+                //             child: Center(child: _boxContents[index]),
+                //             decoration: index <= imageFileList!.length - 1
+                //                 ? BoxDecoration(
+                //                     borderRadius: BorderRadius.circular(8),
+                //                     image: DecorationImage(
+                //                         fit: BoxFit.cover,
+                //                         image: FileImage(
+                //                             File(imageFileList![index].path))))
+                //                 : null,
+                //           ),
+                //           color: Colors.lightGreen,
+                //           dashPattern: [1000, 1],
+                //           borderType: BorderType.RRect,
+                //           radius: Radius.circular(10))).toList(),
+                // ),
                 Container(
                     margin: EdgeInsets.only(top: 10),
                     width: 110,
@@ -222,10 +221,10 @@ class _actParticipationPageState extends State<actParticipationPage> {
                               backgroundColor: Colors.lightBlue,
                               fontSize: 12.0);
                         } else {
-                          await DatabaseService(uid: appData.myInfo.uid)
+                          await DatabaseService(uid: appData.usermodel.uid)
                               .setPostData(
                                   DateTime.now(),
-                                  appData.myInfo.nickname,
+                                  appData.usermodel.nickname,
                                   '',
                                   postTextEditController.text,
                                   _arrImageUrls, []);
