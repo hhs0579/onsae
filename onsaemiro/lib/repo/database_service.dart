@@ -32,7 +32,7 @@ class DatabaseService {
       'mypayment': [],
       'like': 0,
       'usertype': _usertype,
-      'pushtoken': '',
+      'pushToken': '',
       'uid': uid,
     });
   }

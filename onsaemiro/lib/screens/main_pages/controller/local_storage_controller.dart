@@ -31,4 +31,23 @@ class LocalStorageController {
       print(e.toString());
     }
   }
+
+  Future<String?> getUserPhone() async {
+    _prefs = await SharedPreferences.getInstance();
+    try {
+      return _prefs!.getString('userEmail');
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future<void> setUserPhone(String email) async {
+    _prefs = await SharedPreferences.getInstance();
+    try {
+      _prefs!.setString('userEmail', email);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }

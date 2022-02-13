@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/screens/starting_pages/email_join_pages/email_join_page2.dart';
-import 'package:onsaemiro/screens/starting_pages/phone_join_page.dart';
-import 'package:onsaemiro/screens/starting_pages/nick_name-page.dart';
 
 class agreePage2 extends StatefulWidget {
   agreePage2({Key? key}) : super(key: key);

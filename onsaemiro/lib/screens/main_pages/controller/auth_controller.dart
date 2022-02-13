@@ -51,6 +51,7 @@ class AuthController {
   }
 
   Future<void> handleSignOut() async {
+    await localStorageController.setUserEmail('');
     await FirebaseAuth.instance.signOut();
   }
 
