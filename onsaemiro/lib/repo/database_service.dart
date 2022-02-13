@@ -19,10 +19,11 @@ class DatabaseService {
       String _usertype) async {
     await userCollection.doc(uid).set({
       'email': email,
-      'data': date,
+      'date': date,
       'image': '',
       'name': _name,
       'nickname': _nickname,
+      'password': password,
       'phone': _phone,
       'address': _address,
       'addressdetail': _addressdetail,
@@ -30,7 +31,9 @@ class DatabaseService {
       'mybasket': [],
       'mypayment': [],
       'like': 0,
-      'usertype': _usertype
+      'usertype': _usertype,
+      'pushtoken': '',
+      'uid': uid,
     });
   }
 }
