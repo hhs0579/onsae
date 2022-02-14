@@ -265,7 +265,6 @@ class _StoreRegistState extends State<StoreRegist> {
                           setState(() {
                             visibley = true;
                           });
-                          print(_shopDocId);
                         }
                       },
                       child:

@@ -84,8 +84,6 @@ class _thingsRegiPageState extends State<thingsRegiPage> {
   late String _image;
   late String _DocId;
   List<Product> _products = [];
-  List items = [];
-  String input = "";
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;

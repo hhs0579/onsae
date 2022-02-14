@@ -80,7 +80,6 @@ class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
                             }
                           }
                         }
-
                         return SizedBox(
                             height: height * 0.4,
                             child: ListView.builder(

@@ -229,7 +229,6 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
                                 Product productModel = Product.fromJson(
                                     element.data() as Map<String, dynamic>);
                                 products.add(productModel);
-                                print(products[0].name);
                               }
                               return Column(
                                 children: [
