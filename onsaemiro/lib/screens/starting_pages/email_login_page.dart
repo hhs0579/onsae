@@ -47,6 +47,7 @@ class _EmailloginpageState extends State<Emailloginpage> {
                       children: [
                         TextField(
                           controller: emailController,
+                          keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius:

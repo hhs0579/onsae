@@ -10,7 +10,6 @@ import 'package:onsaemiro/repo/image_helper.dart';
 Imageservice imageservice = Imageservice();
 
 class Imageservice {
-  final _picker = ImagePicker();
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
 

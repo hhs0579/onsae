@@ -51,6 +51,7 @@ class _JoinPageState extends State<JoinPage> {
         phonenumber,
         address,
         deaddressController.text,
+        dobController.text,
         userType,
       );
     } catch (e) {

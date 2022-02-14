@@ -61,7 +61,7 @@ class DatabaseController {
   Future<bool?> hasMatchTypePhone(String phone, String userType) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('users')
-        .where('email', isEqualTo: phone)
+        .where('phone', isEqualTo: phone)
         .get();
     Publicmodel usermodel = Publicmodel.fromJson(
         querySnapshot.docs.first.data() as Map<String, dynamic>);

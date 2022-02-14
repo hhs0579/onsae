@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/classes/toast_message.dart';
+import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/repo/join_validation.dart';
 import 'package:onsaemiro/screens/main_pages/Root.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
@@ -35,32 +36,28 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
 
   authUserToPhone(PhoneAuthCredential phoneAuthCredential, String phoneNumber,
       String userType) async {
-    if (await databaseController.hasMatchTypePhone(phoneNumber, userType) ==
-        true) {
-      signInWithPhoneNumber(phoneAuthCredential);
-
-      await authController.saveLocalStorageToPhone(phoneNumber, userType);
-      String? pushToken = await authController.getToken();
-      if (pushToken != null) {
-        databaseController.updatePushTokenToPhone(
-            phone: phoneNumber, pushToken: pushToken, userType: userType);
-      }
-      if (userType == 'user') {
-        await databaseController.fetchMyInfoToPhoneUser(phoneNumber);
-      } else if (userType == 'business') {
-        await databaseController.fetchMyInfoToPhoneBusiness(phoneNumber);
-      }
-    } else {
-      toastMessage('가입되지 않은 전화번호 입니다.');
-    }
-  }
-
-  void signInWithPhoneNumber(PhoneAuthCredential phoneAuthCredential) async {
     try {
-      final User? user =
-          (await _auth.signInWithCredential(phoneAuthCredential)).user;
-    } catch (e) {
-      toastMessage('로그인에 실패했습니다.');
+      if (await databaseController.hasMatchTypePhone(phoneNumber, userType) ==
+          true) {
+        await _auth.signInWithCredential(phoneAuthCredential);
+
+        await authController.saveLocalStorageToPhone(phoneNumber, userType);
+        String? pushToken = await authController.getToken();
+        if (pushToken != null) {
+          databaseController.updatePushTokenToPhone(
+              phone: phoneNumber, pushToken: pushToken, userType: userType);
+        }
+        if (userType == 'user') {
+          await databaseController.fetchMyInfoToPhoneUser(phoneNumber);
+        } else if (userType == 'business') {
+          await databaseController.fetchMyInfoToPhoneBusiness(phoneNumber);
+        }
+        Get.to(() => Root());
+      } else {
+        toastMessage('가입되지 않은 전화번호 입니다.');
+      }
+    } on FirebaseAuthException catch (e) {
+      toastMessage(e.code.toString());
     }
   }
 
@@ -100,6 +97,7 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppData appdata = Get.find();
     return Scaffold(
       body: GestureDetector(
         onTap: () {
@@ -173,19 +171,13 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                                             otpNumberController.text = '';
                                             _timer?.cancel();
                                           });
-                                          toastMessage(
-                                              "인증번호가 만료되었습니다. 다시 시도해 주세요.");
                                         },
                                         phoneNumber: "+8210" +
                                             phoneNumberController.text
                                                 .substring(3)
                                                 .trim(),
                                         verificationCompleted:
-                                            (phoneAuthCredential) async {
-                                          await _auth.signInWithCredential(
-                                              phoneAuthCredential);
-                                          toastMessage('이미 로그인한 상태입니다.');
-                                        },
+                                            (phoneAuthCredential) async {},
                                         verificationFailed:
                                             (verificationFailed) async {
                                           print(verificationFailed.code);
@@ -282,9 +274,9 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                       PhoneAuthProvider.credential(
                           verificationId: verificationId!,
                           smsCode: otpNumberController.text);
+                  appdata.userType = userType;
                   authUserToPhone(phoneAuthCredential,
                       phoneNumberController.text, userType);
-                  Get.to(() => Root());
                 }),
                 _connectbutton('전화번호로 회원가입', () {
                   Get.to(SmsJoinScreen(), arguments: userType);

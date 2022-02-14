@@ -15,6 +15,7 @@ class Usermodel {
   List<dynamic> mybasket;
   int like;
   String pushToken;
+  String birth;
   String uid;
   String usertype;
 
@@ -33,6 +34,7 @@ class Usermodel {
       required this.mybasket,
       required this.like,
       required this.pushToken,
+      required this.birth,
       required this.uid,
       required this.usertype});
 
@@ -46,11 +48,12 @@ class Usermodel {
         phone = json['phone'],
         address = json['address'],
         addressdetail = json['addressdetail'],
-        myposts = json['myposts'],
-        mybasket = json['mybasket'],
-        mypayment = json['mypayment'],
-        like = json['like'],
+        myposts = json['myposts'] ?? [],
+        mybasket = json['mybasket'] ?? [],
+        mypayment = json['mypayment'] ?? [],
+        like = json['like'] ?? 0,
         pushToken = json['pushToken'] ?? '',
+        birth = json['birth'],
         uid = json['uid'],
         usertype = json['usertype'];
 
@@ -69,6 +72,7 @@ class Usermodel {
         'mybasket': mybasket,
         'like': like,
         'pushToken': pushToken,
+        'birth': birth,
         'uid': uid,
         'usertype': usertype
       };

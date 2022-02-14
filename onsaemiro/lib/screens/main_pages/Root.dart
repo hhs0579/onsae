@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/screens/main_pages/access_Admin.dart';
 import 'package:onsaemiro/screens/main_pages/access_main.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller.dart';
 import 'package:onsaemiro/screens/main_pages/culture_main.dart';
 import 'package:onsaemiro/screens/main_pages/my_info.dart';
+import 'package:onsaemiro/screens/main_pages/myinfo_Admin.dart';
 import 'package:onsaemiro/screens/main_pages/things_main.dart';
 
 class Root extends GetView<RootContorller> {
@@ -12,6 +14,7 @@ class Root extends GetView<RootContorller> {
 
   @override
   Widget build(BuildContext context) {
+    AppData appdata = Get.find();
     return WillPopScope(
       onWillPop: controller.onWillPop,
       child: Obx(
@@ -48,9 +51,13 @@ class Root extends GetView<RootContorller> {
               Navigator(
                   key: controller.navigatorKeys[4],
                   onGenerateRoute: (routeSettings) {
-                    return MaterialPageRoute(
-                      builder: (context) => MyInfoPage(),
-                    );
+                    return appdata.userType == 'user'
+                        ? MaterialPageRoute(
+                            builder: (context) => MyInfoPage(),
+                          )
+                        : MaterialPageRoute(
+                            builder: (context) => MyInfoAdmin(),
+                          );
                   }),
             ],
           ),

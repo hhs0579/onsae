@@ -164,8 +164,6 @@ class _SmsJoinScreenState extends State<SmsJoinScreen> {
                                             otpNumberController.text = '';
                                             _timer?.cancel();
                                           });
-                                          toastMessage(
-                                              "인증번호가 만료되었습니다. 다시 시도해 주세요.");
                                         },
                                         phoneNumber: "+8210" +
                                             phoneNumberController.text
