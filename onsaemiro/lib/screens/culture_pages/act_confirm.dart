@@ -61,13 +61,22 @@ List<dynamic> uids = [];
 bool toggle = false;
 List<dynamic> posts = [];
 FirebaseFirestore fireStore = FirebaseFirestore.instance;
+bool press = false;
+String select = likepress;
+String likepress = '';
+String datepress = '';
+
+Stream<QuerySnapshot>? like;
+Stream<QuerySnapshot>? date;
 
 class _actConfirmPageState extends State<actConfirmPage> {
-  final Stream<QuerySnapshot> post =
-      FirebaseFirestore.instance.collection('actPost').snapshots();
   bool isRecently = true;
   @override
   Widget build(BuildContext context) {
+    Stream<QuerySnapshot> post = FirebaseFirestore.instance
+        .collection('actPost')
+        .orderBy(press ? 'like' : 'date', descending: true)
+        .snapshots();
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -105,6 +114,28 @@ class _actConfirmPageState extends State<actConfirmPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  TextButton(
+                      onPressed: () {
+                        setState(() {
+                          press = false;
+                        });
+                      },
+                      child: Text(
+                        '최신순',
+                        style:
+                            TextStyle(color: Color(0xff437B56), fontSize: 15),
+                      )),
+                  TextButton(
+                      onPressed: () {
+                        setState(() {
+                          press = true;
+                        });
+                      },
+                      child: Text(
+                        '좋아요 순',
+                        style:
+                            TextStyle(color: Color(0xff437B56), fontSize: 15),
+                      )),
                   TextButton(
                       onPressed: () {
                         Get.to(actParticipationPage());
@@ -261,7 +292,6 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                                     } else {
                                                       actPost.like.add(appData
                                                           .usermodel.uid);
-
                                                       fireStore
                                                           .collection('actPost')
                                                           .doc(actPost.postKey)
