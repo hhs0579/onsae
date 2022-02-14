@@ -56,19 +56,27 @@ extension StringExtension on String {
   }
 }
 
+int a = 1;
 List<dynamic> uids = [];
 bool toggle = false;
 List<dynamic> posts = [];
 FirebaseFirestore fireStore = FirebaseFirestore.instance;
+bool press = false;
+String select = likepress;
+String likepress = '';
+String datepress = '';
+
+Stream<QuerySnapshot>? like;
+Stream<QuerySnapshot>? date;
 
 class _actConfirmPageState extends State<actConfirmPage> {
-  final Stream<QuerySnapshot> post = FirebaseFirestore.instance
-      .collection('actPost')
-      .orderBy('date', descending: true)
-      .snapshots();
   bool isRecently = true;
   @override
   Widget build(BuildContext context) {
+    Stream<QuerySnapshot> post = FirebaseFirestore.instance
+        .collection('actPost')
+        .orderBy(press ? 'like' : 'date', descending: true)
+        .snapshots();
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -108,6 +116,28 @@ class _actConfirmPageState extends State<actConfirmPage> {
                 children: [
                   TextButton(
                       onPressed: () {
+                        setState(() {
+                          press = false;
+                        });
+                      },
+                      child: Text(
+                        '최신순',
+                        style:
+                            TextStyle(color: Color(0xff437B56), fontSize: 15),
+                      )),
+                  TextButton(
+                      onPressed: () {
+                        setState(() {
+                          press = true;
+                        });
+                      },
+                      child: Text(
+                        '좋아요 순',
+                        style:
+                            TextStyle(color: Color(0xff437B56), fontSize: 15),
+                      )),
+                  TextButton(
+                      onPressed: () {
                         Get.to(actParticipationPage());
                       },
                       child: Text(
@@ -125,7 +155,7 @@ class _actConfirmPageState extends State<actConfirmPage> {
           centerTitle: true,
           elevation: 0.5,
         ),
-        body: SingleChildScrollView(
+        body: Container(
             child: StreamBuilder<QuerySnapshot>(
                 stream: post,
                 builder: (context, snapshot) {
@@ -217,12 +247,12 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                             Container(
                                               margin: EdgeInsets.only(top: 10),
                                               child: IconButton(
-                                                icon: toggle
-                                                    ? Icon(
-                                                        Icons.thumb_up_outlined,
+                                                icon: actPost.presslike
+                                                    ? Icon(Icons.thumb_up,
                                                         color:
                                                             Color(0xff437B56))
-                                                    : Icon(Icons.thumb_up,
+                                                    : Icon(
+                                                        Icons.thumb_up_outlined,
                                                         color:
                                                             Color(0xff437B56)),
                                                 onPressed: () {
@@ -230,19 +260,34 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                                       appData.usermodel.uid);
                                                   posts.add(actPost.postKey);
                                                   setState(() {
-                                                    toggle = !toggle;
+                                                    actPost.presslike =
+                                                        !actPost.presslike;
                                                     if (actPost.like.contains(
                                                         appData
                                                             .usermodel.uid)) {
                                                       actPost.like.remove(
                                                           appData
                                                               .usermodel.uid);
+
                                                       fireStore
                                                           .collection('actPost')
                                                           .doc(actPost.postKey)
                                                           .update({
                                                         'like': FieldValue
                                                             .arrayRemove(uids)
+                                                      });
+                                                      fireStore
+                                                          .collection('actPost')
+                                                          .doc(actPost.postKey)
+                                                          .update({
+                                                        'likenum':
+                                                            --actPost.likenum
+                                                      });
+                                                      fireStore
+                                                          .collection('actPost')
+                                                          .doc(actPost.postKey)
+                                                          .update({
+                                                        'presslike': false
                                                       });
                                                     } else {
                                                       actPost.like.add(appData
@@ -253,6 +298,19 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                                           .update({
                                                         'like': FieldValue
                                                             .arrayUnion(uids)
+                                                      });
+                                                      fireStore
+                                                          .collection('actPost')
+                                                          .doc(actPost.postKey)
+                                                          .update({
+                                                        'presslike': true
+                                                      });
+                                                      fireStore
+                                                          .collection('actPost')
+                                                          .doc(actPost.postKey)
+                                                          .update({
+                                                        'likenum':
+                                                            ++actPost.likenum
                                                       });
                                                     }
                                                   });

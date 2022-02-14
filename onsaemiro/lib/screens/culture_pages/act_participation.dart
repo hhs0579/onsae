@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/repo/database_service.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:onsaemiro/screens/culture_pages/act_confirm.dart';
 
 class actParticipationPage extends StatefulWidget {
   const actParticipationPage({Key? key}) : super(key: key);
@@ -62,6 +63,11 @@ class _actParticipationPageState extends State<actParticipationPage> {
       var imageUrl = await uploadFile(_images[i]);
       _arrImageUrls.add(imageUrl.toString());
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -179,6 +185,12 @@ class _actParticipationPageState extends State<actParticipationPage> {
                         side: BorderSide(width: 2.0, color: Colors.green),
                       ),
                       onPressed: () async {
+                        Fluttertoast.showToast(
+                            msg: "게시하기 버튼이 나올 때까지 기다려주세요.",
+                            toastLength: Toast.LENGTH_SHORT,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.lightBlue,
+                            fontSize: 12.0);
                         await uploadFunction(imageFileList!);
                         setState(() {
                           visibley = true;
@@ -231,7 +243,13 @@ class _actParticipationPageState extends State<actParticipationPage> {
                                   postTextEditController.text,
                                   _arrImageUrls,
                                   [],
-                                  appData.usermodel.image);
+                                  appData.usermodel.image,
+                                  false,
+                                  0);
+                          final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => actConfirmPage()));
                         }
                       },
                     ),

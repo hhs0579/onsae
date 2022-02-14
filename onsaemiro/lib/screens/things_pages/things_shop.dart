@@ -30,14 +30,14 @@ foodBox() {
 
 class _thingsShopPageState extends State<thingsShopPage> {
   final CartController c = Get.put(CartController());
-  final Stream<QuerySnapshot> _shopStream =
-      FirebaseFirestore.instance.collection('shops').snapshots();
 
   bool isClothings = false;
   bool isLife = false;
   bool isFood = true;
   @override
   Widget build(BuildContext context) {
+    final Stream<QuerySnapshot> _shopStream =
+        FirebaseFirestore.instance.collection('shops').snapshots();
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -227,7 +227,7 @@ class _thingsShopPageState extends State<thingsShopPage> {
                                 return StreamBuilder<QuerySnapshot>(
                                     stream: FirebaseFirestore.instance
                                         .collection('shops')
-                                        .doc(Shops[index].name)
+                                        .doc(Shops[index].docId)
                                         .collection('products')
                                         .snapshots(),
                                     builder: (context, snapshot) {

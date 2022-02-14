@@ -65,7 +65,9 @@ class AppData extends GetxController {
       postKey: '',
       post: '',
       like: [],
-      profile: '');
+      profile: '',
+      presslike: false,
+      likenum: 0);
 
   ActPost get actPost => _actPost;
 
