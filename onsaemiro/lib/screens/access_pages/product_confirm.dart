@@ -203,7 +203,7 @@ class _productConfirmPageState extends State<productConfirmPage> {
                               maxLines: 36,
                               style: TextStyle(fontSize: 11),
                               decoration: InputDecoration(
-                                  hintText: '문구 입력...',
+                                  hintText: '${itsProduct.Info}',
                                   hintStyle: TextStyle(fontSize: 11),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius:
@@ -234,7 +234,7 @@ class _productConfirmPageState extends State<productConfirmPage> {
                               textInputAction: TextInputAction.newline,
                               style: TextStyle(fontSize: 11),
                               decoration: InputDecoration(
-                                  // hintText: '${updateDoc.data()}',
+                                  hintText: '${itsProduct.price}',
                                   hintStyle: TextStyle(fontSize: 11),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius:

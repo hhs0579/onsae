@@ -1,9 +1,15 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kpostal/kpostal.dart';
+import 'package:onsaemiro/product/product_list.dart';
+import 'package:onsaemiro/repo/image_service.dart';
 import 'package:onsaemiro/screens/main_pages/culture_main.dart';
+import 'package:onsaemiro/screens/main_pages/myinfo_Admin.dart';
 import 'package:random_string/random_string.dart';
 
 class StoreOpen extends StatefulWidget {
@@ -31,8 +37,60 @@ var life = false;
 var food = false;
 var vegan = false;
 List<dynamic> select = [];
+Imageservice imageservice = Imageservice();
+String urls = '';
+XFile? _image;
+final _picker = ImagePicker();
+var visibley = false;
 
 class _StoreOpenState extends State<StoreOpen> {
+  Future _getImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (image != null) {
+        _image = image;
+      }
+    });
+  }
+
+  productimage() {
+    return Flexible(
+        fit: FlexFit.tight,
+        child: _image == null
+            ? ElevatedButton(
+                onPressed: () {
+                  _getImage();
+                },
+                child: CircleAvatar(
+                  backgroundColor: Color(0xffd6d6d6),
+                  radius: 50,
+                  child: Icon(
+                    Icons.image,
+                    color: Colors.white,
+                    size: 50,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                    elevation: 0, shape: CircleBorder()),
+              )
+            : ElevatedButton(
+                onPressed: () {
+                  _getImage();
+                },
+                child: Container(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    height: MediaQuery.of(context).size.height * 0.23,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.lightGreen),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: FileImage(File(_image!.path))))),
+                style: ElevatedButton.styleFrom(
+                    elevation: 0, shape: CircleBorder()),
+              ));
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -312,6 +370,21 @@ class _StoreOpenState extends State<StoreOpen> {
             ),
             Container(
               margin: EdgeInsets.only(top: 40, left: 20),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Text('사진 선택',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 21,
+                              color: Color(0xff6CCD6C))),
+                    ),
+                    productimage()
+                  ]),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 40, left: 20),
               child: Text("상점 정보",
                   style: TextStyle(
                     color: Color(0xff6CCD6C),
@@ -393,6 +466,31 @@ class _StoreOpenState extends State<StoreOpen> {
                 width: width * 0.9,
                 child: TextButton(
                     onPressed: () async {
+                      if (_image == null) {
+                        Fluttertoast.showToast(
+                            msg: "사진을 선택해주세요.",
+                            toastLength: Toast.LENGTH_SHORT,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.lightGreen,
+                            fontSize: 12.0);
+                      } else {
+                        urls = await imageservice.uploadProductImageToStorage(
+                            storename.text, _image!);
+                        setState(() {
+                          visibley = true;
+                        });
+                      }
+                    },
+                    child: Text('사진 등록', style: TextStyle(color: Colors.white)),
+                    style: ElevatedButton.styleFrom(
+                        primary: Color(0xffA2BF62),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25))))),
+            Container(
+                margin: EdgeInsets.only(top: 20, left: 20),
+                width: width * 0.9,
+                child: TextButton(
+                    onPressed: () async {
                       if (storename.text == "") {
                         Fluttertoast.showToast(
                             msg: "상점 이름을 입력해주세요.",
@@ -443,19 +541,22 @@ class _StoreOpenState extends State<StoreOpen> {
                             backgroundColor: Colors.lightGreen,
                             fontSize: 12.0);
                       } else {
-                        fireStore.collection('StoreRegister').doc(key).set({
-                          'StoreName': storename.text,
+                        fireStore.collection('shops').doc(key).set({
+                          'name': storename.text,
                           'StoreAddress': _addressTextEditor.text,
                           'StoreDetailAddress': _deaddressTextEditor.text,
                           'StoreInfo': storeinfo.text,
                           'StoreSailsInfo': salesinfo.text,
-                          'StoreBenefitInfo': benefitinfo.text
+                          'StoreBenefitInfo': benefitinfo.text,
+                          'docId': key,
+                          'image': urls,
                         });
+
                         final Keys = key;
                         final result = await Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => cultureMainPage()));
+                                builder: (context) => MyInfoAdmin()));
                       }
                     },
                     child: Text('상점 등록', style: TextStyle(color: Colors.white)),

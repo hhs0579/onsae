@@ -1,29 +1,27 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:onsaemiro/repo/image_service.dart';
-import 'package:onsaemiro/screens/main_pages/Root.dart';
-import 'package:onsaemiro/screens/main_pages/Root2.dart';
-import 'package:onsaemiro/screens/main_pages/culture_main.dart';
 import 'package:random_string/random_string.dart';
 
 class StoreRegist extends StatefulWidget {
   String shopName;
-  StoreRegist(this.shopName);
+  String shopDocId;
+  StoreRegist(this.shopName, this.shopDocId);
 
   @override
-  _StoreRegistState createState() => _StoreRegistState(this.shopName);
+  _StoreRegistState createState() =>
+      _StoreRegistState(this.shopName, this.shopDocId);
 }
 
 Imageservice imageservice = Imageservice();
 var visibley = false;
 var key = randomString(16);
+
 List<String> _arrImageUrls = [];
 final _picker = ImagePicker();
 List<XFile>? imageFileList = [];
@@ -37,7 +35,8 @@ String urls = '';
 
 class _StoreRegistState extends State<StoreRegist> {
   String _shopName;
-  _StoreRegistState(this._shopName);
+  String _shopDocId;
+  _StoreRegistState(this._shopName, this._shopDocId);
   Future _getImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -266,6 +265,7 @@ class _StoreRegistState extends State<StoreRegist> {
                           setState(() {
                             visibley = true;
                           });
+                          print(_shopDocId);
                         }
                       },
                       child:
@@ -312,7 +312,7 @@ class _StoreRegistState extends State<StoreRegist> {
                           } else {
                             FirebaseFirestore.instance
                                 .collection('shops')
-                                .doc(_shopName)
+                                .doc(_shopDocId)
                                 .collection('products')
                                 .doc(key)
                                 .set({

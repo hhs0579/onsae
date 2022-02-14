@@ -211,7 +211,7 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
                         return StreamBuilder<QuerySnapshot>(
                             stream: FirebaseFirestore.instance
                                 .collection('shops')
-                                .doc(Shops[index].name)
+                                .doc(Shops[index].docId)
                                 .collection('products')
                                 .snapshots(),
                             builder: (context, snapshot) {
