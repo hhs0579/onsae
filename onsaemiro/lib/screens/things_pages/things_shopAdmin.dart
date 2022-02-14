@@ -22,10 +22,10 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
   bool isLife = false;
   bool isFood = true;
 
-  final Stream<QuerySnapshot> _shopStream =
-      FirebaseFirestore.instance.collection('shops').snapshots();
   @override
   Widget build(BuildContext context) {
+    final Stream<QuerySnapshot> _shopStream =
+        FirebaseFirestore.instance.collection('shops').snapshots();
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(

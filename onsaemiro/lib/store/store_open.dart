@@ -4,12 +4,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kpostal/kpostal.dart';
+import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/repo/image_service.dart';
 import 'package:onsaemiro/screens/main_pages/culture_main.dart';
 import 'package:onsaemiro/screens/main_pages/myinfo_Admin.dart';
+import 'package:onsaemiro/screens/things_pages/thingsShopProduct.dart';
 import 'package:random_string/random_string.dart';
 
 class StoreOpen extends StatefulWidget {
@@ -44,55 +47,56 @@ final _picker = ImagePicker();
 var visibley = false;
 
 class _StoreOpenState extends State<StoreOpen> {
-  Future _getImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (image != null) {
-        _image = image;
-      }
-    });
-  }
-
-  productimage() {
-    return Flexible(
-        fit: FlexFit.tight,
-        child: _image == null
-            ? ElevatedButton(
-                onPressed: () {
-                  _getImage();
-                },
-                child: CircleAvatar(
-                  backgroundColor: Color(0xffd6d6d6),
-                  radius: 50,
-                  child: Icon(
-                    Icons.image,
-                    color: Colors.white,
-                    size: 50,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                    elevation: 0, shape: CircleBorder()),
-              )
-            : ElevatedButton(
-                onPressed: () {
-                  _getImage();
-                },
-                child: Container(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    height: MediaQuery.of(context).size.height * 0.23,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Colors.lightGreen),
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: FileImage(File(_image!.path))))),
-                style: ElevatedButton.styleFrom(
-                    elevation: 0, shape: CircleBorder()),
-              ));
-  }
-
   @override
   Widget build(BuildContext context) {
+    Future _getImage() async {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+      setState(() {
+        if (image != null) {
+          _image = image;
+        }
+      });
+    }
+
+    productimage() {
+      return Flexible(
+          fit: FlexFit.tight,
+          child: _image == null
+              ? ElevatedButton(
+                  onPressed: () {
+                    _getImage();
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: Color(0xffd6d6d6),
+                    radius: 50,
+                    child: Icon(
+                      Icons.image,
+                      color: Colors.white,
+                      size: 50,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      elevation: 0, shape: CircleBorder()),
+                )
+              : ElevatedButton(
+                  onPressed: () {
+                    _getImage();
+                  },
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      height: MediaQuery.of(context).size.height * 0.23,
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(width: 1, color: Colors.lightGreen),
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: FileImage(File(_image!.path))))),
+                  style: ElevatedButton.styleFrom(
+                      elevation: 0, shape: CircleBorder()),
+                ));
+    }
+
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -551,12 +555,20 @@ class _StoreOpenState extends State<StoreOpen> {
                           'docId': key,
                           'image': urls,
                         });
-
+                        AppData appdata = Get.find();
+                        fireStore
+                            .collection('users')
+                            .doc(appdata.businessmodel.uid)
+                            .update({
+                          'mystore':
+                              FieldValue.arrayUnion(['${storename.text}'])
+                        });
+                        setState(() {});
                         final Keys = key;
                         final result = await Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MyInfoAdmin()));
+                                builder: (context) => thingsShopRegiPage()));
                       }
                     },
                     child: Text('상점 등록', style: TextStyle(color: Colors.white)),

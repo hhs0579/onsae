@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/data/appdata.dart';
+import 'package:onsaemiro/models/business_model.dart';
 import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/product/shop.dart';
+import 'package:onsaemiro/screens/culture_pages/act_participation.dart';
 import 'package:onsaemiro/screens/things_pages/things_regi.dart';
 
 class thingsShopRegiPage extends StatefulWidget {
@@ -14,10 +17,13 @@ class thingsShopRegiPage extends StatefulWidget {
 
 class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
   // List<Shop> Shops = [Shop(name: '망넛이네', image_url: 'assets/mangnut.png')];
-  final Stream<QuerySnapshot> _shopStream =
-      FirebaseFirestore.instance.collection('shops').snapshots();
+
   @override
   Widget build(BuildContext context) {
+    final Stream<QuerySnapshot> _shopStream =
+        FirebaseFirestore.instance.collection('shops').snapshots();
+    AppData appdata = Get.find();
+    List myStore = appdata.businessmodel.mystore;
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -62,12 +68,19 @@ class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
                           return Container();
                         }
                         List<Shop> Shops = [];
+                        List<Shop> allShops = [];
+                        List<String> allShopsName = [];
+
                         for (var element in snapshot.data!.docs) {
                           Shop shopModel = Shop.fromJson(
                               element.data() as Map<String, dynamic>);
-                          Shops.add(shopModel);
-                          print(Shops[0].name);
+                          for (var i = 0; i < myStore.length; i++) {
+                            if (myStore[i] == shopModel.name) {
+                              Shops.add(shopModel);
+                            }
+                          }
                         }
+
                         return SizedBox(
                             height: height * 0.4,
                             child: ListView.builder(
@@ -97,7 +110,6 @@ class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
                                               Product.fromJson(element.data()
                                                   as Map<String, dynamic>);
                                           products.add(productModel);
-                                          print(products[0].name);
                                         }
                                         return StoreBox(
                                             width, shop.name, shop.image, () {
