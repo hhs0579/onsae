@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:onsaemiro/classes/toast_message.dart';
 import 'package:onsaemiro/data/appdata.dart';
+import 'package:onsaemiro/repo/image_service.dart';
 import 'package:onsaemiro/screens/main_pages/Root2.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
@@ -111,6 +114,80 @@ class MyInfoPage extends StatefulWidget {
 }
 
 class _MyInfoPageState extends State<MyInfoPage> {
+  String resultURL = '';
+  AppData appdata = Get.find();
+  final _picker = ImagePicker();
+
+  @override
+  void initState() {
+    resultURL = appdata.usermodel.image;
+
+    super.initState();
+  }
+
+  _profileImage(context) {
+    return Stack(
+      children: [
+        Container(
+            margin: EdgeInsets.only(
+              top: 20,
+              left: 15,
+              right: 30,
+            ),
+            child: Container(width: 70, height: 70, child: _profileImageOn())),
+        Positioned(
+            right: 22,
+            top: 60,
+            child: Container(
+              width: 25,
+              height: 25,
+              child: CircleAvatar(
+                backgroundColor: Color(0xff3AAFFC),
+                child: IconButton(
+                  onPressed: () async {
+                    try {
+                      XFile? result =
+                          await _picker.pickImage(source: ImageSource.gallery);
+                      resultURL = await imageservice
+                          .uploadProfileImageToStorage(result!);
+                      toastMessage('프로필 사진이 변경되었습니다.');
+                    } catch (e) {
+                      toastMessage('오류가 발생했습니다.');
+                      print(e);
+                    }
+                    setState(() {});
+                  },
+                  icon: Icon(Icons.edit, color: Colors.white),
+                  iconSize: 15,
+                  color: Colors.blue,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.zero,
+                  constraints: BoxConstraints(),
+                ),
+              ),
+            ))
+      ],
+    );
+  }
+
+  _profileImageOn() {
+    return resultURL == ''
+        ? Container(
+            width: 70,
+            height: 70,
+            child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 40,
+                backgroundImage: AssetImage('assets/basic.png')))
+        : Container(
+            width: 70,
+            height: 70,
+            child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 40,
+                backgroundImage: NetworkImage(resultURL)));
+  }
+
   final Root2Contorller c = Get.put(Root2Contorller());
   @override
   Widget build(BuildContext context) {

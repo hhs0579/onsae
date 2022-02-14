@@ -64,6 +64,8 @@ class _actConfirmPageState extends State<actConfirmPage> {
   bool isRecently = true;
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           leadingWidth: 0.0,
@@ -142,7 +144,73 @@ class _actConfirmPageState extends State<actConfirmPage> {
                       ActPost actPost = actPosts.elementAt(index);
                       var video = actPost.date;
                       return Column(
-                        children: [],
+                        children: [
+                          Container(
+                              width: width * 0.9,
+                              height: height * 0.3,
+                              margin: EdgeInsets.only(top: 20),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                    width: 1.0, color: Color(0xff437B56)),
+                              ),
+                              child: Container(
+                                margin: EdgeInsets.only(top: 10),
+                                child: Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 20,
+                                          //프로필 사진받아오기
+                                          backgroundImage:
+                                              NetworkImage(actPost.profile),
+                                        ),
+                                        Text('act.활동 인증',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            )),
+
+                                        //플렉시블
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text(actPost.nickname,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Color(0xff437B56),
+                                                fontWeight: FontWeight.bold)),
+                                        Text(
+                                          StringExtension
+                                              .displayTimeAgoFromTimestamp(
+                                                  video.toString()),
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )),
+                          Flexible(
+                            fit: FlexFit.tight,
+                            child: Container(
+                                height: height * 0.17,
+                                width: width * 0.7,
+                                color: Colors.white,
+                                child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    itemCount: actPost.imgList.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Image.network(
+                                          actPost.imgList.elementAt(index),
+                                          fit: BoxFit.cover);
+                                    })),
+                          ),
+                        ],
                       );
                     },
                   );

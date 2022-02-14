@@ -7,13 +7,15 @@ class ActPost {
   String post;
   List<dynamic> imgList;
   List<dynamic> like;
+  String profile;
   ActPost(
       {required this.date,
       required this.nickname,
       required this.postKey,
       required this.post,
       required this.imgList,
-      required this.like});
+      required this.like,
+      required this.profile});
 
   ActPost.fromJson(Map<String, dynamic> json)
       : date = json['date'].toDate(),
@@ -21,7 +23,8 @@ class ActPost {
         postKey = json['postKey'],
         post = json['post'],
         imgList = json['imgList'],
-        like = json['like'] ?? [];
+        like = json['like'] ?? [],
+        profile = json['profile'] ?? '';
 
   Map<String, dynamic> toJson() => {
         'date': date,
@@ -29,6 +32,7 @@ class ActPost {
         'postKey': postKey,
         'post': post,
         'imgList': imgList,
-        'like': like
+        'like': like,
+        'profile': profile
       };
 }
