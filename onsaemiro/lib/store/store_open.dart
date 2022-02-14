@@ -490,93 +490,98 @@ class _StoreOpenState extends State<StoreOpen> {
                         primary: Color(0xffA2BF62),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25))))),
-            Container(
-                margin: EdgeInsets.only(top: 20, left: 20),
-                width: width * 0.9,
-                child: TextButton(
-                    onPressed: () async {
-                      if (storename.text == "") {
-                        Fluttertoast.showToast(
-                            msg: "상점 이름을 입력해주세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.lightGreen,
-                            fontSize: 12.0);
-                      } else if (_addressTextEditor.text == "") {
-                        Fluttertoast.showToast(
-                            msg: "주소를 입력해주세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.lightGreen,
-                            fontSize: 12.0);
-                      } else if (_deaddressTextEditor.text == "") {
-                        Fluttertoast.showToast(
-                            msg: "상세주소를 입력해주세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.lightGreen,
-                            fontSize: 12.0);
-                      } else if (storeinfo.text == "") {
-                        Fluttertoast.showToast(
-                            msg: "상점정보를 입력해주세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.lightGreen,
-                            fontSize: 12.0);
-                      } else if (salesinfo.text == "") {
-                        Fluttertoast.showToast(
-                            msg: "영업정보를 입력해주세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.lightGreen,
-                            fontSize: 12.0);
-                      } else if (benefitinfo.text == "") {
-                        Fluttertoast.showToast(
-                            msg: "안내 및 혜택을 입력해주세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.lightGreen,
-                            fontSize: 12.0);
-                      } else if (select.isEmpty) {
-                        Fluttertoast.showToast(
-                            msg: "상점 종류를 고르세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.lightGreen,
-                            fontSize: 12.0);
-                      } else {
-                        fireStore.collection('shops').doc(key).set({
-                          'name': storename.text,
-                          'StoreAddress': _addressTextEditor.text,
-                          'StoreDetailAddress': _deaddressTextEditor.text,
-                          'StoreInfo': storeinfo.text,
-                          'StoreSailsInfo': salesinfo.text,
-                          'StoreBenefitInfo': benefitinfo.text,
-                          'docId': key,
-                          'image': urls,
-                        });
-                        AppData appdata = Get.find();
-                        fireStore
-                            .collection('users')
-                            .doc(appdata.businessmodel.uid)
-                            .update({
-                          'mystore':
-                              FieldValue.arrayUnion(['${storename.text}'])
-                        });
-                        setState(() {});
-                        final Keys = key;
-                        final result = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => thingsShopRegiPage()));
-                      }
-                    },
-                    child: Text('상점 등록', style: TextStyle(color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xffA2BF62),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25)),
-                    ))),
+            Visibility(
+              visible: visibley,
+              child: Container(
+                  margin: EdgeInsets.only(top: 20, left: 20),
+                  width: width * 0.9,
+                  child: TextButton(
+                      onPressed: () async {
+                        if (storename.text == "") {
+                          Fluttertoast.showToast(
+                              msg: "상점 이름을 입력해주세요.",
+                              toastLength: Toast.LENGTH_SHORT,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.lightGreen,
+                              fontSize: 12.0);
+                        } else if (_addressTextEditor.text == "") {
+                          Fluttertoast.showToast(
+                              msg: "주소를 입력해주세요.",
+                              toastLength: Toast.LENGTH_SHORT,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.lightGreen,
+                              fontSize: 12.0);
+                        } else if (_deaddressTextEditor.text == "") {
+                          Fluttertoast.showToast(
+                              msg: "상세주소를 입력해주세요.",
+                              toastLength: Toast.LENGTH_SHORT,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.lightGreen,
+                              fontSize: 12.0);
+                        } else if (storeinfo.text == "") {
+                          Fluttertoast.showToast(
+                              msg: "상점정보를 입력해주세요.",
+                              toastLength: Toast.LENGTH_SHORT,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.lightGreen,
+                              fontSize: 12.0);
+                        } else if (salesinfo.text == "") {
+                          Fluttertoast.showToast(
+                              msg: "영업정보를 입력해주세요.",
+                              toastLength: Toast.LENGTH_SHORT,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.lightGreen,
+                              fontSize: 12.0);
+                        } else if (benefitinfo.text == "") {
+                          Fluttertoast.showToast(
+                              msg: "안내 및 혜택을 입력해주세요.",
+                              toastLength: Toast.LENGTH_SHORT,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.lightGreen,
+                              fontSize: 12.0);
+                        } else if (select.isEmpty) {
+                          Fluttertoast.showToast(
+                              msg: "상점 종류를 고르세요.",
+                              toastLength: Toast.LENGTH_SHORT,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.lightGreen,
+                              fontSize: 12.0);
+                        } else {
+                          fireStore.collection('shops').doc(key).set({
+                            'name': storename.text,
+                            'StoreAddress': _addressTextEditor.text,
+                            'StoreDetailAddress': _deaddressTextEditor.text,
+                            'StoreInfo': storeinfo.text,
+                            'StoreSailsInfo': salesinfo.text,
+                            'StoreBenefitInfo': benefitinfo.text,
+                            'docId': key,
+                            'image': urls,
+                            'select': select
+                          });
+                          AppData appdata = Get.find();
+                          fireStore
+                              .collection('users')
+                              .doc(appdata.businessmodel.uid)
+                              .update({
+                            'mystore':
+                                FieldValue.arrayUnion(['${storename.text}'])
+                          });
+                          setState(() {});
+                          final Keys = key;
+                          final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => thingsShopRegiPage()));
+                        }
+                      },
+                      child:
+                          Text('상점 등록', style: TextStyle(color: Colors.white)),
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xffA2BF62),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25)),
+                      ))),
+            ),
           ]),
         ));
   }
