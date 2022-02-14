@@ -11,26 +11,27 @@ AuthController authController = AuthController();
 class AuthController {
   Future authUser(String email, String password, String userType) async {
     try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      await saveLocalStorageToEmail(userCredential, userType);
-      String? pushToken = await getToken();
-      if (pushToken != null) {
-        databaseController.updatePushTokenToEmail(
+      if (await databaseController.hasMatchTypeEmail(email, userType) == true) {
+        UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
-          pushToken: pushToken,
+          password: password,
         );
-      }
-      AppData appData = Get.find();
-      if (appData.userType == 'user') {
-        await databaseController
-            .fetchMyInfoToEmailUser(appData.usermodel.email);
-      } else if (appData.userType == 'business') {
-        await databaseController
-            .fetchMyInfoToEmailBusiness(appData.usermodel.email);
+
+        await saveLocalStorageToEmail(userCredential, userType);
+        String? pushToken = await getToken();
+        if (pushToken != null) {
+          databaseController.updatePushTokenToEmail(
+              email: email, pushToken: pushToken, userType: userType);
+        }
+        AppData appData = Get.find();
+        if (appData.userType == 'user') {
+          await databaseController.fetchMyInfoToEmailUser(email);
+        } else {
+          await databaseController.fetchMyInfoToEmailBusiness(email);
+        }
+      } else {
+        return toastMessage('존재하지 않는 이메일입니다.');
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -39,8 +40,10 @@ class AuthController {
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
         return toastMessage('비밀번호를 다시 한번 확인해주세요.');
-      } else {
+      } else if (e.code == 'invalid-email') {
         print(e);
+        return toastMessage('존재하지 않는 이메일입니다.');
+      } else {
         return toastMessage(e.code.toString());
       }
     }

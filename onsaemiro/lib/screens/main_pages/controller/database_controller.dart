@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/models/business_model.dart';
+import 'package:onsaemiro/models/public_model.dart';
 import 'package:onsaemiro/models/user_model.dart';
 
 DatabaseController databaseController = DatabaseController();
@@ -40,6 +41,34 @@ class DatabaseController {
       return false;
     } else {
       return true;
+    }
+  }
+
+  Future<bool?> hasMatchTypeEmail(String email, String userType) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+    Publicmodel usermodel = Publicmodel.fromJson(
+        querySnapshot.docs.first.data() as Map<String, dynamic>);
+    if (usermodel.usertype == userType) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool?> hasMatchTypePhone(String phone, String userType) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: phone)
+        .get();
+    Publicmodel usermodel = Publicmodel.fromJson(
+        querySnapshot.docs.first.data() as Map<String, dynamic>);
+    if (usermodel.usertype == userType) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -100,11 +129,19 @@ class DatabaseController {
   }
 
   Future<void> updatePushTokenToEmail(
-      {required String email, required String pushToken}) async {
+      {required String email,
+      required String pushToken,
+      required String userType}) async {
     AppData appData = Get.find();
-    Usermodel newMyInfo = appData.usermodel;
-    newMyInfo.pushToken = pushToken;
-    appData.usermodel = newMyInfo;
+    if (userType == 'user') {
+      Usermodel newMyInfo = appData.usermodel;
+      newMyInfo.pushToken = pushToken;
+      appData.usermodel = newMyInfo;
+    } else {
+      BusinessModel newMyInfo = appData.businessmodel;
+      newMyInfo.pushToken = pushToken;
+      appData.businessmodel = newMyInfo;
+    }
 
     final querySnapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -118,12 +155,19 @@ class DatabaseController {
   }
 
   Future<void> updatePushTokenToPhone(
-      {required String phone, required String pushToken}) async {
+      {required String phone,
+      required String pushToken,
+      required String userType}) async {
     AppData appData = Get.find();
-    Usermodel newMyInfo = appData.usermodel;
-    newMyInfo.pushToken = pushToken;
-    appData.usermodel = newMyInfo;
-
+    if (userType == 'user') {
+      Usermodel newMyInfo = appData.usermodel;
+      newMyInfo.pushToken = pushToken;
+      appData.usermodel = newMyInfo;
+    } else {
+      BusinessModel newMyInfo = appData.businessmodel;
+      newMyInfo.pushToken = pushToken;
+      appData.businessmodel = newMyInfo;
+    }
     final querySnapshot = await FirebaseFirestore.instance
         .collection('users')
         .where('phone', isEqualTo: phone)

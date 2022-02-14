@@ -33,51 +33,47 @@ class _SplashScreenState extends State<SplashScreen> {
     String? userEmail = await localStorageController.getUserEmail();
     String? userPhone = await localStorageController.getUserPhone();
     String? userType = await localStorageController.getUserType();
-    if (userEmail == null || userPhone == null) {
+    if (userEmail == null && userPhone == null) {
       Get.off(() => TypeScreen());
     } else {
-      if (userEmail == '' || userPhone == '') {
+      if (userEmail == '' && userPhone == '') {
         Get.off(() => TypeScreen());
       } else {
         if (userEmail != '') {
-          appData.userEmail = userEmail;
+          appData.userEmail = userEmail!;
           appData.userType = userType!;
           if (appData.userType == 'user') {
             await databaseController.fetchMyInfoToEmailUser(userEmail);
             String? pushToken = await authController.getToken();
             if (pushToken != null) {
               databaseController.updatePushTokenToEmail(
-                email: userEmail,
-                pushToken: pushToken,
-              );
+                  email: userEmail, pushToken: pushToken, userType: userType);
             }
           } else if (appData.userType == 'business') {
             await databaseController.fetchMyInfoToEmailBusiness(userEmail);
             String? pushToken = await authController.getToken();
             if (pushToken != null) {
               databaseController.updatePushTokenToEmail(
-                email: userEmail,
-                pushToken: pushToken,
-              );
+                  email: userEmail, pushToken: pushToken, userType: userType);
             }
           }
           Get.off(() => Root());
         } else if (userPhone != '') {
           if (appData.userType == 'user') {
-            appData.userPhone = userPhone;
+            appData.userPhone = userPhone!;
             await databaseController.fetchMyInfoToPhoneUser(userPhone);
             String? pushToken = await authController.getToken();
             if (pushToken != null) {
               databaseController.updatePushTokenToPhone(
-                  phone: userPhone, pushToken: pushToken);
+                  phone: userPhone, pushToken: pushToken, userType: userType!);
             }
           } else if (appData.userType == 'business') {
-            appData.userPhone = userPhone;
+            appData.userPhone = userPhone!;
             await databaseController.fetchMyInfoToPhoneBusiness(userPhone);
             String? pushToken = await authController.getToken();
             if (pushToken != null) {
               databaseController.updatePushTokenToPhone(
-                  phone: userPhone, pushToken: pushToken);
+                  phone: userPhone, pushToken: pushToken, userType: userType!);
             }
           }
           Get.off(() => Root());

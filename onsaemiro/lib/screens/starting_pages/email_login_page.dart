@@ -22,6 +22,7 @@ class _EmailloginpageState extends State<Emailloginpage> {
 
   @override
   Widget build(BuildContext context) {
+    AppData appdata = Get.find();
     return Scaffold(
       body: GestureDetector(
         onTap: () {
@@ -96,13 +97,12 @@ class _EmailloginpageState extends State<Emailloginpage> {
                                   if (passwordController.text == '') {
                                     return toastMessage("비밀번호를 입력해주세요.");
                                   } else {
+                                    appdata.userType = userType;
                                     if (await authController.authUser(
                                             emailController.text.trim(),
                                             passwordController.text.trim(),
                                             userType) ==
                                         null) {
-                                      AppData appdata = Get.find();
-                                      appdata.userType = userType;
                                       Get.offAll(() => Root());
                                     }
                                   }

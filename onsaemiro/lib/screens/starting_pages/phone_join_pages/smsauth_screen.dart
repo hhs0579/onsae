@@ -35,20 +35,23 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
 
   authUserToPhone(PhoneAuthCredential phoneAuthCredential, String phoneNumber,
       String userType) async {
-    signInWithPhoneNumber(phoneAuthCredential);
+    if (await databaseController.hasMatchTypePhone(phoneNumber, userType) ==
+        true) {
+      signInWithPhoneNumber(phoneAuthCredential);
 
-    await authController.saveLocalStorageToPhone(phoneNumber, userType);
-    String? pushToken = await authController.getToken();
-    if (pushToken != null) {
-      databaseController.updatePushTokenToPhone(
-        phone: phoneNumber,
-        pushToken: pushToken,
-      );
-    }
-    if (userType == 'user') {
-      await databaseController.fetchMyInfoToPhoneUser(phoneNumber);
-    } else if (userType == 'business') {
-      await databaseController.fetchMyInfoToPhoneBusiness(phoneNumber);
+      await authController.saveLocalStorageToPhone(phoneNumber, userType);
+      String? pushToken = await authController.getToken();
+      if (pushToken != null) {
+        databaseController.updatePushTokenToPhone(
+            phone: phoneNumber, pushToken: pushToken, userType: userType);
+      }
+      if (userType == 'user') {
+        await databaseController.fetchMyInfoToPhoneUser(phoneNumber);
+      } else if (userType == 'business') {
+        await databaseController.fetchMyInfoToPhoneBusiness(phoneNumber);
+      }
+    } else {
+      toastMessage('가입되지 않은 전화번호 입니다.');
     }
   }
 
