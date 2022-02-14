@@ -18,6 +18,7 @@ class DatabaseService {
       String _phone,
       String _address,
       String _addressdetail,
+      String _birth,
       String _usertype) async {
     await userCollection.doc(uid).set({
       'email': email,
@@ -34,6 +35,7 @@ class DatabaseService {
       'mypayment': [],
       'like': 0,
       'usertype': _usertype,
+      'birth': _birth,
       'pushToken': '',
       'uid': uid,
     });
@@ -48,6 +50,7 @@ class DatabaseService {
       String _phone,
       String _address,
       String _addressdetail,
+      String _birth,
       String _usertype) async {
     await userCollection.doc(uid).set({
       'email': email,
@@ -61,8 +64,27 @@ class DatabaseService {
       'addressdetail': _addressdetail,
       'mystore': [],
       'usertype': _usertype,
+      'birth': _birth,
       'pushToken': '',
       'uid': uid,
+    });
+  }
+
+  Future updateUserData(
+    String _nickname,
+    String _password,
+    String _phone,
+    String _address,
+    String _addressdetail,
+    String _birth,
+  ) async {
+    await userCollection.doc(uid).update({
+      'nickname': _nickname,
+      'password': _password,
+      'address': _address,
+      'addressdetail': _addressdetail,
+      'birth': _birth,
+      'phone': _phone,
     });
   }
 

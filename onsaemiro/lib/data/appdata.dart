@@ -24,6 +24,7 @@ class AppData extends GetxController {
       mybasket: [],
       like: 0,
       pushToken: '',
+      birth: '',
       uid: '',
       usertype: '');
 
@@ -46,6 +47,7 @@ class AppData extends GetxController {
       addressdetail: '',
       mystore: [],
       pushToken: '',
+      birth: '',
       uid: '',
       usertype: '');
 

@@ -51,6 +51,7 @@ class _EmailJoinPage2State extends State<EmailJoinPage2> {
           phoneNumberController.text,
           address,
           deaddressController.text,
+          dobController.text,
           userType,
         );
       } else if (userType == 'business') {
@@ -63,6 +64,7 @@ class _EmailJoinPage2State extends State<EmailJoinPage2> {
           phoneNumberController.text,
           address,
           deaddressController.text,
+          dobController.text,
           userType,
         );
       } else {}
@@ -382,7 +384,7 @@ class _EmailJoinPage2State extends State<EmailJoinPage2> {
                       height: 50,
                       margin: EdgeInsets.only(bottom: 20),
                       child: TextButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (!isnamecheck) {
                               toastMessage('실명인증을 완료해주세요.');
                             } else {
@@ -392,6 +394,12 @@ class _EmailJoinPage2State extends State<EmailJoinPage2> {
                                 if (vaildationPhoneNumber(
                                         phoneNumberController.text) ==
                                     null) {
+                                  if (await databaseController
+                                          .isDuplicatedPhone(
+                                              phoneNumberController.text) ==
+                                      true) {
+                                    toastMessage('이미 가입된 전화번호 입니다.');
+                                  }
                                   if (vaildationdob(dobController.text) ==
                                       null) {
                                     if (addressController.text.isEmpty ||

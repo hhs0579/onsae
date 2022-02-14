@@ -120,53 +120,53 @@ class _MyInfoPageState extends State<MyInfoPage> {
 
   @override
   void initState() {
+    setState(() {});
     resultURL = appdata.usermodel.image;
 
     super.initState();
   }
 
-  _profileImage(context) {
-    return Stack(
-      children: [
-        Container(
-            margin: EdgeInsets.only(
-              top: 20,
-              left: 15,
-              right: 30,
-            ),
-            child: Container(width: 70, height: 70, child: _profileImageOn())),
-        Positioned(
-            right: 22,
-            top: 60,
-            child: Container(
-              width: 25,
-              height: 25,
-              child: CircleAvatar(
-                backgroundColor: Color(0xff3AAFFC),
-                child: IconButton(
-                  onPressed: () async {
-                    try {
-                      XFile? result =
-                          await _picker.pickImage(source: ImageSource.gallery);
-                      resultURL = await imageservice
-                          .uploadProfileImageToStorage(result!);
-                      toastMessage('프로필 사진이 변경되었습니다.');
-                    } catch (e) {
-                      toastMessage('오류가 발생했습니다.');
-                      print(e);
-                    }
-                    setState(() {});
-                  },
-                  icon: Icon(Icons.edit, color: Colors.white),
-                  iconSize: 15,
-                  color: Colors.blue,
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.zero,
-                  constraints: BoxConstraints(),
+  _profileImage() {
+    return Container(
+      width: 85,
+      child: Stack(
+        children: [
+          Container(
+              child:
+                  Container(width: 80, height: 80, child: _profileImageOn())),
+          Positioned(
+              right: 0,
+              top: 50,
+              child: Container(
+                width: 25,
+                height: 25,
+                child: CircleAvatar(
+                  backgroundColor: Color(0xff6CCD6C),
+                  child: IconButton(
+                    onPressed: () async {
+                      try {
+                        XFile? result = await _picker.pickImage(
+                            source: ImageSource.gallery);
+                        resultURL = await imageservice
+                            .uploadProfileImageToStorage(result!);
+                        toastMessage('프로필 사진이 변경되었습니다.');
+                      } catch (e) {
+                        toastMessage('오류가 발생했습니다.');
+                        print(e);
+                      }
+                      setState(() {});
+                    },
+                    icon: Icon(Icons.edit, color: Colors.white),
+                    iconSize: 15,
+                    color: Colors.blue,
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(),
+                  ),
                 ),
-              ),
-            ))
-      ],
+              ))
+        ],
+      ),
     );
   }
 
@@ -216,7 +216,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
             // ),
             Container(
               width: width * 0.95,
-              height: height * 0.21,
+              height: height * 0.25,
               decoration: BoxDecoration(
                   border: Border.all(
                     width: 2,
@@ -226,43 +226,33 @@ class _MyInfoPageState extends State<MyInfoPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image(
-                      width: width * 0.146,
-                      height: height * 0.0677,
-                      image: AssetImage('assets/프로필.png')),
-                  appdata.userType == 'user'
-                      ? Text(
-                          appdata.usermodel.nickname,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 24,
-                          ),
-                        )
-                      : Text(
-                          appdata.businessmodel.nickname,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 24,
-                          ),
+                  _profileImage(),
+                  SizedBox(height: 5),
+                  Text(
+                    appdata.usermodel.nickname,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 24,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(appdata.usermodel.email),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('좋아요', style: TextStyle(fontSize: 13)),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Text(
+                        appdata.usermodel.like.toString(),
+                        style: TextStyle(
+                          fontSize: 12,
                         ),
-                  Text(appdata.userEmail),
-                  appdata.userType == 'user'
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('좋아요', style: TextStyle(fontSize: 13)),
-                            SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              appdata.usermodel.like.toString(),
-                              style: TextStyle(
-                                fontSize: 11,
-                              ),
-                            )
-                          ],
-                        )
-                      : Container()
+                      )
+                    ],
+                  )
                 ],
               ),
             ),
@@ -271,7 +261,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
             ),
             _connectbutton('회원정보 수정', width, height, () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => edit_infoPage()));
+                  MaterialPageRoute(builder: (context) => EditinfoPage()));
             }),
             _connectbutton('상점 후기 작성', width, height, () {
               Navigator.push(context,
@@ -332,6 +322,8 @@ class _MyInfoPageState extends State<MyInfoPage> {
               children: [
                 info_button('고객센터', () {}),
                 info_button('로그아웃', () {
+                  appdata.userEmail = '';
+                  appdata.userPhone = '';
                   authController.handleSignOut();
                   Get.offAll(() => TypeScreen());
                 }),

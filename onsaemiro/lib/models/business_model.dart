@@ -12,6 +12,7 @@ class BusinessModel {
   String addressdetail;
   List<dynamic> mystore;
   String pushToken;
+  String birth;
   String uid;
   String usertype;
 
@@ -27,6 +28,7 @@ class BusinessModel {
       required this.addressdetail,
       required this.mystore,
       required this.pushToken,
+      required this.birth,
       required this.uid,
       required this.usertype});
 
@@ -42,6 +44,7 @@ class BusinessModel {
         addressdetail = json['addressdetail'],
         mystore = json['mystore'],
         pushToken = json['pushToken'] ?? '',
+        birth = json['birth'],
         uid = json['uid'],
         usertype = json['usertype'];
 
@@ -57,6 +60,7 @@ class BusinessModel {
         'addressdetail': addressdetail,
         'mystore': mystore,
         'pushToken': pushToken,
+        'birth': birth,
         'uid': uid,
         'usertype': usertype
       };

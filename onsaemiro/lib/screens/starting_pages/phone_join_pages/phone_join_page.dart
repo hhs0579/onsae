@@ -5,9 +5,7 @@ import 'package:kpostal/kpostal.dart';
 import 'package:onsaemiro/classes/toast_message.dart';
 import 'package:onsaemiro/repo/database_service.dart';
 import 'package:onsaemiro/repo/join_validation.dart';
-import 'package:onsaemiro/screens/main_pages/Root.dart';
 import 'package:onsaemiro/screens/main_pages/controller/database_controller.dart';
-import 'package:onsaemiro/screens/starting_pages/connect_screen.dart';
 import 'package:onsaemiro/screens/starting_pages/type_screen.dart';
 
 class PhoneJoinPage extends StatefulWidget {
@@ -52,6 +50,7 @@ class _PhoneJoinPageState extends State<PhoneJoinPage> {
           phonenumber,
           address,
           deaddressController.text,
+          dobController.text,
           userType,
         );
       } else if (userType == 'business') {
@@ -64,6 +63,7 @@ class _PhoneJoinPageState extends State<PhoneJoinPage> {
           phonenumber,
           address,
           deaddressController.text,
+          dobController.text,
           userType,
         );
       }

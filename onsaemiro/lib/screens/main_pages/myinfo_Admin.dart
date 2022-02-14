@@ -1,17 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:onsaemiro/classes/toast_message.dart';
+import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/screens/main_pages/Root.dart';
-import 'package:onsaemiro/screens/main_pages/Root2.dart';
-import 'package:onsaemiro/screens/main_pages/controller/controller.dart';
+import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
 import 'package:onsaemiro/screens/main_pages/edit_info.dart';
-import 'package:onsaemiro/screens/main_pages/product_comment.dart';
-import 'package:onsaemiro/screens/main_pages/store_comment.dart';
-import 'package:onsaemiro/screens/things_pages/things_shopAdmin.dart';
+import 'package:onsaemiro/screens/starting_pages/type_screen.dart';
 import 'package:onsaemiro/store/store_open.dart';
 import 'package:onsaemiro/store/store_regist.dart';
 
@@ -115,7 +113,79 @@ class MyInfoAdmin extends StatefulWidget {
 }
 
 class _MyInfoAdminState extends State<MyInfoAdmin> {
+  String resultURL = '';
+  AppData appdata = Get.find();
+  final _picker = ImagePicker();
   final Root2Contorller c = Get.put(Root2Contorller());
+
+  @override
+  void initState() {
+    resultURL = appdata.businessmodel.image;
+    super.initState();
+  }
+
+  _profileImage() {
+    return Container(
+      width: 85,
+      child: Stack(
+        children: [
+          Container(
+              child:
+                  Container(width: 80, height: 80, child: _profileImageOn())),
+          Positioned(
+              right: 0,
+              top: 50,
+              child: Container(
+                width: 25,
+                height: 25,
+                child: CircleAvatar(
+                  backgroundColor: Color(0xff6CCD6C),
+                  child: IconButton(
+                    onPressed: () async {
+                      try {
+                        XFile? result = await _picker.pickImage(
+                            source: ImageSource.gallery);
+                        resultURL = await imageservice
+                            .uploadProfileImageToStorage(result!);
+                        toastMessage('프로필 사진이 변경되었습니다.');
+                      } catch (e) {
+                        toastMessage('오류가 발생했습니다.');
+                        print(e);
+                      }
+                      setState(() {});
+                    },
+                    icon: Icon(Icons.edit, color: Colors.white),
+                    iconSize: 15,
+                    color: Colors.blue,
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(),
+                  ),
+                ),
+              ))
+        ],
+      ),
+    );
+  }
+
+  _profileImageOn() {
+    return resultURL == ''
+        ? Container(
+            width: 70,
+            height: 70,
+            child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 40,
+                backgroundImage: AssetImage('assets/basic.png')))
+        : Container(
+            width: 70,
+            height: 70,
+            child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 40,
+                backgroundImage: NetworkImage(resultURL)));
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -152,33 +222,17 @@ class _MyInfoAdminState extends State<MyInfoAdmin> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image(
-                      width: width * 0.146,
-                      height: height * 0.0677,
-                      image: AssetImage('assets/프로필.png')),
+                  _profileImage(),
+                  SizedBox(height: 8),
                   Text(
-                    '온새미로',
+                    appdata.businessmodel.nickname,
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 24,
                     ),
                   ),
-                  Text('onsemiro.gmail.com'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('좋아요', style: TextStyle(fontSize: 13)),
-                      SizedBox(
-                        width: 4,
-                      ),
-                      Text(
-                        '100',
-                        style: TextStyle(
-                          fontSize: 11,
-                        ),
-                      ),
-                    ],
-                  ),
+                  SizedBox(height: 8),
+                  Text(appdata.businessmodel.email)
                 ],
               ),
             ),
@@ -187,7 +241,7 @@ class _MyInfoAdminState extends State<MyInfoAdmin> {
             ),
             _connectbutton('회원정보 수정', width, height, () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => edit_infoPage()));
+                  MaterialPageRoute(builder: (context) => EditinfoPage()));
             }),
             _connectbutton('상점 개설', width, height, () {
               Navigator.push(context,
@@ -247,7 +301,12 @@ class _MyInfoAdminState extends State<MyInfoAdmin> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 info_button('고객센터', () {}),
-                info_button('로그아웃', () {}),
+                info_button('로그아웃', () {
+                  appdata.userEmail = '';
+                  appdata.userPhone = '';
+                  authController.handleSignOut();
+                  Get.offAll(() => TypeScreen());
+                }),
                 info_button('일반 사용자 전환', () {
                   if (c.Pressed.value == 0) {
                     Get.to(Root());
