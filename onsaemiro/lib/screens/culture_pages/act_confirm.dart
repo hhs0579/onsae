@@ -56,16 +56,15 @@ extension StringExtension on String {
   }
 }
 
+int a = 1;
 List<dynamic> uids = [];
 bool toggle = false;
 List<dynamic> posts = [];
 FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
 class _actConfirmPageState extends State<actConfirmPage> {
-  final Stream<QuerySnapshot> post = FirebaseFirestore.instance
-      .collection('actPost')
-      .orderBy('date', descending: true)
-      .snapshots();
+  final Stream<QuerySnapshot> post =
+      FirebaseFirestore.instance.collection('actPost').snapshots();
   bool isRecently = true;
   @override
   Widget build(BuildContext context) {
@@ -238,6 +237,7 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                                       actPost.like.remove(
                                                           appData
                                                               .usermodel.uid);
+
                                                       fireStore
                                                           .collection('actPost')
                                                           .doc(actPost.postKey)
@@ -249,11 +249,19 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                                           .collection('actPost')
                                                           .doc(actPost.postKey)
                                                           .update({
+                                                        'likenum':
+                                                            --actPost.likenum
+                                                      });
+                                                      fireStore
+                                                          .collection('actPost')
+                                                          .doc(actPost.postKey)
+                                                          .update({
                                                         'presslike': false
                                                       });
                                                     } else {
                                                       actPost.like.add(appData
                                                           .usermodel.uid);
+
                                                       fireStore
                                                           .collection('actPost')
                                                           .doc(actPost.postKey)
@@ -266,6 +274,13 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                                           .doc(actPost.postKey)
                                                           .update({
                                                         'presslike': true
+                                                      });
+                                                      fireStore
+                                                          .collection('actPost')
+                                                          .doc(actPost.postKey)
+                                                          .update({
+                                                        'likenum':
+                                                            ++actPost.likenum
                                                       });
                                                     }
                                                   });
