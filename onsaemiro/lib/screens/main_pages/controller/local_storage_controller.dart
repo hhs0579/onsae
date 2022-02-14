@@ -32,20 +32,39 @@ class LocalStorageController {
     }
   }
 
-  Future<String?> getUserPhone() async {
+  Future<String?> getUserType() async {
     _prefs = await SharedPreferences.getInstance();
     try {
-      return _prefs!.getString('userEmail');
+      return _prefs!.getString('userType');
     } catch (e) {
       print(e.toString());
       return null;
     }
   }
 
-  Future<void> setUserPhone(String email) async {
+  Future<void> setUserType(String userType) async {
     _prefs = await SharedPreferences.getInstance();
     try {
-      _prefs!.setString('userEmail', email);
+      _prefs!.setString('userType', userType);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<String?> getUserPhone() async {
+    _prefs = await SharedPreferences.getInstance();
+    try {
+      return _prefs!.getString('userPhone');
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future<void> setUserPhone(String phone) async {
+    _prefs = await SharedPreferences.getInstance();
+    try {
+      _prefs!.setString('userPhone', phone);
     } catch (e) {
       print(e.toString());
     }

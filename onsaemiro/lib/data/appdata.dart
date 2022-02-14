@@ -10,27 +10,49 @@ class AppData extends GetxController {
   String _userType = '';
 
   Usermodel _usermodel = Usermodel(
-    date: DateTime.now(),
-    email: '',
-    image: '',
-    name: '',
-    nickname: '',
-    password: '',
-    phone: '',
-    address: '',
-    addressdetail: '',
-    myposts: [],
-    mypayment: [],
-    mybasket: [],
-    like: 0,
-    pushToken: '',
-    uid: '',
-  );
+      date: DateTime.now(),
+      email: '',
+      image: '',
+      name: '',
+      nickname: '',
+      password: '',
+      phone: '',
+      address: '',
+      addressdetail: '',
+      myposts: [],
+      mypayment: [],
+      mybasket: [],
+      like: 0,
+      pushToken: '',
+      uid: '',
+      usertype: '');
 
   Usermodel get usermodel => _usermodel;
 
   set usermodel(Usermodel usermodel) {
     _usermodel = usermodel;
+    update();
+  }
+
+  BusinessModel _businessmodel = BusinessModel(
+      date: DateTime.now(),
+      email: '',
+      image: '',
+      name: '',
+      nickname: '',
+      password: '',
+      phone: '',
+      address: '',
+      addressdetail: '',
+      mystore: [],
+      pushToken: '',
+      uid: '',
+      usertype: '');
+
+  BusinessModel get businessmodel => _businessmodel;
+
+  set businessmodel(BusinessModel businessmodel) {
+    _businessmodel = businessmodel;
     update();
   }
 

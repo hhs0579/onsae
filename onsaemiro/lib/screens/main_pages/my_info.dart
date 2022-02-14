@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -8,17 +6,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:onsaemiro/classes/toast_message.dart';
 import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/repo/image_service.dart';
-import 'package:onsaemiro/screens/main_pages/Root.dart';
 import 'package:onsaemiro/screens/main_pages/Root2.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
-import 'package:onsaemiro/screens/main_pages/controller/controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
 import 'package:onsaemiro/screens/main_pages/edit_info.dart';
 import 'package:onsaemiro/screens/main_pages/product_comment.dart';
 import 'package:onsaemiro/screens/main_pages/store_comment.dart';
-import 'package:onsaemiro/screens/starting_pages/connect_screen.dart';
 import 'package:onsaemiro/screens/starting_pages/type_screen.dart';
-import 'package:onsaemiro/screens/things_pages/things_shopAdmin.dart';
 
 _connectbutton(text, width, height, onPressed) {
   return Container(
@@ -112,10 +106,6 @@ info_button(text, onPressed) {
   );
 }
 
-AppData appdata = Get.find();
-String resultURL = '';
-final _picker = ImagePicker();
-
 class MyInfoPage extends StatefulWidget {
   const MyInfoPage({Key? key}) : super(key: key);
 
@@ -124,6 +114,10 @@ class MyInfoPage extends StatefulWidget {
 }
 
 class _MyInfoPageState extends State<MyInfoPage> {
+  String resultURL = '';
+  AppData appdata = Get.find();
+  final _picker = ImagePicker();
+
   @override
   void initState() {
     resultURL = appdata.usermodel.image;
@@ -199,6 +193,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+    AppData appdata = Get.find();
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: height * 0.1,
@@ -231,30 +226,43 @@ class _MyInfoPageState extends State<MyInfoPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _profileImage(context),
-                  Text(
-                    '온새미로',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24,
-                    ),
-                  ),
-                  Text('onsemiro.gmail.com'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('좋아요', style: TextStyle(fontSize: 13)),
-                      SizedBox(
-                        width: 4,
-                      ),
-                      Text(
-                        '100',
-                        style: TextStyle(
-                          fontSize: 11,
+                  Image(
+                      width: width * 0.146,
+                      height: height * 0.0677,
+                      image: AssetImage('assets/프로필.png')),
+                  appdata.userType == 'user'
+                      ? Text(
+                          appdata.usermodel.nickname,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 24,
+                          ),
+                        )
+                      : Text(
+                          appdata.businessmodel.nickname,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 24,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                  Text(appdata.userEmail),
+                  appdata.userType == 'user'
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('좋아요', style: TextStyle(fontSize: 13)),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              appdata.usermodel.like.toString(),
+                              style: TextStyle(
+                                fontSize: 11,
+                              ),
+                            )
+                          ],
+                        )
+                      : Container()
                 ],
               ),
             ),

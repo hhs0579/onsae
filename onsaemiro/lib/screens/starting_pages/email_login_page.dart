@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/classes/toast_message.dart';
+import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/screens/main_pages/Root.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
 import 'package:onsaemiro/screens/starting_pages/email_join_pages/email_join_page.dart';
@@ -21,6 +22,7 @@ class _EmailloginpageState extends State<Emailloginpage> {
 
   @override
   Widget build(BuildContext context) {
+    AppData appdata = Get.find();
     return Scaffold(
       body: GestureDetector(
         onTap: () {
@@ -95,10 +97,11 @@ class _EmailloginpageState extends State<Emailloginpage> {
                                   if (passwordController.text == '') {
                                     return toastMessage("비밀번호를 입력해주세요.");
                                   } else {
+                                    appdata.userType = userType;
                                     if (await authController.authUser(
-                                          emailController.text.trim(),
-                                          passwordController.text.trim(),
-                                        ) ==
+                                            emailController.text.trim(),
+                                            passwordController.text.trim(),
+                                            userType) ==
                                         null) {
                                       Get.offAll(() => Root());
                                     }

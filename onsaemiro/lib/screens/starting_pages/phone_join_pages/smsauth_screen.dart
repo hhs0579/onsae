@@ -33,19 +33,26 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
 
   final otpFocusNode = FocusNode();
 
-  authUserToPhone(
-      PhoneAuthCredential phoneAuthCredential, String phoneNumber) async {
-    signInWithPhoneNumber(phoneAuthCredential);
+  authUserToPhone(PhoneAuthCredential phoneAuthCredential, String phoneNumber,
+      String userType) async {
+    if (await databaseController.hasMatchTypePhone(phoneNumber, userType) ==
+        true) {
+      signInWithPhoneNumber(phoneAuthCredential);
 
-    await authController.saveLocalStorageToPhone(phoneNumber);
-    String? pushToken = await authController.getToken();
-    if (pushToken != null) {
-      databaseController.updatePushTokenToPhone(
-        phone: phoneNumber,
-        pushToken: pushToken,
-      );
+      await authController.saveLocalStorageToPhone(phoneNumber, userType);
+      String? pushToken = await authController.getToken();
+      if (pushToken != null) {
+        databaseController.updatePushTokenToPhone(
+            phone: phoneNumber, pushToken: pushToken, userType: userType);
+      }
+      if (userType == 'user') {
+        await databaseController.fetchMyInfoToPhoneUser(phoneNumber);
+      } else if (userType == 'business') {
+        await databaseController.fetchMyInfoToPhoneBusiness(phoneNumber);
+      }
+    } else {
+      toastMessage('가입되지 않은 전화번호 입니다.');
     }
-    await databaseController.fetchMyInfoToPhone(phoneNumber);
   }
 
   void signInWithPhoneNumber(PhoneAuthCredential phoneAuthCredential) async {
@@ -275,8 +282,8 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                       PhoneAuthProvider.credential(
                           verificationId: verificationId!,
                           smsCode: otpNumberController.text);
-                  authUserToPhone(
-                      phoneAuthCredential, phoneNumberController.text);
+                  authUserToPhone(phoneAuthCredential,
+                      phoneNumberController.text, userType);
                   Get.to(() => Root());
                 }),
                 _connectbutton('전화번호로 회원가입', () {

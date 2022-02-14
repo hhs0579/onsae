@@ -33,6 +33,7 @@ class _TypeScreenState extends State<TypeScreen> {
               child: TextButton(
                 onPressed: () {
                   usertype = 'business';
+                  print(usertype);
                   Get.to(() => ConnectScreen(), arguments: usertype);
                 },
                 child: Text("사업자 로그인",
@@ -54,6 +55,7 @@ class _TypeScreenState extends State<TypeScreen> {
               child: TextButton(
                   onPressed: () {
                     usertype = 'user';
+                    print(usertype);
                     Get.to(() => ConnectScreen(), arguments: usertype);
                   },
                   child: Text("사용자 로그인",

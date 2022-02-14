@@ -13,6 +13,7 @@ class BusinessModel {
   List<dynamic> mystore;
   String pushToken;
   String uid;
+  String usertype;
 
   BusinessModel(
       {required this.date,
@@ -26,7 +27,8 @@ class BusinessModel {
       required this.addressdetail,
       required this.mystore,
       required this.pushToken,
-      required this.uid});
+      required this.uid,
+      required this.usertype});
 
   BusinessModel.fromJson(Map<String, dynamic> json)
       : date = json['date'].toDate(),
@@ -40,7 +42,8 @@ class BusinessModel {
         addressdetail = json['addressdetail'],
         mystore = json['mystore'],
         pushToken = json['pushToken'] ?? '',
-        uid = json['uid'];
+        uid = json['uid'],
+        usertype = json['usertype'];
 
   Map<String, dynamic> toJson() => {
         'date': date,
@@ -54,6 +57,7 @@ class BusinessModel {
         'addressdetail': addressdetail,
         'mystore': mystore,
         'pushToken': pushToken,
-        'uid': uid
+        'uid': uid,
+        'usertype': usertype
       };
 }

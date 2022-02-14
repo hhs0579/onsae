@@ -9,23 +9,30 @@ import 'package:onsaemiro/screens/main_pages/controller/local_storage_controller
 AuthController authController = AuthController();
 
 class AuthController {
-  Future authUser(String email, String password) async {
+  Future authUser(String email, String password, String userType) async {
     try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      await saveLocalStorageToEmail(userCredential);
-      String? pushToken = await getToken();
-      if (pushToken != null) {
-        databaseController.updatePushTokenToEmail(
+      if (await databaseController.hasMatchTypeEmail(email, userType) == true) {
+        UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
-          pushToken: pushToken,
+          password: password,
         );
+
+        await saveLocalStorageToEmail(userCredential, userType);
+        String? pushToken = await getToken();
+        if (pushToken != null) {
+          databaseController.updatePushTokenToEmail(
+              email: email, pushToken: pushToken, userType: userType);
+        }
+        AppData appData = Get.find();
+        if (appData.userType == 'user') {
+          await databaseController.fetchMyInfoToEmailUser(email);
+        } else {
+          await databaseController.fetchMyInfoToEmailBusiness(email);
+        }
+      } else {
+        return toastMessage('존재하지 않는 이메일입니다.');
       }
-      AppData appData = Get.find();
-      await databaseController.fetchMyInfoToEmail(appData.usermodel.email);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -33,31 +40,44 @@ class AuthController {
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
         return toastMessage('비밀번호를 다시 한번 확인해주세요.');
-      } else {
+      } else if (e.code == 'invalid-email') {
         print(e);
+        return toastMessage('존재하지 않는 이메일입니다.');
+      } else {
         return toastMessage(e.code.toString());
       }
     }
     return null;
   }
 
-  Future<void> saveLocalStorageToEmail(UserCredential userCredential) async {
+  Future<void> saveLocalStorageToEmail(
+      UserCredential userCredential, String userType) async {
     AppData appData = Get.find();
     appData.userEmail = userCredential.user?.email ?? 'null';
-    appData.usermodel.email = appData.userEmail;
-
+    if (userType == 'user') {
+      appData.usermodel.email = appData.userEmail;
+    } else if (userType == 'business') {
+      appData.businessmodel.email = appData.userEmail;
+    }
     localStorageController.setUserEmail(appData.userEmail);
+    localStorageController.setUserType(userType);
   }
 
-  Future<void> saveLocalStorageToPhone(String phone) async {
+  Future<void> saveLocalStorageToPhone(String phone, userType) async {
     AppData appData = Get.find();
     appData.userPhone = phone;
-    appData.usermodel.phone = appData.userPhone;
+    if (userType == 'user') {
+      appData.usermodel.phone = appData.userPhone;
+    } else if (userType == 'business') {
+      appData.businessmodel.phone = appData.userPhone;
+    }
 
     localStorageController.setUserPhone(appData.userPhone);
+    localStorageController.setUserType(userType);
   }
 
   Future<void> handleSignOut() async {
+    await localStorageController.setUserType('');
     await localStorageController.setUserEmail('');
     await FirebaseAuth.instance.signOut();
   }

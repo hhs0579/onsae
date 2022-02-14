@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/data/appdata.dart';
+import 'package:onsaemiro/models/business_model.dart';
+import 'package:onsaemiro/models/public_model.dart';
 import 'package:onsaemiro/models/user_model.dart';
 
 DatabaseController databaseController = DatabaseController();
@@ -42,7 +44,35 @@ class DatabaseController {
     }
   }
 
-  Future<void> fetchMyInfoToEmail(String email) async {
+  Future<bool?> hasMatchTypeEmail(String email, String userType) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+    Publicmodel usermodel = Publicmodel.fromJson(
+        querySnapshot.docs.first.data() as Map<String, dynamic>);
+    if (usermodel.usertype == userType) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool?> hasMatchTypePhone(String phone, String userType) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: phone)
+        .get();
+    Publicmodel usermodel = Publicmodel.fromJson(
+        querySnapshot.docs.first.data() as Map<String, dynamic>);
+    if (usermodel.usertype == userType) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<void> fetchMyInfoToEmailUser(String email) async {
     AppData appData = Get.find();
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -56,7 +86,21 @@ class DatabaseController {
     }
   }
 
-  Future<void> fetchMyInfoToPhone(String phone) async {
+  Future<void> fetchMyInfoToEmailBusiness(String email) async {
+    AppData appData = Get.find();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+
+    if (querySnapshot.docs.isEmpty) {
+    } else {
+      appData.businessmodel = BusinessModel.fromJson(
+          querySnapshot.docs.first.data() as Map<String, dynamic>);
+    }
+  }
+
+  Future<void> fetchMyInfoToPhoneUser(String phone) async {
     AppData appData = Get.find();
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -70,12 +114,34 @@ class DatabaseController {
     }
   }
 
-  Future<void> updatePushTokenToEmail(
-      {required String email, required String pushToken}) async {
+  Future<void> fetchMyInfoToPhoneBusiness(String phone) async {
     AppData appData = Get.find();
-    Usermodel newMyInfo = appData.usermodel;
-    newMyInfo.pushToken = pushToken;
-    appData.usermodel = newMyInfo;
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('phone', isEqualTo: phone)
+        .get();
+
+    if (querySnapshot.docs.isEmpty) {
+    } else {
+      appData.businessmodel = BusinessModel.fromJson(
+          querySnapshot.docs.first.data() as Map<String, dynamic>);
+    }
+  }
+
+  Future<void> updatePushTokenToEmail(
+      {required String email,
+      required String pushToken,
+      required String userType}) async {
+    AppData appData = Get.find();
+    if (userType == 'user') {
+      Usermodel newMyInfo = appData.usermodel;
+      newMyInfo.pushToken = pushToken;
+      appData.usermodel = newMyInfo;
+    } else {
+      BusinessModel newMyInfo = appData.businessmodel;
+      newMyInfo.pushToken = pushToken;
+      appData.businessmodel = newMyInfo;
+    }
 
     final querySnapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -89,12 +155,19 @@ class DatabaseController {
   }
 
   Future<void> updatePushTokenToPhone(
-      {required String phone, required String pushToken}) async {
+      {required String phone,
+      required String pushToken,
+      required String userType}) async {
     AppData appData = Get.find();
-    Usermodel newMyInfo = appData.usermodel;
-    newMyInfo.pushToken = pushToken;
-    appData.usermodel = newMyInfo;
-
+    if (userType == 'user') {
+      Usermodel newMyInfo = appData.usermodel;
+      newMyInfo.pushToken = pushToken;
+      appData.usermodel = newMyInfo;
+    } else {
+      BusinessModel newMyInfo = appData.businessmodel;
+      newMyInfo.pushToken = pushToken;
+      appData.businessmodel = newMyInfo;
+    }
     final querySnapshot = await FirebaseFirestore.instance
         .collection('users')
         .where('phone', isEqualTo: phone)
