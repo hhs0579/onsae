@@ -56,6 +56,11 @@ extension StringExtension on String {
   }
 }
 
+List<dynamic> uids = [];
+bool toggle = false;
+List<dynamic> posts = [];
+FirebaseFirestore fireStore = FirebaseFirestore.instance;
+
 class _actConfirmPageState extends State<actConfirmPage> {
   final Stream<QuerySnapshot> post = FirebaseFirestore.instance
       .collection('actPost')
@@ -147,7 +152,7 @@ class _actConfirmPageState extends State<actConfirmPage> {
                         children: [
                           Container(
                               width: width * 0.9,
-                              height: height * 0.3,
+                              height: height * 0.4,
                               margin: EdgeInsets.only(top: 20),
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -157,59 +162,141 @@ class _actConfirmPageState extends State<actConfirmPage> {
                               ),
                               child: Container(
                                 margin: EdgeInsets.only(top: 10),
-                                child: Row(
+                                child: Column(
                                   children: [
-                                    Column(
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        CircleAvatar(
-                                          radius: 20,
-                                          //프로필 사진받아오기
-                                          backgroundImage:
-                                              NetworkImage(actPost.profile),
-                                        ),
-                                        Text('act.활동 인증',
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                            )),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                CircleAvatar(
+                                                  radius: 20,
+                                                  //프로필 사진받아오기
+                                                  backgroundImage: NetworkImage(
+                                                      actPost.profile),
+                                                ),
+                                                Text('act.활동 인증',
+                                                    style: TextStyle(
+                                                      fontSize: 9,
+                                                    )),
 
-                                        //플렉시블
+                                                //플렉시블
+                                              ],
+                                            ),
+                                            Container(
+                                              margin:
+                                                  EdgeInsets.only(bottom: 10),
+                                              child: Column(
+                                                children: [
+                                                  Text(actPost.nickname,
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color:
+                                                              Color(0xff437B56),
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  Text(
+                                                    StringExtension
+                                                        .displayTimeAgoFromTimestamp(
+                                                            video.toString()),
+                                                    style:
+                                                        TextStyle(fontSize: 10),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(top: 10),
+                                              child: IconButton(
+                                                icon: toggle
+                                                    ? Icon(
+                                                        Icons.thumb_up_outlined,
+                                                        color:
+                                                            Color(0xff437B56))
+                                                    : Icon(Icons.thumb_up,
+                                                        color:
+                                                            Color(0xff437B56)),
+                                                onPressed: () {
+                                                  uids.add(
+                                                      appData.usermodel.uid);
+                                                  posts.add(actPost.postKey);
+                                                  setState(() {
+                                                    toggle = !toggle;
+                                                    if (actPost.like.contains(
+                                                        appData
+                                                            .usermodel.uid)) {
+                                                      actPost.like.remove(
+                                                          appData
+                                                              .usermodel.uid);
+                                                      fireStore
+                                                          .collection('actPost')
+                                                          .doc(actPost.postKey)
+                                                          .update({
+                                                        'like': FieldValue
+                                                            .arrayRemove(uids)
+                                                      });
+                                                    } else {
+                                                      actPost.like.add(appData
+                                                          .usermodel.uid);
+                                                      fireStore
+                                                          .collection('actPost')
+                                                          .doc(actPost.postKey)
+                                                          .update({
+                                                        'like': FieldValue
+                                                            .arrayUnion(uids)
+                                                      });
+                                                    }
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                            Container(
+                                              padding:
+                                                  EdgeInsets.only(bottom: 1),
+                                              child: Text(
+                                                  actPost.like.length
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 15,
+                                                      color:
+                                                          Color(0xff437B56))),
+                                            ),
+                                          ],
+                                        )
                                       ],
                                     ),
-                                    Column(
-                                      children: [
-                                        Text(actPost.nickname,
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: Color(0xff437B56),
-                                                fontWeight: FontWeight.bold)),
-                                        Text(
-                                          StringExtension
-                                              .displayTimeAgoFromTimestamp(
-                                                  video.toString()),
-                                          style: TextStyle(fontSize: 12),
-                                        ),
-                                      ],
+                                    Flexible(
+                                      fit: FlexFit.tight,
+                                      child: Container(
+                                          width: width * 0.8,
+                                          color: Colors.white,
+                                          child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              shrinkWrap: true,
+                                              itemCount: actPost.imgList.length,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return Image.network(
+                                                    actPost.imgList
+                                                        .elementAt(index),
+                                                    fit: BoxFit.cover);
+                                              })),
                                     ),
                                   ],
                                 ),
                               )),
-                          Flexible(
-                            fit: FlexFit.tight,
-                            child: Container(
-                                height: height * 0.17,
-                                width: width * 0.7,
-                                color: Colors.white,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    shrinkWrap: true,
-                                    itemCount: actPost.imgList.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return Image.network(
-                                          actPost.imgList.elementAt(index),
-                                          fit: BoxFit.cover);
-                                    })),
-                          ),
                         ],
                       );
                     },
