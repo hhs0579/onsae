@@ -33,11 +33,11 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
 
   final otpFocusNode = FocusNode();
 
-  authUserToPhone(
-      PhoneAuthCredential phoneAuthCredential, String phoneNumber) async {
+  authUserToPhone(PhoneAuthCredential phoneAuthCredential, String phoneNumber,
+      String userType) async {
     signInWithPhoneNumber(phoneAuthCredential);
 
-    await authController.saveLocalStorageToPhone(phoneNumber);
+    await authController.saveLocalStorageToPhone(phoneNumber, userType);
     String? pushToken = await authController.getToken();
     if (pushToken != null) {
       databaseController.updatePushTokenToPhone(
@@ -45,7 +45,11 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
         pushToken: pushToken,
       );
     }
-    await databaseController.fetchMyInfoToPhone(phoneNumber);
+    if (userType == 'user') {
+      await databaseController.fetchMyInfoToPhoneUser(phoneNumber);
+    } else if (userType == 'business') {
+      await databaseController.fetchMyInfoToPhoneBusiness(phoneNumber);
+    }
   }
 
   void signInWithPhoneNumber(PhoneAuthCredential phoneAuthCredential) async {
@@ -275,8 +279,8 @@ class _SmsAuthScreenState extends State<SmsAuthScreen> {
                       PhoneAuthProvider.credential(
                           verificationId: verificationId!,
                           smsCode: otpNumberController.text);
-                  authUserToPhone(
-                      phoneAuthCredential, phoneNumberController.text);
+                  authUserToPhone(phoneAuthCredential,
+                      phoneNumberController.text, userType);
                   Get.to(() => Root());
                 }),
                 _connectbutton('전화번호로 회원가입', () {

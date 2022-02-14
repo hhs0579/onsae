@@ -1,24 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:onsaemiro/classes/toast_message.dart';
-import 'package:onsaemiro/data/appdata.dart';
-import 'package:onsaemiro/repo/image_service.dart';
-import 'package:onsaemiro/screens/main_pages/Root.dart';
 import 'package:onsaemiro/screens/main_pages/Root2.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
-import 'package:onsaemiro/screens/main_pages/controller/controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
 import 'package:onsaemiro/screens/main_pages/edit_info.dart';
 import 'package:onsaemiro/screens/main_pages/product_comment.dart';
 import 'package:onsaemiro/screens/main_pages/store_comment.dart';
-import 'package:onsaemiro/screens/starting_pages/connect_screen.dart';
 import 'package:onsaemiro/screens/starting_pages/type_screen.dart';
-import 'package:onsaemiro/screens/things_pages/things_shopAdmin.dart';
 
 _connectbutton(text, width, height, onPressed) {
   return Container(
@@ -112,10 +102,6 @@ info_button(text, onPressed) {
   );
 }
 
-AppData appdata = Get.find();
-String resultURL = '';
-final _picker = ImagePicker();
-
 class MyInfoPage extends StatefulWidget {
   const MyInfoPage({Key? key}) : super(key: key);
 
@@ -124,76 +110,6 @@ class MyInfoPage extends StatefulWidget {
 }
 
 class _MyInfoPageState extends State<MyInfoPage> {
-  @override
-  void initState() {
-    resultURL = appdata.myInfo.image;
-
-    super.initState();
-  }
-
-  _profileImage(context) {
-    return Stack(
-      children: [
-        Container(
-            margin: EdgeInsets.only(
-              top: 20,
-              left: 15,
-              right: 30,
-            ),
-            child: Container(width: 70, height: 70, child: _profileImageOn())),
-        Positioned(
-            right: 22,
-            top: 60,
-            child: Container(
-              width: 25,
-              height: 25,
-              child: CircleAvatar(
-                backgroundColor: Color(0xff3AAFFC),
-                child: IconButton(
-                  onPressed: () async {
-                    try {
-                      XFile? result =
-                          await _picker.pickImage(source: ImageSource.gallery);
-                      resultURL = await imageservice
-                          .uploadProfileImageToStorage(result!);
-                      toastMessage('프로필 사진이 변경되었습니다.');
-                    } catch (e) {
-                      toastMessage('오류가 발생했습니다.');
-                      print(e);
-                    }
-                    setState(() {});
-                  },
-                  icon: Icon(Icons.edit, color: Colors.white),
-                  iconSize: 15,
-                  color: Colors.blue,
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.zero,
-                  constraints: BoxConstraints(),
-                ),
-              ),
-            ))
-      ],
-    );
-  }
-
-  _profileImageOn() {
-    return resultURL == ''
-        ? Container(
-            width: 70,
-            height: 70,
-            child: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 40,
-                backgroundImage: AssetImage('assets/basic.png')))
-        : Container(
-            width: 70,
-            height: 70,
-            child: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 40,
-                backgroundImage: NetworkImage(resultURL)));
-  }
-
   final Root2Contorller c = Get.put(Root2Contorller());
   @override
   Widget build(BuildContext context) {
@@ -231,7 +147,10 @@ class _MyInfoPageState extends State<MyInfoPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _profileImage(context),
+                  Image(
+                      width: width * 0.146,
+                      height: height * 0.0677,
+                      image: AssetImage('assets/프로필.png')),
                   Text(
                     '온새미로',
                     style: TextStyle(

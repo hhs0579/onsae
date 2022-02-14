@@ -65,4 +65,16 @@ class DatabaseService {
       'uid': uid,
     });
   }
+
+  Future setPostData(DateTime date, String _nickname, String postkey,
+      String post, List<dynamic> imgList, List<dynamic> like) async {
+    await postCollection.doc(key).set({
+      'date': date,
+      'post': post,
+      'nickname': _nickname,
+      'postKey': key,
+      'imgList': imgList,
+      'like': like
+    });
+  }
 }

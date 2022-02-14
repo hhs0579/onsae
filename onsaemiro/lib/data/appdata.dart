@@ -34,6 +34,28 @@ class AppData extends GetxController {
     update();
   }
 
+  BusinessModel _businessmodel = BusinessModel(
+    date: DateTime.now(),
+    email: '',
+    image: '',
+    name: '',
+    nickname: '',
+    password: '',
+    phone: '',
+    address: '',
+    addressdetail: '',
+    mystore: [],
+    pushToken: '',
+    uid: '',
+  );
+
+  BusinessModel get businessmodel => _businessmodel;
+
+  set businessmodel(BusinessModel businessmodel) {
+    _businessmodel = businessmodel;
+    update();
+  }
+
   ActPost _actPost = ActPost(
     date: DateTime.now(),
     nickname: '',

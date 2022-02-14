@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/data/appdata.dart';
+import 'package:onsaemiro/models/business_model.dart';
 import 'package:onsaemiro/models/user_model.dart';
 
 DatabaseController databaseController = DatabaseController();
@@ -42,7 +43,7 @@ class DatabaseController {
     }
   }
 
-  Future<void> fetchMyInfoToEmail(String email) async {
+  Future<void> fetchMyInfoToEmailUser(String email) async {
     AppData appData = Get.find();
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -56,7 +57,21 @@ class DatabaseController {
     }
   }
 
-  Future<void> fetchMyInfoToPhone(String phone) async {
+  Future<void> fetchMyInfoToEmailBusiness(String email) async {
+    AppData appData = Get.find();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+
+    if (querySnapshot.docs.isEmpty) {
+    } else {
+      appData.businessmodel = BusinessModel.fromJson(
+          querySnapshot.docs.first.data() as Map<String, dynamic>);
+    }
+  }
+
+  Future<void> fetchMyInfoToPhoneUser(String phone) async {
     AppData appData = Get.find();
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -66,6 +81,20 @@ class DatabaseController {
     if (querySnapshot.docs.isEmpty) {
     } else {
       appData.usermodel = Usermodel.fromJson(
+          querySnapshot.docs.first.data() as Map<String, dynamic>);
+    }
+  }
+
+  Future<void> fetchMyInfoToPhoneBusiness(String phone) async {
+    AppData appData = Get.find();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('phone', isEqualTo: phone)
+        .get();
+
+    if (querySnapshot.docs.isEmpty) {
+    } else {
+      appData.businessmodel = BusinessModel.fromJson(
           querySnapshot.docs.first.data() as Map<String, dynamic>);
     }
   }

@@ -42,17 +42,31 @@ class _PhoneJoinPageState extends State<PhoneJoinPage> {
       final authCredential =
           await _auth.signInWithCredential(phoneAuthCredential);
 
-      await DatabaseService(uid: authCredential.user!.uid).setUserData(
-        DateTime.now(),
-        '',
-        '',
-        nameController.text,
-        nicknameController.text,
-        phonenumber,
-        address,
-        deaddressController.text,
-        userType,
-      );
+      if (userType == 'user') {
+        await DatabaseService(uid: authCredential.user!.uid).setUserData(
+          DateTime.now(),
+          '',
+          '',
+          nameController.text,
+          nicknameController.text,
+          phonenumber,
+          address,
+          deaddressController.text,
+          userType,
+        );
+      } else if (userType == 'business') {
+        await DatabaseService(uid: authCredential.user!.uid).setBusinessData(
+          DateTime.now(),
+          '',
+          '',
+          nameController.text,
+          nicknameController.text,
+          phonenumber,
+          address,
+          deaddressController.text,
+          userType,
+        );
+      }
     } catch (e) {
       print(e);
     }

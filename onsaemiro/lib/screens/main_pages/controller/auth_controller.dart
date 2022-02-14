@@ -9,14 +9,14 @@ import 'package:onsaemiro/screens/main_pages/controller/local_storage_controller
 AuthController authController = AuthController();
 
 class AuthController {
-  Future authUser(String email, String password) async {
+  Future authUser(String email, String password, String userType) async {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      await saveLocalStorageToEmail(userCredential);
+      await saveLocalStorageToEmail(userCredential, userType);
       String? pushToken = await getToken();
       if (pushToken != null) {
         databaseController.updatePushTokenToEmail(
@@ -25,7 +25,13 @@ class AuthController {
         );
       }
       AppData appData = Get.find();
-      await databaseController.fetchMyInfoToEmail(appData.usermodel.email);
+      if (appData.userType == 'user') {
+        await databaseController
+            .fetchMyInfoToEmailUser(appData.usermodel.email);
+      } else if (appData.userType == 'business') {
+        await databaseController
+            .fetchMyInfoToEmailBusiness(appData.usermodel.email);
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -41,23 +47,34 @@ class AuthController {
     return null;
   }
 
-  Future<void> saveLocalStorageToEmail(UserCredential userCredential) async {
+  Future<void> saveLocalStorageToEmail(
+      UserCredential userCredential, String userType) async {
     AppData appData = Get.find();
     appData.userEmail = userCredential.user?.email ?? 'null';
-    appData.usermodel.email = appData.userEmail;
-
+    if (userType == 'user') {
+      appData.usermodel.email = appData.userEmail;
+    } else if (userType == 'business') {
+      appData.businessmodel.email = appData.userEmail;
+    }
     localStorageController.setUserEmail(appData.userEmail);
+    localStorageController.setUserType(userType);
   }
 
-  Future<void> saveLocalStorageToPhone(String phone) async {
+  Future<void> saveLocalStorageToPhone(String phone, userType) async {
     AppData appData = Get.find();
     appData.userPhone = phone;
-    appData.usermodel.phone = appData.userPhone;
+    if (userType == 'user') {
+      appData.usermodel.phone = appData.userPhone;
+    } else if (userType == 'business') {
+      appData.businessmodel.phone = appData.userPhone;
+    }
 
     localStorageController.setUserPhone(appData.userPhone);
+    localStorageController.setUserType(userType);
   }
 
   Future<void> handleSignOut() async {
+    await localStorageController.setUserType('');
     await localStorageController.setUserEmail('');
     await FirebaseAuth.instance.signOut();
   }
