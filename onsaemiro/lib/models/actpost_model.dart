@@ -8,6 +8,8 @@ class ActPost {
   List<dynamic> imgList;
   List<dynamic> like;
   String profile;
+  bool presslike;
+
   ActPost(
       {required this.date,
       required this.nickname,
@@ -15,7 +17,8 @@ class ActPost {
       required this.post,
       required this.imgList,
       required this.like,
-      required this.profile});
+      required this.profile,
+      required this.presslike});
 
   ActPost.fromJson(Map<String, dynamic> json)
       : date = json['date'].toDate(),
@@ -24,7 +27,8 @@ class ActPost {
         post = json['post'],
         imgList = json['imgList'],
         like = json['like'] ?? [],
-        profile = json['profile'] ?? '';
+        profile = json['profile'] ?? '',
+        presslike = json['presslike'] ?? false;
 
   Map<String, dynamic> toJson() => {
         'date': date,
@@ -33,6 +37,7 @@ class ActPost {
         'post': post,
         'imgList': imgList,
         'like': like,
-        'profile': profile
+        'profile': profile,
+        'preesslike': presslike
       };
 }

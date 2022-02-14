@@ -179,6 +179,12 @@ class _actParticipationPageState extends State<actParticipationPage> {
                         side: BorderSide(width: 2.0, color: Colors.green),
                       ),
                       onPressed: () async {
+                        Fluttertoast.showToast(
+                            msg: "게시하기 버튼이 나올 때까지 기다려주세요.",
+                            toastLength: Toast.LENGTH_SHORT,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.lightBlue,
+                            fontSize: 12.0);
                         await uploadFunction(imageFileList!);
                         setState(() {
                           visibley = true;
@@ -231,7 +237,8 @@ class _actParticipationPageState extends State<actParticipationPage> {
                                   postTextEditController.text,
                                   _arrImageUrls,
                                   [],
-                                  appData.usermodel.image);
+                                  appData.usermodel.image,
+                                  false);
                         }
                       },
                     ),

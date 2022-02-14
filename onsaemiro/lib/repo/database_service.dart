@@ -73,7 +73,8 @@ class DatabaseService {
       String post,
       List<dynamic> imgList,
       List<dynamic> like,
-      String profile) async {
+      String profile,
+      bool presslike) async {
     await postCollection.doc(key).set({
       'date': date,
       'post': post,
@@ -81,7 +82,8 @@ class DatabaseService {
       'postKey': key,
       'imgList': imgList,
       'like': like,
-      'profile': profile
+      'profile': profile,
+      'preesslike': presslike
     });
   }
 }

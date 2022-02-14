@@ -125,7 +125,7 @@ class _actConfirmPageState extends State<actConfirmPage> {
           centerTitle: true,
           elevation: 0.5,
         ),
-        body: SingleChildScrollView(
+        body: Container(
             child: StreamBuilder<QuerySnapshot>(
                 stream: post,
                 builder: (context, snapshot) {
@@ -217,12 +217,12 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                             Container(
                                               margin: EdgeInsets.only(top: 10),
                                               child: IconButton(
-                                                icon: toggle
-                                                    ? Icon(
-                                                        Icons.thumb_up_outlined,
+                                                icon: actPost.presslike
+                                                    ? Icon(Icons.thumb_up,
                                                         color:
                                                             Color(0xff437B56))
-                                                    : Icon(Icons.thumb_up,
+                                                    : Icon(
+                                                        Icons.thumb_up_outlined,
                                                         color:
                                                             Color(0xff437B56)),
                                                 onPressed: () {
@@ -230,7 +230,8 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                                       appData.usermodel.uid);
                                                   posts.add(actPost.postKey);
                                                   setState(() {
-                                                    toggle = !toggle;
+                                                    actPost.presslike =
+                                                        !actPost.presslike;
                                                     if (actPost.like.contains(
                                                         appData
                                                             .usermodel.uid)) {
@@ -244,6 +245,12 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                                         'like': FieldValue
                                                             .arrayRemove(uids)
                                                       });
+                                                      fireStore
+                                                          .collection('actPost')
+                                                          .doc(actPost.postKey)
+                                                          .update({
+                                                        'presslike': false
+                                                      });
                                                     } else {
                                                       actPost.like.add(appData
                                                           .usermodel.uid);
@@ -253,6 +260,12 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                                           .update({
                                                         'like': FieldValue
                                                             .arrayUnion(uids)
+                                                      });
+                                                      fireStore
+                                                          .collection('actPost')
+                                                          .doc(actPost.postKey)
+                                                          .update({
+                                                        'presslike': true
                                                       });
                                                     }
                                                   });
