@@ -77,7 +77,7 @@ class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
                                   return StreamBuilder<QuerySnapshot>(
                                       stream: FirebaseFirestore.instance
                                           .collection('shops')
-                                          .doc(Shops[index].name)
+                                          .doc(Shops[index].docId)
                                           .collection('products')
                                           .snapshots(),
                                       builder: (context, snapshot) {
@@ -107,6 +107,7 @@ class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
                                                   builder: (context) =>
                                                       thingsRegiPage(
                                                           Shops[index].name,
+                                                          Shops[index].docId,
                                                           products)));
                                         });
                                       });

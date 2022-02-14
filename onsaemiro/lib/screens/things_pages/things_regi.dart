@@ -69,18 +69,20 @@ Widget StoreBox(width, height, name, image, func1) {
 
 class thingsRegiPage extends StatefulWidget {
   late String name;
+  late String DocId;
   List<Product> products = [];
-  thingsRegiPage(this.name, this.products);
+  thingsRegiPage(this.name, this.DocId,this.products);
 
   @override
   _thingsRegiPageState createState() =>
-      _thingsRegiPageState(this.name, this.products);
+      _thingsRegiPageState(this.name, this.DocId,this.products);
 }
 
 class _thingsRegiPageState extends State<thingsRegiPage> {
-  _thingsRegiPageState(this._name, this._products);
+  _thingsRegiPageState(this._name, this._DocId,this._products);
   late String _name;
   late String _image;
+  late String _DocId;
   List<Product> _products = [];
   List items = [];
   String input = "";
@@ -118,82 +120,58 @@ class _thingsRegiPageState extends State<thingsRegiPage> {
             //   height: 21,
             // ),
             SizedBox(
-              height: _products.length * height * 0.2 + 50,
-              child: ListView(
-                children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: _products.length * height * 0.18,
-                        child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: _products.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              print(_products[index].name);
-                              return StoreBox(
-                                  width,
-                                  height,
-                                  _products[index].name,
-                                  _products[index].image, () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            productConfirmPage(
-                                                _products[index].name, _name)));
-                              });
-                            }),
-                      ),
-                      Container(
-                        width: 44,
-                        height: 44,
-                        child: FloatingActionButton(
-                          elevation: 0.0,
-                          backgroundColor: Color.fromRGBO(196, 196, 196, 0.7),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => StoreRegist(_name)));
-                            // showDialog(
-                            //     context: context,
-                            //     builder: (BuildContext context) {
-                            //       return AlertDialog(
-                            //           title: Text("상품 등록"),
-                            //           content: TextField(
-                            //             decoration:
-                            //                 InputDecoration(hintText: '상품 이름'),
-                            //             onChanged: (String value) {
-                            //               input = value;
-                            //             },
-                            //           ),
-                            //           actions: <Widget>[
-                            //             TextButton(
-                            //                 onPressed: () {
-                            //                   setState(() {
-                            //                     _products.add(Product(
-                            //                         name: input,
-                            //                         image: 'assets/약콩두유.png',
-                            //                         price: 0,
-                            //                         num: 0));
-                            //                   });
-                            //                   Navigator.of(context).pop();
-                            //                 },
-                            //                 child: Text("추가"))
-                            //           ]);
-                            //     });
-                          },
-                          child: Icon(
-                            Icons.add,
-                            size: 19,
-                            color: Color.fromRGBO(89, 89, 89, 0.6),
-                          ),
-                        ),
-                      ),
-                    ],
+              height: height * 0.63,
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: _products.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    print(_products[index].name);
+                    return StoreBox(width, height, _products[index].name,
+                        _products[index].image, () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => productConfirmPage(
+                                  _products[index].name, _name)));
+                    });
+                  }),
+            ),
+            Container(
+              height: 1,
+              width: width,
+              color: Colors.green,
+            ),
+            SizedBox(
+              height: height * 0.03,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '상품등록',
+                  style: TextStyle(
+                      fontSize: width * 0.05, fontWeight: FontWeight.w700),
+                ),
+                SizedBox(
+                  width: 44,
+                  height: 44,
+                  child: FloatingActionButton(
+                    elevation: 0.0,
+                    backgroundColor: Color.fromRGBO(196, 196, 196, 0.7),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => StoreRegist(_name, _DocId)));
+                    },
+                    child: Icon(
+                      Icons.add,
+                      size: 19,
+                      color: Color.fromRGBO(89, 89, 89, 0.6),
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             // SizedBox(
             //   height: 9,
