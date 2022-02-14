@@ -71,15 +71,15 @@ class thingsRegiPage extends StatefulWidget {
   late String name;
   late String DocId;
   List<Product> products = [];
-  thingsRegiPage(this.name, this.DocId,this.products);
+  thingsRegiPage(this.name, this.DocId, this.products);
 
   @override
   _thingsRegiPageState createState() =>
-      _thingsRegiPageState(this.name, this.DocId,this.products);
+      _thingsRegiPageState(this.name, this.DocId, this.products);
 }
 
 class _thingsRegiPageState extends State<thingsRegiPage> {
-  _thingsRegiPageState(this._name, this._DocId,this._products);
+  _thingsRegiPageState(this._name, this._DocId, this._products);
   late String _name;
   late String _image;
   late String _DocId;
@@ -125,7 +125,6 @@ class _thingsRegiPageState extends State<thingsRegiPage> {
                   scrollDirection: Axis.vertical,
                   itemCount: _products.length,
                   itemBuilder: (BuildContext context, int index) {
-                    print(_products[index].name);
                     return StoreBox(width, height, _products[index].name,
                         _products[index].image, () {
                       Navigator.push(
@@ -162,7 +161,8 @@ class _thingsRegiPageState extends State<thingsRegiPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => StoreRegist(_name, _DocId)));
+                              builder: (context) =>
+                                  StoreRegist(_name, _DocId)));
                     },
                     child: Icon(
                       Icons.add,
