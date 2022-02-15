@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/product/shop.dart';
+import 'package:onsaemiro/screens/access_pages/accessSearch.dart';
 import 'package:onsaemiro/screens/access_pages/shop_introduce.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
@@ -44,7 +45,7 @@ Widget imagestackWidget(
                     ),
                   ],
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  borderRadius: BorderRadius.all(Radius.circular(14)),
                 ),
                 child: Center(
                   child: Column(
@@ -100,6 +101,7 @@ Widget imagestackWidget(
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: NetworkImage(image), fit: BoxFit.cover),
+                border: Border.all(color: Color.fromRGBO(89, 89, 89, 0.2)),
                 borderRadius: BorderRadius.all(Radius.circular(14))),
             child: InkWell(
               borderRadius: BorderRadius.all(Radius.circular(14)),
@@ -114,6 +116,19 @@ Widget imagestackWidget(
 
 class _localSeoulPageState extends State<localSeoulPage> {
   final CartController c = Get.put(CartController());
+  String str = '';
+  final _searchController = TextEditingController();
+  controlSearching(search) {
+    print(search);
+    setState(() {
+      str = search;
+    });
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => accessSearchPage(_searchController.text)));
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -133,7 +148,9 @@ class _localSeoulPageState extends State<localSeoulPage> {
                   SizedBox(
                     width: width * 0.8,
                     height: height * 0.054,
-                    child: TextField(
+                    child: TextFormField(
+                      controller: _searchController,
+                      onFieldSubmitted: controlSearching,
                       style: TextStyle(fontSize: 14),
                       decoration: InputDecoration(
                           border: InputBorder.none,
@@ -148,7 +165,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
                                 color: Color.fromRGBO(162, 191, 98, 1),
                                 size: 20,
                               )),
-                          hintText: '상품검색',
+                          hintText: '상점검색',
                           hintStyle: TextStyle(
                               fontSize: 14,
                               color: Color.fromRGBO(162, 191, 98, 0.5)),
@@ -265,143 +282,87 @@ class _localSeoulPageState extends State<localSeoulPage> {
               for (var element in snapshot.data!.docs) {
                 Shop shopModel =
                     Shop.fromJson(element.data() as Map<String, dynamic>);
-                if (shopModel.isaccess == true && shopModel.type == '비건') {
+                if (shopModel.isaccess == '승인완료' && shopModel.type == '비건') {
                   Shops.add(shopModel);
                   print(Shops[0].name);
                 }
               }
-              int randomint = Random().nextInt(Shops.length);
-              return Center(
-                child: Column(
-                  children: [
-                    Container(
-                      height: height * 0.32,
-                      width: 234,
-                      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            top: height * 0.1392,
-                            child: Container(
-                              height: height * 0.14,
-                              width: 234,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 20,
-                                    spreadRadius: 2,
-                                  ),
-                                ],
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                              ),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: height * 0.01970,
-                                  ),
-                                  Text(
-                                    Shops[randomint].name,
-                                    style: TextStyle(fontSize: 13),
-                                  ),
-                                  // SizedBox(
-                                  //   height: 6,
-                                  // ),
-                                  Text(
-                                    Shops[randomint].phone,
-                                    style: TextStyle(fontSize: 11),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(33, 6, 0, 3),
-                                    child: Row(
-                                      children: [
-                                        Icon(Icons.place, size: 11),
-                                        Text('서울 서초구 강남대로 465',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 11)),
-                                      ],
+              int randomint;
+              if (Shops.isEmpty) {
+                randomint = 0;
+                return Container();
+              } else {
+                randomint = Random().nextInt(Shops.length);
+                return Center(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: height * 0.32,
+                        width: 234,
+                        padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              top: height * 0.1392,
+                              child: Container(
+                                height: height * 0.14,
+                                width: 234,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 20,
+                                      spreadRadius: 2,
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 13),
-                                    child: Text(
-                                      'http://wwww.instagram.com/bo.mool_vegan',
-                                      style: TextStyle(fontSize: 8),
+                                  ],
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(14)),
+                                ),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: height * 0.01970,
                                     ),
-                                  ),
-                                ],
+                                    Text(
+                                      Shops[randomint].name,
+                                      style: TextStyle(fontSize: 13),
+                                    ),
+                                    // SizedBox(
+                                    //   height: 6,
+                                    // ),
+                                    Text(
+                                      Shops[randomint].phone,
+                                      style: TextStyle(fontSize: 11),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(33, 6, 0, 3),
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.place, size: 11),
+                                          Text('서울 서초구 강남대로 465',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 11)),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(0, 0, 0, 13),
+                                      child: Text(
+                                        'http://wwww.instagram.com/bo.mool_vegan',
+                                        style: TextStyle(fontSize: 8),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          StreamBuilder<QuerySnapshot>(
-                              stream: FirebaseFirestore.instance
-                                  .collection('shops')
-                                  .doc(Shops[randomint].docId)
-                                  .collection('products')
-                                  .snapshots(),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasError) {
-                                  print(snapshot.error);
-                                  return Center(
-                                    child: Text('오류가 발생했습니다.'),
-                                  );
-                                }
-                                if (snapshot.data == null) {
-                                  return Container();
-                                }
-                                List<Product> products = [];
-                                for (var element in snapshot.data!.docs) {
-                                  Product productModel = Product.fromJson(
-                                      element.data() as Map<String, dynamic>);
-                                  products.add(productModel);
-                                }
-                                return Ink(
-                                  height: height * 0.2032,
-                                  width: 234,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: NetworkImage(
-                                            Shops[randomint].image),
-                                        fit: BoxFit.cover,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20))),
-                                  child: InkWell(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  thingsShopIntroducePage(
-                                                      Shops[randomint].name,
-                                                      Shops[randomint].image,
-                                                      products)));
-                                    },
-                                  ),
-                                );
-                              }),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: height * 0.05,
-                    ),
-                    SizedBox(
-                      height: height * 0.21,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: Shops.length,
-                          itemBuilder: (context, index) {
-                            return StreamBuilder<QuerySnapshot>(
+                            StreamBuilder<QuerySnapshot>(
                                 stream: FirebaseFirestore.instance
                                     .collection('shops')
-                                    .doc(Shops[index].docId)
+                                    .doc(Shops[randomint].docId)
                                     .collection('products')
                                     .snapshots(),
                                 builder: (context, snapshot) {
@@ -420,82 +381,100 @@ class _localSeoulPageState extends State<localSeoulPage> {
                                         element.data() as Map<String, dynamic>);
                                     products.add(productModel);
                                   }
-                                  return imagestackWidget(
-                                      height,
-                                      width,
-                                      Shops[index].name,
-                                      Shops[index].phone,
-                                      '서울 강남구 논현로 67길 11 1층',
-                                      'http://www.instagram.com/bo.mool_vegan',
-                                      Shops[index].image, () {
-                                    setState(() {
-                                      randomint = index;
+                                  return Ink(
+                                    height: height * 0.2032,
+                                    width: 234,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                              Shops[randomint].image),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        border: Border.all(
+                                            color: Color.fromRGBO(
+                                                89, 89, 89, 0.2)),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(14))),
+                                    child: InkWell(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(14)),
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    thingsShopIntroducePage(
+                                                        Shops[randomint],
+                                                        products)));
+                                      },
+                                    ),
+                                  );
+                                }),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.05,
+                      ),
+                      SizedBox(
+                        height: height * 0.21,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: Shops.length,
+                            itemBuilder: (context, index) {
+                              return StreamBuilder<QuerySnapshot>(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('shops')
+                                      .doc(Shops[index].docId)
+                                      .collection('products')
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasError) {
+                                      print(snapshot.error);
+                                      return Center(
+                                        child: Text('오류가 발생했습니다.'),
+                                      );
+                                    }
+                                    if (snapshot.data == null) {
+                                      return Container();
+                                    }
+                                    List<Product> products = [];
+                                    for (var element in snapshot.data!.docs) {
+                                      Product productModel = Product.fromJson(
+                                          element.data()
+                                              as Map<String, dynamic>);
+                                      products.add(productModel);
+                                    }
+                                    return imagestackWidget(
+                                        height,
+                                        width,
+                                        Shops[index].name,
+                                        Shops[index].phone,
+                                        '서울 강남구 논현로 67길 11 1층',
+                                        'http://www.instagram.com/bo.mool_vegan',
+                                        Shops[index].image, () {
+                                      setState(() {
+                                        if (randomint == index) {
+                                          randomint = randomint;
+                                        } else {
+                                          randomint = index;
+                                        }
+                                      });
+                                    }, () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  thingsShopIntroducePage(
+                                                      Shops[index], products)));
                                     });
-                                  }, () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                thingsShopIntroducePage(
-                                                    Shops[index].name,
-                                                    Shops[index].image,
-                                                    products)));
                                   });
-                                });
-                          }),
-                      // child: ListView(
-                      //   scrollDirection: Axis.horizontal,
-                      //   children: [
-                      //     imagestackWidget(
-                      //         height,
-                      //         width,
-                      //         '비건 베이커리보물',
-                      //   '02-558-0301',
-                      //   '서울 강남구 논현로 67길 11 1층',
-                      //   'http://www.instagram.com/bo.mool_vegan',
-                      //   'assets/비건 베이커리 보물.png', () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => localSeoul2Page()));
-                      //     }),
-                      //     SizedBox(width: 26),
-                      //     imagestackWidget(
-                      //         height,
-                      //         width,
-                      //         '본비 비건 베이커리',
-                      //         '02-558-0301',
-                      //         '서울 강남구 테헤란로34길 21-10',
-                      //         'http://www.instagram.com/bo.mool_vegan',
-                      //         'assets/샌드위치.png',
-                      //         () {}),
-                      //     SizedBox(width: 26),
-                      //     imagestackWidget(
-                      //         height,
-                      //         width,
-                      //         '아꼬떼 비건 베이커리',
-                      //         '02-558-0301',
-                      //         '서울 강남구 논현로86길 26',
-                      //         'http://www.instagram.com/bo.mool_vegan',
-                      //         'assets/아꼬떼 비건.png',
-                      //         () {}),
-                      //     SizedBox(width: 26),
-                      //     imagestackWidget(
-                      //         height,
-                      //         width,
-                      //         '비건 베이커리보물',
-                      //         '02-558-0301',
-                      //         '서울 강남구 논현로 67길 11 1층',
-                      //         'http://www.instagram.com/bo.mool_vegan',
-                      //         'assets/샌드위치.png',
-                      //         () {}),
-                      //     SizedBox(width: 26),
-                      //   ],
-                      // ),
-                    )
-                  ],
-                ),
-              );
+                            }),
+                      )
+                    ],
+                  ),
+                );
+              }
             }),
       ),
     );

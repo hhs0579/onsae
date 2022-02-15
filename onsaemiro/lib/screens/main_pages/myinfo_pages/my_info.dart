@@ -6,9 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:onsaemiro/classes/toast_message.dart';
 import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/repo/image_service.dart';
-import 'package:onsaemiro/screens/main_pages/Root2.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
-import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
 import 'package:onsaemiro/screens/main_pages/myinfo_sub/edit_info.dart';
 import 'package:onsaemiro/screens/main_pages/myinfo_sub/product_comment.dart';
 import 'package:onsaemiro/screens/main_pages/myinfo_sub/store_comment.dart';
@@ -187,8 +185,6 @@ class _MyInfoPageState extends State<MyInfoPage> {
                 radius: 40,
                 backgroundImage: NetworkImage(resultURL)));
   }
-
-  final Root2Contorller c = Get.put(Root2Contorller());
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;

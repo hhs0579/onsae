@@ -9,7 +9,6 @@ import 'package:onsaemiro/repo/image_service.dart';
 import 'package:onsaemiro/screens/main_pages/Root.dart';
 import 'package:onsaemiro/repo/image_service.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
-import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
 import 'package:onsaemiro/screens/main_pages/myinfo_sub/edit_info.dart';
 import 'package:onsaemiro/screens/starting_pages/type_screen.dart';
 import 'package:onsaemiro/screens/things_pages/thingsShopProduct.dart';
@@ -120,7 +119,6 @@ class _MyInfoAdminState extends State<MyInfoAdmin> {
   String resultURL = '';
   AppData appdata = Get.find();
   final _picker = ImagePicker();
-  final Root2Contorller c = Get.put(Root2Contorller());
 
   @override
   void initState() {

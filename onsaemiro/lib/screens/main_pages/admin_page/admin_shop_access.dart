@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:onsaemiro/product/shop.dart';
 
 class AdminShopAccess extends StatefulWidget {
@@ -10,31 +11,103 @@ class AdminShopAccess extends StatefulWidget {
 }
 
 class _AdminShopAccessState extends State<AdminShopAccess> {
-  _shopItem(String name, String imageURL) {
+  _shopItem(Shop shop) {
     return Column(
       children: [
         SizedBox(height: 20),
         Container(
           width: MediaQuery.of(context).size.width,
-          height: 150,
+          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+          height: 230,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            border: Border.all(color: Colors.lightGreen),
+            border: Border.all(color: Color(0xff6CCD6C)),
           ),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 30),
-            child: Row(
-              children: [
-                Text(name),
-                SizedBox(width: 100),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                      width: 120,
+                      child: Text(shop.name,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 15))),
+                  SizedBox(width: 50),
+                  Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(shop.businessimage)))),
+                ],
+              ),
+              SizedBox(height: 20),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Container(
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            fit: BoxFit.cover, image: NetworkImage(imageURL)))),
-              ],
-            ),
+                  width: 100,
+                  height: 40,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(26.5)),
+                      side: BorderSide(width: 2.0, color: Color(0xff6CCD6C)),
+                    ),
+                    child: Text(
+                      '승인하기',
+                      style: TextStyle(color: Colors.black, fontSize: 13),
+                    ),
+                    onPressed: () {
+                      FirebaseFirestore.instance
+                          .collection('shops')
+                          .doc(shop.docId)
+                          .update({'isaccess': '승인완료'});
+                    },
+                  ),
+                ),
+                SizedBox(width: 20),
+                Container(
+                  width: 100,
+                  height: 40,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: Color(0xff6CCD6C),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(26.5)),
+                    ),
+                    child: Text(
+                      '삭제하기',
+                      style: TextStyle(color: Colors.white, fontSize: 13),
+                    ),
+                    onPressed: () {
+                      Get.defaultDialog(
+                        cancelTextColor: Color(0xff3AAFFC),
+                        title: '',
+                        content: Text('정말 삭제하시겠습니까?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              FirebaseFirestore.instance
+                                  .collection('shops')
+                                  .doc(shop.docId)
+                                  .delete();
+                              Get.back();
+                            },
+                            child: Text('확인'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: Text('취소'),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                )
+              ])
+            ],
           ),
         ),
       ],
@@ -96,7 +169,7 @@ class _AdminShopAccessState extends State<AdminShopAccess> {
                             itemCount: shoplist.length,
                             itemBuilder: (context, index) {
                               Shop shop = shoplist.elementAt(index);
-                              return _shopItem(shop.name, shop.businessimage);
+                              return _shopItem(shop);
                             }),
                       );
                     }),
