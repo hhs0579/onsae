@@ -28,7 +28,7 @@ class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: 130,
+          toolbarHeight: height * 0.16,
           shape: Border(bottom: BorderSide(color: Colors.green)),
           leading: IconButton(
             onPressed: () {
@@ -51,109 +51,106 @@ class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
         body: SingleChildScrollView(
             child: Center(
           child: Column(children: [
-            SizedBox(
-              height: 550,
-              child: Column(
-                children: [
-                  StreamBuilder<QuerySnapshot>(
-                      stream: _shopStream,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          print(snapshot.error);
-                          return Center(
-                            child: Text('오류가 발생했습니다.'),
-                          );
-                        }
-                        if (snapshot.data == null) {
-                          return Container();
-                        }
-                        List<Shop> Shops = [];
-                        List<Shop> allShops = [];
-                        List<String> allShopsName = [];
+            Column(
+              children: [
+                StreamBuilder<QuerySnapshot>(
+                    stream: _shopStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        print(snapshot.error);
+                        return Center(
+                          child: Text('오류가 발생했습니다.'),
+                        );
+                      }
+                      if (snapshot.data == null) {
+                        return Container();
+                      }
+                      List<Shop> Shops = [];
+                      List<Shop> allShops = [];
+                      List<String> allShopsName = [];
 
-                        for (var element in snapshot.data!.docs) {
-                          Shop shopModel = Shop.fromJson(
-                              element.data() as Map<String, dynamic>);
-                          for (var i = 0; i < myStore.length; i++) {
-                            if (myStore[i] == shopModel.name) {
-                              Shops.add(shopModel);
-                            }
+                      for (var element in snapshot.data!.docs) {
+                        Shop shopModel = Shop.fromJson(
+                            element.data() as Map<String, dynamic>);
+                        for (var i = 0; i < myStore.length; i++) {
+                          if (myStore[i] == shopModel.name) {
+                            Shops.add(shopModel);
                           }
                         }
-                        return SizedBox(
-                            height: height * 0.4,
-                            child: ListView.builder(
-                                itemCount: Shops.length,
-                                itemBuilder: (context, index) {
-                                  Shop shop = Shops.elementAt(index);
-                                  return StreamBuilder<QuerySnapshot>(
-                                      stream: FirebaseFirestore.instance
-                                          .collection('shops')
-                                          .doc(Shops[index].docId)
-                                          .collection('products')
-                                          .snapshots(),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.hasError) {
-                                          print(snapshot.error);
-                                          return Center(
-                                            child: Text('오류가 발생했습니다.'),
-                                          );
-                                        }
-                                        if (snapshot.data == null) {
-                                          return Container();
-                                        }
-                                        List<Product> products = [];
-                                        for (var element
-                                            in snapshot.data!.docs) {
-                                          Product productModel =
-                                              Product.fromJson(element.data()
-                                                  as Map<String, dynamic>);
-                                          products.add(productModel);
-                                        }
-                                        return StoreBox(
-                                            width, shop.name, shop.image, () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      thingsRegiPage(
-                                                          Shops[index].name,
-                                                          Shops[index].docId,
-                                                          products)));
-                                        });
+                      }
+                      return SizedBox(
+                          height: height * 0.8,
+                          child: ListView.builder(
+                              itemCount: Shops.length,
+                              itemBuilder: (context, index) {
+                                Shop shop = Shops.elementAt(index);
+                                return StreamBuilder<QuerySnapshot>(
+                                    stream: FirebaseFirestore.instance
+                                        .collection('shops')
+                                        .doc(Shops[index].docId)
+                                        .collection('products')
+                                        .snapshots(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasError) {
+                                        print(snapshot.error);
+                                        return Center(
+                                          child: Text('오류가 발생했습니다.'),
+                                        );
+                                      }
+                                      if (snapshot.data == null) {
+                                        return Container();
+                                      }
+                                      List<Product> products = [];
+                                      for (var element in snapshot.data!.docs) {
+                                        Product productModel = Product.fromJson(
+                                            element.data()
+                                                as Map<String, dynamic>);
+                                        products.add(productModel);
+                                      }
+                                      return StoreBox(
+                                          height, width, shop.name, shop.image,
+                                          () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    thingsRegiPage(
+                                                        Shops[index].name,
+                                                        Shops[index].docId,
+                                                        products)));
                                       });
-                                }));
-                      }),
-                  // SizedBox(
-                  //   height: Shops.length * 105,
-                  //   child: ListView.builder(
-                  //       scrollDirection: Axis.vertical,
-                  //       itemCount: Shops.length,
-                  //       itemBuilder: (BuildContext context, int index) {
-                  //         return StoreBox(
-                  //             width, Shops[index].name, Shops[index].image_url,
-                  //             () {
-                  //           Navigator.push(
-                  //               context,
-                  //               MaterialPageRoute(
-                  //                   builder: (context) =>
-                  //                       productRegistrationPage()));
-                  //         });
-                  //       }),
-                  // ),
-                ],
-              ),
+                                    });
+                              }));
+                    }),
+                // SizedBox(
+                //   height: Shops.length * 105,
+                //   child: ListView.builder(
+                //       scrollDirection: Axis.vertical,
+                //       itemCount: Shops.length,
+                //       itemBuilder: (BuildContext context, int index) {
+                //         return StoreBox(
+                //             width, Shops[index].name, Shops[index].image_url,
+                //             () {
+                //           Navigator.push(
+                //               context,
+                //               MaterialPageRoute(
+                //                   builder: (context) =>
+                //                       productRegistrationPage()));
+                //         });
+                //       }),
+                // ),
+              ],
             ),
           ]),
         )));
   }
 }
 
-Widget StoreBox(width, name, image, func1) {
+Widget StoreBox(height, width, name, image, func1) {
   return Padding(
     padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
     child: Container(
-      height: 100,
+      height: height * 0.123,
       width: width,
       decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
       child: Row(
@@ -163,13 +160,13 @@ Widget StoreBox(width, name, image, func1) {
           //   width: 10,
           // ),
           Container(
-            height: 100,
-            width: 100,
+            height: height * 0.123,
+            width: width * 0.27,
             decoration: BoxDecoration(
               border: Border.all(color: Color.fromRGBO(108, 205, 108, 1)),
               borderRadius: BorderRadius.circular(20),
-              image: DecorationImage(
-                  image: NetworkImage(image), fit: BoxFit.scaleDown),
+              image:
+                  DecorationImage(image: NetworkImage(image), fit: BoxFit.fill),
             ),
           ),
           SizedBox(
@@ -180,16 +177,17 @@ Widget StoreBox(width, name, image, func1) {
             children: [
               Text(
                 name,
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                    fontSize: width * 0.04, fontWeight: FontWeight.w700),
               ),
               SizedBox(
-                height: 10,
+                height: height * 0.0123,
               ),
               TextButton(
                 onPressed: func1,
                 child: Container(
                   width: width * 0.20,
-                  height: 25,
+                  height: height * 0.031,
                   decoration: BoxDecoration(
                       color: Color.fromRGBO(108, 205, 108, 0.5),
                       border:

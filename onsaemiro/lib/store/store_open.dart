@@ -22,33 +22,33 @@ class StoreOpen extends StatefulWidget {
   _StoreOpenState createState() => _StoreOpenState();
 }
 
-var key = randomString(16);
-FirebaseFirestore fireStore = FirebaseFirestore.instance;
-final FirebaseAuth auth = FirebaseAuth.instance;
-final storename = TextEditingController();
-final _postTextEditor = TextEditingController();
-final _addressTextEditor = TextEditingController();
-final _deaddressTextEditor = TextEditingController();
-final storeinfo = TextEditingController();
-final salesinfo = TextEditingController();
-final benefitinfo = TextEditingController();
-String address = '';
-String postcode = '';
-final deaddressFocusNode = FocusNode();
-var clothing = false;
-var life = false;
-var food = false;
-var vegan = false;
-List<dynamic> select = [];
-Imageservice imageservice = Imageservice();
-String urls = '';
-XFile? _image;
-final _picker = ImagePicker();
-var visibley = false;
-
 class _StoreOpenState extends State<StoreOpen> {
+  var key = randomString(16);
+  FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final storename = TextEditingController();
+  final _postTextEditor = TextEditingController();
+  final _addressTextEditor = TextEditingController();
+  final _deaddressTextEditor = TextEditingController();
+  final storeinfo = TextEditingController();
+  final salesinfo = TextEditingController();
+  final benefitinfo = TextEditingController();
+  String address = '';
+  String postcode = '';
+  final deaddressFocusNode = FocusNode();
+  var clothing = false;
+  var life = false;
+  var food = false;
+  var vegan = false;
+  List<dynamic> select = [];
+  Imageservice imageservice = Imageservice();
+  String urls = '';
+  XFile? _image;
+  final _picker = ImagePicker();
+  var visibley = false;
   @override
   Widget build(BuildContext context) {
+    AppData appdata = Get.find();
     Future _getImage() async {
       final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
@@ -558,7 +558,7 @@ class _StoreOpenState extends State<StoreOpen> {
                             'image': urls,
                             'select': select
                           });
-                          AppData appdata = Get.find();
+
                           fireStore
                               .collection('users')
                               .doc(appdata.businessmodel.uid)
@@ -566,7 +566,9 @@ class _StoreOpenState extends State<StoreOpen> {
                             'mystore':
                                 FieldValue.arrayUnion(['${storename.text}'])
                           });
-                          setState(() {});
+                          setState(() {
+                            appdata.businessmodel.mystore.add(storename.text);
+                          });
                           final Keys = key;
                           final result = await Navigator.push(
                               context,

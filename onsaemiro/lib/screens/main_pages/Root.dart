@@ -8,6 +8,7 @@ import 'package:onsaemiro/screens/main_pages/culture_main.dart';
 import 'package:onsaemiro/screens/main_pages/my_info.dart';
 import 'package:onsaemiro/screens/main_pages/myinfo_Admin.dart';
 import 'package:onsaemiro/screens/main_pages/things_main.dart';
+import 'package:onsaemiro/screens/things_pages/things_mainAdmin.dart';
 
 class Root extends GetView<RootContorller> {
   Root({Key? key}) : super(key: key);
@@ -25,8 +26,13 @@ class Root extends GetView<RootContorller> {
               Navigator(
                   key: controller.navigatorKeys[0],
                   onGenerateRoute: (routeSettings) {
-                    return MaterialPageRoute(
-                        builder: (context) => accessMainPage());
+                    return appdata.userType == 'user'
+                        ? MaterialPageRoute(
+                            builder: (context) => accessMainPage(),
+                          )
+                        : MaterialPageRoute(
+                            builder: (context) => accessAdminPage(),
+                          );
                   }),
               Navigator(
                   key: controller.navigatorKeys[1],
@@ -37,16 +43,24 @@ class Root extends GetView<RootContorller> {
               Navigator(
                   key: controller.navigatorKeys[2],
                   onGenerateRoute: (routeSettings) {
-                    return MaterialPageRoute(
-                      builder: (context) => accessMainPage(),
-                    );
+                    return appdata.userType == 'user'
+                        ? MaterialPageRoute(
+                            builder: (context) => accessMainPage(),
+                          )
+                        : MaterialPageRoute(
+                            builder: (context) => accessAdminPage(),
+                          );
                   }),
               Navigator(
                   key: controller.navigatorKeys[3],
                   onGenerateRoute: (routeSettings) {
-                    return MaterialPageRoute(
-                      builder: (context) => thingsMainPage(),
-                    );
+                    return appdata.userType == 'user'
+                        ? MaterialPageRoute(
+                            builder: (context) => thingsMainPage(),
+                          )
+                        : MaterialPageRoute(
+                            builder: (context) => thingsMainAdminPage(),
+                          );
                   }),
               Navigator(
                   key: controller.navigatorKeys[4],
