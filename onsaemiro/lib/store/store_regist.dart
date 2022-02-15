@@ -21,7 +21,6 @@ class StoreRegist extends StatefulWidget {
 }
 
 class _StoreRegistState extends State<StoreRegist> {
-  Imageservice imageservice = Imageservice();
   var visibley = false;
   var key = randomString(16);
 

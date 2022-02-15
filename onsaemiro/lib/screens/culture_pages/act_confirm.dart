@@ -68,8 +68,23 @@ String datepress = '';
 
 Stream<QuerySnapshot>? like;
 Stream<QuerySnapshot>? date;
+_profileImageOn() {
+  return appData.usermodel.image == ''
+      ? Container(
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 24,
+              backgroundImage: AssetImage('assets/basic.png')))
+      : Container(
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 24,
+              backgroundImage: NetworkImage(appData.usermodel.image)));
+}
 
 class _actConfirmPageState extends State<actConfirmPage> {
+  String myimg = appData.usermodel.image;
+
   bool isRecently = true;
   @override
   Widget build(BuildContext context) {
@@ -204,12 +219,7 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                           children: [
                                             Column(
                                               children: [
-                                                CircleAvatar(
-                                                  radius: 20,
-                                                  //프로필 사진받아오기
-                                                  backgroundImage: NetworkImage(
-                                                      actPost.profile),
-                                                ),
+                                                _profileImageOn(),
                                                 Text('act.활동 인증',
                                                     style: TextStyle(
                                                       fontSize: 9,
