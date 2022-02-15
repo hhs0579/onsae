@@ -9,9 +9,9 @@ import 'package:onsaemiro/repo/image_service.dart';
 import 'package:onsaemiro/screens/main_pages/Root2.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
-import 'package:onsaemiro/screens/main_pages/edit_info.dart';
-import 'package:onsaemiro/screens/main_pages/product_comment.dart';
-import 'package:onsaemiro/screens/main_pages/store_comment.dart';
+import 'package:onsaemiro/screens/main_pages/myinfo_sub/edit_info.dart';
+import 'package:onsaemiro/screens/main_pages/myinfo_sub/product_comment.dart';
+import 'package:onsaemiro/screens/main_pages/myinfo_sub/store_comment.dart';
 import 'package:onsaemiro/screens/starting_pages/type_screen.dart';
 
 _connectbutton(text, width, height, onPressed) {

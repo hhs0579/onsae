@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:onsaemiro/screens/access_pages/product_confirm.dart';
-import 'package:onsaemiro/screens/main_pages/edit_info.dart';
+import 'package:onsaemiro/screens/main_pages/myinfo_sub/edit_info.dart';
 
 class productRegistrationPage extends StatefulWidget {
   const productRegistrationPage({Key? key}) : super(key: key);
@@ -155,8 +155,8 @@ class _productRegistrationPageState extends State<productRegistrationPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        productConfirmPage(items[index],'망넛이네')));
+                                    builder: (context) => productConfirmPage(
+                                        items[index], '망넛이네')));
                           }, () {
                             setState(() {
                               items.removeAt(index);

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/classes/admin.dart';
 import 'package:onsaemiro/classes/toast_message.dart';
 import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/screens/main_pages/Root.dart';
+import 'package:onsaemiro/screens/main_pages/admin_page/admin_page.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
 import 'package:onsaemiro/screens/starting_pages/email_join_pages/email_join_page.dart';
 import 'package:onsaemiro/screens/starting_pages/find_password.dart';
@@ -98,13 +100,22 @@ class _EmailloginpageState extends State<Emailloginpage> {
                                   if (passwordController.text == '') {
                                     return toastMessage("비밀번호를 입력해주세요.");
                                   } else {
-                                    appdata.userType = userType;
-                                    if (await authController.authUser(
-                                            emailController.text.trim(),
-                                            passwordController.text.trim(),
-                                            userType) ==
-                                        null) {
-                                      Get.offAll(() => Root());
+                                    if (emailController.text ==
+                                            Admin.getadminemail() &&
+                                        passwordController.text ==
+                                            Admin.getadminpassword()) {
+                                      appdata.userEmail = Admin.getuseremail();
+                                      appdata.userType = 'admin';
+                                      Get.to(() => AdminPage());
+                                    } else {
+                                      appdata.userType = userType;
+                                      if (await authController.authUser(
+                                              emailController.text.trim(),
+                                              passwordController.text.trim(),
+                                              userType) ==
+                                          null) {
+                                        Get.offAll(() => Root());
+                                      }
                                     }
                                   }
                                 }
