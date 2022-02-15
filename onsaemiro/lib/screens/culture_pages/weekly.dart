@@ -12,6 +12,7 @@ class Weekly extends StatefulWidget {
 
 String value = Get.arguments;
 String img = '';
+String key = '';
 Stream<DocumentSnapshot> post =
     FirebaseFirestore.instance.collection('actPost').doc(value).snapshots();
 
@@ -49,6 +50,7 @@ class _WeeklyState extends State<Weekly> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     img = snapshot.data!['imgList'][0];
+                    key = snapshot.data!['postKey'];
                     print('The Documents Exists');
                   }
                   return ListView.builder(
@@ -83,11 +85,7 @@ class _WeeklyState extends State<Weekly> {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  reportPage()));
+                                      Get.to(reportPage(), arguments: key);
                                     },
                                     child: Text(
                                       '신고하기',
