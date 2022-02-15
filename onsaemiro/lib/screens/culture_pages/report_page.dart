@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/classes/toast_message.dart';
+import 'package:random_string/random_string.dart';
 
 class reportPage extends StatefulWidget {
   const reportPage({Key? key}) : super(key: key);
@@ -7,6 +10,11 @@ class reportPage extends StatefulWidget {
   @override
   _reportPageState createState() => _reportPageState();
 }
+
+var reportKey = Get.arguments;
+TextEditingController reportText = TextEditingController();
+var key = randomString(16);
+FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
 class _reportPageState extends State<reportPage> {
   int _value = 1;
@@ -48,7 +56,17 @@ class _reportPageState extends State<reportPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (reportText.text == '') {
+                        toastMessage('신고 이유를 적어주세요');
+                      } else {
+                        fireStore.collection('report').doc(key).set({
+                          'reportReason': reportText.text,
+                          'reportType': _value,
+                          'reportKey': reportKey,
+                        });
+                      }
+                    },
                     child: Text(
                       '등록하기',
                       style: TextStyle(
@@ -148,6 +166,7 @@ class _reportPageState extends State<reportPage> {
                 height: 280,
                 width: 335,
                 child: TextField(
+                  controller: reportText,
                   maxLines: 20,
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(

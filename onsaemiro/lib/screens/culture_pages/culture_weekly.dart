@@ -1,8 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/models/actpost_model.dart';
+import 'package:onsaemiro/screens/culture_pages/act_confirm.dart';
+import 'package:onsaemiro/screens/culture_pages/image1_Enlarge.dart';
 import 'package:onsaemiro/screens/culture_pages/image2_enlarge.dart';
+import 'package:onsaemiro/screens/culture_pages/report_page.dart';
+import 'package:onsaemiro/screens/culture_pages/weekly.dart';
 
 import 'image1_enlarge.dart';
 import 'image3_enlarge.dart';
@@ -14,120 +21,140 @@ class weeklyBestPage extends StatefulWidget {
   _weeklyBestPageState createState() => _weeklyBestPageState();
 }
 
-image_widget(image, onPressed) {
-  return Stack(
-    children: [
-      Ink(
-        decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        child: InkWell(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          onTap: () {},
-          child: Container(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            height: 484,
-            width: 354,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-            ),
-          ),
-        ),
-      ),
-      Positioned(
-          bottom: 10,
-          right: 10,
-          child: IconButton(
-              onPressed: onPressed,
-              icon: Image(
-                image: AssetImage('assets/확대.png'),
-              )))
-    ],
-  );
-}
+var visibley = false;
 
 class _weeklyBestPageState extends State<weeklyBestPage> {
   @override
   Widget build(BuildContext context) {
-    List<Widget> imageList = [
-      image_widget('assets/son.jfif', () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => image1EnlargePage()));
-      }),
-      image_widget('assets/nn.jpg', () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => image2EnlargePage()));
-      }),
-      image_widget('assets/ll.jpg', () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => image3EnlargePage()));
-      })
-    ];
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    Stream<QuerySnapshot> like = FirebaseFirestore.instance
+        .collection('actPost')
+        .orderBy(
+          'like',
+          descending: true,
+        )
+        .limit(3)
+        .snapshots();
+
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 138,
-        leading: IconButton(
-          icon: ImageIcon(
-            AssetImage('assets/Vector(진한녹색).png'),
-            color: Colors.green,
+        appBar: AppBar(
+          toolbarHeight: 138,
+          leading: IconButton(
+            icon: ImageIcon(
+              AssetImage('assets/Vector(진한녹색).png'),
+              color: Colors.green,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        backgroundColor: Colors.white,
-        title: Text(
-          '주간 베스트',
-          style: TextStyle(
-            fontSize: 34,
-            fontWeight: FontWeight.w700,
-            color: Color.fromRGBO(67, 123, 86, 1),
+          backgroundColor: Colors.white,
+          title: Text(
+            '주간 베스트',
+            style: TextStyle(
+              fontSize: 34,
+              fontWeight: FontWeight.w700,
+              color: Color.fromRGBO(67, 123, 86, 1),
+            ),
           ),
+          centerTitle: true,
+          elevation: 0.5,
         ),
-        centerTitle: true,
-        elevation: 0.5,
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 70,
-              ),
-              SizedBox(
-                child: CarouselSlider(
-                  options: CarouselOptions(
-                    height: 484,
-                    enlargeCenterPage: true,
-                    enableInfiniteScroll: false,
-                  ),
-                  items: [imageList[0], imageList[1], imageList[2]],
-                ),
-              ),
-              SizedBox(
-                height: 24,
-              ),
-              Container(
-                width: 110,
-                height: 41,
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(26.5)),
-                    side: BorderSide(width: 2.0, color: Colors.green),
-                  ),
-                  child: Text(
-                    '인증하러 가기',
-                    style: TextStyle(color: Color(0xff595959), fontSize: 13),
-                  ),
-                  onPressed: () {},
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+        body: Container(
+            child: StreamBuilder<QuerySnapshot>(
+                stream: like,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('오류 발생');
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text('로딩중');
+                  }
+                  List<ActPost> actPosts = [];
+                  for (var value in snapshot.data!.docs) {
+                    ActPost actPost =
+                        ActPost.fromJson(value.data() as Map<String, dynamic>);
+                    actPosts.add(actPost);
+                  }
+                  return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: actPosts.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        ActPost actPost = actPosts.elementAt(index);
+                        return Center(
+                          child: Column(
+                            children: [
+                              Stack(
+                                children: [
+                                  Ink(
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                actPost.imgList[0]),
+                                            fit: BoxFit.cover),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20))),
+                                    child: InkWell(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      onTap: () {},
+                                      child: Container(
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        height: height * 0.6,
+                                        width: width * 1,
+                                        decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.grey),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                      bottom: 10,
+                                      right: 10,
+                                      child: IconButton(
+                                          onPressed: () {
+                                            Get.to(() => Weekly(),
+                                                arguments: actPost.postKey);
+                                          },
+                                          icon: Image(
+                                            image: AssetImage('assets/확대.png'),
+                                          )))
+                                ],
+                              ),
+                              SizedBox(
+                                height: 40,
+                              ),
+                              Container(
+                                width: 110,
+                                height: 41,
+                                child: OutlinedButton(
+                                  style: OutlinedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(26.5)),
+                                    side: BorderSide(
+                                        width: 2.0, color: Colors.green),
+                                  ),
+                                  child: Text(
+                                    '인증하러 가기',
+                                    style: TextStyle(
+                                        color: Color(0xff595959), fontSize: 13),
+                                  ),
+                                  onPressed: () {
+                                    Get.to(actConfirmPage());
+                                  },
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      });
+                })));
   }
 }

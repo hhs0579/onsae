@@ -9,6 +9,8 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('users');
   final CollectionReference postCollection =
       FirebaseFirestore.instance.collection('actPost');
+  final CollectionReference reportCollection =
+      FirebaseFirestore.instance.collection('report');
   Future setUserData(
       DateTime date,
       String email,

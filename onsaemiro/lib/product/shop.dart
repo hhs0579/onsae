@@ -1,10 +1,11 @@
 class Shop {
-  late String name;
+  String name;
   late String image;
   late String businessimage;
   late String docId;
   late String isaccess;
   late String type;
+  late String phone;
 
   Shop(
       {required this.name,
@@ -19,7 +20,8 @@ class Shop {
         businessimage = json['businessimage'],
         docId = json['docId'],
         isaccess = json['isaccess'],
-        type = json['type'];
+        type = json['type'],
+        phone = json['phone'];
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -27,6 +29,7 @@ class Shop {
         'businessimage': businessimage,
         'docId': docId,
         'isaccess': isaccess,
-        'type': type
+        'type': type,
+        'phone': phone,
       };
 }
