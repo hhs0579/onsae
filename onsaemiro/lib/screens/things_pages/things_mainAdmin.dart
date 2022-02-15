@@ -75,7 +75,7 @@ class _thingsMainAdminPageState extends State<thingsMainAdminPage> {
                       color: Colors.black,
                       size: width * 0.036,
                     )),
-                hintText: '상품검색',
+                hintText: '상점검색',
                 hintStyle: TextStyle(fontSize: width * 0.029),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(27.0)),

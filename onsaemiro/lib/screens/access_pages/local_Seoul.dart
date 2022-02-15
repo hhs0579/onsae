@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/product/shop.dart';
+import 'package:onsaemiro/screens/access_pages/accessSearch.dart';
 import 'package:onsaemiro/screens/access_pages/shop_introduce.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
@@ -44,7 +45,7 @@ Widget imagestackWidget(
                     ),
                   ],
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  borderRadius: BorderRadius.all(Radius.circular(14)),
                 ),
                 child: Center(
                   child: Column(
@@ -100,6 +101,7 @@ Widget imagestackWidget(
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: NetworkImage(image), fit: BoxFit.cover),
+                border: Border.all(color: Color.fromRGBO(89, 89, 89, 0.2)),
                 borderRadius: BorderRadius.all(Radius.circular(14))),
             child: InkWell(
               borderRadius: BorderRadius.all(Radius.circular(14)),
@@ -114,6 +116,19 @@ Widget imagestackWidget(
 
 class _localSeoulPageState extends State<localSeoulPage> {
   final CartController c = Get.put(CartController());
+  String str = '';
+  final _searchController = TextEditingController();
+  controlSearching(search) {
+    print(search);
+    setState(() {
+      str = search;
+    });
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => accessSearchPage(_searchController.text)));
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -133,7 +148,9 @@ class _localSeoulPageState extends State<localSeoulPage> {
                   SizedBox(
                     width: width * 0.8,
                     height: height * 0.054,
-                    child: TextField(
+                    child: TextFormField(
+                      controller: _searchController,
+                      onFieldSubmitted: controlSearching,
                       style: TextStyle(fontSize: 14),
                       decoration: InputDecoration(
                           border: InputBorder.none,
@@ -148,7 +165,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
                                 color: Color.fromRGBO(162, 191, 98, 1),
                                 size: 20,
                               )),
-                          hintText: '상품검색',
+                          hintText: '상점검색',
                           hintStyle: TextStyle(
                               fontSize: 14,
                               color: Color.fromRGBO(162, 191, 98, 0.5)),
@@ -301,7 +318,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
                                   ],
                                   color: Colors.white,
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
+                                      BorderRadius.all(Radius.circular(14)),
                                 ),
                                 child: Column(
                                   children: [
@@ -373,19 +390,21 @@ class _localSeoulPageState extends State<localSeoulPage> {
                                               Shops[randomint].image),
                                           fit: BoxFit.cover,
                                         ),
+                                        border: Border.all(
+                                            color: Color.fromRGBO(
+                                                89, 89, 89, 0.2)),
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(20))),
+                                            Radius.circular(14))),
                                     child: InkWell(
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
+                                          BorderRadius.all(Radius.circular(14)),
                                       onTap: () {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     thingsShopIntroducePage(
-                                                        Shops[randomint].name,
-                                                        Shops[randomint].image,
+                                                        Shops[randomint],
                                                         products)));
                                       },
                                     ),
@@ -435,7 +454,11 @@ class _localSeoulPageState extends State<localSeoulPage> {
                                         'http://www.instagram.com/bo.mool_vegan',
                                         Shops[index].image, () {
                                       setState(() {
-                                        randomint = index;
+                                        if (randomint == index) {
+                                          randomint = randomint;
+                                        } else {
+                                          randomint = index;
+                                        }
                                       });
                                     }, () {
                                       Navigator.push(
@@ -443,61 +466,10 @@ class _localSeoulPageState extends State<localSeoulPage> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   thingsShopIntroducePage(
-                                                      Shops[index].name,
-                                                      Shops[index].image,
-                                                      products)));
+                                                      Shops[index], products)));
                                     });
                                   });
                             }),
-                        // child: ListView(
-                        //   scrollDirection: Axis.horizontal,
-                        //   children: [
-                        //     imagestackWidget(
-                        //         height,
-                        //         width,
-                        //         '비건 베이커리보물',
-                        //   '02-558-0301',
-                        //   '서울 강남구 논현로 67길 11 1층',
-                        //   'http://www.instagram.com/bo.mool_vegan',
-                        //   'assets/비건 베이커리 보물.png', () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => localSeoul2Page()));
-                        //     }),
-                        //     SizedBox(width: 26),
-                        //     imagestackWidget(
-                        //         height,
-                        //         width,
-                        //         '본비 비건 베이커리',
-                        //         '02-558-0301',
-                        //         '서울 강남구 테헤란로34길 21-10',
-                        //         'http://www.instagram.com/bo.mool_vegan',
-                        //         'assets/샌드위치.png',
-                        //         () {}),
-                        //     SizedBox(width: 26),
-                        //     imagestackWidget(
-                        //         height,
-                        //         width,
-                        //         '아꼬떼 비건 베이커리',
-                        //         '02-558-0301',
-                        //         '서울 강남구 논현로86길 26',
-                        //         'http://www.instagram.com/bo.mool_vegan',
-                        //         'assets/아꼬떼 비건.png',
-                        //         () {}),
-                        //     SizedBox(width: 26),
-                        //     imagestackWidget(
-                        //         height,
-                        //         width,
-                        //         '비건 베이커리보물',
-                        //         '02-558-0301',
-                        //         '서울 강남구 논현로 67길 11 1층',
-                        //         'http://www.instagram.com/bo.mool_vegan',
-                        //         'assets/샌드위치.png',
-                        //         () {}),
-                        //     SizedBox(width: 26),
-                        //   ],
-                        // ),
                       )
                     ],
                   ),

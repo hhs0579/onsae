@@ -213,7 +213,7 @@ class ShopResult extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => thingsShopIntroducePage(
-                                    eachShop.name, eachShop.image, products)));
+                                    eachShop, products)));
                       },
                       child: ListTile(
                         leading: CircleAvatar(

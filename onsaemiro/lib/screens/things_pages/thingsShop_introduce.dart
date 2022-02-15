@@ -4,6 +4,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:intl/intl.dart';
 import 'package:onsaemiro/product/product_list.dart';
+import 'package:onsaemiro/product/shop.dart';
 import 'package:onsaemiro/screens/access_pages/product_information.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
@@ -151,19 +152,18 @@ product_Box(height, width, image, onTap, name, explanation, int price) {
 }
 
 class thingsShopIntroducePage extends StatefulWidget {
-  late String name;
-  late String image;
+  Shop shop;
+
   List<Product> products = [];
-  thingsShopIntroducePage(this.name, this.image, this.products);
+  thingsShopIntroducePage(this.shop, this.products);
   @override
   _thingsShopIntroducePageState createState() =>
-      _thingsShopIntroducePageState(this.name, this.image, this.products);
+      _thingsShopIntroducePageState(this.shop, this.products);
 }
 
 class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
-  _thingsShopIntroducePageState(this._name, this._image, this._products);
-  late String _name;
-  late String _image;
+  _thingsShopIntroducePageState(this._shop, this._products);
+  Shop _shop;
   List<Product> _products = [];
   final CartController c = Get.put(CartController());
   bool isMenuScreen = true;
@@ -190,7 +190,7 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(89, 89, 89, 0.5),
                         image: DecorationImage(
-                            image: NetworkImage(_image),
+                            image: NetworkImage(_shop.image),
                             colorFilter: ColorFilter.mode(
                                 Colors.white.withOpacity(0.5),
                                 BlendMode.dstATop),
@@ -229,7 +229,7 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                                       color: Color.fromRGBO(86, 123, 53, 1),
                                       size: 15,
                                     )),
-                                hintText: '상품검색',
+                                hintText: '상점검색',
                                 hintStyle: TextStyle(
                                   fontSize: 11,
                                   color: Color.fromRGBO(86, 123, 53, 1),
@@ -292,7 +292,7 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    '$_name',
+                    '${_shop.name}',
                     style: TextStyle(color: Colors.black, fontSize: 18),
                   ),
                   Row(

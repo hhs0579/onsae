@@ -3,6 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:onsaemiro/product/product_list.dart';
+import 'package:onsaemiro/screens/access_pages/accessSearch.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 import 'package:onsaemiro/screens/main_pages/culture_main.dart';
@@ -19,7 +20,19 @@ class thingsMainPage extends StatefulWidget {
 
 class _thingsMainPageState extends State<thingsMainPage> {
   final CartController c = Get.put(CartController());
-  
+  String str = '';
+  final _searchController = TextEditingController();
+  controlSearching(search) {
+    print(search);
+    setState(() {
+      str = search;
+    });
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => accessSearchPage(_searchController.text)));
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -45,19 +58,23 @@ class _thingsMainPageState extends State<thingsMainPage> {
         title: Container(
           width: double.infinity,
           height: height * 0.038,
-          child: TextField(
+          child: TextFormField(
+            controller: _searchController,
+            onFieldSubmitted: controlSearching,
             style: TextStyle(fontSize: width * 0.029),
             decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(vertical: height * 0.008),
                 prefixIcon: IconButton(
-                    padding: EdgeInsets.symmetric(vertical: height * 0.008,),
+                    padding: EdgeInsets.symmetric(
+                      vertical: height * 0.008,
+                    ),
                     onPressed: () {},
                     icon: Icon(
                       Icons.search,
                       color: Colors.black,
                       size: width * 0.036,
                     )),
-                hintText: '상품검색',
+                hintText: '상점검색',
                 hintStyle: TextStyle(fontSize: width * 0.029),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(27.0)),
@@ -80,7 +97,10 @@ class _thingsMainPageState extends State<thingsMainPage> {
                   padding: EdgeInsets.fromLTRB(115, 0, 115, 20),
                   child: Text(
                     'things',
-                    style: TextStyle(fontWeight: FontWeight.w700,fontSize: 36, color: Color(0xff595959)),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 36,
+                        color: Color(0xff595959)),
                   )),
               Ink(
                 decoration: BoxDecoration(

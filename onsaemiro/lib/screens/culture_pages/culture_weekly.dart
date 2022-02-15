@@ -39,7 +39,7 @@ class _weeklyBestPageState extends State<weeklyBestPage> {
 
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: 138,
+          toolbarHeight: height * 0.15,
           leading: IconButton(
             icon: ImageIcon(
               AssetImage('assets/Vector(진한녹색).png'),
@@ -61,100 +61,110 @@ class _weeklyBestPageState extends State<weeklyBestPage> {
           centerTitle: true,
           elevation: 0.5,
         ),
-        body: Container(
-            child: StreamBuilder<QuerySnapshot>(
-                stream: like,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Text('오류 발생');
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Text('로딩중');
-                  }
-                  List<ActPost> actPosts = [];
-                  for (var value in snapshot.data!.docs) {
-                    ActPost actPost =
-                        ActPost.fromJson(value.data() as Map<String, dynamic>);
-                    actPosts.add(actPost);
-                  }
-                  return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemCount: actPosts.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        ActPost actPost = actPosts.elementAt(index);
-                        return Center(
-                          child: Column(
-                            children: [
-                              Stack(
-                                children: [
-                                  Ink(
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                actPost.imgList[0]),
-                                            fit: BoxFit.cover),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20))),
-                                    child: InkWell(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
-                                      onTap: () {},
-                                      child: Container(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        height: height * 0.6,
-                                        width: width * 1,
-                                        decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: Colors.grey),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 40,
+                ),
+                StreamBuilder<QuerySnapshot>(
+                    stream: like,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text('오류 발생');
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Text('로딩중');
+                      }
+                      List<ActPost> actPosts = [];
+                      for (var value in snapshot.data!.docs) {
+                        ActPost actPost = ActPost.fromJson(
+                            value.data() as Map<String, dynamic>);
+                        actPosts.add(actPost);
+                      }
+                      return CarouselSlider.builder(
+                          options: CarouselOptions(
+                              height: height * 0.6,
+                              enlargeCenterPage: true,
+                              enableInfiniteScroll: false,
+                              enlargeStrategy: CenterPageEnlargeStrategy.scale),
+                          itemCount: actPosts.length,
+                          itemBuilder:
+                              (BuildContext context, int index, realIndex) {
+                            ActPost actPost = actPosts.elementAt(index);
+                            return Column(
+                              children: [
+                                Stack(
+                                  children: [
+                                    Ink(
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  actPost.imgList[0]),
+                                              fit: BoxFit.cover),
                                           borderRadius: BorderRadius.all(
-                                              Radius.circular(20)),
+                                              Radius.circular(20))),
+                                      child: InkWell(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)),
+                                        onTap: () {},
+                                        child: Container(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          height: height * 0.5,
+                                          width: width * 0.9,
+                                          decoration: BoxDecoration(
+                                            border:
+                                                Border.all(color: Colors.grey),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20)),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Positioned(
-                                      bottom: 10,
-                                      right: 10,
-                                      child: IconButton(
-                                          onPressed: () {
-                                            Get.to(() => Weekly(),
-                                                arguments: actPost.postKey);
-                                          },
-                                          icon: Image(
-                                            image: AssetImage('assets/확대.png'),
-                                          )))
-                                ],
-                              ),
-                              SizedBox(
-                                height: 40,
-                              ),
-                              Container(
-                                width: 110,
-                                height: 41,
-                                child: OutlinedButton(
-                                  style: OutlinedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(26.5)),
-                                    side: BorderSide(
-                                        width: 2.0, color: Colors.green),
-                                  ),
-                                  child: Text(
-                                    '인증하러 가기',
-                                    style: TextStyle(
-                                        color: Color(0xff595959), fontSize: 13),
-                                  ),
-                                  onPressed: () {
-                                    Get.to(actConfirmPage());
-                                  },
+                                    Positioned(
+                                        bottom: 10,
+                                        right: 10,
+                                        child: IconButton(
+                                            onPressed: () {
+                                              Get.to(() => Weekly(),
+                                                  arguments: actPost.postKey);
+                                            },
+                                            icon: Image(
+                                              image:
+                                                  AssetImage('assets/확대.png'),
+                                            )))
+                                  ],
                                 ),
-                              )
-                            ],
-                          ),
-                        );
-                      });
-                })));
+                              ],
+                            );
+                          });
+                    }),
+                SizedBox(
+                  height: 24,
+                ),
+                SizedBox(
+                  width: 110,
+                  height: height * 0.05,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(26.5)),
+                      side: BorderSide(width: 2.0, color: Colors.green),
+                    ),
+                    child: Text(
+                      '인증하러 가기',
+                      style: TextStyle(color: Color(0xff595959), fontSize: 13),
+                    ),
+                    onPressed: () {
+                      Get.to(actConfirmPage());
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+        ));
   }
 }

@@ -33,7 +33,7 @@ class _accessSearchPageState extends State<accessSearchPage> {
 
     Stream<QuerySnapshot> SearchResults = FirebaseFirestore.instance
         .collection('shops')
-        .where('name', isEqualTo: _str)
+        .where('name', isLessThanOrEqualTo: _str)
         .snapshots();
     final CartController c = Get.put(CartController());
     final Stream<QuerySnapshot> _shopStream =
@@ -118,7 +118,7 @@ class _accessSearchPageState extends State<accessSearchPage> {
                               color: Color.fromRGBO(162, 191, 98, 1),
                               size: width * 0.036,
                             )),
-                        hintText: '상품검색',
+                        hintText: '상점검색',
                         hintStyle: TextStyle(
                             fontSize: width * 0.029,
                             color: Color.fromRGBO(162, 191, 98, 0.5)),
@@ -211,7 +211,7 @@ class ShopResult extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => thingsShopIntroducePage(
-                                    eachShop.name, eachShop.image, products)));
+                                    eachShop, products)));
                       },
                       child: ListTile(
                         leading: CircleAvatar(

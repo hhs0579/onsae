@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/screens/access_pages/accessSearch.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 
@@ -59,6 +60,19 @@ local_Stack(where, whereInEnglish, whichPicture, onTap, height, width) {
 
 class _localSelectPageState extends State<localSelectPage> {
   final CartController c = Get.put(CartController());
+  String str = '';
+  final _searchController = TextEditingController();
+  controlSearching(search) {
+    print(search);
+    setState(() {
+      str = search;
+    });
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => accessSearchPage(_searchController.text)));
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -76,7 +90,9 @@ class _localSelectPageState extends State<localSelectPage> {
                 SizedBox(
                   width: width * 0.8,
                   height: height * 0.0541,
-                  child: TextField(
+                  child: TextFormField(
+                    controller: _searchController,
+                    onFieldSubmitted: controlSearching,
                     style: TextStyle(fontSize: 11),
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -92,7 +108,7 @@ class _localSelectPageState extends State<localSelectPage> {
                               color: Color.fromRGBO(162, 191, 98, 1),
                               size: width * 0.04,
                             )),
-                        hintText: '상품검색',
+                        hintText: '상점검색',
                         hintStyle: TextStyle(
                             fontSize: 14,
                             color: Color.fromRGBO(162, 191, 98, 0.5)),

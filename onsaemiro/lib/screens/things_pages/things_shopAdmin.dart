@@ -83,7 +83,7 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
                               color: Color.fromRGBO(162, 191, 98, 1),
                               size: width * 0.036,
                             )),
-                        hintText: '상품검색',
+                        hintText: '상점검색',
                         hintStyle: TextStyle(
                             fontSize: width * 0.029,
                             color: Color.fromRGBO(162, 191, 98, 0.5)),
@@ -264,8 +264,7 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     thingsShopIntroducePage(
-                                                        Shops[index].name,
-                                                        Shops[index].image,
+                                                        Shops[index],
                                                         products)));
                                       },
                                       child: Container(
@@ -365,8 +364,7 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     thingsShopIntroducePage(
-                                                        Shops[index].name,
-                                                        Shops[index].image,
+                                                        Shops[index],
                                                         products)));
                                       },
                                       child: Container(
@@ -466,8 +464,7 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     thingsShopIntroducePage(
-                                                        Shops[index].name,
-                                                        Shops[index].image,
+                                                        Shops[index],
                                                         products)));
                                       },
                                       child: Container(
