@@ -7,6 +7,7 @@ import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/Root.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller.dart';
+import 'package:onsaemiro/screens/things_pages/thingsSearch.dart';
 import 'package:onsaemiro/screens/things_pages/thingsShop_introduce.dart';
 import 'package:onsaemiro/screens/things_pages/things_information.dart';
 
@@ -34,6 +35,19 @@ class _thingsShopPageState extends State<thingsShopPage> {
   bool isClothings = false;
   bool isLife = false;
   bool isFood = true;
+  String str = '';
+  final _searchController = TextEditingController();
+  controlSearching(search) {
+    print(search);
+    setState(() {
+      str = search;
+    });
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => thingsSearchPage(_searchController.text)));
+  }
+
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _shopStream =
@@ -57,7 +71,9 @@ class _thingsShopPageState extends State<thingsShopPage> {
                   Container(
                     width: width * 0.8,
                     height: height * 0.0381,
-                    child: TextField(
+                    child: TextFormField(
+                      controller: _searchController,
+                      onFieldSubmitted: controlSearching,
                       style: TextStyle(fontSize: width * 0.029),
                       decoration: InputDecoration(
                           border: InputBorder.none,
@@ -68,7 +84,13 @@ class _thingsShopPageState extends State<thingsShopPage> {
                           prefixIcon: IconButton(
                               padding: EdgeInsets.symmetric(
                                   vertical: height * 0.008, horizontal: 11),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => thingsSearchPage(
+                                            _searchController.text)));
+                              },
                               icon: Icon(
                                 Icons.search,
                                 color: Color.fromRGBO(162, 191, 98, 1),
@@ -208,7 +230,9 @@ class _thingsShopPageState extends State<thingsShopPage> {
                         for (var element in snapshot.data!.docs) {
                           Shop shopModel = Shop.fromJson(
                               element.data() as Map<String, dynamic>);
-                          Shops.add(shopModel);
+                          if (shopModel.isaccess == true) {
+                            Shops.add(shopModel);
+                          }
                         }
 
                         return SizedBox(

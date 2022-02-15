@@ -214,8 +214,10 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
                 for (var element in snapshot.data!.docs) {
                   Shop shopModel =
                       Shop.fromJson(element.data() as Map<String, dynamic>);
-                  Shops.add(shopModel);
-                  print(Shops[0].name);
+                  if (shopModel.isaccess == true && shopModel.type == '음식') {
+                    Shops.add(shopModel);
+                    print(Shops[0].name);
+                  }
                 }
 
                 return SizedBox(

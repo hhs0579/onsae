@@ -59,7 +59,7 @@ class _StoreOpenState extends State<StoreOpen> {
   var life = false;
   var food = false;
   var vegan = false;
-  List<dynamic> select = [];
+  String select = '';
   Imageservice imageservice = Imageservice();
   String urls = '';
   XFile? _image;
@@ -199,7 +199,7 @@ class _StoreOpenState extends State<StoreOpen> {
                       onChanged: (value) {
                         setState(() {
                           vegan = value!;
-                          return select.add('비건');
+                          select == '비건';
                         });
                       },
                     ),
@@ -213,7 +213,7 @@ class _StoreOpenState extends State<StoreOpen> {
                       onChanged: (value) {
                         setState(() {
                           food = value!;
-                          return select.add('음식');
+                          select == '음식';
                         });
                       },
                     ),
@@ -227,7 +227,7 @@ class _StoreOpenState extends State<StoreOpen> {
                       onChanged: (value) {
                         setState(() {
                           clothing = value!;
-                          return select.add('의류');
+                          select == '의류';
                         });
                       },
                     ),
@@ -241,7 +241,7 @@ class _StoreOpenState extends State<StoreOpen> {
                       onChanged: (value) {
                         setState(() {
                           life = value!;
-                          return select.add('건강');
+                          select == '건강';
                         });
                       },
                     ),
@@ -575,7 +575,7 @@ class _StoreOpenState extends State<StoreOpen> {
                             'StoreBenefitInfo': benefitinfo.text,
                             'docId': key,
                             'image': urls,
-                            'select': select
+                            'type': select
                           });
 
                           fireStore
