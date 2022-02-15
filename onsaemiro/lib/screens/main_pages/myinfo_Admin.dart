@@ -7,6 +7,7 @@ import 'package:onsaemiro/classes/toast_message.dart';
 import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/repo/image_service.dart';
 import 'package:onsaemiro/screens/main_pages/Root.dart';
+import 'package:onsaemiro/repo/image_service.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
 import 'package:onsaemiro/screens/main_pages/edit_info.dart';

@@ -107,9 +107,8 @@ class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
                                                 as Map<String, dynamic>);
                                         products.add(productModel);
                                       }
-                                      return StoreBox(
-                                          height, width, shop.name, shop.image,
-                                          () {
+                                      return StoreBox(height, width, shop.name,
+                                          shop.image, shop.isaccess, () {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -146,7 +145,14 @@ class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
   }
 }
 
-Widget StoreBox(height, width, name, image, func1) {
+Widget StoreBox(
+  height,
+  width,
+  name,
+  image,
+  bool isaccess,
+  func1,
+) {
   return Padding(
     padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
     child: Container(
@@ -183,23 +189,26 @@ Widget StoreBox(height, width, name, image, func1) {
               SizedBox(
                 height: height * 0.0123,
               ),
-              TextButton(
-                onPressed: func1,
-                child: Container(
-                  width: width * 0.20,
-                  height: height * 0.031,
-                  decoration: BoxDecoration(
-                      color: Color.fromRGBO(108, 205, 108, 0.5),
-                      border:
-                          Border.all(color: Color.fromRGBO(108, 205, 108, 1)),
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Text(
-                    '상품 등록하기',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black),
+              if (isaccess == true)
+                TextButton(
+                  onPressed: func1,
+                  child: Container(
+                    width: width * 0.20,
+                    height: height * 0.031,
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(108, 205, 108, 0.5),
+                        border:
+                            Border.all(color: Color.fromRGBO(108, 205, 108, 1)),
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Text(
+                      '상품 등록하기',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
-                ),
-              )
+                )
+              else
+                Text('승인 대기중')
             ],
           ),
         ],

@@ -11,13 +11,12 @@ AuthController authController = AuthController();
 class AuthController {
   Future authUser(String email, String password, String userType) async {
     try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       if (await databaseController.hasMatchTypeEmail(email, userType) == true) {
-        UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
-
         await saveLocalStorageToEmail(userCredential, userType);
         String? pushToken = await getToken();
         if (pushToken != null) {
@@ -46,7 +45,11 @@ class AuthController {
       } else {
         return toastMessage(e.code.toString());
       }
+    } catch (e) {
+      print(e);
+      toastMessage('잘못된 로그인 정보입니다.');
     }
+
     return null;
   }
 

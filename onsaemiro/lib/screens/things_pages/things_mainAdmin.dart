@@ -8,6 +8,7 @@ import 'package:onsaemiro/screens/main_pages/access_Admin.dart';
 import 'package:onsaemiro/screens/main_pages/access_main.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 import 'package:onsaemiro/screens/main_pages/culture_main.dart';
+import 'package:onsaemiro/screens/things_pages/thingsSearch.dart';
 import 'package:onsaemiro/screens/things_pages/things_shop.dart';
 import 'package:onsaemiro/screens/things_pages/things_shopAdmin.dart';
 
@@ -20,6 +21,19 @@ class thingsMainAdminPage extends StatefulWidget {
 
 class _thingsMainAdminPageState extends State<thingsMainAdminPage> {
   final CartController c = Get.put(CartController());
+  String str = '';
+  final _searchController = TextEditingController();
+  controlSearching(search) {
+    print(search);
+    setState(() {
+      str = search;
+    });
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => thingsSearchPage(_searchController.text)));
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -45,7 +59,9 @@ class _thingsMainAdminPageState extends State<thingsMainAdminPage> {
         title: Container(
           width: double.infinity,
           height: height * 0.038,
-          child: TextField(
+          child: TextFormField(
+            controller: _searchController,
+            onFieldSubmitted: controlSearching,
             style: TextStyle(fontSize: width * 0.029),
             decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(vertical: height * 0.008),
