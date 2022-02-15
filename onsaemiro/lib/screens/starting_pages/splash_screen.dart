@@ -59,21 +59,21 @@ class _SplashScreenState extends State<SplashScreen> {
         }
         Get.off(() => Root());
       } else if (userPhone != '') {
+        appData.userPhone = userPhone!;
+        appData.userType = userType!;
         if (appData.userType == 'user') {
-          appData.userPhone = userPhone!;
           await databaseController.fetchMyInfoToPhoneUser(userPhone);
           String? pushToken = await authController.getToken();
           if (pushToken != null) {
             databaseController.updatePushTokenToPhone(
-                phone: userPhone, pushToken: pushToken, userType: userType!);
+                phone: userPhone, pushToken: pushToken, userType: userType);
           }
         } else if (appData.userType == 'business') {
-          appData.userPhone = userPhone!;
           await databaseController.fetchMyInfoToPhoneBusiness(userPhone);
           String? pushToken = await authController.getToken();
           if (pushToken != null) {
             databaseController.updatePushTokenToPhone(
-                phone: userPhone, pushToken: pushToken, userType: userType!);
+                phone: userPhone, pushToken: pushToken, userType: userType);
           }
         }
         Get.off(() => Root());

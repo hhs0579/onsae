@@ -150,7 +150,7 @@ Widget StoreBox(
   width,
   name,
   image,
-  bool isaccess,
+  isaccess,
   func1,
 ) {
   return Padding(
@@ -189,7 +189,7 @@ Widget StoreBox(
               SizedBox(
                 height: height * 0.0123,
               ),
-              if (isaccess == true)
+              if (isaccess == '승인완료')
                 TextButton(
                   onPressed: func1,
                   child: Container(
