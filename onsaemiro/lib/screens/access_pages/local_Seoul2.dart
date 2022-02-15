@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/screens/access_pages/shop_introduce.dart';
 import 'package:onsaemiro/screens/access_pages/shop_introduceAdmin.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
@@ -107,9 +108,10 @@ imagestackWidget(height, width, shop, phone, where, insta, image, onTap) {
 
 class _localSeoul2PageState extends State<localSeoul2Page> {
   final CartController c = Get.put(CartController());
-  final Root2Contorller r2 = Get.put(Root2Contorller());
+
   @override
   Widget build(BuildContext context) {
+    AppData appData = Get.find();
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -323,13 +325,13 @@ class _localSeoul2PageState extends State<localSeoul2Page> {
                       child: InkWell(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                         onTap: () {
-                          if (r2.Pressed.value == 1) {
+                          if (appData.userType == 'business') {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         shopIntroduceAdminPage()));
-                          } else if (r2.Pressed.value == 0) {
+                          } else {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

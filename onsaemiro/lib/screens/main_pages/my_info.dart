@@ -328,15 +328,15 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   Get.offAll(() => TypeScreen());
                 }),
                 info_button('사업자 사용자 전환', () {
-                  if (c.Pressed.value == 0) {
-                    Get.to(Root2());
-                    c.Pressed++;
-                    print(c.Pressed.value);
-                  } else if (c.Pressed.value == 1) {
-                    Get.back();
-                    c.Pressed--;
-                    print(c.Pressed.value);
-                  }
+                  // if (c.Pressed.value == 0) {
+                  //   Get.to(Root2());
+                  //   c.Pressed++;
+                  //   print(c.Pressed.value);
+                  // } else if (c.Pressed.value == 1) {
+                  //   Get.back();
+                  //   c.Pressed--;
+                  //   print(c.Pressed.value);
+                  // }
                 }),
               ],
             )

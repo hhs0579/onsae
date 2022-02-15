@@ -146,6 +146,8 @@ class _thingsShopRegiPageState extends State<thingsShopRegiPage> {
   }
 }
 
+
+
 Widget StoreBox(height, width, name, image, func1) {
   return Padding(
     padding: EdgeInsets.fromLTRB(0, 20, 0, 0),

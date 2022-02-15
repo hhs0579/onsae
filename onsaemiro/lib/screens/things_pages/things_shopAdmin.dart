@@ -1,11 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/product/shop.dart';
-import 'package:onsaemiro/screens/access_pages/product_registration.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
+import 'package:onsaemiro/screens/things_pages/thingsSearch.dart';
 import 'package:onsaemiro/screens/things_pages/thingsShopProduct.dart';
 import 'package:onsaemiro/screens/things_pages/thingsShop_introduce.dart';
 
@@ -21,11 +22,24 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
   bool isClothings = false;
   bool isLife = false;
   bool isFood = true;
+  String str = '';
+  final _searchController = TextEditingController();
+  controlSearching(search) {
+    print(search);
+    setState(() {
+      str = search;
+    });
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => thingsSearchPage(_searchController.text)));
+  }
 
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _shopStream =
         FirebaseFirestore.instance.collection('shops').snapshots();
+
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -33,7 +47,6 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
         leadingWidth: 0,
         toolbarHeight: height * 0.2586,
         backgroundColor: Colors.white,
-        actions: [],
         elevation: 0.5,
         title: Column(
           children: [
@@ -45,7 +58,9 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
                 Container(
                   width: width * 0.8,
                   height: height * 0.0381,
-                  child: TextField(
+                  child: TextFormField(
+                    controller: _searchController,
+                    onFieldSubmitted: controlSearching,
                     style: TextStyle(fontSize: width * 0.029),
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -56,7 +71,13 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
                         prefixIcon: IconButton(
                             padding: EdgeInsets.symmetric(
                                 vertical: height * 0.008, horizontal: 11),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => thingsSearchPage(
+                                          _searchController.text)));
+                            },
                             icon: Icon(
                               Icons.search,
                               color: Color.fromRGBO(162, 191, 98, 1),

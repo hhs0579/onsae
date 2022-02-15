@@ -20,6 +20,7 @@ enlargeImage(image) {
 }
 
 class _image1EnlargePageState extends State<image1EnlargePage> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

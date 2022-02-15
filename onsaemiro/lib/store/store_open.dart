@@ -497,7 +497,7 @@ class _StoreOpenState extends State<StoreOpen> {
                             backgroundColor: Colors.lightGreen,
                             fontSize: 12.0);
                       } else {
-                        urls = await imageservice.uploadProductImageToStorage(
+                        urls = await imageservice.uploadShopImageToStorage(
                             storename.text, _image!);
                         setState(() {
                           visibley = true;
