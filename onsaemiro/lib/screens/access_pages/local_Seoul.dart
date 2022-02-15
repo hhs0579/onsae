@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/product/product_list.dart';
+import 'package:onsaemiro/product/shop.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 
@@ -241,84 +243,113 @@ class _localSeoulPageState extends State<localSeoulPage> {
         child: Center(
           child: Column(
             children: [
-              Container(
-                height: height * 0.32,
-                width: 234,
-                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: height * 0.1392,
-                      child: Container(
-                        height: height * 0.14,
-                        width: 234,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              blurRadius: 20,
-                              spreadRadius: 2,
-                            ),
-                          ],
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: height * 0.01970,
-                            ),
-                            Text(
-                              '디어비건베이커리',
-                              style: TextStyle(fontSize: 13),
-                            ),
-                            // SizedBox(
-                            //   height: 6,
-                            // ),
-                            Text(
-                              '02-558-0301',
-                              style: TextStyle(fontSize: 11),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(33, 6, 0, 3),
-                              child: Row(
+              StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('shops')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      print(snapshot.error);
+                      return Center(
+                        child: Text('오류가 발생했습니다.'),
+                      );
+                    }
+                    if (snapshot.data == null) {
+                      return Container();
+                    }
+                    List<Shop> Shops = [];
+                    for (var element in snapshot.data!.docs) {
+                      Shop shopModel =
+                          Shop.fromJson(element.data() as Map<String, dynamic>);
+                      if (shopModel.isaccess == true &&
+                          shopModel.type == '비건') {
+                        Shops.add(shopModel);
+                        print(Shops[0].name);
+                      }
+                    }
+                    return Container(
+                      height: height * 0.32,
+                      width: 234,
+                      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            top: height * 0.1392,
+                            child: Container(
+                              height: height * 0.14,
+                              width: 234,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 20,
+                                    spreadRadius: 2,
+                                  ),
+                                ],
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                              ),
+                              child: Column(
                                 children: [
-                                  Icon(Icons.place, size: 11),
-                                  Text('서울 서초구 강남대로 465',
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 11)),
+                                  SizedBox(
+                                    height: height * 0.01970,
+                                  ),
+                                  Text(
+                                    '디어비건베이커리',
+                                    style: TextStyle(fontSize: 13),
+                                  ),
+                                  // SizedBox(
+                                  //   height: 6,
+                                  // ),
+                                  Text(
+                                    '02-558-0301',
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(33, 6, 0, 3),
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.place, size: 11),
+                                        Text('서울 서초구 강남대로 465',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 11)),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 13),
+                                    child: Text(
+                                      'http://wwww.instagram.com/bo.mool_vegan',
+                                      style: TextStyle(fontSize: 8),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(0, 0, 0, 13),
-                              child: Text(
-                                'http://wwww.instagram.com/bo.mool_vegan',
-                                style: TextStyle(fontSize: 8),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Ink(
-                      height: height * 0.2032,
-                      width: 234,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/핫케이크.png'),
-                            fit: BoxFit.cover,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                      child: InkWell(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        onTap: () {},
+                          Ink(
+                            height: height * 0.2032,
+                            width: 234,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('assets/핫케이크.png'),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                            child: InkWell(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              onTap: () {},
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              ),
+                    );
+                  }),
               SizedBox(
                 height: height * 0.05,
               ),

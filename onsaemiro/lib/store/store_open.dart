@@ -36,7 +36,7 @@ class _StoreOpenState extends State<StoreOpen> {
   var life = false;
   var food = false;
   var vegan = false;
-  List<dynamic> select = [];
+  String select = '';
   Imageservice imageservice = Imageservice();
   String urls = '';
   String businessurls = '';
@@ -229,52 +229,60 @@ class _StoreOpenState extends State<StoreOpen> {
                         color: Color(0xff6CCD6C),
                         fontWeight: FontWeight.bold,
                       )),
-                  Checkbox(
-                    activeColor: Colors.lightGreen,
-                    checkColor: Colors.white,
-                    value: vegan,
-                    onChanged: (value) {
-                      setState(() {
-                        vegan = value!;
-                        return select.add('비건');
-                      });
-                    },
+                  Container(
+                    child: Checkbox(
+                      activeColor: Colors.lightGreen,
+                      checkColor: Colors.white,
+                      value: vegan,
+                      onChanged: (value) {
+                        setState(() {
+                          vegan = value!;
+                          select == '비건';
+                        });
+                      },
+                    ),
                   ),
-                  Text('비건'),
-                  Checkbox(
-                    activeColor: Colors.lightGreen,
-                    checkColor: Colors.white,
-                    value: food,
-                    onChanged: (value) {
-                      setState(() {
-                        food = value!;
-                        return select.add('음식');
-                      });
-                    },
+                  Container(child: Text('비건')),
+                  Container(
+                    child: Checkbox(
+                      activeColor: Colors.lightGreen,
+                      checkColor: Colors.white,
+                      value: food,
+                      onChanged: (value) {
+                        setState(() {
+                          food = value!;
+                          select == '음식';
+                        });
+                      },
+                    ),
                   ),
-                  Text('음식'),
-                  Checkbox(
-                    activeColor: Colors.lightGreen,
-                    checkColor: Colors.white,
-                    value: clothing,
-                    onChanged: (value) {
-                      setState(() {
-                        clothing = value!;
-                        return select.add('의류');
-                      });
-                    },
+                  Container(child: Text('음식')),
+                  Container(
+                    child: Checkbox(
+                      activeColor: Colors.lightGreen,
+                      checkColor: Colors.white,
+                      value: clothing,
+                      onChanged: (value) {
+                        setState(() {
+                          clothing = value!;
+                          select == '의류';
+                        });
+                      },
+                    ),
                   ),
-                  Text('의류'),
-                  Checkbox(
-                    activeColor: Colors.lightGreen,
-                    checkColor: Colors.white,
-                    value: life,
-                    onChanged: (value) {
-                      setState(() {
-                        life = value!;
-                        return select.add('건강');
-                      });
-                    },
+                  Container(child: Text('의류')),
+                  Container(
+                    child: Checkbox(
+                      activeColor: Colors.lightGreen,
+                      checkColor: Colors.white,
+                      value: life,
+                      onChanged: (value) {
+                        setState(() {
+                          life = value!;
+                          select == '건강';
+                        });
+                      },
+                    ),
                   ),
                   Text('건강')
                 ],
@@ -578,8 +586,8 @@ class _StoreOpenState extends State<StoreOpen> {
                             'StoreBenefitInfo': benefitinfo.text,
                             'docId': key,
                             'image': urls,
-                            'businessimage': businessurls,
-                            'select': select
+                            'businessimage': businessimage,
+                            'type': select
                           });
 
                           fireStore
