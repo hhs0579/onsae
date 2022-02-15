@@ -19,6 +19,7 @@ class thingsMainPage extends StatefulWidget {
 
 class _thingsMainPageState extends State<thingsMainPage> {
   final CartController c = Get.put(CartController());
+  
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
