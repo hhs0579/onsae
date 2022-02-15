@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kpostal/kpostal.dart';
 import 'package:onsaemiro/data/appdata.dart';
-import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/repo/image_service.dart';
-import 'package:onsaemiro/screens/main_pages/culture_main.dart';
-import 'package:onsaemiro/screens/main_pages/myinfo_Admin.dart';
 import 'package:onsaemiro/screens/things_pages/thingsShopProduct.dart';
 import 'package:random_string/random_string.dart';
 
@@ -21,6 +17,29 @@ class StoreOpen extends StatefulWidget {
   @override
   _StoreOpenState createState() => _StoreOpenState();
 }
+
+var key = randomString(16);
+FirebaseFirestore fireStore = FirebaseFirestore.instance;
+final FirebaseAuth auth = FirebaseAuth.instance;
+final storename = TextEditingController();
+final _postTextEditor = TextEditingController();
+final _addressTextEditor = TextEditingController();
+final _deaddressTextEditor = TextEditingController();
+final storeinfo = TextEditingController();
+final salesinfo = TextEditingController();
+final benefitinfo = TextEditingController();
+String address = '';
+String postcode = '';
+final deaddressFocusNode = FocusNode();
+var clothing = false;
+var life = false;
+var food = false;
+var vegan = false;
+List<dynamic> select = [];
+String urls = '';
+XFile? _image;
+final _picker = ImagePicker();
+var visibley = false;
 
 class _StoreOpenState extends State<StoreOpen> {
   var key = randomString(16);
@@ -40,8 +59,8 @@ class _StoreOpenState extends State<StoreOpen> {
   var life = false;
   var food = false;
   var vegan = false;
-  List<dynamic> select = [];
-
+  String select = '';
+  Imageservice imageservice = Imageservice();
   String urls = '';
   XFile? _image;
   final _picker = ImagePicker();
@@ -180,7 +199,7 @@ class _StoreOpenState extends State<StoreOpen> {
                       onChanged: (value) {
                         setState(() {
                           vegan = value!;
-                          return select.add('비건');
+                          select == '비건';
                         });
                       },
                     ),
@@ -194,7 +213,7 @@ class _StoreOpenState extends State<StoreOpen> {
                       onChanged: (value) {
                         setState(() {
                           food = value!;
-                          return select.add('음식');
+                          select = '음식';
                         });
                       },
                     ),
@@ -208,7 +227,7 @@ class _StoreOpenState extends State<StoreOpen> {
                       onChanged: (value) {
                         setState(() {
                           clothing = value!;
-                          return select.add('의류');
+                          select = '의류';
                         });
                       },
                     ),
@@ -222,7 +241,7 @@ class _StoreOpenState extends State<StoreOpen> {
                       onChanged: (value) {
                         setState(() {
                           life = value!;
-                          return select.add('건강');
+                          select = '건강';
                         });
                       },
                     ),
@@ -478,7 +497,7 @@ class _StoreOpenState extends State<StoreOpen> {
                             backgroundColor: Colors.lightGreen,
                             fontSize: 12.0);
                       } else {
-                        urls = await imageservice.uploadProductImageToStorage(
+                        urls = await imageservice.uploadShopImageToStorage(
                             storename.text, _image!);
                         setState(() {
                           visibley = true;
@@ -556,7 +575,7 @@ class _StoreOpenState extends State<StoreOpen> {
                             'StoreBenefitInfo': benefitinfo.text,
                             'docId': key,
                             'image': urls,
-                            'select': select
+                            'type': select
                           });
 
                           fireStore

@@ -8,16 +8,16 @@ import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 import 'package:onsaemiro/screens/things_pages/thingsShop_introduce.dart';
 
-class thingsSearchPage extends StatefulWidget {
+class accessSearchPage extends StatefulWidget {
   String str;
-  thingsSearchPage(this.str);
+  accessSearchPage(this.str);
   @override
-  _thingsSearchPageState createState() => _thingsSearchPageState(this.str);
+  _accessSearchPageState createState() => _accessSearchPageState(this.str);
 }
 
-class _thingsSearchPageState extends State<thingsSearchPage> {
+class _accessSearchPageState extends State<accessSearchPage> {
   String _str;
-  _thingsSearchPageState(this._str);
+  _accessSearchPageState(this._str);
   final _searchController = TextEditingController();
 
   final shopReference = FirebaseFirestore.instance.collection('shops');
@@ -59,12 +59,10 @@ class _thingsSearchPageState extends State<thingsSearchPage> {
           List<ShopResult> searchShopResult = [];
           for (var element in snapshot.data!.docs) {
             Shop shop = Shop.fromJson(element.data() as Map<String, dynamic>);
-            if (shop.isaccess == true) {
-              if (shop.type == '건강' || shop.type == '음식' || shop.type == '의류') {
-                ShopResult shopResult = ShopResult(shop);
-                print(shop.name);
-                searchShopResult.add(shopResult);
-              }
+            if (shop.isaccess == true && shop.type == '비건') {
+              ShopResult shopResult = ShopResult(shop);
+              print(shop.name);
+              searchShopResult.add(shopResult);
             }
           }
           if (searchShopResult.isEmpty) {
