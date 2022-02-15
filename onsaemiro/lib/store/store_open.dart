@@ -45,116 +45,130 @@ class _StoreOpenState extends State<StoreOpen> {
   XFile? _businessimage;
   final _picker = ImagePicker();
   var visibley = false;
+
+  void initState() {
+    setState(() {
+      storename.text = '';
+      _postTextEditor.text = '';
+      _addressTextEditor.text = '';
+      _deaddressTextEditor.text = '';
+      storeinfo.text = '';
+      salesinfo.text = '';
+      benefitinfo.text = '';
+      urls = '';
+      businessurls = '';
+      select = '';
+    });
+    super.initState();
+  }
+
+  Future _getProductImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (image != null) {
+        _storeimage = image;
+      }
+    });
+  }
+
+  Future _getBusinessImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (image != null) {
+        _businessimage = image;
+      }
+    });
+  }
+
+  productimage() {
+    return Flexible(
+        fit: FlexFit.loose,
+        child: _storeimage == null
+            ? ElevatedButton(
+                onPressed: () {
+                  _getProductImage();
+                },
+                child: Container(
+                  width: 120,
+                  height: 120,
+                  color: Color(0xffd6d6d6),
+                  child: Icon(
+                    Icons.image,
+                    color: Colors.white,
+                    size: 50,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.transparent,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder()),
+              )
+            : ElevatedButton(
+                onPressed: () {
+                  _getProductImage();
+                },
+                child: Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.lightGreen),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: FileImage(File(_storeimage!.path))))),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.transparent,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder()),
+              ));
+  }
+
+  businessimage() {
+    return Flexible(
+        fit: FlexFit.loose,
+        child: _businessimage == null
+            ? ElevatedButton(
+                onPressed: () {
+                  _getBusinessImage();
+                },
+                child: Container(
+                  width: 120,
+                  height: 120,
+                  color: Color(0xffd6d6d6),
+                  child: Icon(
+                    Icons.image,
+                    color: Colors.white,
+                    size: 50,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.transparent,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder()),
+              )
+            : ElevatedButton(
+                onPressed: () {
+                  _getBusinessImage();
+                },
+                child: Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.lightGreen),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: FileImage(File(_businessimage!.path))))),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.transparent,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder()),
+              ));
+  }
+
   @override
   Widget build(BuildContext context) {
-    AppData appdata = Get.find();
-
-    Future _getProductImage() async {
-      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-      setState(() {
-        if (image != null) {
-          _storeimage = image;
-        }
-      });
-    }
-
-    Future _getBusinessImage() async {
-      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-      setState(() {
-        if (image != null) {
-          _businessimage = image;
-        }
-      });
-    }
-
-    productimage() {
-      return Flexible(
-          fit: FlexFit.loose,
-          child: _storeimage == null
-              ? ElevatedButton(
-                  onPressed: () {
-                    _getProductImage();
-                  },
-                  child: Container(
-                    width: 120,
-                    height: 120,
-                    color: Color(0xffd6d6d6),
-                    child: Icon(
-                      Icons.image,
-                      color: Colors.white,
-                      size: 50,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder()),
-                )
-              : ElevatedButton(
-                  onPressed: () {
-                    _getProductImage();
-                  },
-                  child: Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                          border:
-                              Border.all(width: 1, color: Colors.lightGreen),
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: FileImage(File(_storeimage!.path))))),
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder()),
-                ));
-    }
-
-    businessimage() {
-      return Flexible(
-          fit: FlexFit.loose,
-          child: _businessimage == null
-              ? ElevatedButton(
-                  onPressed: () {
-                    _getBusinessImage();
-                  },
-                  child: Container(
-                    width: 120,
-                    height: 120,
-                    color: Color(0xffd6d6d6),
-                    child: Icon(
-                      Icons.image,
-                      color: Colors.white,
-                      size: 50,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder()),
-                )
-              : ElevatedButton(
-                  onPressed: () {
-                    _getBusinessImage();
-                  },
-                  child: Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                          border:
-                              Border.all(width: 1, color: Colors.lightGreen),
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: FileImage(File(_businessimage!.path))))),
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder()),
-                ));
-    }
-
+    setState(() {});
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return GetBuilder(builder: (AppData appdata) {
@@ -545,6 +559,7 @@ class _StoreOpenState extends State<StoreOpen> {
                         width: width * 0.9,
                         child: TextButton(
                             onPressed: () async {
+                              FocusScope.of(context).unfocus();
                               if (_storeimage == null ||
                                   _businessimage == null) {
                                 toastMessage("사진을 선택해주세요.");
@@ -576,6 +591,7 @@ class _StoreOpenState extends State<StoreOpen> {
                         width: width * 0.9,
                         child: TextButton(
                             onPressed: () async {
+                              FocusScope.of(context).unfocus();
                               if (storename.text == "") {
                                 toastMessage("상점 이름을 입력해주세요.");
                               } else if (_addressTextEditor.text == "") {
