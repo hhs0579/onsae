@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class passwordDuplicationPage extends StatefulWidget {
   const passwordDuplicationPage({Key? key}) : super(key: key);

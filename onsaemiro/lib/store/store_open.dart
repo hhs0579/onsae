@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kpostal/kpostal.dart';
 import 'package:onsaemiro/data/appdata.dart';
-import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/repo/image_service.dart';
-import 'package:onsaemiro/screens/main_pages/culture_main.dart';
-import 'package:onsaemiro/screens/main_pages/myinfo_Admin.dart';
 import 'package:onsaemiro/screens/things_pages/thingsShopProduct.dart';
 import 'package:random_string/random_string.dart';
 
@@ -40,7 +36,6 @@ var life = false;
 var food = false;
 var vegan = false;
 List<dynamic> select = [];
-Imageservice imageservice = Imageservice();
 String urls = '';
 XFile? _image;
 final _picker = ImagePicker();

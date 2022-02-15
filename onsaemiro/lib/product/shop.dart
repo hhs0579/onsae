@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:onsaemiro/product/product_list.dart';
-
 class Shop {
   late String name;
   late String image;
@@ -15,9 +12,6 @@ class Shop {
         image = json['image'],
         docId = json['docId'];
 
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'image': image,
-        'docId':docId
-      };
+  Map<String, dynamic> toJson() =>
+      {'name': name, 'image': image, 'docId': docId};
 }

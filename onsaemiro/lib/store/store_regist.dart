@@ -18,7 +18,6 @@ class StoreRegist extends StatefulWidget {
       _StoreRegistState(this.shopName, this.shopDocId);
 }
 
-Imageservice imageservice = Imageservice();
 var visibley = false;
 var key = randomString(16);
 
