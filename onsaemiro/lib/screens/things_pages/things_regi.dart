@@ -3,7 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/screens/access_pages/product_confirm.dart';
-import 'package:onsaemiro/screens/main_pages/edit_info.dart';
+import 'package:onsaemiro/screens/main_pages/myinfo_sub/edit_info.dart';
 import 'package:onsaemiro/store/store_regist.dart';
 
 Widget StoreBox(width, height, name, image, func1) {

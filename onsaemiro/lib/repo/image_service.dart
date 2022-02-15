@@ -50,9 +50,9 @@ class Imageservice {
     return downloadURL;
   }
 
-  Future<String> uploadShopImageToStorage(String name, XFile result) async {
+  Future<String> uploadBusinessImageToStorage(String name, XFile result) async {
     File image = File(result.path);
-    Reference storageReference = firebaseStorage.ref().child("shops/$name");
+    Reference storageReference = firebaseStorage.ref().child("Business/$name");
 
     final File resultImage = await compute(getResizedProfileImage, image);
 

@@ -3,10 +3,14 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/classes/toast_message.dart';
 import 'package:onsaemiro/data/appdata.dart';
+import 'package:onsaemiro/models/business_model.dart';
+import 'package:onsaemiro/models/user_model.dart';
 import 'package:onsaemiro/screens/main_pages/controller/database_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/local_storage_controller.dart';
 
 AuthController authController = AuthController();
+
+AppData appdata = Get.find();
 
 class AuthController {
   Future authUser(String email, String password, String userType) async {
@@ -75,12 +79,44 @@ class AuthController {
       appData.businessmodel.phone = appData.userPhone;
     }
 
-    localStorageController.setUserPhone(appData.userPhone);
+    localStorageController.setUserPhone(phone);
     localStorageController.setUserType(userType);
   }
 
   Future<void> handleSignOut() async {
-    await localStorageController.setUserType('');
+    appdata.usermodel = Usermodel(
+        date: DateTime.now(),
+        email: '',
+        image: '',
+        name: '',
+        nickname: '',
+        password: '',
+        phone: '',
+        address: '',
+        addressdetail: '',
+        myposts: [],
+        mypayment: [],
+        mybasket: [],
+        like: 0,
+        pushToken: '',
+        birth: '',
+        uid: '',
+        usertype: '');
+    appdata.businessmodel = BusinessModel(
+        date: DateTime.now(),
+        email: '',
+        image: '',
+        name: '',
+        nickname: '',
+        password: '',
+        phone: '',
+        address: '',
+        addressdetail: '',
+        mystore: [],
+        pushToken: '',
+        birth: '',
+        uid: '',
+        usertype: '');
     await localStorageController.setUserEmail('');
     await FirebaseAuth.instance.signOut();
   }

@@ -4,8 +4,8 @@ import 'package:onsaemiro/screens/main_pages/access_Admin.dart';
 import 'package:onsaemiro/screens/main_pages/access_main.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
 import 'package:onsaemiro/screens/main_pages/culture_main.dart';
-import 'package:onsaemiro/screens/main_pages/my_info.dart';
-import 'package:onsaemiro/screens/main_pages/myinfo_Admin.dart';
+import 'package:onsaemiro/screens/main_pages/myinfo_pages/my_info.dart';
+import 'package:onsaemiro/screens/main_pages/myinfo_pages/myinfo_Admin.dart';
 import 'package:onsaemiro/screens/main_pages/things_main.dart';
 import 'package:onsaemiro/screens/things_pages/things_mainAdmin.dart';
 

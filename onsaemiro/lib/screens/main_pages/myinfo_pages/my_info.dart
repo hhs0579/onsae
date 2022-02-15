@@ -6,15 +6,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:onsaemiro/classes/toast_message.dart';
 import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/repo/image_service.dart';
-import 'package:onsaemiro/screens/main_pages/Root.dart';
-import 'package:onsaemiro/repo/image_service.dart';
+import 'package:onsaemiro/screens/main_pages/Root2.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
-import 'package:onsaemiro/screens/main_pages/edit_info.dart';
+import 'package:onsaemiro/screens/main_pages/myinfo_sub/edit_info.dart';
+import 'package:onsaemiro/screens/main_pages/myinfo_sub/product_comment.dart';
+import 'package:onsaemiro/screens/main_pages/myinfo_sub/store_comment.dart';
 import 'package:onsaemiro/screens/starting_pages/type_screen.dart';
-import 'package:onsaemiro/screens/things_pages/thingsShopProduct.dart';
-import 'package:onsaemiro/store/store_open.dart';
-import 'package:onsaemiro/store/store_regist.dart';
 
 _connectbutton(text, width, height, onPressed) {
   return Container(
@@ -108,23 +106,23 @@ info_button(text, onPressed) {
   );
 }
 
-class MyInfoAdmin extends StatefulWidget {
-  const MyInfoAdmin({Key? key}) : super(key: key);
+class MyInfoPage extends StatefulWidget {
+  const MyInfoPage({Key? key}) : super(key: key);
 
   @override
-  _MyInfoAdminState createState() => _MyInfoAdminState();
+  _MyInfoPageState createState() => _MyInfoPageState();
 }
 
-class _MyInfoAdminState extends State<MyInfoAdmin> {
-  Imageservice imageservice = Imageservice();
+class _MyInfoPageState extends State<MyInfoPage> {
   String resultURL = '';
   AppData appdata = Get.find();
   final _picker = ImagePicker();
-  final Root2Contorller c = Get.put(Root2Contorller());
 
   @override
   void initState() {
-    resultURL = appdata.businessmodel.image;
+    setState(() {});
+    resultURL = appdata.usermodel.image;
+
     super.initState();
   }
 
@@ -190,10 +188,12 @@ class _MyInfoAdminState extends State<MyInfoAdmin> {
                 backgroundImage: NetworkImage(resultURL)));
   }
 
+  final Root2Contorller c = Get.put(Root2Contorller());
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+    AppData appdata = Get.find();
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: height * 0.1,
@@ -216,7 +216,7 @@ class _MyInfoAdminState extends State<MyInfoAdmin> {
             // ),
             Container(
               width: width * 0.95,
-              height: height * 0.21,
+              height: height * 0.25,
               decoration: BoxDecoration(
                   border: Border.all(
                     width: 2,
@@ -227,16 +227,32 @@ class _MyInfoAdminState extends State<MyInfoAdmin> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _profileImage(),
-                  SizedBox(height: 8),
+                  SizedBox(height: 5),
                   Text(
-                    appdata.businessmodel.nickname,
+                    appdata.usermodel.nickname,
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 24,
                     ),
                   ),
-                  SizedBox(height: 8),
-                  Text(appdata.businessmodel.email)
+                  SizedBox(height: 5),
+                  Text(appdata.usermodel.email),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('좋아요', style: TextStyle(fontSize: 13)),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Text(
+                        appdata.usermodel.like.toString(),
+                        style: TextStyle(
+                          fontSize: 12,
+                        ),
+                      )
+                    ],
+                  )
                 ],
               ),
             ),
@@ -247,19 +263,15 @@ class _MyInfoAdminState extends State<MyInfoAdmin> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => EditinfoPage()));
             }),
-            _connectbutton('상점 개설', width, height, () {
+            _connectbutton('상점 후기 작성', width, height, () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => StoreOpen()));
+                  MaterialPageRoute(builder: (context) => store_commentPage()));
             }),
-            _connectbutton('상품 등록', width, height, () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => StoreRegist('망넛이네', '망넛이네')));
+            _connectbutton('상품 후기 작성', width, height, () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => thingsShopRegiPage()));
+                      builder: (context) => product_CommentPage()));
             }),
             SizedBox(
               height: 5,
@@ -315,9 +327,9 @@ class _MyInfoAdminState extends State<MyInfoAdmin> {
                   authController.handleSignOut();
                   Get.offAll(() => TypeScreen());
                 }),
-                info_button('일반 사용자 전환', () {
+                info_button('사업자 사용자 전환', () {
                   // if (c.Pressed.value == 0) {
-                  //   Get.to(Root());
+                  //   Get.to(Root2());
                   //   c.Pressed++;
                   //   print(c.Pressed.value);
                   // } else if (c.Pressed.value == 1) {

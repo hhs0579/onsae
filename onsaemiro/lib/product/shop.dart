@@ -1,21 +1,23 @@
 class Shop {
   String name;
   late String image;
+  late String businessimage;
   late String docId;
-  late bool isaccess;
+  late String isaccess;
   late String type;
   late String phone;
 
   Shop(
-      {required String this.name,
-      required String this.image,
-      required String this.docId,
-      required bool this.isaccess,
-      required String type,
-      required String phone});
+      {required this.name,
+      required this.image,
+      required this.businessimage,
+      required this.docId,
+      required this.isaccess,
+      required this.type});
   Shop.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         image = json['image'],
+        businessimage = json['businessimage'],
         docId = json['docId'],
         isaccess = json['isaccess'],
         type = json['type'],
@@ -24,6 +26,7 @@ class Shop {
   Map<String, dynamic> toJson() => {
         'name': name,
         'image': image,
+        'businessimage': businessimage,
         'docId': docId,
         'isaccess': isaccess,
         'type': type,
