@@ -6,6 +6,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:onsaemiro/repo/image_service.dart';
+import 'package:onsaemiro/screens/things_pages/thingsShopProduct.dart';
+import 'package:onsaemiro/screens/things_pages/things_regi.dart';
 import 'package:random_string/random_string.dart';
 
 class StoreRegist extends StatefulWidget {
@@ -18,21 +20,20 @@ class StoreRegist extends StatefulWidget {
       _StoreRegistState(this.shopName, this.shopDocId);
 }
 
-var visibley = false;
-var key = randomString(16);
-
-List<String> _arrImageUrls = [];
-final _picker = ImagePicker();
-List<XFile>? imageFileList = [];
-XFile? _image;
-final productname = TextEditingController();
-final productprice = TextEditingController();
-int price = int.parse(productprice.text);
-final productinfo = TextEditingController();
-FirebaseFirestore fireStore = FirebaseFirestore.instance;
-String urls = '';
-
 class _StoreRegistState extends State<StoreRegist> {
+  var visibley = false;
+  var key = randomString(16);
+
+  List<String> _arrImageUrls = [];
+  final _picker = ImagePicker();
+  List<XFile>? imageFileList = [];
+  XFile? _image;
+  final productname = TextEditingController();
+  final productprice = TextEditingController();
+
+  final productinfo = TextEditingController();
+  FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  String urls = '';
   String _shopName;
   String _shopDocId;
   _StoreRegistState(this._shopName, this._shopDocId);
@@ -264,7 +265,6 @@ class _StoreRegistState extends State<StoreRegist> {
                           setState(() {
                             visibley = true;
                           });
-                          print(_shopDocId);
                         }
                       },
                       child:
@@ -309,6 +309,7 @@ class _StoreRegistState extends State<StoreRegist> {
                                 backgroundColor: Colors.lightGreen,
                                 fontSize: 12.0);
                           } else {
+                            int price = int.parse(productprice.text);
                             FirebaseFirestore.instance
                                 .collection('shops')
                                 .doc(_shopDocId)
@@ -322,13 +323,11 @@ class _StoreRegistState extends State<StoreRegist> {
                               'image': urls,
                               'docId': key
                             });
-
-                            // final result = await Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => Root()));
-                            // final result = await Get.to(Root2());
-                            Navigator.pop(context);
+                            final result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        thingsShopRegiPage()));
                           }
                         },
                         child: Text('상품 등록',

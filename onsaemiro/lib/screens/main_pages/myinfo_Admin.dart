@@ -5,12 +5,14 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:onsaemiro/classes/toast_message.dart';
 import 'package:onsaemiro/data/appdata.dart';
+import 'package:onsaemiro/repo/image_service.dart';
 import 'package:onsaemiro/screens/main_pages/Root.dart';
 import 'package:onsaemiro/repo/image_service.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
 import 'package:onsaemiro/screens/main_pages/edit_info.dart';
 import 'package:onsaemiro/screens/starting_pages/type_screen.dart';
+import 'package:onsaemiro/screens/things_pages/thingsShopProduct.dart';
 import 'package:onsaemiro/store/store_open.dart';
 import 'package:onsaemiro/store/store_regist.dart';
 
@@ -114,6 +116,7 @@ class MyInfoAdmin extends StatefulWidget {
 }
 
 class _MyInfoAdminState extends State<MyInfoAdmin> {
+  Imageservice imageservice = Imageservice();
   String resultURL = '';
   AppData appdata = Get.find();
   final _picker = ImagePicker();
@@ -249,10 +252,14 @@ class _MyInfoAdminState extends State<MyInfoAdmin> {
                   MaterialPageRoute(builder: (context) => StoreOpen()));
             }),
             _connectbutton('상품 등록', width, height, () {
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => StoreRegist('망넛이네', '망넛이네')));
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => StoreRegist('망넛이네', '망넛이네')));
+                      builder: (context) => thingsShopRegiPage()));
             }),
             SizedBox(
               height: 5,
@@ -309,15 +316,15 @@ class _MyInfoAdminState extends State<MyInfoAdmin> {
                   Get.offAll(() => TypeScreen());
                 }),
                 info_button('일반 사용자 전환', () {
-                  if (c.Pressed.value == 0) {
-                    Get.to(Root());
-                    c.Pressed++;
-                    print(c.Pressed.value);
-                  } else if (c.Pressed.value == 1) {
-                    Get.back();
-                    c.Pressed--;
-                    print(c.Pressed.value);
-                  }
+                  // if (c.Pressed.value == 0) {
+                  //   Get.to(Root());
+                  //   c.Pressed++;
+                  //   print(c.Pressed.value);
+                  // } else if (c.Pressed.value == 1) {
+                  //   Get.back();
+                  //   c.Pressed--;
+                  //   print(c.Pressed.value);
+                  // }
                 }),
               ],
             )

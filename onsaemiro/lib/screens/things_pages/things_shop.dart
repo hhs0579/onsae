@@ -209,7 +209,6 @@ class _thingsShopPageState extends State<thingsShopPage> {
                           Shop shopModel = Shop.fromJson(
                               element.data() as Map<String, dynamic>);
                           Shops.add(shopModel);
-                          print(Shops[0].name);
                         }
 
                         return SizedBox(
@@ -246,7 +245,6 @@ class _thingsShopPageState extends State<thingsShopPage> {
                                             element.data()
                                                 as Map<String, dynamic>);
                                         products.add(productModel);
-                                        print(products[0].name);
                                       }
                                       return Column(
                                         children: [

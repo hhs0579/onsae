@@ -229,7 +229,6 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
                                 Product productModel = Product.fromJson(
                                     element.data() as Map<String, dynamic>);
                                 products.add(productModel);
-                                print(products[0].name);
                               }
                               return Column(
                                 children: [
@@ -249,16 +248,17 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
                                       child: Container(
                                         height: height * 0.12,
                                         width: width * 0.28,
-                                        child: Image.network(
-                                          Shops[index].image,
-                                          fit: BoxFit.fitWidth,
-                                        ),
+                                        // child: Image.network(
+                                        //   Shops[index].image,
+                                        //   fit: BoxFit.fitWidth,
+                                        // ),
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(16),
-                                          // image: DecorationImage(
-                                          //     image: NetworkImage(
-                                          //         Shops[index].image)),
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  Shops[index].image),
+                                              fit: BoxFit.fill),
                                           border: Border.all(
                                               color: Colors.lightGreen),
                                         ),
