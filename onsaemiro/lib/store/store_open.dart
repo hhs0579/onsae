@@ -45,6 +45,25 @@ class _StoreOpenState extends State<StoreOpen> {
   XFile? _businessimage;
   final _picker = ImagePicker();
   var visibley = false;
+  var value = false;
+  // final notifications = [
+  //   CheckboxState(title: '비건'),
+  //   CheckboxState(title: '음식'),
+  //   CheckboxState(title: '의류'),
+  //   CheckboxState(title: '건강'),
+  // ];
+  // Widget buildSingleCheckBox(CheckboxState checkbox) => CheckboxListTile(
+  //     controlAffinity: ListTileControlAffinity.leading,
+  //     title: Text(checkbox.title, style: TextStyle(fontSize: 8)),
+  //     activeColor: Color(0xff6CCD6C),
+  //     value: checkbox.value,
+  //     onChanged: (value) => setState(() => checkbox.value = value!));
+  //                 ListView(
+  //                   padding: EdgeInsets.all(2),
+  //                   children: [
+  //                     ...notifications.map(buildSingleCheckBox).toList()
+  //                   ],
+  //                 ),
   @override
   Widget build(BuildContext context) {
     AppData appdata = Get.find();
