@@ -214,7 +214,209 @@ class _thingsShopAdminPageState extends State<thingsShopAdminPage> {
                 for (var element in snapshot.data!.docs) {
                   Shop shopModel =
                       Shop.fromJson(element.data() as Map<String, dynamic>);
-                  if (shopModel.isaccess == true && shopModel.type == '음식') {
+                  if (shopModel.isaccess == '승인완료' && shopModel.type == '음식') {
+                    Shops.add(shopModel);
+                    print(Shops[0].name);
+                  }
+                }
+
+                return SizedBox(
+                  height: height * 0.58,
+                  width: width * 0.72,
+                  child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 0,
+                        crossAxisSpacing: 30,
+                      ),
+                      itemCount: Shops.length,
+                      itemBuilder: (context, index) {
+                        return StreamBuilder<QuerySnapshot>(
+                            stream: FirebaseFirestore.instance
+                                .collection('shops')
+                                .doc(Shops[index].docId)
+                                .collection('products')
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                print(snapshot.error);
+                                return Center(
+                                  child: Text('오류가 발생했습니다.'),
+                                );
+                              }
+                              if (snapshot.data == null) {
+                                return Container();
+                              }
+                              List<Product> products = [];
+                              for (var element in snapshot.data!.docs) {
+                                Product productModel = Product.fromJson(
+                                    element.data() as Map<String, dynamic>);
+                                products.add(productModel);
+                              }
+                              return Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    thingsShopIntroducePage(
+                                                        Shops[index].name,
+                                                        Shops[index].image,
+                                                        products)));
+                                      },
+                                      child: Container(
+                                        height: height * 0.12,
+                                        width: width * 0.28,
+                                        // child: Image.network(
+                                        //   Shops[index].image,
+                                        //   fit: BoxFit.fitWidth,
+                                        // ),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  Shops[index].image),
+                                              fit: BoxFit.fill),
+                                          border: Border.all(
+                                              color: Colors.lightGreen),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  GridTile(
+                                      child: Center(
+                                    child: Text(Shops[index].name),
+                                  ))
+                                ],
+                              );
+                            });
+                      }),
+                );
+              })
+        else if (isClothings & !isFood)
+          StreamBuilder<QuerySnapshot>(
+              stream: _shopStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  print(snapshot.error);
+                  return Center(
+                    child: Text('오류가 발생했습니다.'),
+                  );
+                }
+                if (snapshot.data == null) {
+                  return Container();
+                }
+                List<Shop> Shops = [];
+                for (var element in snapshot.data!.docs) {
+                  Shop shopModel =
+                      Shop.fromJson(element.data() as Map<String, dynamic>);
+                  if (shopModel.isaccess == '승인완료' && shopModel.type == '의류') {
+                    Shops.add(shopModel);
+                    print(Shops[0].name);
+                  }
+                }
+
+                return SizedBox(
+                  height: height * 0.58,
+                  width: width * 0.72,
+                  child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 0,
+                        crossAxisSpacing: 30,
+                      ),
+                      itemCount: Shops.length,
+                      itemBuilder: (context, index) {
+                        return StreamBuilder<QuerySnapshot>(
+                            stream: FirebaseFirestore.instance
+                                .collection('shops')
+                                .doc(Shops[index].docId)
+                                .collection('products')
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                print(snapshot.error);
+                                return Center(
+                                  child: Text('오류가 발생했습니다.'),
+                                );
+                              }
+                              if (snapshot.data == null) {
+                                return Container();
+                              }
+                              List<Product> products = [];
+                              for (var element in snapshot.data!.docs) {
+                                Product productModel = Product.fromJson(
+                                    element.data() as Map<String, dynamic>);
+                                products.add(productModel);
+                              }
+                              return Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    thingsShopIntroducePage(
+                                                        Shops[index].name,
+                                                        Shops[index].image,
+                                                        products)));
+                                      },
+                                      child: Container(
+                                        height: height * 0.12,
+                                        width: width * 0.28,
+                                        // child: Image.network(
+                                        //   Shops[index].image,
+                                        //   fit: BoxFit.fitWidth,
+                                        // ),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  Shops[index].image),
+                                              fit: BoxFit.fill),
+                                          border: Border.all(
+                                              color: Colors.lightGreen),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  GridTile(
+                                      child: Center(
+                                    child: Text(Shops[index].name),
+                                  ))
+                                ],
+                              );
+                            });
+                      }),
+                );
+              })
+        else if (isLife & !isClothings)
+          StreamBuilder<QuerySnapshot>(
+              stream: _shopStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  print(snapshot.error);
+                  return Center(
+                    child: Text('오류가 발생했습니다.'),
+                  );
+                }
+                if (snapshot.data == null) {
+                  return Container();
+                }
+                List<Shop> Shops = [];
+                for (var element in snapshot.data!.docs) {
+                  Shop shopModel =
+                      Shop.fromJson(element.data() as Map<String, dynamic>);
+                  if (shopModel.isaccess == '승인완료' && shopModel.type == '건강') {
                     Shops.add(shopModel);
                     print(Shops[0].name);
                   }

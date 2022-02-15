@@ -551,7 +551,7 @@ class _StoreOpenState extends State<StoreOpen> {
                               } else {
                                 appdata.isLoadingScreen = true;
                                 urls = await imageservice
-                                    .uploadProductImageToStorage(
+                                    .uploadShopImageToStorage(
                                         storename.text, _storeimage!);
 
                                 businessurls = await imageservice

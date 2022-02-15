@@ -59,7 +59,7 @@ class _accessSearchPageState extends State<accessSearchPage> {
           List<ShopResult> searchShopResult = [];
           for (var element in snapshot.data!.docs) {
             Shop shop = Shop.fromJson(element.data() as Map<String, dynamic>);
-            if (shop.isaccess == true && shop.type == '비건') {
+            if (shop.isaccess == '승인완료' && shop.type == '비건') {
               ShopResult shopResult = ShopResult(shop);
               print(shop.name);
               searchShopResult.add(shopResult);

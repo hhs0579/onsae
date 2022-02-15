@@ -59,7 +59,7 @@ class _thingsSearchPageState extends State<thingsSearchPage> {
           List<ShopResult> searchShopResult = [];
           for (var element in snapshot.data!.docs) {
             Shop shop = Shop.fromJson(element.data() as Map<String, dynamic>);
-            if (shop.isaccess == true) {
+            if (shop.isaccess == '승인완료') {
               if (shop.type == '건강' || shop.type == '음식' || shop.type == '의류') {
                 ShopResult shopResult = ShopResult(shop);
                 print(shop.name);

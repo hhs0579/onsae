@@ -230,7 +230,7 @@ class _thingsShopPageState extends State<thingsShopPage> {
                         for (var element in snapshot.data!.docs) {
                           Shop shopModel = Shop.fromJson(
                               element.data() as Map<String, dynamic>);
-                          if (shopModel.isaccess == true) {
+                          if (shopModel.isaccess == '승인완료') {
                             Shops.add(shopModel);
                           }
                         }
