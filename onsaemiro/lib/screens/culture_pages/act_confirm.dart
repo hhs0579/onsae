@@ -359,7 +359,7 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                                 return Image.network(
                                                     actPost.imgList
                                                         .elementAt(index),
-                                                    fit: BoxFit.cover);
+                                                    fit: BoxFit.fill);
                                               })),
                                     ),
                                   ],

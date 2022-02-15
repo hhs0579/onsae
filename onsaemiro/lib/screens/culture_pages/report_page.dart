@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/classes/toast_message.dart';
+import 'package:onsaemiro/screens/culture_pages/act_confirm.dart';
 import 'package:random_string/random_string.dart';
 
 class reportPage extends StatefulWidget {
@@ -65,6 +66,7 @@ class _reportPageState extends State<reportPage> {
                           'reportType': _value,
                           'reportKey': reportKey,
                         });
+                        Get.to(actConfirmPage());
                       }
                     },
                     child: Text(
