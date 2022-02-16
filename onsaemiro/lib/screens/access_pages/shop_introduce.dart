@@ -171,6 +171,8 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
   final CartController c = Get.put(CartController());
   bool isMenuScreen = true;
   bool isInformationScreen = false;
+  bool isPrice = true;
+  bool isOnsae = false;
   String str = '';
   final _searchController = TextEditingController();
   controlSearching(search) {
@@ -383,52 +385,57 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                       children: [
                         TextButton(
                           child: Text(
-                            '거리순',
-                            style: TextStyle(
-                                color: Color.fromRGBO(89, 89, 89, 1),
-                                fontSize: 11),
-                          ),
-                          onPressed: () {},
-                        ),
-                        TextButton(
-                          child: Text(
                             '가격순',
                             style: TextStyle(
-                                color: Color.fromRGBO(89, 89, 89, 1),
+                                color: isPrice
+                                    ? Color.fromRGBO(89, 89, 89, 1)
+                                    : Color.fromRGBO(89, 89, 89, 0.5),
                                 fontSize: 11),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              _products
+                                  .sort((a, b) => a.price.compareTo(b.price));
+                              isPrice = true;
+                              isOnsae = false;
+                            });
+                          },
                         ),
                         TextButton(
                           child: Text(
                             '온새미로 인증',
                             style: TextStyle(
-                                color: Color.fromRGBO(89, 89, 89, 1),
+                                color: isOnsae
+                                    ? Color.fromRGBO(89, 89, 89, 1)
+                                    : Color.fromRGBO(89, 89, 89, 0.5),
                                 fontSize: 11),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              isPrice = false;
+                              isOnsae = true;
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          width: width * 0.5,
                         ),
                         if (appdata.userType == 'business' &&
                             appdata.businessmodel.mystore.contains(_shop.name))
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(139, 0, 0, 0),
-                            child: TextButton(
-                              child: Text(
-                                '상품등록',
-                                style: TextStyle(
-                                    color: Color.fromRGBO(89, 89, 89, 1),
-                                    fontSize: 11),
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => thingsRegiPage(
-                                            _shop.name,
-                                            _shop.docId,
-                                            _products)));
-                              },
+                          TextButton(
+                            child: Text(
+                              '상품등록',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(89, 89, 89, 1),
+                                  fontSize: 11),
                             ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => thingsRegiPage(
+                                          _shop.name, _shop.docId, _products)));
+                            },
                           )
                       ],
                     ),
@@ -484,7 +491,8 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                       children: [
                         ImageIcon(AssetImage('assets/인스타그램.png')),
                         Text(
-                          'http://www.instagram.com/bo.mool_vegan',
+                          '',
+                          // 'http://www.instagram.com/bo.mool_vegan',
                           style: TextStyle(fontSize: 11),
                         )
                       ],
@@ -522,27 +530,27 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                       SizedBox(
                         height: height * 0.0234,
                       ),
-                      Review_Box(
-                          height,
-                          width,
-                          '온새미로',
-                          'assets/둘리우니2.png',
-                          'assets/펜케이크.png',
-                          '종류별로 사먹어보고 있는데 다 맛있어요!!\n비건이라 말 안하면 모를 정도로 웬만한 일반 빵보다 맛있어요!!\n사장님도 항상 넘넘 친절하셔요.'),
-                      Review_Box(
-                          height,
-                          width,
-                          '온새미로',
-                          'assets/셀러드.png',
-                          'assets/음식.png',
-                          '종류별로 사먹어보고 있는데 다 맛있어요!!\n비건이라 말 안하면 모를 정도로 웬만한 일반 빵보다 맛있어요!!\n사장님도 항상 넘넘 친절하셔요.'),
-                      Review_Box(
-                          height,
-                          width,
-                          '온새미로',
-                          'assets/둘리우니2.png',
-                          'assets/펜케이크.png',
-                          '종류별로 사먹어보고 있는데 다 맛있어요!!\n비건이라 말 안하면 모를 정도로 웬만한 일반 빵보다 맛있어요!!\n사장님도 항상 넘넘 친절하셔요.'),
+                      // Review_Box(
+                      //     height,
+                      //     width,
+                      //     '온새미로',
+                      //     'assets/둘리우니2.png',
+                      //     'assets/펜케이크.png',
+                      //     '종류별로 사먹어보고 있는데 다 맛있어요!!\n비건이라 말 안하면 모를 정도로 웬만한 일반 빵보다 맛있어요!!\n사장님도 항상 넘넘 친절하셔요.'),
+                      // Review_Box(
+                      //     height,
+                      //     width,
+                      //     '온새미로',
+                      //     'assets/셀러드.png',
+                      //     'assets/음식.png',
+                      //     '종류별로 사먹어보고 있는데 다 맛있어요!!\n비건이라 말 안하면 모를 정도로 웬만한 일반 빵보다 맛있어요!!\n사장님도 항상 넘넘 친절하셔요.'),
+                      // Review_Box(
+                      //     height,
+                      //     width,
+                      //     '온새미로',
+                      //     'assets/둘리우니2.png',
+                      //     'assets/펜케이크.png',
+                      //     '종류별로 사먹어보고 있는데 다 맛있어요!!\n비건이라 말 안하면 모를 정도로 웬만한 일반 빵보다 맛있어요!!\n사장님도 항상 넘넘 친절하셔요.'),
                     ],
                   ),
                 ),

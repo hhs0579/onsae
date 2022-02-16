@@ -171,6 +171,8 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
   final CartController c = Get.put(CartController());
   bool isMenuScreen = true;
   bool isInformationScreen = false;
+  bool isPrice = true;
+  bool isOnsae = false;
   String str = '';
   final _searchController = TextEditingController();
   controlSearching(search) {
@@ -392,52 +394,57 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                       children: [
                         TextButton(
                           child: Text(
-                            '거리순',
-                            style: TextStyle(
-                                color: Color.fromRGBO(89, 89, 89, 1),
-                                fontSize: 11),
-                          ),
-                          onPressed: () {},
-                        ),
-                        TextButton(
-                          child: Text(
                             '가격순',
                             style: TextStyle(
-                                color: Color.fromRGBO(89, 89, 89, 1),
+                                color: isPrice
+                                    ? Color.fromRGBO(89, 89, 89, 1)
+                                    : Color.fromRGBO(89, 89, 89, 0.5),
                                 fontSize: 11),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            _products
+                                .sort((a, b) => a.price.compareTo(b.price));
+                            isPrice = true;
+                            isOnsae = false;
+                          },
                         ),
                         TextButton(
                           child: Text(
                             '온새미로 인증',
                             style: TextStyle(
-                                color: Color.fromRGBO(89, 89, 89, 1),
+                                color: isOnsae
+                                    ? Color.fromRGBO(89, 89, 89, 1)
+                                    : Color.fromRGBO(89, 89, 89, 0.5),
                                 fontSize: 11),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              _products
+                                  .sort((a, b) => a.name.compareTo(b.name));
+                              isPrice = false;
+                              isOnsae = true;
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          width: width * 0.5,
                         ),
                         if (appdata.userType == 'business' &&
                             appdata.businessmodel.mystore.contains(_shop.name))
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(139, 0, 0, 0),
-                            child: TextButton(
-                              child: Text(
-                                '상품등록',
-                                style: TextStyle(
-                                    color: Color.fromRGBO(89, 89, 89, 1),
-                                    fontSize: 11),
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => thingsRegiPage(
-                                            _shop.name,
-                                            _shop.docId,
-                                            _products)));
-                              },
+                          TextButton(
+                            child: Text(
+                              '상품등록',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(89, 89, 89, 1),
+                                  fontSize: 11),
                             ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => thingsRegiPage(
+                                          _shop.name, _shop.docId, _products)));
+                            },
                           )
                       ],
                     ),
