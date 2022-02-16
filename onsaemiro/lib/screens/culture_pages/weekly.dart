@@ -13,8 +13,6 @@ class Weekly extends StatefulWidget {
 String value = Get.arguments;
 String img = '';
 String key = '';
-Stream<DocumentSnapshot> post =
-    FirebaseFirestore.instance.collection('actPost').doc(value).snapshots();
 
 class _WeeklyState extends State<Weekly> {
   @override

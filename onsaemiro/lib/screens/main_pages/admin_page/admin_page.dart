@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/repo/image_service.dart';
 import 'package:onsaemiro/screens/culture_pages/report_page.dart';
+import 'package:onsaemiro/screens/main_pages/admin_page/admin_report.dart';
 import 'package:onsaemiro/screens/main_pages/admin_page/admin_shop_access.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
 import 'package:onsaemiro/screens/starting_pages/type_screen.dart';
@@ -85,7 +86,7 @@ class _AdminPageState extends State<AdminPage> {
               ),
               _connectbutton('신고 관리', width, height, () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => reportPage()));
+                    MaterialPageRoute(builder: (context) => AdminReport()));
               }),
               SizedBox(
                 height: 30,
