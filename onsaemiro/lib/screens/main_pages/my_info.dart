@@ -6,9 +6,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:onsaemiro/classes/toast_message.dart';
 import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/repo/image_service.dart';
-import 'package:onsaemiro/screens/main_pages/Root2.dart';
+
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
-import 'package:onsaemiro/screens/main_pages/controller/controller2.dart';
+
 import 'package:onsaemiro/screens/main_pages/myinfo_sub/edit_info.dart';
 import 'package:onsaemiro/screens/main_pages/myinfo_sub/store_comment.dart';
 import 'package:onsaemiro/screens/starting_pages/type_screen.dart';
@@ -188,7 +188,6 @@ class _MyInfoPageState extends State<MyInfoPage> {
                 backgroundImage: NetworkImage(resultURL)));
   }
 
-  final Root2Contorller c = Get.put(Root2Contorller());
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -327,17 +326,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   authController.handleSignOut();
                   Get.offAll(() => TypeScreen());
                 }),
-                info_button('사업자 사용자 전환', () {
-                  // if (c.Pressed.value == 0) {
-                  //   Get.to(Root2());
-                  //   c.Pressed++;
-                  //   print(c.Pressed.value);
-                  // } else if (c.Pressed.value == 1) {
-                  //   Get.back();
-                  //   c.Pressed--;
-                  //   print(c.Pressed.value);
-                  // }
-                }),
+                info_button('사업자 사용자 전환', () {}),
               ],
             )
           ],

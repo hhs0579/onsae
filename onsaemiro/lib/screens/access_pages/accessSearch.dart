@@ -159,7 +159,7 @@ class _accessSearchPageState extends State<accessSearchPage> {
                   width: width * 0.231,
                 ),
                 Text(
-                  'things',
+                  'access',
                   style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 36,

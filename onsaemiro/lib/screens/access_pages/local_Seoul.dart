@@ -4,11 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/product/shop.dart';
 import 'package:onsaemiro/screens/access_pages/accessSearch.dart';
-import 'package:onsaemiro/screens/access_pages/shop_introduce.dart';
+import 'package:onsaemiro/screens/access_pages/shop_introduceAdmin.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
+import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 import 'package:onsaemiro/screens/things_pages/thingsShop_introduce.dart';
 
@@ -131,6 +133,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
 
   @override
   Widget build(BuildContext context) {
+    AppData appData = Get.find();
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -341,7 +344,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
                                       child: Row(
                                         children: [
                                           Icon(Icons.place, size: 11),
-                                          Text('서울 서초구 강남대로 465',
+                                          Text(Shops[randomint].shopAddress,
                                               style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 11)),
@@ -399,13 +402,15 @@ class _localSeoulPageState extends State<localSeoulPage> {
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(14)),
                                       onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    thingsShopIntroducePage(
-                                                        Shops[randomint],
-                                                        products)));
+                                        {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      shopIntroducePage(
+                                                          Shops[randomint],
+                                                          products)));
+                                        }
                                       },
                                     ),
                                   );
@@ -461,12 +466,23 @@ class _localSeoulPageState extends State<localSeoulPage> {
                                         }
                                       });
                                     }, () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  thingsShopIntroducePage(
-                                                      Shops[index], products)));
+                                      if (appdata.userType == 'user') {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    thingsShopIntroducePage(
+                                                        Shops[index],
+                                                        products)));
+                                      } else {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    shopIntroducePage(
+                                                        Shops[index],
+                                                        products)));
+                                      }
                                     });
                                   });
                             }),

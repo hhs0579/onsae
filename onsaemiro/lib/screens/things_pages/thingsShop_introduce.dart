@@ -3,12 +3,15 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:intl/intl.dart';
+import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/product/shop.dart';
 import 'package:onsaemiro/screens/access_pages/product_information.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
+import 'package:onsaemiro/screens/things_pages/thingsSearch.dart';
 import 'package:onsaemiro/screens/things_pages/things_information.dart';
+import 'package:onsaemiro/screens/things_pages/things_regi.dart';
 
 Review_Box(height, width, profileName, image1, image2, text) {
   return Padding(
@@ -168,8 +171,22 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
   final CartController c = Get.put(CartController());
   bool isMenuScreen = true;
   bool isInformationScreen = false;
+  String str = '';
+  final _searchController = TextEditingController();
+  controlSearching(search) {
+    print(search);
+    setState(() {
+      str = search;
+    });
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => thingsSearchPage(_searchController.text)));
+  }
+
   @override
   Widget build(BuildContext context) {
+    AppData appdata = Get.find();
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -188,7 +205,7 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                     width: double.infinity,
                     height: height * 0.3078,
                     decoration: BoxDecoration(
-                        color: Color.fromRGBO(89, 89, 89, 0.5),
+                        color: Colors.white,
                         image: DecorationImage(
                             image: NetworkImage(_shop.image),
                             colorFilter: ColorFilter.mode(
@@ -212,12 +229,14 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                         SizedBox(
                           width: 321,
                           height: height * 0.0381,
-                          child: TextField(
+                          child: TextFormField(
+                            controller: _searchController,
+                            onFieldSubmitted: controlSearching,
                             style: TextStyle(fontSize: 11),
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 filled: true,
-                                fillColor: Color.fromRGBO(86, 123, 53, 0.5),
+                                fillColor: Color.fromRGBO(86, 123, 53, 0.2),
                                 contentPadding:
                                     EdgeInsets.symmetric(vertical: 8),
                                 prefixIcon: IconButton(
@@ -279,7 +298,7 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                           'things',
                           style: TextStyle(
                             fontSize: 36,
-                            color: Color.fromRGBO(86, 123, 53, 0.5),
+                            color: Color.fromRGBO(86, 123, 53, 1),
                           ),
                         )
                       ],
@@ -302,7 +321,7 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                         AssetImage('assets/위치.png'),
                         color: Color.fromRGBO(89, 89, 89, 1),
                       ),
-                      Text('서울 강남구 논현로 67길 11 1층',
+                      Text(_shop.shopAddress,
                           style: TextStyle(color: Colors.black, fontSize: 13)),
                     ],
                   ),
@@ -398,6 +417,28 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                           ),
                           onPressed: () {},
                         ),
+                        if (appdata.userType == 'business' &&
+                            appdata.businessmodel.mystore.contains(_shop.name))
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(139, 0, 0, 0),
+                            child: TextButton(
+                              child: Text(
+                                '상품등록',
+                                style: TextStyle(
+                                    color: Color.fromRGBO(89, 89, 89, 1),
+                                    fontSize: 11),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => thingsRegiPage(
+                                            _shop.name,
+                                            _shop.docId,
+                                            _products)));
+                              },
+                            ),
+                          )
                       ],
                     ),
                     SizedBox(
@@ -419,28 +460,6 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                               _products[index].price);
                         },
                       ),
-                      // child: ListView(
-                      //   physics: BouncingScrollPhysics(),
-                      //   scrollDirection: Axis.vertical,
-                      //   children: [
-                      //     product_Box(height, width, 'assets/망넛이네 약콩두유.png',
-                      //         () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) =>
-                      //             thingsInformationPage()));
-                      //     }, '약콩두유 100', '약콩 두유 100, ', '1100원'),
-                      //     product_Box(height, width, 'assets/둘리우니 1.png', () {},
-                      //         '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                      //     product_Box(height, width, 'assets/둘리우니 1.png', () {},
-                      //         '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                      //     product_Box(height, width, 'assets/둘리우니 1.png', () {},
-                      //         '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                      //     product_Box(height, width, 'assets/둘리우니 1.png', () {},
-                      //         '둘리우니', '보리와 귀리가 만난 비건 브라우니', '2,800 ~ 3,200원'),
-                      //   ],
-                      // ),
                     )
                   ],
                 ),
@@ -453,7 +472,8 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                   children: [
                     Center(
                       child: Text(
-                        '프리미엄 비건 베이커리 Bo.Mool 은\n유기농, 국내산, 최고급 원재료를 사용하여 맛있지만\n속이 편안한 No 버터, 밀가루, 달걀, 우유, 설탕\n디저트 제품을 만듭니다.',
+                        _shop.info,
+                        // '프리미엄 비건 베이커리 Bo.Mool 은\n유기농, 국내산, 최고급 원재료를 사용하여 맛있지만\n속이 편안한 No 버터, 밀가루, 달걀, 우유, 설탕\n디저트 제품을 만듭니다.',
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 13),
                       ),
@@ -480,7 +500,7 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                       children: [
                         ImageIcon(AssetImage('assets/폰.png')),
                         Text(
-                          '02-558-0301',
+                          _shop.phone,
                           style: TextStyle(fontSize: 11),
                         )
                       ],
