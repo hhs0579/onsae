@@ -412,6 +412,8 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                           ),
                           onPressed: () {
                             setState(() {
+                              _products
+                                  .sort((a, b) => a.name.compareTo(b.name));
                               isPrice = false;
                               isOnsae = true;
                             });

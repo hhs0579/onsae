@@ -171,7 +171,7 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
   final CartController c = Get.put(CartController());
   bool isMenuScreen = true;
   bool isInformationScreen = false;
-  bool isPrice = true;
+  bool isPrice = false;
   bool isOnsae = false;
   String str = '';
   final _searchController = TextEditingController();
