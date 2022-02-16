@@ -7,6 +7,7 @@ import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/product/shop.dart';
 import 'package:onsaemiro/screens/access_pages/accessSearch.dart';
+import 'package:onsaemiro/screens/access_pages/product_information.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 import 'package:onsaemiro/screens/things_pages/things_information.dart';
@@ -444,8 +445,9 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => thingsInformationPage(
-                                        _products[index])));
+                                    builder: (context) =>
+                                        productInformationPage(
+                                            _products[index])));
                           }, _products[index].name, _products[index].Info,
                               _products[index].price);
                         },

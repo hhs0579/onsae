@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kpostal/kpostal.dart';
@@ -660,9 +661,10 @@ class _StoreOpenState extends State<StoreOpen> {
                                 fireStore.collection('shops').doc(key).set({
                                   'name': storename.text,
                                   'shopAddress': _addressTextEditor.text,
-                                  'shopDetailinfo': _deaddressTextEditor.text,
+                                  'shopDetailinfo': salesinfo.text,
                                   'info': shopinfo.text,
-                                  'shopSailsInfo': salesinfo.text,
+                                  'shopDetailAddress':
+                                      _deaddressTextEditor.text,
                                   'shopBenefit': benefitinfo.text,
                                   'docId': key,
                                   'image': urls,

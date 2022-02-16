@@ -47,7 +47,7 @@ class _productInformationPageState extends State<productInformationPage> {
                   height: 0.3386 * height,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/둘리우니 1.png'),
+                          image: NetworkImage(_product.image),
                           fit: BoxFit.fill)),
                 ),
                 Positioned(
@@ -91,14 +91,15 @@ class _productInformationPageState extends State<productInformationPage> {
                             height: height * 0.02463,
                           ),
                           Text(
-                            '둘리우니',
+                            '${_product.name}',
                             style: TextStyle(fontSize: 24 * textScale),
                           ),
                           SizedBox(
                             height: height * 0.0665,
                           ),
                           Text(
-                            '보리와 귀리가 만난 비건 브라우니!\n쫀득하고 진한 다크 오리지널은 속세의 맛',
+                            '',
+                            // '보리와 귀리가 만난 비건 브라우니!\n쫀득하고 진한 다크 오리지널은 속세의 맛',
                             style: TextStyle(fontSize: 15 * textScale),
                             textAlign: TextAlign.center,
                           ),
@@ -118,7 +119,7 @@ class _productInformationPageState extends State<productInformationPage> {
                                 width: 132,
                               ),
                               Text(
-                                '2,800 ~ 3,200원',
+                                '${NumberFormat('###,###,###,###').format(_product.price).replaceAll(' ', '')}원',
                                 style: TextStyle(fontSize: 15),
                               )
                             ],
@@ -291,7 +292,7 @@ class _productInformationPageState extends State<productInformationPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => productReviewPage()));
+                            builder: (context) => productReviewPage(_product)));
                   },
                 ),
                 ImageIcon(

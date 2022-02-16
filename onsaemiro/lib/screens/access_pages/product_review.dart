@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:onsaemiro/product/product_list.dart';
 
 class productReviewPage extends StatefulWidget {
-  const productReviewPage({Key? key}) : super(key: key);
+  Product product;
+  productReviewPage(this.product);
 
   @override
-  _productReviewPageState createState() => _productReviewPageState();
+  _productReviewPageState createState() =>
+      _productReviewPageState(this.product);
 }
 
 reviewBox() {
@@ -38,7 +41,8 @@ reviewBox() {
         Padding(
           padding: EdgeInsets.fromLTRB(9, 4, 0, 0),
           child: Text(
-            '브라우니는 둘리우니라고 부르더라고요.\n대부분 3천원정도 선이에요.\n가격도 나쁘지 않은 거 같아요!',
+            '',
+            // '브라우니는 둘리우니라고 부르더라고요.\n대부분 3천원정도 선이에요.\n가격도 나쁘지 않은 거 같아요!',
             style: TextStyle(fontSize: 11),
             textAlign: TextAlign.start,
           ),
@@ -49,6 +53,8 @@ reviewBox() {
 }
 
 class _productReviewPageState extends State<productReviewPage> {
+  Product _product;
+  _productReviewPageState(this._product);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,8 +67,7 @@ class _productReviewPageState extends State<productReviewPage> {
                 height: 275,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('assets/둘리우니 1.png'),
-                        fit: BoxFit.fill)),
+                        image: NetworkImage(_product.image), fit: BoxFit.fill)),
               ),
               Positioned(
                 left: 39,
