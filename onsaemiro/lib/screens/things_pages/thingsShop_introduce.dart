@@ -402,10 +402,12 @@ class _thingsShopIntroducePageState extends State<thingsShopIntroducePage> {
                                 fontSize: 11),
                           ),
                           onPressed: () {
-                            _products
-                                .sort((a, b) => a.price.compareTo(b.price));
-                            isPrice = true;
-                            isOnsae = false;
+                            setState(() {
+                              _products
+                                  .sort((a, b) => a.price.compareTo(b.price));
+                              isPrice = true;
+                              isOnsae = false;
+                            });
                           },
                         ),
                         TextButton(
