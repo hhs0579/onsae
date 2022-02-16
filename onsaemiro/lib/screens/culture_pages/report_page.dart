@@ -12,9 +12,9 @@ class reportPage extends StatefulWidget {
   _reportPageState createState() => _reportPageState();
 }
 
-var reportKey = Get.arguments;
+var postKey = Get.arguments;
 TextEditingController reportText = TextEditingController();
-var key = randomString(16);
+var reportkey = randomString(16);
 FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
 class _reportPageState extends State<reportPage> {
@@ -61,10 +61,11 @@ class _reportPageState extends State<reportPage> {
                       if (reportText.text == '') {
                         toastMessage('신고 이유를 적어주세요');
                       } else {
-                        fireStore.collection('report').doc(key).set({
+                        fireStore.collection('report').doc(reportkey).set({
                           'reportReason': reportText.text,
                           'reportType': _value,
-                          'reportKey': reportKey,
+                          'reportKey': reportkey,
+                          'postkey': postKey,
                         });
                         Get.to(actConfirmPage());
                       }

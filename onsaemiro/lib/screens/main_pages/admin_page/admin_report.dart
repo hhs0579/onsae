@@ -39,7 +39,7 @@ class _AdminReportState extends State<AdminReport> {
             Container(
               child: TextButton(
                 onPressed: () {
-                  Get.to(AdminPost(), arguments: report.reportKey);
+                  Get.to(AdminPost(), arguments: report.postkey);
                 },
                 child: Text('게시글 바로가기'),
               ),
@@ -66,6 +66,10 @@ class _AdminReportState extends State<AdminReport> {
                           onPressed: () {
                             FirebaseFirestore.instance
                                 .collection('actPost')
+                                .doc(report.postkey)
+                                .delete();
+                            FirebaseFirestore.instance
+                                .collection('report')
                                 .doc(report.reportKey)
                                 .delete();
                             Get.back();
