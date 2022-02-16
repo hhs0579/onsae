@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onsaemiro/classes/admin.dart';
@@ -104,7 +105,11 @@ class _EmailloginpageState extends State<Emailloginpage> {
                                             Admin.getadminemail() &&
                                         passwordController.text ==
                                             Admin.getadminpassword()) {
-                                      appdata.userEmail = Admin.getadminemail();
+                                      await FirebaseAuth.instance
+                                          .signInWithEmailAndPassword(
+                                        email: Admin.getadminemail(),
+                                        password: Admin.getadminpassword(),
+                                      );
                                       Get.to(() => AdminPage());
                                     } else {
                                       appdata.userType = userType;

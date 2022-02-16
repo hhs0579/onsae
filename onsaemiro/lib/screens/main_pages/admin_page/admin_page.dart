@@ -108,8 +108,6 @@ class _AdminPageState extends State<AdminPage> {
                   ),
                 ),
                 onPressed: () {
-                  appdata.userEmail = '';
-                  appdata.userPhone = '';
                   authController.handleSignOut();
                   Get.offAll(() => TypeScreen());
                 },
