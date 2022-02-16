@@ -8,11 +8,10 @@ import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/product/product_list.dart';
 import 'package:onsaemiro/product/shop.dart';
 import 'package:onsaemiro/screens/access_pages/accessSearch.dart';
-import 'package:onsaemiro/screens/access_pages/shop_introduceAdmin.dart';
+import 'package:onsaemiro/screens/access_pages/shop_introduce.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
-import 'package:onsaemiro/screens/things_pages/thingsShop_introduce.dart';
 
 class localSeoulPage extends StatefulWidget {
   const localSeoulPage({Key? key}) : super(key: key);
@@ -466,23 +465,12 @@ class _localSeoulPageState extends State<localSeoulPage> {
                                         }
                                       });
                                     }, () {
-                                      if (appdata.userType == 'user') {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    thingsShopIntroducePage(
-                                                        Shops[index],
-                                                        products)));
-                                      } else {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    shopIntroducePage(
-                                                        Shops[index],
-                                                        products)));
-                                      }
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  shopIntroducePage(
+                                                      Shops[index], products)));
                                     });
                                   });
                             }),
