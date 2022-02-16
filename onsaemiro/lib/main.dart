@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/screens/main_pages/Root.dart';
 import 'package:onsaemiro/screens/main_pages/controller/controller.dart';
+import 'package:onsaemiro/screens/main_pages/myinfo_pages/my_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screens/starting_pages/splash_screen.dart';
@@ -60,7 +61,7 @@ class OnsaemiroApp extends StatelessWidget {
       initialBinding: BindingsBuilder(() {
         Get.put(RootContorller());
       }),
-      home: SplashScreen(),
+      home: MyInfoPage(),
       routes: routes,
     );
   }

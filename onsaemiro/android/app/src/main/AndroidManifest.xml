@@ -2,8 +2,8 @@
     package="com.example.onsaemiro">
    <application
         
-        android:label="onsaemiro"
-        android:icon="@mipmap/ic_launcher"
+        android:label="온새미로"
+        android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true">
         <activity

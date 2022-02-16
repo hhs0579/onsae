@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:onsaemiro/models/actpost_model.dart';
 import 'package:onsaemiro/models/business_model.dart';
+import 'package:onsaemiro/models/report_model.dart';
 import 'package:onsaemiro/models/user_model.dart';
 
 class AppData extends GetxController {
@@ -73,6 +74,15 @@ class AppData extends GetxController {
 
   set actPost(ActPost _actPost) {
     _actPost = actPost;
+    update();
+  }
+
+  Report _report = Report(reportKey: '', reportReason: '', reportType: 0);
+
+  Report get report => _report;
+
+  set report(Report _report) {
+    _report = report;
     update();
   }
 
