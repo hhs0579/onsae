@@ -273,10 +273,7 @@ class _localShopPageState extends State<localShopPage> {
       ),
       body: SingleChildScrollView(
         child: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection('shops')
-                .where('shopAddress', isGreaterThanOrEqualTo: _local)
-                .snapshots(),
+            stream: FirebaseFirestore.instance.collection('shops').snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 print(snapshot.error);
@@ -291,7 +288,9 @@ class _localShopPageState extends State<localShopPage> {
               for (var element in snapshot.data!.docs) {
                 Shop shopModel =
                     Shop.fromJson(element.data() as Map<String, dynamic>);
-                if (shopModel.isaccess == '승인완료' && shopModel.type == '비건') {
+                if (shopModel.shopAddress.contains(_local) &&
+                    shopModel.isaccess == '승인완료' &&
+                    shopModel.type == '비건') {
                   Shops.add(shopModel);
                   print(Shops[0].name);
                 }
