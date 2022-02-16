@@ -27,7 +27,7 @@ class _StoreOpenState extends State<StoreOpen> {
   final _postTextEditor = TextEditingController();
   final _addressTextEditor = TextEditingController();
   final _deaddressTextEditor = TextEditingController();
-  final storeinfo = TextEditingController();
+  final shopinfo = TextEditingController();
   final salesinfo = TextEditingController();
   final benefitinfo = TextEditingController();
   String address = '';
@@ -52,7 +52,7 @@ class _StoreOpenState extends State<StoreOpen> {
       _postTextEditor.text = '';
       _addressTextEditor.text = '';
       _deaddressTextEditor.text = '';
-      storeinfo.text = '';
+      shopinfo.text = '';
       salesinfo.text = '';
       benefitinfo.text = '';
       urls = '';
@@ -491,7 +491,7 @@ class _StoreOpenState extends State<StoreOpen> {
                       textAlignVertical: TextAlignVertical.top,
                       textAlign: TextAlign.start,
                       maxLines: 15,
-                      controller: storeinfo,
+                      controller: shopinfo,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10),
                         hintText: '내용작성',
@@ -565,8 +565,8 @@ class _StoreOpenState extends State<StoreOpen> {
                                 toastMessage("사진을 선택해주세요.");
                               } else {
                                 appdata.isLoadingScreen = true;
-                                urls = await imageservice
-                                    .uploadShopImageToStorage(
+                                urls =
+                                    await imageservice.uploadShopImageToStorage(
                                         storename.text, _storeimage!);
 
                                 businessurls = await imageservice
@@ -598,7 +598,7 @@ class _StoreOpenState extends State<StoreOpen> {
                                 toastMessage("주소를 입력해주세요.");
                               } else if (_deaddressTextEditor.text == "") {
                                 toastMessage("상세주소를 입력해주세요.");
-                              } else if (storeinfo.text == "") {
+                              } else if (shopinfo.text == "") {
                                 toastMessage("상점정보를 입력해주세요.");
                               } else if (salesinfo.text == "") {
                                 toastMessage("영업정보를 입력해주세요.");
@@ -609,12 +609,12 @@ class _StoreOpenState extends State<StoreOpen> {
                               } else {
                                 fireStore.collection('shops').doc(key).set({
                                   'name': storename.text,
-                                  'StoreAddress': _addressTextEditor.text,
-                                  'StoreDetailAddress':
+                                  'shopAddress': _addressTextEditor.text,
+                                  'shopDetailAddress':
                                       _deaddressTextEditor.text,
-                                  'StoreInfo': storeinfo.text,
-                                  'StoreSailsInfo': salesinfo.text,
-                                  'StoreBenefitInfo': benefitinfo.text,
+                                  'info': shopinfo.text,
+                                  'shopSailsInfo': salesinfo.text,
+                                  'shopBenefitInfo': benefitinfo.text,
                                   'docId': key,
                                   'image': urls,
                                   'businessimage': businessurls,

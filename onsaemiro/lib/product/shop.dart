@@ -6,6 +6,8 @@ class Shop {
   late String isaccess;
   late String type;
   late String phone;
+  late String info;
+  late String shopAddress;
 
   Shop(
       {required this.name,
@@ -13,7 +15,9 @@ class Shop {
       required this.businessimage,
       required this.docId,
       required this.isaccess,
-      required this.type});
+      required this.type,
+      required this.info,
+      required this.shopAddress});
   Shop.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         image = json['image'],
@@ -21,7 +25,9 @@ class Shop {
         docId = json['docId'],
         isaccess = json['isaccess'],
         type = json['type'],
-        phone = json['phone'];
+        phone = json['phone'],
+        info = json['info'],
+        shopAddress = json['shopAddress'];
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -31,5 +37,7 @@ class Shop {
         'isaccess': isaccess,
         'type': type,
         'phone': phone,
+        'info': info,
+        'shopAddress': shopAddress,
       };
 }
