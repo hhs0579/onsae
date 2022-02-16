@@ -57,7 +57,7 @@ class _thingsShopPageState extends State<thingsShopPage> {
     return Scaffold(
         appBar: AppBar(
           leadingWidth: 0,
-          toolbarHeight: height * 0.2586,
+          toolbarHeight: height * 0.2,
           backgroundColor: Colors.white,
           actions: [],
           elevation: 0.5,
@@ -69,8 +69,8 @@ class _thingsShopPageState extends State<thingsShopPage> {
               Row(
                 children: [
                   Container(
-                    width: width * 0.8,
-                    height: height * 0.0381,
+                    width: width * 0.77,
+                    height: height * 0.04,
                     child: TextFormField(
                       controller: _searchController,
                       onFieldSubmitted: controlSearching,

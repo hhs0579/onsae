@@ -55,10 +55,12 @@ culture_Stack(name, double left, whichPicture, onTap) {
 class _culture_firstPageState extends State<culture_firstPage> {
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 8,
-        toolbarHeight: 170,
+        toolbarHeight: height * 0.2,
         backgroundColor: Colors.white,
         elevation: 0.5,
         title: Column(
@@ -66,8 +68,8 @@ class _culture_firstPageState extends State<culture_firstPage> {
             Row(
               children: [
                 SizedBox(
-                  width: 300,
-                  height: 44,
+                  width: width * 0.77,
+                  height: height * 0.04,
                   child: TextField(
                     style: TextStyle(fontSize: 14),
                     decoration: InputDecoration(

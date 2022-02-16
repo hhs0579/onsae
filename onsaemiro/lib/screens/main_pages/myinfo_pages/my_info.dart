@@ -185,6 +185,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                 radius: 40,
                 backgroundImage: NetworkImage(resultURL)));
   }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -298,18 +299,6 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   SizedBox(
                     height: height * 0.0123,
                   ),
-                  spending_info('망넛이네', '약콩두유 100 (3개)', '2021-11-18(목)',
-                      '3,300원', width, height),
-                  SizedBox(
-                    height: height * 0.012,
-                  ),
-                  spending_info('망넛이네', '약콩두유 100 (3개)', '2021-11-18(목)',
-                      '3,300원', width, height),
-                  SizedBox(
-                    height: height * 0.012,
-                  ),
-                  spending_info('망넛이네', '약콩두유 100 (3개)', '2021-11-18(목)',
-                      '3,300원', width, height)
                 ],
               ),
             ),

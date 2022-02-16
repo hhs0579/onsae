@@ -135,8 +135,8 @@ class _localSeoulPageState extends State<localSeoulPage> {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 0,
-        toolbarHeight: height * 0.3,
+        leadingWidth: 2,
+        toolbarHeight: height * 0.24,
         backgroundColor: Colors.white,
         elevation: 0.5,
         title: Center(
@@ -146,8 +146,8 @@ class _localSeoulPageState extends State<localSeoulPage> {
               Row(
                 children: [
                   SizedBox(
-                    width: width * 0.8,
-                    height: height * 0.054,
+                    width: width * 0.77,
+                    height: height * 0.04,
                     child: TextFormField(
                       controller: _searchController,
                       onFieldSubmitted: controlSearching,

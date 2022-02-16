@@ -38,8 +38,8 @@ class _accessMainPageState extends State<accessMainPage> {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 8,
-        toolbarHeight: height * 0.176,
+        leadingWidth: 0,
+        toolbarHeight: height * 0.2,
         backgroundColor: Colors.white,
         elevation: 0.0,
         actions: [
@@ -55,8 +55,8 @@ class _accessMainPageState extends State<accessMainPage> {
           )
         ],
         title: Container(
-          width: double.infinity,
-          height: height * 0.038,
+          width: width * 0.76,
+          height: height * 0.04,
           child: TextFormField(
             controller: _searchController,
             onFieldSubmitted: controlSearching,
