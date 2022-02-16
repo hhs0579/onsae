@@ -68,11 +68,8 @@ class _StoreOpenState extends State<StoreOpen> {
   Widget build(BuildContext context) {
     AppData appdata = Get.find();
 
-
-
     Future _getProductImage() async {
       final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
 
       setState(() {
         if (image != null) {
@@ -573,9 +570,8 @@ class _StoreOpenState extends State<StoreOpen> {
                               } else {
                                 appdata.isLoadingScreen = true;
 
-
-                                urls = await imageservice
-                                    .uploadProductImageToStorage(
+                                urls =
+                                    await imageservice.uploadShopImageToStorage(
                                         storename.text, _storeimage!);
 
                                 businessurls = await imageservice
