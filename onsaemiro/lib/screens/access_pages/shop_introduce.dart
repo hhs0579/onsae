@@ -301,7 +301,7 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    '${_shop.name}',
+                    _shop.name,
                     style: TextStyle(color: Colors.black, fontSize: 18),
                   ),
                   Row(
@@ -311,7 +311,7 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                         AssetImage('assets/위치.png'),
                         color: Color.fromRGBO(89, 89, 89, 1),
                       ),
-                      Text(_shop.shopAddress,
+                      Text('${_shop.shopAddress},${_shop.shopDetailAddress}',
                           style: TextStyle(color: Colors.black, fontSize: 13)),
                     ],
                   ),
@@ -474,7 +474,8 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                       style: TextStyle(fontSize: 15),
                     ),
                     Text(
-                      '목요일 12:00 ~ 20:00\n품절시 인스타그램 공지 후 조기영업종료 (월별일정 변동, 인스타그램에 공지)\n금요일 12:00 ~ 20:00\n품절 시 인스타그램 공지 후 조기영업종료 (월별일정 변동, 인스타그램에 공지)',
+                      _shop.shopDetailinfo,
+                      // '목요일 12:00 ~ 20:00\n품절시 인스타그램 공지 후 조기영업종료 (월별일정 변동, 인스타그램에 공지)\n금요일 12:00 ~ 20:00\n품절 시 인스타그램 공지 후 조기영업종료 (월별일정 변동, 인스타그램에 공지)',
                       style: TextStyle(fontSize: 11),
                     ),
                     Row(
@@ -500,7 +501,8 @@ class _shopIntroducePageState extends State<shopIntroducePage> {
                       style: TextStyle(fontSize: 15),
                     ),
                     Text(
-                      '11월 이벤트',
+                      _shop.shopBenefit,
+                      // '11월 이벤트',
                       style: TextStyle(fontSize: 11),
                     )
                   ],

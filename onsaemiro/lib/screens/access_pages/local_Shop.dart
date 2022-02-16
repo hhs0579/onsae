@@ -13,11 +13,12 @@ import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 
-class localSeoulPage extends StatefulWidget {
-  const localSeoulPage({Key? key}) : super(key: key);
+class localShopPage extends StatefulWidget {
+  String local;
+  localShopPage(this.local);
 
   @override
-  _localSeoulPageState createState() => _localSeoulPageState();
+  _localShopPageState createState() => _localShopPageState(this.local);
 }
 
 Widget imagestackWidget(
@@ -115,7 +116,9 @@ Widget imagestackWidget(
   );
 }
 
-class _localSeoulPageState extends State<localSeoulPage> {
+class _localShopPageState extends State<localShopPage> {
+  _localShopPageState(this._local);
+  String _local;
   final CartController c = Get.put(CartController());
   String str = '';
   final _searchController = TextEditingController();
@@ -212,12 +215,13 @@ class _localSeoulPageState extends State<localSeoulPage> {
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: width * 0.36,
+                    width: width * 0.1,
                   ),
                   Text(
-                    '강남구 역삼동',
+                    _local,
                     style: TextStyle(fontSize: 15, color: Color(0xff595959)),
                   ),
                   IconButton(
@@ -269,7 +273,10 @@ class _localSeoulPageState extends State<localSeoulPage> {
       ),
       body: SingleChildScrollView(
         child: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance.collection('shops').snapshots(),
+            stream: FirebaseFirestore.instance
+                .collection('shops')
+                .where('shopAddress', isGreaterThanOrEqualTo: _local)
+                .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 print(snapshot.error);
@@ -353,7 +360,7 @@ class _localSeoulPageState extends State<localSeoulPage> {
                                     Padding(
                                       padding: EdgeInsets.fromLTRB(0, 0, 0, 13),
                                       child: Text(
-                                        'http://wwww.instagram.com/bo.mool_vegan',
+                                        '', // 'http://wwww.instagram.com/bo.mool_vegan',
                                         style: TextStyle(fontSize: 8),
                                       ),
                                     ),
@@ -454,8 +461,8 @@ class _localSeoulPageState extends State<localSeoulPage> {
                                         width,
                                         Shops[index].name,
                                         Shops[index].phone,
-                                        '서울 강남구 논현로 67길 11 1층',
-                                        'http://www.instagram.com/bo.mool_vegan',
+                                        Shops[index].shopAddress,
+                                        '', //인스타 주소
                                         Shops[index].image, () {
                                       setState(() {
                                         if (randomint == index) {

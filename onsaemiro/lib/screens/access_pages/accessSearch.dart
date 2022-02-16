@@ -33,7 +33,7 @@ class _accessSearchPageState extends State<accessSearchPage> {
 
     Stream<QuerySnapshot> SearchResults = FirebaseFirestore.instance
         .collection('shops')
-        .where('name', isLessThanOrEqualTo: _str)
+        .where('name', isEqualTo: _str)
         .snapshots();
     final CartController c = Get.put(CartController());
     final Stream<QuerySnapshot> _shopStream =

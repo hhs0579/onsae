@@ -8,6 +8,9 @@ class Shop {
   late String phone;
   late String info;
   late String shopAddress;
+  late String shopDetailinfo;
+  late String shopBenefit;
+  late String shopDetailAddress;
 
   Shop(
       {required this.name,
@@ -17,7 +20,11 @@ class Shop {
       required this.isaccess,
       required this.type,
       required this.info,
-      required this.shopAddress});
+      required this.shopAddress,
+      required this.phone,
+      required this.shopDetailinfo,
+      required this.shopBenefit,
+      required this.shopDetailAddress});
   Shop.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         image = json['image'],
@@ -27,7 +34,10 @@ class Shop {
         type = json['type'],
         phone = json['phone'],
         info = json['info'],
-        shopAddress = json['shopAddress'];
+        shopAddress = json['shopAddress'],
+        shopDetailinfo = json['shopDetailinfo'],
+        shopBenefit = json['shopBenefit'],
+        shopDetailAddress = json['shopDetailAddress'];
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -39,5 +49,8 @@ class Shop {
         'phone': phone,
         'info': info,
         'shopAddress': shopAddress,
+        'shopDetailinfo': shopDetailinfo,
+        'shopBenefit': shopBenefit,
+        'shopDetailAddress': shopDetailAddress
       };
 }

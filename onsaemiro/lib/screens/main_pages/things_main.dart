@@ -7,6 +7,7 @@ import 'package:onsaemiro/screens/access_pages/accessSearch.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 import 'package:onsaemiro/screens/main_pages/culture_main.dart';
+import 'package:onsaemiro/screens/things_pages/thingsSearch.dart';
 import 'package:onsaemiro/screens/things_pages/things_shop.dart';
 
 import 'access_main.dart';
@@ -30,7 +31,7 @@ class _thingsMainPageState extends State<thingsMainPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => accessSearchPage(_searchController.text)));
+            builder: (context) => thingsSearchPage(_searchController.text)));
   }
 
   @override

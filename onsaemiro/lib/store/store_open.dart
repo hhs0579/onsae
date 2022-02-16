@@ -33,6 +33,7 @@ class _StoreOpenState extends State<StoreOpen> {
   final benefitinfo = TextEditingController();
   String address = '';
   String postcode = '';
+  final shopphone = TextEditingController();
   final deaddressFocusNode = FocusNode();
   var vegan = false;
   var food = false;
@@ -223,6 +224,49 @@ class _StoreOpenState extends State<StoreOpen> {
                             margin: EdgeInsets.only(right: 10),
                             child: TextField(
                               controller: storename,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(fontSize: 12),
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  Container(
+                    alignment: Alignment(0, 0),
+                    height: height * 0.09,
+                    width: width * 0.9,
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(width: 1.0, color: Colors.black12),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(right: 20),
+                          child: Icon(Icons.create_rounded,
+                              color: Color(0xff6CCD6C)),
+                        ),
+                        Container(
+                          width: 60,
+                          child: Text("상점\n전화번호",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xff6CCD6C),
+                                fontWeight: FontWeight.bold,
+                              )),
+                        ),
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.only(right: 10),
+                            child: TextField(
+                              controller: shopphone,
                               textAlign: TextAlign.right,
                               style: TextStyle(fontSize: 12),
                               decoration: InputDecoration(
@@ -616,17 +660,16 @@ class _StoreOpenState extends State<StoreOpen> {
                                 fireStore.collection('shops').doc(key).set({
                                   'name': storename.text,
                                   'shopAddress': _addressTextEditor.text,
-                                  'shopDetailAddress':
-                                      _deaddressTextEditor.text,
+                                  'shopDetailinfo': _deaddressTextEditor.text,
                                   'info': shopinfo.text,
                                   'shopSailsInfo': salesinfo.text,
-                                  'shopBenefitInfo': benefitinfo.text,
+                                  'shopBenefit': benefitinfo.text,
                                   'docId': key,
                                   'image': urls,
                                   'businessimage': businessurls,
                                   'type': select,
                                   'isaccess': '승인대기',
-                                  'phone': ''
+                                  'phone': shopphone.text
                                 });
 
                                 fireStore

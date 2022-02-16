@@ -7,7 +7,7 @@ import 'package:onsaemiro/screens/access_pages/accessSearch.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 
-import 'local_Seoul.dart';
+import 'local_Shop.dart';
 
 class localSelectPage extends StatefulWidget {
   const localSelectPage({Key? key}) : super(key: key);
@@ -171,28 +171,44 @@ class _localSelectPageState extends State<localSelectPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => localSeoulPage()));
+                          builder: (context) => localShopPage('서울')));
                 }, height, width),
                 SizedBox(
                   height: 14,
                 ),
-                local_Stack('인천', 'Incheon', 'assets/incheon.jpg', () {},
-                    height, width),
+                local_Stack('인천', 'Incheon', 'assets/incheon.jpg', () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => localShopPage('인천')));
+                }, height, width),
                 SizedBox(
                   height: 14,
                 ),
-                local_Stack('\t\t부산', '\t\tBusan', 'assets/busan.jpg', () {},
-                    height, width),
+                local_Stack('\t\t부산', '\t\tBusan', 'assets/busan.jpg', () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => localShopPage('부산')));
+                }, height, width),
                 SizedBox(
                   height: 14,
                 ),
-                local_Stack('\t\t대구', '\t\tDaegu', 'assets/daegu.jpg', () {},
-                    height, width),
+                local_Stack('\t\t대구', '\t\tDaegu', 'assets/daegu.jpg', () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => localShopPage('대구')));
+                }, height, width),
                 SizedBox(
                   height: 14,
                 ),
-                local_Stack('강원', 'Gangwon', 'assets/gangwon.jpg', () {},
-                    height, width),
+                local_Stack('강원', 'Gangwon', 'assets/gangwon.jpg', () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => localShopPage('강원')));
+                }, height, width),
                 SizedBox(
                   height: 14,
                 ),

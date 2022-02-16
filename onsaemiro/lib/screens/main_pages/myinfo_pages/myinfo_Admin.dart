@@ -314,15 +314,10 @@ class _MyInfoAdminState extends State<MyInfoAdmin> {
                   Get.offAll(() => TypeScreen());
                 }),
                 info_button('일반 사용자 전환', () {
-                  // if (c.Pressed.value == 0) {
-                  //   Get.to(Root());
-                  //   c.Pressed++;
-                  //   print(c.Pressed.value);
-                  // } else if (c.Pressed.value == 1) {
-                  //   Get.back();
-                  //   c.Pressed--;
-                  //   print(c.Pressed.value);
-                  // }
+                  appdata.userEmail = '';
+                  appdata.userPhone = '';
+                  authController.handleSignOut();
+                  Get.offAll(() => TypeScreen());
                 }),
               ],
             )
