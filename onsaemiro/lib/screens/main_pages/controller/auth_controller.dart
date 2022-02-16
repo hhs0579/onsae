@@ -118,6 +118,8 @@ class AuthController {
         uid: '',
         usertype: '');
     await localStorageController.setUserEmail('');
+    await localStorageController.setUserPhone('');
+    await localStorageController.setUserType('');
     await FirebaseAuth.instance.signOut();
   }
 

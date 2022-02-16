@@ -105,7 +105,6 @@ class _EmailloginpageState extends State<Emailloginpage> {
                                         passwordController.text ==
                                             Admin.getadminpassword()) {
                                       appdata.userEmail = Admin.getadminemail();
-                                      appdata.userType = 'admin';
                                       Get.to(() => AdminPage());
                                     } else {
                                       appdata.userType = userType;

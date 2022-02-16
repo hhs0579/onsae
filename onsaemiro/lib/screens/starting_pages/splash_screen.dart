@@ -53,8 +53,6 @@ class _SplashScreenState extends State<SplashScreen> {
           if (pushToken != null) {
             databaseController.updatePushTokenToEmail(
                 email: userEmail, pushToken: pushToken, userType: userType);
-          } else if (appData.userType == 'admin') {
-            Get.off(() => AdminPage());
           }
         }
         Get.off(() => Root());
