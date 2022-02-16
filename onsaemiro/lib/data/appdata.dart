@@ -77,7 +77,8 @@ class AppData extends GetxController {
     update();
   }
 
-  Report _report = Report(reportKey: '', reportReason: '', reportType: 0);
+  Report _report =
+      Report(reportKey: '', reportReason: '', postkey: '', reportType: 0);
 
   Report get report => _report;
 
