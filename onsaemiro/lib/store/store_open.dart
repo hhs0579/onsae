@@ -45,130 +45,138 @@ class _StoreOpenState extends State<StoreOpen> {
   XFile? _businessimage;
   final _picker = ImagePicker();
   var visibley = false;
-
-  void initState() {
-    setState(() {
-      storename.text = '';
-      _postTextEditor.text = '';
-      _addressTextEditor.text = '';
-      _deaddressTextEditor.text = '';
-      shopinfo.text = '';
-      salesinfo.text = '';
-      benefitinfo.text = '';
-      urls = '';
-      businessurls = '';
-      select = '';
-    });
-    super.initState();
-  }
-
-  Future _getProductImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (image != null) {
-        _storeimage = image;
-      }
-    });
-  }
-
-  Future _getBusinessImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (image != null) {
-        _businessimage = image;
-      }
-    });
-  }
-
-  productimage() {
-    return Flexible(
-        fit: FlexFit.loose,
-        child: _storeimage == null
-            ? ElevatedButton(
-                onPressed: () {
-                  _getProductImage();
-                },
-                child: Container(
-                  width: 120,
-                  height: 120,
-                  color: Color(0xffd6d6d6),
-                  child: Icon(
-                    Icons.image,
-                    color: Colors.white,
-                    size: 50,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder()),
-              )
-            : ElevatedButton(
-                onPressed: () {
-                  _getProductImage();
-                },
-                child: Container(
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Colors.lightGreen),
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: FileImage(File(_storeimage!.path))))),
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder()),
-              ));
-  }
-
-  businessimage() {
-    return Flexible(
-        fit: FlexFit.loose,
-        child: _businessimage == null
-            ? ElevatedButton(
-                onPressed: () {
-                  _getBusinessImage();
-                },
-                child: Container(
-                  width: 120,
-                  height: 120,
-                  color: Color(0xffd6d6d6),
-                  child: Icon(
-                    Icons.image,
-                    color: Colors.white,
-                    size: 50,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder()),
-              )
-            : ElevatedButton(
-                onPressed: () {
-                  _getBusinessImage();
-                },
-                child: Container(
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Colors.lightGreen),
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: FileImage(File(_businessimage!.path))))),
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder()),
-              ));
-  }
-
+  var value = false;
+  // final notifications = [
+  //   CheckboxState(title: '비건'),
+  //   CheckboxState(title: '음식'),
+  //   CheckboxState(title: '의류'),
+  //   CheckboxState(title: '건강'),
+  // ];
+  // Widget buildSingleCheckBox(CheckboxState checkbox) => CheckboxListTile(
+  //     controlAffinity: ListTileControlAffinity.leading,
+  //     title: Text(checkbox.title, style: TextStyle(fontSize: 8)),
+  //     activeColor: Color(0xff6CCD6C),
+  //     value: checkbox.value,
+  //     onChanged: (value) => setState(() => checkbox.value = value!));
+  //                 ListView(
+  //                   padding: EdgeInsets.all(2),
+  //                   children: [
+  //                     ...notifications.map(buildSingleCheckBox).toList()
+  //                   ],
+  //                 ),
   @override
   Widget build(BuildContext context) {
-    setState(() {});
+    AppData appdata = Get.find();
+
+
+
+    Future _getProductImage() async {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+
+      setState(() {
+        if (image != null) {
+          _storeimage = image;
+        }
+      });
+    }
+
+    Future _getBusinessImage() async {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+      setState(() {
+        if (image != null) {
+          _businessimage = image;
+        }
+      });
+    }
+
+    productimage() {
+      return Flexible(
+          fit: FlexFit.loose,
+          child: _storeimage == null
+              ? ElevatedButton(
+                  onPressed: () {
+                    _getProductImage();
+                  },
+                  child: Container(
+                    width: 120,
+                    height: 120,
+                    color: Color(0xffd6d6d6),
+                    child: Icon(
+                      Icons.image,
+                      color: Colors.white,
+                      size: 50,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder()),
+                )
+              : ElevatedButton(
+                  onPressed: () {
+                    _getProductImage();
+                  },
+                  child: Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(width: 1, color: Colors.lightGreen),
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: FileImage(File(_storeimage!.path))))),
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder()),
+                ));
+    }
+
+    businessimage() {
+      return Flexible(
+          fit: FlexFit.loose,
+          child: _businessimage == null
+              ? ElevatedButton(
+                  onPressed: () {
+                    _getBusinessImage();
+                  },
+                  child: Container(
+                    width: 120,
+                    height: 120,
+                    color: Color(0xffd6d6d6),
+                    child: Icon(
+                      Icons.image,
+                      color: Colors.white,
+                      size: 50,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder()),
+                )
+              : ElevatedButton(
+                  onPressed: () {
+                    _getBusinessImage();
+                  },
+                  child: Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(width: 1, color: Colors.lightGreen),
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: FileImage(File(_businessimage!.path))))),
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder()),
+                ));
+    }
+
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return GetBuilder(builder: (AppData appdata) {
@@ -559,14 +567,15 @@ class _StoreOpenState extends State<StoreOpen> {
                         width: width * 0.9,
                         child: TextButton(
                             onPressed: () async {
-                              FocusScope.of(context).unfocus();
                               if (_storeimage == null ||
                                   _businessimage == null) {
                                 toastMessage("사진을 선택해주세요.");
                               } else {
                                 appdata.isLoadingScreen = true;
-                                urls =
-                                    await imageservice.uploadShopImageToStorage(
+
+
+                                urls = await imageservice
+                                    .uploadProductImageToStorage(
                                         storename.text, _storeimage!);
 
                                 businessurls = await imageservice
@@ -591,7 +600,6 @@ class _StoreOpenState extends State<StoreOpen> {
                         width: width * 0.9,
                         child: TextButton(
                             onPressed: () async {
-                              FocusScope.of(context).unfocus();
                               if (storename.text == "") {
                                 toastMessage("상점 이름을 입력해주세요.");
                               } else if (_addressTextEditor.text == "") {
