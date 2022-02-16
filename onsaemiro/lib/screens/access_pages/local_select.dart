@@ -79,8 +79,8 @@ class _localSelectPageState extends State<localSelectPage> {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 1,
-        toolbarHeight: height * 0.197,
+        leadingWidth: 0,
+        toolbarHeight: height * 0.2,
         backgroundColor: Colors.white,
         elevation: 0.5,
         title: Column(
@@ -88,8 +88,8 @@ class _localSelectPageState extends State<localSelectPage> {
             Row(
               children: [
                 SizedBox(
-                  width: width * 0.8,
-                  height: height * 0.0541,
+                  width: width * 0.77,
+                  height: height * 0.04,
                   child: TextFormField(
                     controller: _searchController,
                     onFieldSubmitted: controlSearching,

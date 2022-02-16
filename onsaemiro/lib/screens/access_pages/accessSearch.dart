@@ -86,7 +86,7 @@ class _accessSearchPageState extends State<accessSearchPage> {
     return Scaffold(
       appBar: AppBar(
           leadingWidth: 0,
-          toolbarHeight: height * 0.25,
+          toolbarHeight: height * 0.2,
           backgroundColor: Colors.white,
           actions: [],
           elevation: 0.5,
@@ -97,8 +97,8 @@ class _accessSearchPageState extends State<accessSearchPage> {
             Row(
               children: [
                 Container(
-                  width: width * 0.8,
-                  height: height * 0.0381,
+                  width: width * 0.77,
+                  height: height * 0.04,
                   child: TextFormField(
                     controller: _searchController,
                     onFieldSubmitted: controlSearching,
@@ -116,7 +116,7 @@ class _accessSearchPageState extends State<accessSearchPage> {
                             icon: Icon(
                               Icons.search,
                               color: Color.fromRGBO(162, 191, 98, 1),
-                              size: width * 0.036,
+                              size: width * 0.03,
                             )),
                         hintText: '상점검색',
                         hintStyle: TextStyle(

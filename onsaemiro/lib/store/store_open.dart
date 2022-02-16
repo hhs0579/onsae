@@ -10,6 +10,7 @@ import 'package:onsaemiro/classes/toast_message.dart';
 import 'package:onsaemiro/data/appdata.dart';
 import 'package:onsaemiro/repo/image_service.dart';
 import 'package:onsaemiro/screens/things_pages/thingsShopProduct.dart';
+import 'package:onsaemiro/store/Checkbox_state.dart';
 import 'package:random_string/random_string.dart';
 
 class StoreOpen extends StatefulWidget {
@@ -46,24 +47,19 @@ class _StoreOpenState extends State<StoreOpen> {
   final _picker = ImagePicker();
   var visibley = false;
   var value = false;
-  // final notifications = [
-  //   CheckboxState(title: '비건'),
-  //   CheckboxState(title: '음식'),
-  //   CheckboxState(title: '의류'),
-  //   CheckboxState(title: '건강'),
-  // ];
-  // Widget buildSingleCheckBox(CheckboxState checkbox) => CheckboxListTile(
-  //     controlAffinity: ListTileControlAffinity.leading,
-  //     title: Text(checkbox.title, style: TextStyle(fontSize: 8)),
-  //     activeColor: Color(0xff6CCD6C),
-  //     value: checkbox.value,
-  //     onChanged: (value) => setState(() => checkbox.value = value!));
-  //                 ListView(
-  //                   padding: EdgeInsets.all(2),
-  //                   children: [
-  //                     ...notifications.map(buildSingleCheckBox).toList()
-  //                   ],
-  //                 ),
+  final notifications = [
+    CheckboxState(title: '비건'),
+    CheckboxState(title: '음식'),
+    CheckboxState(title: '의류'),
+    CheckboxState(title: '건강'),
+  ];
+  Widget buildSingleCheckBox(CheckboxState checkbox) => CheckboxListTile(
+      controlAffinity: ListTileControlAffinity.leading,
+      title: Text(checkbox.title, style: TextStyle(fontSize: 8)),
+      activeColor: Color(0xff6CCD6C),
+      value: checkbox.value,
+      onChanged: (value) => setState(() => checkbox.value = value!));
+
   @override
   Widget build(BuildContext context) {
     AppData appdata = Get.find();
@@ -256,6 +252,12 @@ class _StoreOpenState extends State<StoreOpen> {
                               color: Color(0xff6CCD6C),
                               fontWeight: FontWeight.bold,
                             )),
+                        // ListView(
+                        //   padding: EdgeInsets.all(2),
+                        //   children: [
+                        //     ...notifications.map(buildSingleCheckBox).toList()
+                        //   ],
+                        // ),
                         Checkbox(
                           activeColor: Colors.lightGreen,
                           checkColor: Colors.white,
