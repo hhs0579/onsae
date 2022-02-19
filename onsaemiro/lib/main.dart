@@ -61,7 +61,7 @@ class OnsaemiroApp extends StatelessWidget {
       initialBinding: BindingsBuilder(() {
         Get.put(RootContorller());
       }),
-      home: SplashScreen(),
+      home: MyInfoPage(),
       routes: routes,
     );
   }
