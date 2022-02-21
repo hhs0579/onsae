@@ -10,6 +10,7 @@ import 'package:onsaemiro/product/shop.dart';
 import 'package:onsaemiro/screens/access_pages/accessSearch.dart';
 import 'package:onsaemiro/screens/access_pages/shop_introduce.dart';
 import 'package:onsaemiro/screens/access_pages/shopping_bag.dart';
+import 'package:onsaemiro/screens/culture_pages/weekly.dart';
 import 'package:onsaemiro/screens/main_pages/controller/auth_controller.dart';
 import 'package:onsaemiro/screens/main_pages/controller/cart_controller.dart';
 
@@ -119,6 +120,9 @@ Widget imagestackWidget(
 class _localShopPageState extends State<localShopPage> {
   _localShopPageState(this._local);
   String _local;
+  final areas = ['서울', '인천', '부산', '대구', '강원'];
+  String _selectedValue = '서울';
+
   final CartController c = Get.put(CartController());
   String str = '';
   final _searchController = TextEditingController();
@@ -218,16 +222,31 @@ class _localShopPageState extends State<localShopPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: width * 0.1,
+                    width: width * 0.03,
                   ),
-                  Text(
-                    _local,
-                    style: TextStyle(fontSize: 15, color: Color(0xff595959)),
-                  ),
-                  IconButton(
-                      onPressed: () {},
+                  // Text(
+                  //   _local,
+                  //   style: TextStyle(fontSize: 15, color: Color(0xff595959)),
+                  // ),
+                  DropdownButton(
+                      value: _local,
                       icon: Icon(Icons.expand_more,
-                          size: 22, color: Colors.lightGreen)),
+                          size: 22, color: Colors.lightGreen),
+                      items: areas.map((String value) {
+                        return DropdownMenuItem(
+                          child: Text(value),
+                          value: value,
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _local = newValue!;
+                        });
+                      })
+                  // IconButton(
+                  //     onPressed: () {},
+                  // icon: Icon(Icons.expand_more,
+                  //     size: 22, color: Colors.lightGreen)),
                 ],
               ),
               Row(
