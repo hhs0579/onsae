@@ -257,7 +257,8 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                             Container(
                                               margin: EdgeInsets.only(top: 10),
                                               child: IconButton(
-                                                icon: actPost.presslike
+                                                icon: actPost.like.contains(
+                                                        appData.usermodel.uid)
                                                     ? Icon(Icons.thumb_up,
                                                         color:
                                                             Color(0xff437B56))
@@ -270,15 +271,12 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                                       appData.usermodel.uid);
                                                   posts.add(actPost.postKey);
                                                   setState(() {
-                                                    actPost.presslike =
-                                                        !actPost.presslike;
                                                     if (actPost.like.contains(
                                                         appData
                                                             .usermodel.uid)) {
                                                       actPost.like.remove(
                                                           appData
                                                               .usermodel.uid);
-
                                                       fireStore
                                                           .collection('actPost')
                                                           .doc(actPost.postKey)
@@ -293,12 +291,6 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                                         'likenum':
                                                             --actPost.likenum
                                                       });
-                                                      fireStore
-                                                          .collection('actPost')
-                                                          .doc(actPost.postKey)
-                                                          .update({
-                                                        'presslike': false
-                                                      });
                                                     } else {
                                                       actPost.like.add(appData
                                                           .usermodel.uid);
@@ -309,12 +301,7 @@ class _actConfirmPageState extends State<actConfirmPage> {
                                                         'like': FieldValue
                                                             .arrayUnion(uids)
                                                       });
-                                                      fireStore
-                                                          .collection('actPost')
-                                                          .doc(actPost.postKey)
-                                                          .update({
-                                                        'presslike': true
-                                                      });
+
                                                       fireStore
                                                           .collection('actPost')
                                                           .doc(actPost.postKey)
